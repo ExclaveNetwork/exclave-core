@@ -54,13 +54,17 @@ type HTTPRemoteConfig struct {
 }
 
 type HTTPClientConfig struct {
-	Servers []*HTTPRemoteConfig `json:"servers"`
+	Servers            []*HTTPRemoteConfig `json:"servers"`
+	H1SkipWaitForReply bool                `json:"h1SkipWaitForReply"`
 }
 
 func (v *HTTPClientConfig) Build() (proto.Message, error) {
 	config := new(http.ClientConfig)
 	config.Server = make([]*protocol.ServerEndpoint, len(v.Servers))
 	for idx, serverConfig := range v.Servers {
+		if serverConfig.Address == nil {
+			return nil, newError("missing server address")
+		}
 		server := &protocol.ServerEndpoint{
 			Address: serverConfig.Address.Build(),
 			Port:    uint32(serverConfig.Port),
@@ -79,5 +83,6 @@ func (v *HTTPClientConfig) Build() (proto.Message, error) {
 		}
 		config.Server[idx] = server
 	}
+	config.H1SkipWaitForReply = v.H1SkipWaitForReply
 	return config, nil
 }
