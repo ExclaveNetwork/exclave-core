@@ -67,6 +67,17 @@ func (r *UDPReader) ReadMessage() (*buf.Buffer, error) {
 	}
 }
 
+func (r *UDPReader) Interrupt() {
+	defer func() {
+		r.access.Lock()
+		buf.ReleaseMulti(r.cache)
+		r.cache = nil
+		r.access.Unlock()
+	}()
+
+	common.Interrupt(r.Reader)
+}
+
 // Close implements common.Closable.
 func (r *UDPReader) Close() error {
 	defer func() {
