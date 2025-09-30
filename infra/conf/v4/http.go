@@ -62,6 +62,9 @@ func (v *HTTPClientConfig) Build() (proto.Message, error) {
 	config := new(http.ClientConfig)
 	config.Server = make([]*protocol.ServerEndpoint, len(v.Servers))
 	for idx, serverConfig := range v.Servers {
+		if serverConfig.Address == nil {
+			return nil, newError("missing server address")
+		}
 		server := &protocol.ServerEndpoint{
 			Address: serverConfig.Address.Build(),
 			Port:    uint32(serverConfig.Port),
