@@ -120,12 +120,8 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*tuic
 	// TUIC does not send ALPN if not explicitly set
 	ctx = session.ContextWithDisableALPNByDefault(ctx, true)
 	ctx = session.ContextWithDisableSNI(ctx, o.disableSNI)
-	tlsConfig, err := tlsSettings.GetTLSConfigWithContext(ctx, v2tls.WithDestination(o.serverAddr))
-	if err != nil {
-		return nil, err
-	}
 	options := o.options
-	options.TLSConfig = singbridge.NewTLSConfigWrapper(tlsConfig)
+	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr))
 	options.Dialer = singbridge.NewDialerWrapper(dialer)
 	client, err := tuic.NewClient(options)
 	if err != nil {

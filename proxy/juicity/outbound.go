@@ -92,12 +92,8 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*juic
 	if !ok {
 		return nil, newError("tls not enabled")
 	}
-	tlsConfig, err := tlsSettings.GetTLSConfigWithContext(ctx, v2tls.WithDestination(o.serverAddr), v2tls.WithNextProto("h3"))
-	if err != nil {
-		return nil, err
-	}
 	options := o.options
-	options.TLSConfig = singbridge.NewTLSConfigWrapper(tlsConfig)
+	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr), v2tls.WithNextProto("h3"))
 	options.Dialer = singbridge.NewDialerWrapper(dialer)
 	client, err := juicity.NewClient(options)
 	if err != nil {
