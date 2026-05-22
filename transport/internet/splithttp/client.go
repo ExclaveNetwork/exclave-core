@@ -73,6 +73,7 @@ func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId str
 				newError("failed to " + method + " " + url).Base(err).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 			}
 			gotConn.Close()
+			common.Close(body)
 			wrc.Close()
 			return
 		}
@@ -82,6 +83,7 @@ func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId str
 		if resp.StatusCode != 200 || uploadOnly { // stream-up
 			io.Copy(io.Discard, resp.Body)
 			resp.Body.Close() // if it is called immediately, the upload will be interrupted also
+			common.Close(body)
 			wrc.Close()
 			err = newError("unexpected status ", resp.StatusCode)
 			return

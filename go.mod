@@ -21,14 +21,14 @@ require (
 	github.com/miekg/dns v1.1.72
 	github.com/pion/transport/v4 v4.0.1
 	github.com/pires/go-proxyproto v0.12.0
-	github.com/quic-go/quic-go v0.59.0
+	github.com/quic-go/quic-go v0.59.1
 	github.com/refraction-networking/utls v1.8.3-0.20260301010127-aa6edf4b11af
-	github.com/sagernet/sing v0.8.9
+	github.com/sagernet/sing v0.8.10
 	github.com/sagernet/sing-mux v0.3.4
 	github.com/sagernet/sing-quic v0.6.1
 	github.com/sagernet/sing-shadowsocks v0.2.9
 	github.com/sagernet/sing-shadowsocks2 v0.2.2
-	github.com/sagernet/sing-shadowtls v0.2.1-0.20250503051639-fcd445d33c11
+	github.com/sagernet/sing-shadowtls v0.2.1
 	github.com/seiflotfy/cuckoofilter v0.0.0-20240715131351-a2f2c23f1771
 	github.com/stretchr/testify v1.11.1
 	github.com/v2fly/BrowserBridge v0.0.0-20210430233438-0570fc1d7d08
@@ -36,12 +36,12 @@ require (
 	github.com/v2fly/struc v0.0.0-20241227015403-8e8fa1badfd6
 	go.uber.org/mock v0.6.0
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba
-	golang.org/x/crypto v0.50.0
-	golang.org/x/net v0.53.0
+	golang.org/x/crypto v0.52.0
+	golang.org/x/net v0.55.0
 	golang.org/x/sync v0.20.0
-	golang.org/x/sys v0.43.0
+	golang.org/x/sys v0.45.0
 	golang.zx2c4.com/wireguard v0.0.0-20250521234502-f333402bd9cb
-	google.golang.org/grpc v1.81.0
+	google.golang.org/grpc v1.81.1
 	google.golang.org/protobuf v1.36.11
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
 	h12.io/socks v1.0.3
@@ -65,10 +65,10 @@ require (
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
 	github.com/xtaci/smux v1.5.15 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
-	golang.org/x/mod v0.34.0 // indirect
-	golang.org/x/text v0.36.0 // indirect
+	golang.org/x/mod v0.35.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/time v0.10.0 // indirect
-	golang.org/x/tools v0.43.0 // indirect
+	golang.org/x/tools v0.44.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260226221140-a57be14db171 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

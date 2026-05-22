@@ -249,25 +249,17 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, target string, dialer inte
 }
 
 type http3Conn struct {
-	in           *io.PipeWriter
-	out          io.ReadCloser
-	readCounter  stats.Counter
-	writeCounter stats.Counter
+	in  *io.PipeWriter
+	out io.ReadCloser
 }
 
 func (c *http3Conn) Read(p []byte) (n int, err error) {
 	n, err = c.out.Read(p)
-	if c.readCounter != nil {
-		c.readCounter.Add(int64(n))
-	}
 	return n, err
 }
 
 func (c *http3Conn) Write(p []byte) (n int, err error) {
 	n, err = c.in.Write(p)
-	if c.writeCounter != nil {
-		c.writeCounter.Add(int64(n))
-	}
 	return n, err
 }
 

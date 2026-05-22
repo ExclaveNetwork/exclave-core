@@ -12,10 +12,13 @@ import (
 	core "github.com/v2fly/v2ray-core/v5"
 	"github.com/v2fly/v2ray-core/v5/app/proxyman/outbound"
 	"github.com/v2fly/v2ray-core/v5/common"
+	"github.com/v2fly/v2ray-core/v5/common/buf"
+	"github.com/v2fly/v2ray-core/v5/common/bytespool"
 	"github.com/v2fly/v2ray-core/v5/common/net"
 	"github.com/v2fly/v2ray-core/v5/common/session"
 	"github.com/v2fly/v2ray-core/v5/common/singbridge"
 	"github.com/v2fly/v2ray-core/v5/common/uuid"
+	"github.com/v2fly/v2ray-core/v5/proxy"
 	"github.com/v2fly/v2ray-core/v5/transport"
 	"github.com/v2fly/v2ray-core/v5/transport/internet"
 	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
@@ -89,12 +92,8 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*juic
 	if !ok {
 		return nil, newError("tls not enabled")
 	}
-	tlsConfig, err := tlsSettings.GetTLSConfigWithContext(ctx, v2tls.WithDestination(o.serverAddr), v2tls.WithNextProto("h3"))
-	if err != nil {
-		return nil, err
-	}
 	options := o.options
-	options.TLSConfig = singbridge.NewTLSConfigWrapper(tlsConfig)
+	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr), v2tls.WithNextProto("h3"))
 	options.Dialer = singbridge.NewDialerWrapper(dialer)
 	client, err := juicity.NewClient(options)
 	if err != nil {
@@ -126,6 +125,26 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		if err != nil {
 			return err
 		}
+
+		// for server-speaks-first protocols
+		var firstPayload []byte
+		if reader, ok := link.Reader.(buf.TimeoutReader); ok {
+			if mb, _ := reader.ReadMultiBufferTimeout(proxy.FirstPayloadTimeout); mb != nil {
+				length := mb.Len()
+				firstPayload = bytespool.Alloc(length)
+				mb, _ = buf.SplitBytes(mb, firstPayload)
+				firstPayload = firstPayload[:length]
+				buf.ReleaseMulti(mb)
+			}
+		}
+		_, err = serverConn.Write(firstPayload)
+		if firstPayload != nil {
+			bytespool.Free(firstPayload)
+		}
+		if err != nil {
+			return singbridge.ReturnError(err)
+		}
+
 		return singbridge.ReturnError(bufio.CopyConn(detachedCtx, singbridge.NewPipeConnWrapper(link), serverConn))
 	} else {
 		serverConn, err := client.ListenPacket(detachedCtx, singbridge.ToSocksAddr(destination))

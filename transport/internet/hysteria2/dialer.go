@@ -211,6 +211,9 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		ServerAddr:      serverAddr,
 		BandwidthConfig: hyClient.BandwidthConfig{MaxTx: config.Congestion.GetUpMbps() * MBps, MaxRx: config.GetCongestion().GetDownMbps() * MBps},
 		FastOpen:        true,
+		QUICConfig: &quic.Config{
+			OmitMaxDatagramFrameSize: config.OmitMaxDatagramFrameSize,
+		},
 	}
 
 	congestion := config.Congestion

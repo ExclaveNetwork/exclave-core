@@ -11,7 +11,9 @@ import (
 
 	core "github.com/v2fly/v2ray-core/v5"
 	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/v2fly/v2ray-core/v5/common/session"
 	feature_dns "github.com/v2fly/v2ray-core/v5/features/dns"
+	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
 )
 
 func (c *Config) applyECH(ctx context.Context, config *tls.Config) error {
@@ -61,17 +63,23 @@ func queryECH(ctx context.Context, domain string) ([]byte, error) {
 	}
 	echCacheMutex.Unlock()
 
-	instance := core.FromContext(ctx)
-	if instance == nil {
-		return nil, newError("nil instance")
-	}
-	dnsClient, ok := instance.GetFeature(feature_dns.ClientType()).(feature_dns.Client)
-	if !ok || dnsClient == nil {
-		return nil, newError("nil dns client")
-	}
-	dnsRawClient, ok := dnsClient.(feature_dns.RawQuery)
-	if !ok {
-		return nil, newError("dns client does not support raw query")
+	var dnsRawClient feature_dns.RawQuery
+	if outbound := session.OutboundFromContext(ctx); outbound.Resolver != nil {
+		// respect outbound domainStrategy
+		instance := core.FromContext(ctx)
+		if instance == nil {
+			return nil, newError("nil instance")
+		}
+		dnsClient, ok := instance.GetFeature(feature_dns.ClientType()).(feature_dns.Client)
+		if !ok || dnsClient == nil {
+			return nil, newError("nil dns client")
+		}
+		dnsRawClient, ok = dnsClient.(feature_dns.RawQuery)
+		if !ok {
+			return nil, newError("dns client does not support raw query")
+		}
+	} else {
+		dnsRawClient = localdns.New()
 	}
 
 	requestMsg := new(dns.Msg)

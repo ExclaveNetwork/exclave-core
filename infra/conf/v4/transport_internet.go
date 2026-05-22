@@ -155,16 +155,17 @@ type Hyteria2ConfigOBFS struct {
 }
 
 type Hy2Config struct {
-	Password              string              `json:"password"`
-	Passwords             []string            `json:"passwords"`
-	Congestion            Hy2ConfigCongestion `json:"congestion"`
-	UseUDPExtension       bool                `json:"use_udp_extension"`
-	IgnoreClientBandwidth bool                `json:"ignore_client_bandwidth"`
-	OBFS                  Hyteria2ConfigOBFS  `json:"obfs"`
-	HopPorts              string              `json:"hopPorts"`
-	HopInterval           uint64              `json:"hopInterval"`
-	HopIntervalMin        uint64              `json:"hopIntervalMin"`
-	HopIntervalMax        uint64              `json:"hopIntervalMax"`
+	Password                 string              `json:"password"`
+	Passwords                []string            `json:"passwords"`
+	Congestion               Hy2ConfigCongestion `json:"congestion"`
+	UseUDPExtension          bool                `json:"use_udp_extension"`
+	IgnoreClientBandwidth    bool                `json:"ignore_client_bandwidth"`
+	OBFS                     Hyteria2ConfigOBFS  `json:"obfs"`
+	HopPorts                 string              `json:"hopPorts"`
+	HopInterval              uint64              `json:"hopInterval"`
+	HopIntervalMin           uint64              `json:"hopIntervalMin"`
+	HopIntervalMax           uint64              `json:"hopIntervalMax"`
+	OmitMaxDatagramFrameSize bool                `json:"omitMaxDatagramFrameSize"`
 }
 
 // Build implements Buildable.
@@ -184,10 +185,11 @@ func (c *Hy2Config) Build() (proto.Message, error) {
 			Type:     c.OBFS.Type,
 			Password: c.OBFS.Password,
 		},
-		HopPorts:       c.HopPorts,
-		HopInterval:    c.HopInterval,
-		HopIntervalMin: c.HopIntervalMin,
-		HopIntervalMax: c.HopIntervalMax,
+		HopPorts:                 c.HopPorts,
+		HopInterval:              c.HopInterval,
+		HopIntervalMin:           c.HopIntervalMin,
+		HopIntervalMax:           c.HopIntervalMax,
+		OmitMaxDatagramFrameSize: c.OmitMaxDatagramFrameSize,
 	}, nil
 }
 

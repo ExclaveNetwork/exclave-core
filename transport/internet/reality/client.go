@@ -124,7 +124,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	}
 	hello := uConn.HandshakeState.Hello
 	raw := hello.Raw
-	if len(raw) == 0 {
+	if raw == nil {
 		// utls.HelloGolang
 		var err error
 		raw, err = hello.Marshal()

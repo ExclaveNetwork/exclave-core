@@ -95,20 +95,17 @@ func (w *tcpWorker) callback(conn internet.Connection) {
 	}
 	if w.dumpUid && uidDumper != nil {
 		// SagerNet private
-		var ipProto int32
-		if dest.Network == net.Network_TCP {
-			ipProto = syscall.IPPROTO_TCP
-		} else {
-			ipProto = syscall.IPPROTO_UDP
-		}
-		if uid, err := uidDumper.DumpUid(ipProto, source.Address.IP().String(), int32(source.Port), dest.Address.IP().String(), int32(dest.Port)); err == nil && int(uid) != os.Getuid() {
+		uid := int32(-1)
+		var err error
+		uid, err = uidDumper.DumpUid(syscall.IPPROTO_TCP, source.Address.IP().String(), int32(source.Port), dest.Address.IP().String(), int32(dest.Port))
+		if err == nil && int(uid) != os.Getuid() {
 			if packageName, _ := uidDumper.GetPackageName(uid); len(packageName) == 0 {
 				newError("[TCP (", uid, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 			} else {
 				newError("[TCP (", uid, "/", packageName, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 			}
-			inbound.UID = uid
 		}
+		inbound.UID = uid
 	}
 
 	ctx = session.ContextWithInbound(ctx, inbound)
@@ -355,20 +352,17 @@ func (w *udpWorker) callback(b *buf.Buffer, source net.Destination, originalDest
 
 			if w.dumpUid && uidDumper != nil {
 				// SagerNet private
-				var ipProto int32
-				if dest.Network == net.Network_TCP {
-					ipProto = syscall.IPPROTO_TCP
-				} else {
-					ipProto = syscall.IPPROTO_UDP
-				}
-				if uid, err := uidDumper.DumpUid(ipProto, source.Address.IP().String(), int32(source.Port), dest.Address.IP().String(), int32(dest.Port)); err == nil && int(uid) != os.Getuid() {
+				uid := int32(-1)
+				var err error
+				uid, err = uidDumper.DumpUid(syscall.IPPROTO_UDP, source.Address.IP().String(), int32(source.Port), dest.Address.IP().String(), int32(dest.Port))
+				if err == nil && int(uid) != os.Getuid() {
 					if packageName, _ := uidDumper.GetPackageName(uid); len(packageName) == 0 {
 						newError("[UDP (", uid, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 					} else {
 						newError("[UDP (", uid, "/", packageName, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 					}
-					inbound.UID = uid
 				}
+				inbound.UID = uid
 			}
 
 			ctx = session.ContextWithInbound(ctx, inbound)

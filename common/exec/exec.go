@@ -1,8 +1,30 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// workaround https://github.com/golang/go/issues/70508
+// Copyright 2009 The Go Authors.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//    * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//    * Neither the name of Google LLC nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //go:build android
 
@@ -14,22 +36,13 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"syscall"
 )
 
-type wrappedError struct {
-	prefix string
-	err    error
-}
-
-func (w wrappedError) Error() string {
-	return w.prefix + ": " + w.err.Error()
-}
-
-func (w wrappedError) Unwrap() error {
-	return w.err
-}
+// This is modified from Go standard library "os/exec" to workaround
+// https://github.com/golang/go/issues/70508.
 
 type Cmd struct {
 	Path          string
@@ -270,4 +283,38 @@ func dedupEnv(env []string) ([]string, error) {
 	}
 
 	return out, err
+}
+
+func startProcess(name string, argv []string, attr *os.ProcAttr) (*os.Process, error) {
+	if attr != nil && attr.Dir != "" {
+		if _, err := os.Stat(attr.Dir); err != nil {
+			pe := err.(*os.PathError)
+			pe.Op = "chdir"
+			return nil, pe
+		}
+	}
+
+	sysattr := &syscall.ProcAttr{
+		Dir: attr.Dir,
+		Env: attr.Env,
+	}
+	if sysattr.Env == nil {
+		sysattr.Env = syscall.Environ()
+	}
+	sysattr.Files = make([]uintptr, 0, len(attr.Files))
+	for _, f := range attr.Files {
+		sysattr.Files = append(sysattr.Files, f.Fd())
+	}
+
+	pid, _, e := syscall.StartProcess(name, argv, sysattr)
+
+	runtime.KeepAlive(attr)
+
+	if e != nil {
+		return nil, &os.PathError{Op: "fork/exec", Path: name, Err: e}
+	}
+
+	return &os.Process{
+		Pid: pid,
+	}, nil
 }

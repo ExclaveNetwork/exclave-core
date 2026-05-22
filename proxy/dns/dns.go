@@ -160,49 +160,41 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, d internet.
 	var reader dns_proto.MessageReader
 	var writer dns_proto.MessageWriter
 	if srcNetwork == net.Network_TCP {
-		reader = &dns_proto.TCPReader{
-			Reader: &buf.BufferedReader{
-				Reader: link.Reader,
-			},
-		}
+		reader = dns_proto.NewTCPReader(link.Reader)
 		writer = &dns_proto.TCPWriter{
 			Writer: link.Writer,
 		}
 	} else {
 		reader = &dns_proto.UDPReader{
-			Reader: &buf.BufferedReader{
-				Reader: link.Reader,
-			},
+			Reader: link.Reader,
 		}
 		writer = &dns_proto.UDPWriter{
 			Writer: link.Writer,
 		}
 	}
-	defer common.Close(reader)
 
 	var connReader dns_proto.MessageReader
 	var connWriter dns_proto.MessageWriter
 	if dest.Network == net.Network_TCP {
-		connReader = &dns_proto.TCPReader{
-			Reader: conn,
-		}
+		connReader = dns_proto.NewTCPReader(buf.NewReader(conn))
 		connWriter = &dns_proto.TCPWriter{
 			Writer: buf.NewWriter(conn),
 		}
 	} else {
 		connReader = &dns_proto.UDPReader{
-			Reader: conn,
+			Reader: buf.NewPacketReader(conn),
 		}
 		connWriter = &dns_proto.UDPWriter{
 			Writer: buf.NewWriter(conn),
 		}
 	}
-	defer common.Close(connReader)
 
 	ctx, cancel := context.WithCancel(ctx)
 	timer := signal.CancelAfterInactivity(ctx, cancel, h.timeout)
 
 	request := func() error {
+		defer conn.Close()
+
 		for {
 			b, err := reader.ReadMessage()
 			if err == io.EOF {

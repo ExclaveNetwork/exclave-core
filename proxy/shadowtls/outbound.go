@@ -51,7 +51,7 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 	return o, nil
 }
 
-func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*shadowtls.Client, error) {
+func (o *Outbound) getClient(dialer internet.Dialer) (*shadowtls.Client, error) {
 	o.create.Lock()
 	defer o.create.Unlock()
 	if o.closed {
@@ -81,14 +81,14 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*shad
 	if !ok {
 		return nil, newError("tls not enabled")
 	}
-	tlsConfig, err := tlsSettings.GetTLSConfigWithContext(ctx, tls.WithDestination(o.serverAddr))
-	if err != nil {
-		return nil, err
-	}
+	tlsConfig := tlsSettings.GetTLSConfig(tls.WithDestination(o.serverAddr))
 	var tlsHandshakeFunc shadowtls.TLSHandshakeFunc
 	switch o.config.Version {
 	case 0, 2:
 		tlsHandshakeFunc = func(ctx context.Context, conn net.Conn, _ shadowtls.TLSSessionIDGeneratorFunc) error {
+			tlsConfig = tlsConfig.Clone()
+			// incompatible with X25519MLKEM768
+			tlsConfig.CurvePreferences = []gotls.CurveID{gotls.X25519, gotls.CurveP256, gotls.CurveP384, gotls.CurveP521}
 			tlsConn := gotls.Client(conn, tlsConfig)
 			return tlsConn.HandshakeContext(ctx)
 		}
@@ -120,7 +120,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		return newError("only TCP is supported")
 	}
 
-	client, err := o.getClient(ctx, dialer)
+	client, err := o.getClient(dialer)
 	if err != nil {
 		return err
 	}
