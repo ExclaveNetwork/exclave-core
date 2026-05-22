@@ -112,6 +112,9 @@ func (v *Shadowsocks2022RelayServerConfig) Build() (proto.Message, error) {
 	}
 	var destinations []*shadowsocks_2022.RelayDestination
 	for _, destination := range v.Destinations {
+		if v.Destinations == nil {
+			return nil, newError("shadowsocks 2022: missing relay destinations")
+		}
 		destinations = append(destinations, &shadowsocks_2022.RelayDestination{
 			Key:     destination.Key,
 			Address: destination.Address.Build(),

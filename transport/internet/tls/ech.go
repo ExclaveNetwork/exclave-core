@@ -64,7 +64,7 @@ func queryECH(ctx context.Context, domain string) ([]byte, error) {
 	echCacheMutex.Unlock()
 
 	var dnsRawClient feature_dns.RawQuery
-	if outbound := session.OutboundFromContext(ctx); outbound.Resolver != nil {
+	if outbound := session.OutboundFromContext(ctx); outbound != nil && outbound.Resolver != nil {
 		// respect outbound domainStrategy
 		instance := core.FromContext(ctx)
 		if instance == nil {

@@ -23,6 +23,9 @@ type Shadowsocks2022Config struct {
 }
 
 func (c *Shadowsocks2022Config) Build() (proto.Message, error) {
+	if c.Address == nil {
+		return nil, newError("missing server address")
+	}
 	config := new(shadowsocks2022.ClientConfig)
 	config.Method = c.Method
 	psk, err := base64.StdEncoding.DecodeString(c.PSK)

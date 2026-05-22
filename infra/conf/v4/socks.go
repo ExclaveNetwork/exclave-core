@@ -107,6 +107,9 @@ func (v *SocksClientConfig) Build() (proto.Message, error) {
 		return nil, newError("failed to parse socks server version: ", v.Version).AtError()
 	}
 	for idx, serverConfig := range v.Servers {
+		if serverConfig.Address == nil {
+			return nil, newError("missing server address")
+		}
 		server := &protocol.ServerEndpoint{
 			Address: serverConfig.Address.Build(),
 			Port:    uint32(serverConfig.Port),

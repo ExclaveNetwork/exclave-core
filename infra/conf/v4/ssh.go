@@ -22,6 +22,9 @@ type SSHClientConfig struct {
 }
 
 func (v *SSHClientConfig) Build() (proto.Message, error) {
+	if v.Address == nil {
+		return nil, newError("missing server address")
+	}
 	c := &ssh.Config{
 		Address:              v.Address.Build(),
 		Port:                 v.Port,

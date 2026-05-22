@@ -218,6 +218,7 @@ func (a *alwaysFlushWriter) Write(p []byte) (n int, err error) {
 	return n, err
 }
 
+// GetTLSConfig converts this Config into tls.Config.
 func (c *Config) GetTLSConfig(opts ...Option) *tls.Config {
 	config, err := c.getTLSConfig(context.TODO(), opts...)
 	if err != nil {
@@ -230,7 +231,6 @@ func (c *Config) GetTLSConfigWithContext(ctx context.Context, opts ...Option) (*
 	return c.getTLSConfig(ctx, opts...)
 }
 
-// GetTLSConfig converts this Config into tls.Config.
 func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config, error) {
 	root, err := c.getCertPool()
 	if err != nil {
