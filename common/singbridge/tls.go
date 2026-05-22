@@ -1,53 +1,55 @@
 package singbridge
 
 import (
+	"context"
 	"crypto/tls"
 
 	singtls "github.com/sagernet/sing/common/tls"
 
 	"github.com/v2fly/v2ray-core/v5/common/net"
+	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
 )
 
 var _ singtls.Config = (*tlsConfigWrapper)(nil)
 
-func NewTLSConfigWrapper(config *tls.Config) *tlsConfigWrapper {
+func NewTLSConfigWrapper(ctx context.Context, config *v2tls.Config, opts ...v2tls.Option) *tlsConfigWrapper {
 	return &tlsConfigWrapper{
+		ctx:    ctx,
 		config: config,
+		opts:   opts,
 	}
 }
 
 type tlsConfigWrapper struct {
-	config *tls.Config
+	ctx    context.Context
+	config *v2tls.Config
+	opts   []v2tls.Option
 }
 
 func (c *tlsConfigWrapper) ServerName() string {
-	return c.config.ServerName
+	panic("invalid")
 }
 
-func (c *tlsConfigWrapper) SetServerName(serverName string) {
-	c.config.ServerName = serverName
+func (c *tlsConfigWrapper) SetServerName(_ string) {
+	panic("invalid")
 }
 
 func (c *tlsConfigWrapper) NextProtos() []string {
-	return c.config.NextProtos
+	panic("invalid")
 }
 
-func (c *tlsConfigWrapper) SetNextProtos(nextProto []string) {
-	c.config.NextProtos = nextProto
-}
-
-func (c *tlsConfigWrapper) Config() (*tls.Config, error) {
-	return c.config, nil
+func (c *tlsConfigWrapper) SetNextProtos(_ []string) {
+	panic("invalid")
 }
 
 func (c *tlsConfigWrapper) STDConfig() (*tls.Config, error) {
-	return c.config, nil
+	return c.config.GetTLSConfigWithContext(c.ctx, c.opts...)
 }
 
-func (c *tlsConfigWrapper) Client(conn net.Conn) (singtls.Conn, error) {
-	return tls.Client(conn, c.config), nil
+func (c *tlsConfigWrapper) Client(_ net.Conn) (singtls.Conn, error) {
+	panic("invalid")
 }
 
 func (c *tlsConfigWrapper) Clone() singtls.Config {
-	return &tlsConfigWrapper{c.config.Clone()}
+	panic("invalid")
 }
