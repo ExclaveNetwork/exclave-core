@@ -9,10 +9,10 @@ require (
 	github.com/anytls/sing-anytls v0.0.11
 	github.com/apernet/quic-go v0.59.1-0.20260425001925-6c6cc9bcb716
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
-	github.com/dyhkwong/hysteria/core/v2 v2.8.2-4
-	github.com/dyhkwong/hysteria/extras/v2 v2.8.2-4
 	github.com/dyhkwong/sing-juicity v0.1.2
 	github.com/enfein/mieru/v3 v3.32.0
+	github.com/exclavenetwork/hysteria/core/v2 v2.8.2-5
+	github.com/exclavenetwork/hysteria/extras/v2 v2.8.2-5
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0

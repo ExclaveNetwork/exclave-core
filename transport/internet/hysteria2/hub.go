@@ -7,9 +7,9 @@ import (
 
 	"github.com/apernet/quic-go"
 	"github.com/apernet/quic-go/http3"
-	"github.com/dyhkwong/hysteria/core/v2/international/utils"
-	hyServer "github.com/dyhkwong/hysteria/core/v2/server"
-	"github.com/dyhkwong/hysteria/extras/v2/obfs"
+	"github.com/exclavenetwork/hysteria/core/v2/international/utils"
+	hyServer "github.com/exclavenetwork/hysteria/core/v2/server"
+	"github.com/exclavenetwork/hysteria/extras/v2/obfs"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"

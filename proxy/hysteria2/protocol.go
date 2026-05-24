@@ -5,7 +5,7 @@ import (
 	"math/rand"
 
 	"github.com/apernet/quic-go/quicvarint"
-	hyProtocol "github.com/dyhkwong/hysteria/core/v2/international/protocol"
+	hyProtocol "github.com/exclavenetwork/hysteria/core/v2/international/protocol"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"

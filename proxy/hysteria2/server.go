@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	hyProtocol "github.com/dyhkwong/hysteria/core/v2/international/protocol"
+	hyProtocol "github.com/exclavenetwork/hysteria/core/v2/international/protocol"
 
 	core "github.com/exclavenetwork/exclave-core/v5"
 	"github.com/exclavenetwork/exclave-core/v5/common"

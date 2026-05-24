@@ -3,10 +3,10 @@ package hysteria2
 import (
 	"time"
 
-	hyClient "github.com/dyhkwong/hysteria/core/v2/client"
-	"github.com/dyhkwong/hysteria/core/v2/international/protocol"
-	"github.com/dyhkwong/hysteria/core/v2/international/utils"
-	hyServer "github.com/dyhkwong/hysteria/core/v2/server"
+	hyClient "github.com/exclavenetwork/hysteria/core/v2/client"
+	"github.com/exclavenetwork/hysteria/core/v2/international/protocol"
+	"github.com/exclavenetwork/hysteria/core/v2/international/utils"
+	hyServer "github.com/exclavenetwork/hysteria/core/v2/server"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )

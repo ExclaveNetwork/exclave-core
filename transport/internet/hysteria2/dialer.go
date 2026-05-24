@@ -8,11 +8,11 @@ import (
 
 	"github.com/apernet/quic-go"
 	"github.com/apernet/quic-go/quicvarint"
-	hyClient "github.com/dyhkwong/hysteria/core/v2/client"
-	hyProtocol "github.com/dyhkwong/hysteria/core/v2/international/protocol"
-	"github.com/dyhkwong/hysteria/core/v2/international/utils"
-	"github.com/dyhkwong/hysteria/extras/v2/obfs"
-	"github.com/dyhkwong/hysteria/extras/v2/transport/udphop"
+	hyClient "github.com/exclavenetwork/hysteria/core/v2/client"
+	hyProtocol "github.com/exclavenetwork/hysteria/core/v2/international/protocol"
+	"github.com/exclavenetwork/hysteria/core/v2/international/utils"
+	"github.com/exclavenetwork/hysteria/extras/v2/obfs"
+	"github.com/exclavenetwork/hysteria/extras/v2/transport/udphop"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/environment"
