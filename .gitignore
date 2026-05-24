@@ -18,8 +18,7 @@
 .idea
 *.zip
 *.tar.gz
-v2ray
-v2ctl
+exclave-core
 mockgen
 vprotogen
 !infra/vprotogen/

@@ -13,7 +13,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GunService_Tun_FullMethodName = "/v2ray.core.transport.internet.grpc.encoding.GunService/Tun"
+	GunService_Tun_FullMethodName = "/exclave.core.transport.internet.grpc.encoding.GunService/Tun"
 )
 
 // GunServiceClient is the client API for GunService service.
@@ -94,7 +94,7 @@ type GunService_TunServer = grpc.BidiStreamingServer[Hunk, Hunk]
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GunService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.transport.internet.grpc.encoding.GunService",
+	ServiceName: "exclave.core.transport.internet.grpc.encoding.GunService",
 	HandlerType: (*GunServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
@@ -109,7 +109,7 @@ var GunService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	GunMultiService_Tun_FullMethodName = "/v2ray.core.transport.internet.grpc.encoding.GunMultiService/Tun"
+	GunMultiService_Tun_FullMethodName = "/exclave.core.transport.internet.grpc.encoding.GunMultiService/Tun"
 )
 
 // GunMultiServiceClient is the client API for GunMultiService service.
@@ -190,7 +190,7 @@ type GunMultiService_TunServer = grpc.BidiStreamingServer[MultiHunk, MultiHunk]
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GunMultiService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.transport.internet.grpc.encoding.GunMultiService",
+	ServiceName: "exclave.core.transport.internet.grpc.encoding.GunMultiService",
 	HandlerType: (*GunMultiServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{

@@ -1,7 +1,7 @@
 package mux
 
 import (
-	"github.com/v2fly/v2ray-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 )
 
 type endpointWrapperWriter struct {

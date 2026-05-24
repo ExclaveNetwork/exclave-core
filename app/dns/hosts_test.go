@@ -5,10 +5,10 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	. "github.com/v2fly/v2ray-core/v5/app/dns"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
+	. "github.com/exclavenetwork/exclave-core/v5/app/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 )
 
 func TestStaticHosts(t *testing.T) {

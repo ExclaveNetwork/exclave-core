@@ -99,11 +99,11 @@ var File_app_dispatcher_config_proto protoreflect.FileDescriptor
 
 const file_app_dispatcher_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bapp/dispatcher/config.proto\x12\x19v2ray.core.app.dispatcher\"\x15\n" +
-	"\rSessionConfigJ\x04\b\x01\x10\x02\"N\n" +
-	"\x06Config\x12D\n" +
-	"\bsettings\x18\x01 \x01(\v2(.v2ray.core.app.dispatcher.SessionConfigR\bsettingsBl\n" +
-	"\x1dcom.v2ray.core.app.dispatcherP\x01Z-github.com/v2fly/v2ray-core/v5/app/dispatcher\xaa\x02\x19V2Ray.Core.App.Dispatcherb\x06proto3"
+	"\x1bapp/dispatcher/config.proto\x12\x1bexclave.core.app.dispatcher\"\x15\n" +
+	"\rSessionConfigJ\x04\b\x01\x10\x02\"P\n" +
+	"\x06Config\x12F\n" +
+	"\bsettings\x18\x01 \x01(\v2*.exclave.core.app.dispatcher.SessionConfigR\bsettingsB\x91\x01\n" +
+	"5com.github.exclavenetwork.exclave.core.app.dispatcherP\x01Z8github.com/exclavenetwork/exclave-core/v5/app/dispatcher\xaa\x02\x1bExclave.Core.App.Dispatcherb\x06proto3"
 
 var (
 	file_app_dispatcher_config_proto_rawDescOnce sync.Once
@@ -119,11 +119,11 @@ func file_app_dispatcher_config_proto_rawDescGZIP() []byte {
 
 var file_app_dispatcher_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_app_dispatcher_config_proto_goTypes = []any{
-	(*SessionConfig)(nil), // 0: v2ray.core.app.dispatcher.SessionConfig
-	(*Config)(nil),        // 1: v2ray.core.app.dispatcher.Config
+	(*SessionConfig)(nil), // 0: exclave.core.app.dispatcher.SessionConfig
+	(*Config)(nil),        // 1: exclave.core.app.dispatcher.Config
 }
 var file_app_dispatcher_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.dispatcher.Config.settings:type_name -> v2ray.core.app.dispatcher.SessionConfig
+	0, // 0: exclave.core.app.dispatcher.Config.settings:type_name -> exclave.core.app.dispatcher.SessionConfig
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

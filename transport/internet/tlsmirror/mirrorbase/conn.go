@@ -7,10 +7,10 @@ import (
 	"io"
 	"net"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/crypto"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror/mirrorcommon"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/crypto"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror/mirrorcommon"
 )
 
 // NewMirroredTLSConn creates a new mirrored TLS connection.

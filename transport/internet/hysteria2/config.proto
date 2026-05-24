@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.transport.internet.hysteria2;
-option csharp_namespace = "V2Ray.Core.Transport.Internet.Hysteria2";
-option go_package = "github.com/v2fly/v2ray-core/v5/transport/internet/hysteria2";
-option java_package = "com.v2ray.core.transport.internet.hysteria2";
+package exclave.core.transport.internet.hysteria2;
+option csharp_namespace = "Exclave.Core.Transport.Internet.Hysteria2";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/transport/internet/hysteria2";
+option java_package = "com.github.exclavenetwork.exclave.core.transport.internet.hysteria2";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
@@ -23,8 +23,8 @@ message OBFS {
 }
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "transport";
-  option (v2ray.core.common.protoext.message_opt).short_name = "hysteria2";
+  option (exclave.core.common.protoext.message_opt).type = "transport";
+  option (exclave.core.common.protoext.message_opt).short_name = "hysteria2";
 
   string password = 3;
   Congestion congestion = 4;

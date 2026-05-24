@@ -1,8 +1,8 @@
 package http3
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -105,21 +105,21 @@ var File_proxy_http3_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http3_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/http3/config.proto\x12\x16v2ray.core.proxy.http3\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xf1\x02\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x18proxy/http3/config.proto\x12\x18exclave.core.proxy.http3\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xf5\x02\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x14\n" +
 	"\x05level\x18\x03 \x01(\rR\x05level\x12\x1f\n" +
 	"\busername\x18\x04 \x01(\tH\x00R\busername\x88\x01\x01\x12\x1f\n" +
-	"\bpassword\x18\x05 \x01(\tH\x01R\bpassword\x88\x01\x01\x12K\n" +
-	"\aheaders\x18\x06 \x03(\v21.v2ray.core.proxy.http3.ClientConfig.HeadersEntryR\aheaders\x1a:\n" +
+	"\bpassword\x18\x05 \x01(\tH\x01R\bpassword\x88\x01\x01\x12M\n" +
+	"\aheaders\x18\x06 \x03(\v23.exclave.core.proxy.http3.ClientConfig.HeadersEntryR\aheaders\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01:\x15\x82\xb5\x18\x11\n" +
 	"\boutbound\x12\x05http3B\v\n" +
 	"\t_usernameB\v\n" +
-	"\t_passwordBc\n" +
-	"\x1acom.v2ray.core.proxy.http3P\x01Z*github.com/v2fly/v2ray-core/v5/proxy/http3\xaa\x02\x16V2Ray.Core.Proxy.Http3b\x06proto3"
+	"\t_passwordB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.http3P\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/http3\xaa\x02\x18Exclave.Core.Proxy.Http3b\x06proto3"
 
 var (
 	file_proxy_http3_config_proto_rawDescOnce sync.Once
@@ -135,13 +135,13 @@ func file_proxy_http3_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_http3_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_http3_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),   // 0: v2ray.core.proxy.http3.ClientConfig
-	nil,                    // 1: v2ray.core.proxy.http3.ClientConfig.HeadersEntry
-	(*net.IPOrDomain)(nil), // 2: v2ray.core.common.net.IPOrDomain
+	(*ClientConfig)(nil),   // 0: exclave.core.proxy.http3.ClientConfig
+	nil,                    // 1: exclave.core.proxy.http3.ClientConfig.HeadersEntry
+	(*net.IPOrDomain)(nil), // 2: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_http3_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.http3.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	1, // 1: v2ray.core.proxy.http3.ClientConfig.headers:type_name -> v2ray.core.proxy.http3.ClientConfig.HeadersEntry
+	2, // 0: exclave.core.proxy.http3.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	1, // 1: exclave.core.proxy.http3.ClientConfig.headers:type_name -> exclave.core.proxy.http3.ClientConfig.HeadersEntry
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

@@ -11,10 +11,10 @@ import (
 	mierutp "github.com/enfein/mieru/v3/apis/trafficpattern"
 	mierupb "github.com/enfein/mieru/v3/pkg/appctl/appctlpb"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/udp"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/udp"
 )
 
 var (

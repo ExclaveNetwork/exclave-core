@@ -1,8 +1,8 @@
 package inbound
 
 import (
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -229,21 +229,21 @@ var File_proxy_vmess_inbound_config_proto protoreflect.FileDescriptor
 
 const file_proxy_vmess_inbound_config_proto_rawDesc = "" +
 	"\n" +
-	" proxy/vmess/inbound/config.proto\x12\x1ev2ray.core.proxy.vmess.inbound\x1a\x1acommon/protocol/user.proto\x1a common/protoext/extensions.proto\"\x1e\n" +
+	" proxy/vmess/inbound/config.proto\x12 exclave.core.proxy.vmess.inbound\x1a\x1acommon/protocol/user.proto\x1a common/protoext/extensions.proto\"\x1e\n" +
 	"\fDetourConfig\x12\x0e\n" +
 	"\x02to\x18\x01 \x01(\tR\x02to\"@\n" +
 	"\rDefaultConfig\x12\x19\n" +
 	"\balter_id\x18\x01 \x01(\rR\aalterId\x12\x14\n" +
-	"\x05level\x18\x02 \x01(\rR\x05level\"\x83\x02\n" +
-	"\x06Config\x124\n" +
-	"\x04user\x18\x01 \x03(\v2 .v2ray.core.common.protocol.UserR\x04user\x12G\n" +
-	"\adefault\x18\x02 \x01(\v2-.v2ray.core.proxy.vmess.inbound.DefaultConfigR\adefault\x12D\n" +
-	"\x06detour\x18\x03 \x01(\v2,.v2ray.core.proxy.vmess.inbound.DetourConfigR\x06detour\x124\n" +
+	"\x05level\x18\x02 \x01(\rR\x05level\"\x89\x02\n" +
+	"\x06Config\x126\n" +
+	"\x04user\x18\x01 \x03(\v2\".exclave.core.common.protocol.UserR\x04user\x12I\n" +
+	"\adefault\x18\x02 \x01(\v2/.exclave.core.proxy.vmess.inbound.DefaultConfigR\adefault\x12F\n" +
+	"\x06detour\x18\x03 \x01(\v2..exclave.core.proxy.vmess.inbound.DetourConfigR\x06detour\x124\n" +
 	"\x16secure_encryption_only\x18\x04 \x01(\bR\x14secureEncryptionOnly\">\n" +
 	"\x10SimplifiedConfig\x12\x14\n" +
 	"\x05users\x18\x01 \x03(\tR\x05users:\x14\x82\xb5\x18\x10\n" +
-	"\ainbound\x12\x05vmessB{\n" +
-	"\"com.v2ray.core.proxy.vmess.inboundP\x01Z2github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound\xaa\x02\x1eV2Ray.Core.Proxy.Vmess.Inboundb\x06proto3"
+	"\ainbound\x12\x05vmessB\xa0\x01\n" +
+	":com.github.exclavenetwork.exclave.core.proxy.vmess.inboundP\x01Z=github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound\xaa\x02 Exclave.Core.Proxy.Vmess.Inboundb\x06proto3"
 
 var (
 	file_proxy_vmess_inbound_config_proto_rawDescOnce sync.Once
@@ -259,16 +259,16 @@ func file_proxy_vmess_inbound_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_vmess_inbound_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proxy_vmess_inbound_config_proto_goTypes = []any{
-	(*DetourConfig)(nil),     // 0: v2ray.core.proxy.vmess.inbound.DetourConfig
-	(*DefaultConfig)(nil),    // 1: v2ray.core.proxy.vmess.inbound.DefaultConfig
-	(*Config)(nil),           // 2: v2ray.core.proxy.vmess.inbound.Config
-	(*SimplifiedConfig)(nil), // 3: v2ray.core.proxy.vmess.inbound.SimplifiedConfig
-	(*protocol.User)(nil),    // 4: v2ray.core.common.protocol.User
+	(*DetourConfig)(nil),     // 0: exclave.core.proxy.vmess.inbound.DetourConfig
+	(*DefaultConfig)(nil),    // 1: exclave.core.proxy.vmess.inbound.DefaultConfig
+	(*Config)(nil),           // 2: exclave.core.proxy.vmess.inbound.Config
+	(*SimplifiedConfig)(nil), // 3: exclave.core.proxy.vmess.inbound.SimplifiedConfig
+	(*protocol.User)(nil),    // 4: exclave.core.common.protocol.User
 }
 var file_proxy_vmess_inbound_config_proto_depIdxs = []int32{
-	4, // 0: v2ray.core.proxy.vmess.inbound.Config.user:type_name -> v2ray.core.common.protocol.User
-	1, // 1: v2ray.core.proxy.vmess.inbound.Config.default:type_name -> v2ray.core.proxy.vmess.inbound.DefaultConfig
-	0, // 2: v2ray.core.proxy.vmess.inbound.Config.detour:type_name -> v2ray.core.proxy.vmess.inbound.DetourConfig
+	4, // 0: exclave.core.proxy.vmess.inbound.Config.user:type_name -> exclave.core.common.protocol.User
+	1, // 1: exclave.core.proxy.vmess.inbound.Config.default:type_name -> exclave.core.proxy.vmess.inbound.DefaultConfig
+	0, // 2: exclave.core.proxy.vmess.inbound.Config.detour:type_name -> exclave.core.proxy.vmess.inbound.DetourConfig
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

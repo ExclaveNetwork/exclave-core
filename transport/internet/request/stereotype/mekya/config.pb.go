@@ -1,8 +1,8 @@
 package mekya
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
-	kcp "github.com/v2fly/v2ray-core/v5/transport/internet/kcp"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
+	kcp "github.com/exclavenetwork/exclave-core/v5/transport/internet/kcp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -140,9 +140,9 @@ var File_transport_internet_request_stereotype_mekya_config_proto protoreflect.F
 
 const file_transport_internet_request_stereotype_mekya_config_proto_rawDesc = "" +
 	"\n" +
-	"8transport/internet/request/stereotype/mekya/config.proto\x126v2ray.core.transport.internet.request.stereotype.mekya\x1a common/protoext/extensions.proto\x1a#transport/internet/kcp/config.proto\"\xfe\x03\n" +
-	"\x06Config\x12;\n" +
-	"\x03kcp\x18\x01 \x01(\v2).v2ray.core.transport.internet.kcp.ConfigR\x03kcp\x12'\n" +
+	"8transport/internet/request/stereotype/mekya/config.proto\x128exclave.core.transport.internet.request.stereotype.mekya\x1a common/protoext/extensions.proto\x1a#transport/internet/kcp/config.proto\"\x80\x04\n" +
+	"\x06Config\x12=\n" +
+	"\x03kcp\x18\x01 \x01(\v2+.exclave.core.transport.internet.kcp.ConfigR\x03kcp\x12'\n" +
 	"\x0fmax_write_delay\x18\xeb\a \x01(\x05R\rmaxWriteDelay\x12)\n" +
 	"\x10max_request_size\x18\xec\a \x01(\x05R\x0emaxRequestSize\x129\n" +
 	"\x18polling_interval_initial\x18\xed\a \x01(\x05R\x16pollingIntervalInitial\x12%\n" +
@@ -153,8 +153,8 @@ const file_transport_internet_request_stereotype_mekya_config_proto_rawDesc = ""
 	"\x03url\x18\xb9\x17 \x01(\tR\x03url\x12!\n" +
 	"\fh2_pool_size\x18\xbb\x17 \x01(\x05R\n" +
 	"h2PoolSize:\x16\x82\xb5\x18\x12\n" +
-	"\ttransport\x12\x05mekyaB\xc3\x01\n" +
-	":com.v2ray.core.transport.internet.request.stereotype.mekyaP\x01ZJgithub.com/v2fly/v2ray-core/v5/transport/internet/request/stereotype/mekya\xaa\x026V2Ray.Core.Transport.Internet.Request.Stereotype.Mekyab\x06proto3"
+	"\ttransport\x12\x05mekyaB\xe8\x01\n" +
+	"Rcom.github.exclavenetwork.exclave.core.transport.internet.request.stereotype.mekyaP\x01ZUgithub.com/exclavenetwork/exclave-core/v5/transport/internet/request/stereotype/mekya\xaa\x028Exclave.Core.Transport.Internet.Request.Stereotype.Mekyab\x06proto3"
 
 var (
 	file_transport_internet_request_stereotype_mekya_config_proto_rawDescOnce sync.Once
@@ -170,11 +170,11 @@ func file_transport_internet_request_stereotype_mekya_config_proto_rawDescGZIP()
 
 var file_transport_internet_request_stereotype_mekya_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_request_stereotype_mekya_config_proto_goTypes = []any{
-	(*Config)(nil),     // 0: v2ray.core.transport.internet.request.stereotype.mekya.Config
-	(*kcp.Config)(nil), // 1: v2ray.core.transport.internet.kcp.Config
+	(*Config)(nil),     // 0: exclave.core.transport.internet.request.stereotype.mekya.Config
+	(*kcp.Config)(nil), // 1: exclave.core.transport.internet.kcp.Config
 }
 var file_transport_internet_request_stereotype_mekya_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.internet.request.stereotype.mekya.Config.kcp:type_name -> v2ray.core.transport.internet.kcp.Config
+	1, // 0: exclave.core.transport.internet.request.stereotype.mekya.Config.kcp:type_name -> exclave.core.transport.internet.kcp.Config
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

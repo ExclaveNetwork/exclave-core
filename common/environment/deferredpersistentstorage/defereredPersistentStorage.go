@@ -3,9 +3,9 @@ package deferredpersistentstorage
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/app/persistentstorage"
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/features/extension/storage"
+	"github.com/exclavenetwork/exclave-core/v5/app/persistentstorage"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 )
 
 type DeferredPersistentStorage interface {

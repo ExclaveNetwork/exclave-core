@@ -1,8 +1,8 @@
 package trusttunnel
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -80,7 +80,7 @@ type ClientConfig struct {
 	Username           string                      `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`
 	Password           string                      `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
 	Http3              bool                        `protobuf:"varint,6,opt,name=http3,proto3" json:"http3,omitempty"`
-	DomainStrategy     ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.proxy.trusttunnel.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
+	DomainStrategy     ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.trusttunnel.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
 	ServerNameToVerify string                      `protobuf:"bytes,8,opt,name=server_name_to_verify,json=serverNameToVerify,proto3" json:"server_name_to_verify,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
@@ -176,15 +176,15 @@ var File_proxy_trusttunnel_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trusttunnel_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1eproxy/trusttunnel/config.proto\x12\x1cv2ray.core.proxy.trusttunnel\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xcf\x03\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x1eproxy/trusttunnel/config.proto\x12\x1eexclave.core.proxy.trusttunnel\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xd3\x03\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x14\n" +
 	"\x05level\x18\x03 \x01(\rR\x05level\x12\x1a\n" +
 	"\busername\x18\x04 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x05 \x01(\tR\bpassword\x12\x14\n" +
-	"\x05http3\x18\x06 \x01(\bR\x05http3\x12b\n" +
-	"\x0fdomain_strategy\x18\a \x01(\x0e29.v2ray.core.proxy.trusttunnel.ClientConfig.DomainStrategyR\x0edomainStrategy\x121\n" +
+	"\x05http3\x18\x06 \x01(\bR\x05http3\x12d\n" +
+	"\x0fdomain_strategy\x18\a \x01(\x0e2;.exclave.core.proxy.trusttunnel.ClientConfig.DomainStrategyR\x0edomainStrategy\x121\n" +
 	"\x15server_name_to_verify\x18\b \x01(\tR\x12serverNameToVerify\"V\n" +
 	"\x0eDomainStrategy\x12\n" +
 	"\n" +
@@ -195,8 +195,8 @@ const file_proxy_trusttunnel_config_proto_rawDesc = "" +
 	"PREFER_IP4\x10\x03\x12\x0e\n" +
 	"\n" +
 	"PREFER_IP6\x10\x04:\x1b\x82\xb5\x18\x17\n" +
-	"\boutbound\x12\vtrusttunnelBu\n" +
-	" com.v2ray.core.proxy.trusttunnelP\x01Z0github.com/v2fly/v2ray-core/v5/proxy/trusttunnel\xaa\x02\x1cV2Ray.Core.Proxy.TrustTunnelb\x06proto3"
+	"\boutbound\x12\vtrusttunnelB\x9a\x01\n" +
+	"8com.github.exclavenetwork.exclave.core.proxy.trusttunnelP\x01Z;github.com/exclavenetwork/exclave-core/v5/proxy/trusttunnel\xaa\x02\x1eExclave.Core.Proxy.TrustTunnelb\x06proto3"
 
 var (
 	file_proxy_trusttunnel_config_proto_rawDescOnce sync.Once
@@ -213,13 +213,13 @@ func file_proxy_trusttunnel_config_proto_rawDescGZIP() []byte {
 var file_proxy_trusttunnel_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_proxy_trusttunnel_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_trusttunnel_config_proto_goTypes = []any{
-	(ClientConfig_DomainStrategy)(0), // 0: v2ray.core.proxy.trusttunnel.ClientConfig.DomainStrategy
-	(*ClientConfig)(nil),             // 1: v2ray.core.proxy.trusttunnel.ClientConfig
-	(*net.IPOrDomain)(nil),           // 2: v2ray.core.common.net.IPOrDomain
+	(ClientConfig_DomainStrategy)(0), // 0: exclave.core.proxy.trusttunnel.ClientConfig.DomainStrategy
+	(*ClientConfig)(nil),             // 1: exclave.core.proxy.trusttunnel.ClientConfig
+	(*net.IPOrDomain)(nil),           // 2: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_trusttunnel_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.trusttunnel.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	0, // 1: v2ray.core.proxy.trusttunnel.ClientConfig.domain_strategy:type_name -> v2ray.core.proxy.trusttunnel.ClientConfig.DomainStrategy
+	2, // 0: exclave.core.proxy.trusttunnel.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	0, // 1: exclave.core.proxy.trusttunnel.ClientConfig.domain_strategy:type_name -> exclave.core.proxy.trusttunnel.ClientConfig.DomainStrategy
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

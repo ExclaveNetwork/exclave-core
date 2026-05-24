@@ -8,14 +8,22 @@ import (
 )
 
 type EnvFlag struct {
-	Name    string
-	AltName string
+	Name          string
+	AltName       string
+	NameCompat    string
+	AltNameCompat string
 }
 
 func NewEnvFlag(name string) EnvFlag {
+	nameCompat := name
+	if strings.HasPrefix(nameCompat, "exclave.") {
+		nameCompat = strings.Replace(nameCompat, "exclave.", "v2ray.", 1)
+	}
 	return EnvFlag{
-		Name:    name,
-		AltName: NormalizeEnvName(name),
+		Name:          name,
+		AltName:       NormalizeEnvName(name),
+		NameCompat:    nameCompat,
+		AltNameCompat: NormalizeEnvName(nameCompat),
 	}
 }
 
@@ -25,6 +33,15 @@ func (f EnvFlag) GetValue(defaultValue func() string) string {
 	}
 	if len(f.AltName) > 0 {
 		if v, found := os.LookupEnv(f.AltName); found {
+			return v
+		}
+	}
+
+	if v, found := os.LookupEnv(f.NameCompat); found {
+		return v
+	}
+	if len(f.AltName) > 0 {
+		if v, found := os.LookupEnv(f.AltNameCompat); found {
 			return v
 		}
 	}
@@ -67,20 +84,20 @@ func getExecutableSubDir(dir string) func() string {
 }
 
 func GetPluginDirectory() string {
-	const name = "v2ray.location.plugin"
+	const name = "exclave.location.plugin"
 	pluginDir := NewEnvFlag(name).GetValue(getExecutableSubDir("plugins"))
 	return pluginDir
 }
 
 func GetConfigurationPath() string {
-	const name = "v2ray.location.config"
+	const name = "exclave.location.config"
 	configPath := NewEnvFlag(name).GetValue(getExecutableDir)
 	return filepath.Join(configPath, "config.json")
 }
 
 // GetConfDirPath reads "v2ray.location.confdir"
 func GetConfDirPath() string {
-	const name = "v2ray.location.confdir"
+	const name = "exclave.location.confdir"
 	configPath := NewEnvFlag(name).GetValue(func() string { return "" })
 	return configPath
 }

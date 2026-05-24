@@ -1,6 +1,6 @@
 package httprt
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"bytes"
@@ -11,10 +11,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/request"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/transportcommon"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/request"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/transportcommon"
 )
 
 func newHTTPRoundTripperClient(ctx context.Context, config *ClientConfig) request.RoundTripperClient {

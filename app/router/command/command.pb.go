@@ -1,8 +1,8 @@
 package command
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -18,12 +18,12 @@ const (
 )
 
 // RoutingContext is the context with information relative to routing process.
-// It conforms to the structure of v2ray.core.features.routing.Context and
-// v2ray.core.features.routing.Route.
+// It conforms to the structure of exclave.core.features.routing.Context and
+// exclave.core.features.routing.Route.
 type RoutingContext struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	InboundTag        string                 `protobuf:"bytes,1,opt,name=InboundTag,proto3" json:"InboundTag,omitempty"`
-	Network           net.Network            `protobuf:"varint,2,opt,name=Network,proto3,enum=v2ray.core.common.net.Network" json:"Network,omitempty"`
+	Network           net.Network            `protobuf:"varint,2,opt,name=Network,proto3,enum=exclave.core.common.net.Network" json:"Network,omitempty"`
 	SourceIPs         [][]byte               `protobuf:"bytes,3,rep,name=SourceIPs,proto3" json:"SourceIPs,omitempty"`
 	TargetIPs         [][]byte               `protobuf:"bytes,4,rep,name=TargetIPs,proto3" json:"TargetIPs,omitempty"`
 	SourcePort        uint32                 `protobuf:"varint,5,opt,name=SourcePort,proto3" json:"SourcePort,omitempty"`
@@ -661,12 +661,12 @@ var File_app_router_command_command_proto protoreflect.FileDescriptor
 
 const file_app_router_command_command_proto_rawDesc = "" +
 	"\n" +
-	" app/router/command/command.proto\x12\x1dv2ray.core.app.router.command\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\"\xf1\x04\n" +
+	" app/router/command/command.proto\x12\x1fexclave.core.app.router.command\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\"\xf5\x04\n" +
 	"\x0eRoutingContext\x12\x1e\n" +
 	"\n" +
 	"InboundTag\x18\x01 \x01(\tR\n" +
-	"InboundTag\x128\n" +
-	"\aNetwork\x18\x02 \x01(\x0e2\x1e.v2ray.core.common.net.NetworkR\aNetwork\x12\x1c\n" +
+	"InboundTag\x12:\n" +
+	"\aNetwork\x18\x02 \x01(\x0e2 .exclave.core.common.net.NetworkR\aNetwork\x12\x1c\n" +
 	"\tSourceIPs\x18\x03 \x03(\fR\tSourceIPs\x12\x1c\n" +
 	"\tTargetIPs\x18\x04 \x03(\fR\tTargetIPs\x12\x1e\n" +
 	"\n" +
@@ -677,10 +677,10 @@ const file_app_router_command_command_proto_rawDesc = "" +
 	"TargetPort\x12\"\n" +
 	"\fTargetDomain\x18\a \x01(\tR\fTargetDomain\x12\x1a\n" +
 	"\bProtocol\x18\b \x01(\tR\bProtocol\x12\x12\n" +
-	"\x04User\x18\t \x01(\tR\x04User\x12]\n" +
+	"\x04User\x18\t \x01(\tR\x04User\x12_\n" +
 	"\n" +
 	"Attributes\x18\n" +
-	" \x03(\v2=.v2ray.core.app.router.command.RoutingContext.AttributesEntryR\n" +
+	" \x03(\v2?.exclave.core.app.router.command.RoutingContext.AttributesEntryR\n" +
 	"Attributes\x12,\n" +
 	"\x11OutboundGroupTags\x18\v \x03(\tR\x11OutboundGroupTags\x12 \n" +
 	"\vOutboundTag\x18\f \x01(\tR\vOutboundTag\x12\x10\n" +
@@ -691,34 +691,34 @@ const file_app_router_command_command_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"F\n" +
 	"\x1cSubscribeRoutingStatsRequest\x12&\n" +
-	"\x0eFieldSelectors\x18\x01 \x03(\tR\x0eFieldSelectors\"\xb7\x01\n" +
-	"\x10TestRouteRequest\x12U\n" +
-	"\x0eRoutingContext\x18\x01 \x01(\v2-.v2ray.core.app.router.command.RoutingContextR\x0eRoutingContext\x12&\n" +
+	"\x0eFieldSelectors\x18\x01 \x03(\tR\x0eFieldSelectors\"\xb9\x01\n" +
+	"\x10TestRouteRequest\x12W\n" +
+	"\x0eRoutingContext\x18\x01 \x01(\v2/.exclave.core.app.router.command.RoutingContextR\x0eRoutingContext\x12&\n" +
 	"\x0eFieldSelectors\x18\x02 \x03(\tR\x0eFieldSelectors\x12$\n" +
 	"\rPublishResult\x18\x03 \x01(\bR\rPublishResult\"'\n" +
 	"\x13PrincipleTargetInfo\x12\x10\n" +
 	"\x03tag\x18\x01 \x03(\tR\x03tag\"&\n" +
 	"\fOverrideInfo\x12\x16\n" +
-	"\x06target\x18\x02 \x01(\tR\x06target\"\xb5\x01\n" +
-	"\vBalancerMsg\x12G\n" +
-	"\boverride\x18\x05 \x01(\v2+.v2ray.core.app.router.command.OverrideInfoR\boverride\x12]\n" +
-	"\x10principle_target\x18\x06 \x01(\v22.v2ray.core.app.router.command.PrincipleTargetInfoR\x0fprincipleTarget\"*\n" +
+	"\x06target\x18\x02 \x01(\tR\x06target\"\xb9\x01\n" +
+	"\vBalancerMsg\x12I\n" +
+	"\boverride\x18\x05 \x01(\v2-.exclave.core.app.router.command.OverrideInfoR\boverride\x12_\n" +
+	"\x10principle_target\x18\x06 \x01(\v24.exclave.core.app.router.command.PrincipleTargetInfoR\x0fprincipleTarget\"*\n" +
 	"\x16GetBalancerInfoRequest\x12\x10\n" +
-	"\x03tag\x18\x01 \x01(\tR\x03tag\"a\n" +
-	"\x17GetBalancerInfoResponse\x12F\n" +
-	"\bbalancer\x18\x01 \x01(\v2*.v2ray.core.app.router.command.BalancerMsgR\bbalancer\"Y\n" +
+	"\x03tag\x18\x01 \x01(\tR\x03tag\"c\n" +
+	"\x17GetBalancerInfoResponse\x12H\n" +
+	"\bbalancer\x18\x01 \x01(\v2,.exclave.core.app.router.command.BalancerMsgR\bbalancer\"Y\n" +
 	"\x1dOverrideBalancerTargetRequest\x12 \n" +
 	"\vbalancerTag\x18\x01 \x01(\tR\vbalancerTag\x12\x16\n" +
 	"\x06target\x18\x02 \x01(\tR\x06target\" \n" +
 	"\x1eOverrideBalancerTargetResponse\"#\n" +
 	"\x06Config:\x19\x82\xb5\x18\x15\n" +
-	"\vgrpcservice\x12\x06router2\xa8\x04\n" +
-	"\x0eRoutingService\x12\x87\x01\n" +
-	"\x15SubscribeRoutingStats\x12;.v2ray.core.app.router.command.SubscribeRoutingStatsRequest\x1a-.v2ray.core.app.router.command.RoutingContext\"\x000\x01\x12m\n" +
-	"\tTestRoute\x12/.v2ray.core.app.router.command.TestRouteRequest\x1a-.v2ray.core.app.router.command.RoutingContext\"\x00\x12\x82\x01\n" +
-	"\x0fGetBalancerInfo\x125.v2ray.core.app.router.command.GetBalancerInfoRequest\x1a6.v2ray.core.app.router.command.GetBalancerInfoResponse\"\x00\x12\x97\x01\n" +
-	"\x16OverrideBalancerTarget\x12<.v2ray.core.app.router.command.OverrideBalancerTargetRequest\x1a=.v2ray.core.app.router.command.OverrideBalancerTargetResponse\"\x00Bx\n" +
-	"!com.v2ray.core.app.router.commandP\x01Z1github.com/v2fly/v2ray-core/v5/app/router/command\xaa\x02\x1dV2Ray.Core.App.Router.Commandb\x06proto3"
+	"\vgrpcservice\x12\x06router2\xb8\x04\n" +
+	"\x0eRoutingService\x12\x8b\x01\n" +
+	"\x15SubscribeRoutingStats\x12=.exclave.core.app.router.command.SubscribeRoutingStatsRequest\x1a/.exclave.core.app.router.command.RoutingContext\"\x000\x01\x12q\n" +
+	"\tTestRoute\x121.exclave.core.app.router.command.TestRouteRequest\x1a/.exclave.core.app.router.command.RoutingContext\"\x00\x12\x86\x01\n" +
+	"\x0fGetBalancerInfo\x127.exclave.core.app.router.command.GetBalancerInfoRequest\x1a8.exclave.core.app.router.command.GetBalancerInfoResponse\"\x00\x12\x9b\x01\n" +
+	"\x16OverrideBalancerTarget\x12>.exclave.core.app.router.command.OverrideBalancerTargetRequest\x1a?.exclave.core.app.router.command.OverrideBalancerTargetResponse\"\x00B\x9d\x01\n" +
+	"9com.github.exclavenetwork.exclave.core.app.router.commandP\x01Z<github.com/exclavenetwork/exclave-core/v5/app/router/command\xaa\x02\x1fExclave.Core.App.Router.Commandb\x06proto3"
 
 var (
 	file_app_router_command_command_proto_rawDescOnce sync.Once
@@ -734,35 +734,35 @@ func file_app_router_command_command_proto_rawDescGZIP() []byte {
 
 var file_app_router_command_command_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_app_router_command_command_proto_goTypes = []any{
-	(*RoutingContext)(nil),                 // 0: v2ray.core.app.router.command.RoutingContext
-	(*SubscribeRoutingStatsRequest)(nil),   // 1: v2ray.core.app.router.command.SubscribeRoutingStatsRequest
-	(*TestRouteRequest)(nil),               // 2: v2ray.core.app.router.command.TestRouteRequest
-	(*PrincipleTargetInfo)(nil),            // 3: v2ray.core.app.router.command.PrincipleTargetInfo
-	(*OverrideInfo)(nil),                   // 4: v2ray.core.app.router.command.OverrideInfo
-	(*BalancerMsg)(nil),                    // 5: v2ray.core.app.router.command.BalancerMsg
-	(*GetBalancerInfoRequest)(nil),         // 6: v2ray.core.app.router.command.GetBalancerInfoRequest
-	(*GetBalancerInfoResponse)(nil),        // 7: v2ray.core.app.router.command.GetBalancerInfoResponse
-	(*OverrideBalancerTargetRequest)(nil),  // 8: v2ray.core.app.router.command.OverrideBalancerTargetRequest
-	(*OverrideBalancerTargetResponse)(nil), // 9: v2ray.core.app.router.command.OverrideBalancerTargetResponse
-	(*Config)(nil),                         // 10: v2ray.core.app.router.command.Config
-	nil,                                    // 11: v2ray.core.app.router.command.RoutingContext.AttributesEntry
-	(net.Network)(0),                       // 12: v2ray.core.common.net.Network
+	(*RoutingContext)(nil),                 // 0: exclave.core.app.router.command.RoutingContext
+	(*SubscribeRoutingStatsRequest)(nil),   // 1: exclave.core.app.router.command.SubscribeRoutingStatsRequest
+	(*TestRouteRequest)(nil),               // 2: exclave.core.app.router.command.TestRouteRequest
+	(*PrincipleTargetInfo)(nil),            // 3: exclave.core.app.router.command.PrincipleTargetInfo
+	(*OverrideInfo)(nil),                   // 4: exclave.core.app.router.command.OverrideInfo
+	(*BalancerMsg)(nil),                    // 5: exclave.core.app.router.command.BalancerMsg
+	(*GetBalancerInfoRequest)(nil),         // 6: exclave.core.app.router.command.GetBalancerInfoRequest
+	(*GetBalancerInfoResponse)(nil),        // 7: exclave.core.app.router.command.GetBalancerInfoResponse
+	(*OverrideBalancerTargetRequest)(nil),  // 8: exclave.core.app.router.command.OverrideBalancerTargetRequest
+	(*OverrideBalancerTargetResponse)(nil), // 9: exclave.core.app.router.command.OverrideBalancerTargetResponse
+	(*Config)(nil),                         // 10: exclave.core.app.router.command.Config
+	nil,                                    // 11: exclave.core.app.router.command.RoutingContext.AttributesEntry
+	(net.Network)(0),                       // 12: exclave.core.common.net.Network
 }
 var file_app_router_command_command_proto_depIdxs = []int32{
-	12, // 0: v2ray.core.app.router.command.RoutingContext.Network:type_name -> v2ray.core.common.net.Network
-	11, // 1: v2ray.core.app.router.command.RoutingContext.Attributes:type_name -> v2ray.core.app.router.command.RoutingContext.AttributesEntry
-	0,  // 2: v2ray.core.app.router.command.TestRouteRequest.RoutingContext:type_name -> v2ray.core.app.router.command.RoutingContext
-	4,  // 3: v2ray.core.app.router.command.BalancerMsg.override:type_name -> v2ray.core.app.router.command.OverrideInfo
-	3,  // 4: v2ray.core.app.router.command.BalancerMsg.principle_target:type_name -> v2ray.core.app.router.command.PrincipleTargetInfo
-	5,  // 5: v2ray.core.app.router.command.GetBalancerInfoResponse.balancer:type_name -> v2ray.core.app.router.command.BalancerMsg
-	1,  // 6: v2ray.core.app.router.command.RoutingService.SubscribeRoutingStats:input_type -> v2ray.core.app.router.command.SubscribeRoutingStatsRequest
-	2,  // 7: v2ray.core.app.router.command.RoutingService.TestRoute:input_type -> v2ray.core.app.router.command.TestRouteRequest
-	6,  // 8: v2ray.core.app.router.command.RoutingService.GetBalancerInfo:input_type -> v2ray.core.app.router.command.GetBalancerInfoRequest
-	8,  // 9: v2ray.core.app.router.command.RoutingService.OverrideBalancerTarget:input_type -> v2ray.core.app.router.command.OverrideBalancerTargetRequest
-	0,  // 10: v2ray.core.app.router.command.RoutingService.SubscribeRoutingStats:output_type -> v2ray.core.app.router.command.RoutingContext
-	0,  // 11: v2ray.core.app.router.command.RoutingService.TestRoute:output_type -> v2ray.core.app.router.command.RoutingContext
-	7,  // 12: v2ray.core.app.router.command.RoutingService.GetBalancerInfo:output_type -> v2ray.core.app.router.command.GetBalancerInfoResponse
-	9,  // 13: v2ray.core.app.router.command.RoutingService.OverrideBalancerTarget:output_type -> v2ray.core.app.router.command.OverrideBalancerTargetResponse
+	12, // 0: exclave.core.app.router.command.RoutingContext.Network:type_name -> exclave.core.common.net.Network
+	11, // 1: exclave.core.app.router.command.RoutingContext.Attributes:type_name -> exclave.core.app.router.command.RoutingContext.AttributesEntry
+	0,  // 2: exclave.core.app.router.command.TestRouteRequest.RoutingContext:type_name -> exclave.core.app.router.command.RoutingContext
+	4,  // 3: exclave.core.app.router.command.BalancerMsg.override:type_name -> exclave.core.app.router.command.OverrideInfo
+	3,  // 4: exclave.core.app.router.command.BalancerMsg.principle_target:type_name -> exclave.core.app.router.command.PrincipleTargetInfo
+	5,  // 5: exclave.core.app.router.command.GetBalancerInfoResponse.balancer:type_name -> exclave.core.app.router.command.BalancerMsg
+	1,  // 6: exclave.core.app.router.command.RoutingService.SubscribeRoutingStats:input_type -> exclave.core.app.router.command.SubscribeRoutingStatsRequest
+	2,  // 7: exclave.core.app.router.command.RoutingService.TestRoute:input_type -> exclave.core.app.router.command.TestRouteRequest
+	6,  // 8: exclave.core.app.router.command.RoutingService.GetBalancerInfo:input_type -> exclave.core.app.router.command.GetBalancerInfoRequest
+	8,  // 9: exclave.core.app.router.command.RoutingService.OverrideBalancerTarget:input_type -> exclave.core.app.router.command.OverrideBalancerTargetRequest
+	0,  // 10: exclave.core.app.router.command.RoutingService.SubscribeRoutingStats:output_type -> exclave.core.app.router.command.RoutingContext
+	0,  // 11: exclave.core.app.router.command.RoutingService.TestRoute:output_type -> exclave.core.app.router.command.RoutingContext
+	7,  // 12: exclave.core.app.router.command.RoutingService.GetBalancerInfo:output_type -> exclave.core.app.router.command.GetBalancerInfoResponse
+	9,  // 13: exclave.core.app.router.command.RoutingService.OverrideBalancerTarget:output_type -> exclave.core.app.router.command.OverrideBalancerTargetResponse
 	10, // [10:14] is the sub-list for method output_type
 	6,  // [6:10] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name

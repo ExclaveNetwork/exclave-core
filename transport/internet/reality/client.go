@@ -24,8 +24,8 @@ import (
 	"golang.org/x/crypto/hkdf"
 	"golang.org/x/net/http2"
 
-	"github.com/v2fly/v2ray-core/v5/common/dice"
-	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/dice"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 type UConn struct {

@@ -1,8 +1,8 @@
 package log
 
 import (
-	log "github.com/v2fly/v2ray-core/v5/common/log"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	log "github.com/exclavenetwork/exclave-core/v5/common/log"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -71,8 +71,8 @@ func (LogType) EnumDescriptor() ([]byte, []int) {
 
 type LogSpecification struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          LogType                `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.log.LogType" json:"type,omitempty"`
-	Level         log.Severity           `protobuf:"varint,2,opt,name=level,proto3,enum=v2ray.core.common.log.Severity" json:"level,omitempty"`
+	Type          LogType                `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.log.LogType" json:"type,omitempty"`
+	Level         log.Severity           `protobuf:"varint,2,opt,name=level,proto3,enum=exclave.core.common.log.Severity" json:"level,omitempty"`
 	Path          string                 `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -185,21 +185,21 @@ var File_app_log_config_proto protoreflect.FileDescriptor
 
 const file_app_log_config_proto_rawDesc = "" +
 	"\n" +
-	"\x14app/log/config.proto\x12\x12v2ray.core.app.log\x1a\x14common/log/log.proto\x1a common/protoext/extensions.proto\"\x8e\x01\n" +
-	"\x10LogSpecification\x12/\n" +
-	"\x04type\x18\x01 \x01(\x0e2\x1b.v2ray.core.app.log.LogTypeR\x04type\x125\n" +
-	"\x05level\x18\x02 \x01(\x0e2\x1f.v2ray.core.common.log.SeverityR\x05level\x12\x12\n" +
-	"\x04path\x18\x03 \x01(\tR\x04path\"\xb4\x01\n" +
-	"\x06Config\x12:\n" +
-	"\x05error\x18\x06 \x01(\v2$.v2ray.core.app.log.LogSpecificationR\x05error\x12<\n" +
-	"\x06access\x18\a \x01(\v2$.v2ray.core.app.log.LogSpecificationR\x06access:\x12\x82\xb5\x18\x0e\n" +
+	"\x14app/log/config.proto\x12\x14exclave.core.app.log\x1a\x14common/log/log.proto\x1a common/protoext/extensions.proto\"\x92\x01\n" +
+	"\x10LogSpecification\x121\n" +
+	"\x04type\x18\x01 \x01(\x0e2\x1d.exclave.core.app.log.LogTypeR\x04type\x127\n" +
+	"\x05level\x18\x02 \x01(\x0e2!.exclave.core.common.log.SeverityR\x05level\x12\x12\n" +
+	"\x04path\x18\x03 \x01(\tR\x04path\"\xb8\x01\n" +
+	"\x06Config\x12<\n" +
+	"\x05error\x18\x06 \x01(\v2&.exclave.core.app.log.LogSpecificationR\x05error\x12>\n" +
+	"\x06access\x18\a \x01(\v2&.exclave.core.app.log.LogSpecificationR\x06access:\x12\x82\xb5\x18\x0e\n" +
 	"\aservice\x12\x03logJ\x04\b\x01\x10\x02J\x04\b\x02\x10\x03J\x04\b\x03\x10\x04J\x04\b\x04\x10\x05J\x04\b\x05\x10\x06*5\n" +
 	"\aLogType\x12\b\n" +
 	"\x04None\x10\x00\x12\v\n" +
 	"\aConsole\x10\x01\x12\b\n" +
 	"\x04File\x10\x02\x12\t\n" +
-	"\x05Event\x10\x03BW\n" +
-	"\x16com.v2ray.core.app.logP\x01Z&github.com/v2fly/v2ray-core/v5/app/log\xaa\x02\x12V2Ray.Core.App.Logb\x06proto3"
+	"\x05Event\x10\x03B|\n" +
+	".com.github.exclavenetwork.exclave.core.app.logP\x01Z1github.com/exclavenetwork/exclave-core/v5/app/log\xaa\x02\x14Exclave.Core.App.Logb\x06proto3"
 
 var (
 	file_app_log_config_proto_rawDescOnce sync.Once
@@ -216,16 +216,16 @@ func file_app_log_config_proto_rawDescGZIP() []byte {
 var file_app_log_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_app_log_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_app_log_config_proto_goTypes = []any{
-	(LogType)(0),             // 0: v2ray.core.app.log.LogType
-	(*LogSpecification)(nil), // 1: v2ray.core.app.log.LogSpecification
-	(*Config)(nil),           // 2: v2ray.core.app.log.Config
-	(log.Severity)(0),        // 3: v2ray.core.common.log.Severity
+	(LogType)(0),             // 0: exclave.core.app.log.LogType
+	(*LogSpecification)(nil), // 1: exclave.core.app.log.LogSpecification
+	(*Config)(nil),           // 2: exclave.core.app.log.Config
+	(log.Severity)(0),        // 3: exclave.core.common.log.Severity
 }
 var file_app_log_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.log.LogSpecification.type:type_name -> v2ray.core.app.log.LogType
-	3, // 1: v2ray.core.app.log.LogSpecification.level:type_name -> v2ray.core.common.log.Severity
-	1, // 2: v2ray.core.app.log.Config.error:type_name -> v2ray.core.app.log.LogSpecification
-	1, // 3: v2ray.core.app.log.Config.access:type_name -> v2ray.core.app.log.LogSpecification
+	0, // 0: exclave.core.app.log.LogSpecification.type:type_name -> exclave.core.app.log.LogType
+	3, // 1: exclave.core.app.log.LogSpecification.level:type_name -> exclave.core.common.log.Severity
+	1, // 2: exclave.core.app.log.Config.error:type_name -> exclave.core.app.log.LogSpecification
+	1, // 3: exclave.core.app.log.Config.access:type_name -> exclave.core.app.log.LogSpecification
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

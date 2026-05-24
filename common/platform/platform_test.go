@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
 )
 
 func TestNormalizeEnvName(t *testing.T) {
@@ -48,7 +48,7 @@ func TestEnvFlag(t *testing.T) {
 // TestWrongErrorCheckOnOSStat is a test to detect the misuse of error handling
 // in os.Stat, which will lead to failure to find & read geoip & geosite files.
 func TestWrongErrorCheckOnOSStat(t *testing.T) {
-	theExpectedDir := filepath.Join("usr", "local", "share", "v2ray")
+	theExpectedDir := filepath.Join("usr", "local", "share", "exclave-core")
 	getAssetLocation := func(file string) string {
 		for _, p := range []string{
 			filepath.Join(theExpectedDir, file),
@@ -80,13 +80,13 @@ func TestGetAssetLocation(t *testing.T) {
 		t.Error("asset dir: ", loc, " not in ", exec)
 	}
 
-	os.Setenv("v2ray.location.asset", "/v2ray")
+	os.Setenv("exclave.location.asset", "/exclave-core")
 	if runtime.GOOS == "windows" {
-		if v := platform.GetAssetLocation("t"); v != "\\v2ray\\t" {
+		if v := platform.GetAssetLocation("t"); v != "\\exclave-core\\t" {
 			t.Error("asset loc: ", v)
 		}
 	} else {
-		if v := platform.GetAssetLocation("t"); v != "/v2ray/t" {
+		if v := platform.GetAssetLocation("t"); v != "/exclave-core/t" {
 			t.Error("asset loc: ", v)
 		}
 	}

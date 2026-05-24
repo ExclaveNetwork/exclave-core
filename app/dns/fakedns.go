@@ -3,9 +3,9 @@ package dns
 import (
 	"time"
 
-	fakedns "github.com/v2fly/v2ray-core/v5/app/dns/fakedns"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
+	fakedns "github.com/exclavenetwork/exclave-core/v5/app/dns/fakedns"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 )
 
 // FakeDNSClient is an implementation of dns.Client with FakeDNS enabled.

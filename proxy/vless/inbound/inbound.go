@@ -1,6 +1,6 @@
 package inbound
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"bytes"
@@ -17,28 +17,28 @@ import (
 	goreality "github.com/metacubex/utls"
 	"github.com/pires/go-proxyproto"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/common/signal"
-	"github.com/v2fly/v2ray-core/v5/common/task"
-	feature_inbound "github.com/v2fly/v2ray-core/v5/features/inbound"
-	"github.com/v2fly/v2ray-core/v5/features/policy"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
-	"github.com/v2fly/v2ray-core/v5/proxy/vless"
-	"github.com/v2fly/v2ray-core/v5/proxy/vless/encoding"
-	"github.com/v2fly/v2ray-core/v5/proxy/vless/encryption"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/httpupgrade"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/reality"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/websocket"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal"
+	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	feature_inbound "github.com/exclavenetwork/exclave-core/v5/features/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vless"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encoding"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encryption"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/httpupgrade"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 func init() {

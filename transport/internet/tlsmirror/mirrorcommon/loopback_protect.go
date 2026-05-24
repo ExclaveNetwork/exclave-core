@@ -3,7 +3,7 @@ package mirrorcommon
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror"
 )
 
 func SetLoopbackProtectionFlagForContext(ctx context.Context, enrollmentID []byte) context.Context {

@@ -6,13 +6,13 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/environment"
-	"github.com/v2fly/v2ray-core/v5/common/environment/envctx"
-	v2net "github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/request"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
+	v2net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/request"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror"
 )
 
 func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {

@@ -3,15 +3,15 @@ package v4_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/testassist"
-	v4 "github.com/v2fly/v2ray-core/v5/infra/conf/v4"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/testassist"
+	v4 "github.com/exclavenetwork/exclave-core/v5/infra/conf/v4"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/outbound"
 )
 
 func TestVMessOutbound(t *testing.T) {

@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.ipc;
-option csharp_namespace = "V2Ray.Core.Proxy.IPC";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/ipc";
-option java_package = "com.v2ray.core.proxy.ipc";
+package exclave.core.proxy.ipc;
+option csharp_namespace = "Exclave.Core.Proxy.IPC";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/ipc";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.ipc";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
 
 message ServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "ipc";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "ipc";
   int32 level = 1;
 }

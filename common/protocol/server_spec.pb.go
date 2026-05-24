@@ -1,7 +1,7 @@
 package protocol
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -80,12 +80,12 @@ var File_common_protocol_server_spec_proto protoreflect.FileDescriptor
 
 const file_common_protocol_server_spec_proto_rawDesc = "" +
 	"\n" +
-	"!common/protocol/server_spec.proto\x12\x1av2ray.core.common.protocol\x1a\x18common/net/address.proto\x1a\x1acommon/protocol/user.proto\"\x97\x01\n" +
-	"\x0eServerEndpoint\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\rR\x04port\x124\n" +
-	"\x04user\x18\x03 \x03(\v2 .v2ray.core.common.protocol.UserR\x04userBo\n" +
-	"\x1ecom.v2ray.core.common.protocolP\x01Z.github.com/v2fly/v2ray-core/v5/common/protocol\xaa\x02\x1aV2Ray.Core.Common.Protocolb\x06proto3"
+	"!common/protocol/server_spec.proto\x12\x1cexclave.core.common.protocol\x1a\x18common/net/address.proto\x1a\x1acommon/protocol/user.proto\"\x9b\x01\n" +
+	"\x0eServerEndpoint\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x04port\x18\x02 \x01(\rR\x04port\x126\n" +
+	"\x04user\x18\x03 \x03(\v2\".exclave.core.common.protocol.UserR\x04userB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.common.protocolP\x01Z9github.com/exclavenetwork/exclave-core/v5/common/protocol\xaa\x02\x1cExclave.Core.Common.Protocolb\x06proto3"
 
 var (
 	file_common_protocol_server_spec_proto_rawDescOnce sync.Once
@@ -101,13 +101,13 @@ func file_common_protocol_server_spec_proto_rawDescGZIP() []byte {
 
 var file_common_protocol_server_spec_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_protocol_server_spec_proto_goTypes = []any{
-	(*ServerEndpoint)(nil), // 0: v2ray.core.common.protocol.ServerEndpoint
-	(*net.IPOrDomain)(nil), // 1: v2ray.core.common.net.IPOrDomain
-	(*User)(nil),           // 2: v2ray.core.common.protocol.User
+	(*ServerEndpoint)(nil), // 0: exclave.core.common.protocol.ServerEndpoint
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
+	(*User)(nil),           // 2: exclave.core.common.protocol.User
 }
 var file_common_protocol_server_spec_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.common.protocol.ServerEndpoint.address:type_name -> v2ray.core.common.net.IPOrDomain
-	2, // 1: v2ray.core.common.protocol.ServerEndpoint.user:type_name -> v2ray.core.common.protocol.User
+	1, // 0: exclave.core.common.protocol.ServerEndpoint.address:type_name -> exclave.core.common.net.IPOrDomain
+	2, // 1: exclave.core.common.protocol.ServerEndpoint.user:type_name -> exclave.core.common.protocol.User
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

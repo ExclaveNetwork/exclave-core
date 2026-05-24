@@ -352,7 +352,7 @@ var File_transport_internet_tlsmirror_tlstrafficgen_config_proto protoreflect.Fi
 
 const file_transport_internet_tlsmirror_tlstrafficgen_config_proto_rawDesc = "" +
 	"\n" +
-	"7transport/internet/tlsmirror/tlstrafficgen/config.proto\x125v2ray.core.transport.internet.tlsmirror.tlstrafficgen\x1a\x19google/protobuf/any.proto\"\x88\x01\n" +
+	"7transport/internet/tlsmirror/tlstrafficgen/config.proto\x127exclave.core.transport.internet.tlsmirror.tlstrafficgen\x1a\x19google/protobuf/any.proto\"\x88\x01\n" +
 	"\bTimeSpec\x12)\n" +
 	"\x10base_nanoseconds\x18\x01 \x01(\x04R\x0fbaseNanoseconds\x12Q\n" +
 	"%uniform_random_multiplier_nanoseconds\x18\x02 \x01(\x04R\"uniformRandomMultiplierNanoseconds\"J\n" +
@@ -362,23 +362,23 @@ const file_transport_internet_tlsmirror_tlstrafficgen_config_proto_rawDesc = "" 
 	"\x06values\x18\x03 \x03(\tR\x06values\"P\n" +
 	"\x11TransferCandidate\x12\x16\n" +
 	"\x06weight\x18\x01 \x01(\x05R\x06weight\x12#\n" +
-	"\rgoto_location\x18\x02 \x01(\x03R\fgotoLocation\"\xa3\x04\n" +
+	"\rgoto_location\x18\x02 \x01(\x03R\fgotoLocation\"\xa9\x04\n" +
 	"\x04Step\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
 	"\x04host\x18\b \x01(\tR\x04host\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x16\n" +
-	"\x06method\x18\x03 \x01(\tR\x06method\x12e\n" +
-	"\tnext_step\x18\x06 \x03(\v2H.v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidateR\bnextStep\x12)\n" +
-	"\x10connection_ready\x18\a \x01(\bR\x0fconnectionReady\x12W\n" +
-	"\aheaders\x18\t \x03(\v2=.v2ray.core.transport.internet.tlsmirror.tlstrafficgen.HeaderR\aheaders\x124\n" +
+	"\x06method\x18\x03 \x01(\tR\x06method\x12g\n" +
+	"\tnext_step\x18\x06 \x03(\v2J.exclave.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidateR\bnextStep\x12)\n" +
+	"\x10connection_ready\x18\a \x01(\bR\x0fconnectionReady\x12Y\n" +
+	"\aheaders\x18\t \x03(\v2?.exclave.core.transport.internet.tlsmirror.tlstrafficgen.HeaderR\aheaders\x124\n" +
 	"\x16connection_recall_exit\x18\n" +
-	" \x01(\bR\x14connectionRecallExit\x12\\\n" +
-	"\twait_time\x18\v \x01(\v2?.v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpecR\bwaitTime\x12H\n" +
-	"\"h2_do_not_wait_for_download_finish\x18\f \x01(\bR\x1ch2DoNotWaitForDownloadFinish\"\x9e\x01\n" +
-	"\x06Config\x12Q\n" +
-	"\x05steps\x18\x01 \x03(\v2;.v2ray.core.transport.internet.tlsmirror.tlstrafficgen.StepR\x05steps\x12A\n" +
-	"\x11security_settings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettingsB\xc0\x01\n" +
-	"9com.v2ray.core.transport.internet.tlsmirror.tlstrafficgenP\x01ZIgithub.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror/tlstrafficgen\xaa\x025V2Ray.Core.Transport.Internet.Tlsmirror.Tlstrafficgenb\x06proto3"
+	" \x01(\bR\x14connectionRecallExit\x12^\n" +
+	"\twait_time\x18\v \x01(\v2A.exclave.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpecR\bwaitTime\x12H\n" +
+	"\"h2_do_not_wait_for_download_finish\x18\f \x01(\bR\x1ch2DoNotWaitForDownloadFinish\"\xa0\x01\n" +
+	"\x06Config\x12S\n" +
+	"\x05steps\x18\x01 \x03(\v2=.exclave.core.transport.internet.tlsmirror.tlstrafficgen.StepR\x05steps\x12A\n" +
+	"\x11security_settings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettingsB\xe5\x01\n" +
+	"Qcom.github.exclavenetwork.exclave.core.transport.internet.tlsmirror.tlstrafficgenP\x01ZTgithub.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror/tlstrafficgen\xaa\x027Exclave.Core.Transport.Internet.Tlsmirror.Tlstrafficgenb\x06proto3"
 
 var (
 	file_transport_internet_tlsmirror_tlstrafficgen_config_proto_rawDescOnce sync.Once
@@ -394,19 +394,19 @@ func file_transport_internet_tlsmirror_tlstrafficgen_config_proto_rawDescGZIP() 
 
 var file_transport_internet_tlsmirror_tlstrafficgen_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_transport_internet_tlsmirror_tlstrafficgen_config_proto_goTypes = []any{
-	(*TimeSpec)(nil),          // 0: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpec
-	(*Header)(nil),            // 1: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Header
-	(*TransferCandidate)(nil), // 2: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidate
-	(*Step)(nil),              // 3: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Step
-	(*Config)(nil),            // 4: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Config
+	(*TimeSpec)(nil),          // 0: exclave.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpec
+	(*Header)(nil),            // 1: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Header
+	(*TransferCandidate)(nil), // 2: exclave.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidate
+	(*Step)(nil),              // 3: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Step
+	(*Config)(nil),            // 4: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Config
 	(*anypb.Any)(nil),         // 5: google.protobuf.Any
 }
 var file_transport_internet_tlsmirror_tlstrafficgen_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Step.next_step:type_name -> v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidate
-	1, // 1: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Step.headers:type_name -> v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Header
-	0, // 2: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Step.wait_time:type_name -> v2ray.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpec
-	3, // 3: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Config.steps:type_name -> v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Step
-	5, // 4: v2ray.core.transport.internet.tlsmirror.tlstrafficgen.Config.security_settings:type_name -> google.protobuf.Any
+	2, // 0: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Step.next_step:type_name -> exclave.core.transport.internet.tlsmirror.tlstrafficgen.TransferCandidate
+	1, // 1: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Step.headers:type_name -> exclave.core.transport.internet.tlsmirror.tlstrafficgen.Header
+	0, // 2: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Step.wait_time:type_name -> exclave.core.transport.internet.tlsmirror.tlstrafficgen.TimeSpec
+	3, // 3: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Config.steps:type_name -> exclave.core.transport.internet.tlsmirror.tlstrafficgen.Step
+	5, // 4: exclave.core.transport.internet.tlsmirror.tlstrafficgen.Config.security_settings:type_name -> google.protobuf.Any
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

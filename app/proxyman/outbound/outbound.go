@@ -1,18 +1,18 @@
 package outbound
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"context"
 	"strings"
 	"sync"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/outbound"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
 )
 
 // Manager is to manage all outbound handlers.

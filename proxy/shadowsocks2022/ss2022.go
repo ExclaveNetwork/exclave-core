@@ -6,12 +6,12 @@ import (
 
 	"github.com/v2fly/struc"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 )
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 type KeyDerivation interface {
 	GetSessionSubKey(effectivePsk, Salt []byte, OutKey []byte) error

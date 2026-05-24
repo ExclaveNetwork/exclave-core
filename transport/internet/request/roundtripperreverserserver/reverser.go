@@ -4,15 +4,15 @@ import (
 	"context"
 	"net"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/environment"
-	"github.com/v2fly/v2ray-core/v5/common/environment/envctx"
-	v2net "github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/request"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
+	v2net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/request"
 )
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 func NewReverser(ctx context.Context, config *Config) (*Reverser, error) {
 	reverser := &Reverser{

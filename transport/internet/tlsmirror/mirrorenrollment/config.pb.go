@@ -113,7 +113,7 @@ var File_transport_internet_tlsmirror_mirrorenrollment_config_proto protoreflect
 
 const file_transport_internet_tlsmirror_mirrorenrollment_config_proto_rawDesc = "" +
 	"\n" +
-	":transport/internet/tlsmirror/mirrorenrollment/config.proto\x128v2ray.core.transport.internet.tlsmirror.mirrorenrollment\x1a\x19google/protobuf/any.proto\"\xba\x03\n" +
+	":transport/internet/tlsmirror/mirrorenrollment/config.proto\x12:exclave.core.transport.internet.tlsmirror.mirrorenrollment\x1a\x19google/protobuf/any.proto\"\xba\x03\n" +
 	"\x06Config\x128\n" +
 	"\x18primary_ingress_outbound\x18\x01 \x01(\tR\x16primaryIngressOutbound\x126\n" +
 	"\x17primary_egress_outbound\x18\x02 \x01(\tR\x15primaryEgressOutbound\x122\n" +
@@ -121,8 +121,8 @@ const file_transport_internet_tlsmirror_mirrorenrollment_config_proto_rawDesc = 
 	"\x14bootstrap_egress_url\x18\x04 \x03(\tR\x12bootstrapEgressUrl\x12N\n" +
 	"\x18bootstrap_ingress_config\x18\x05 \x03(\v2\x14.google.protobuf.AnyR\x16bootstrapIngressConfig\x12L\n" +
 	"\x17bootstrap_egress_config\x18\x06 \x03(\v2\x14.google.protobuf.AnyR\x15bootstrapEgressConfig\x12:\n" +
-	"\x19bootstrap_egress_outbound\x18\a \x01(\tR\x17bootstrapEgressOutboundB\xc9\x01\n" +
-	"<com.v2ray.core.transport.internet.tlsmirror.mirrorenrollmentP\x01ZLgithub.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror/mirrorenrollment\xaa\x028V2Ray.Core.Transport.Internet.Tlsmirror.MirrorEnrollmentb\x06proto3"
+	"\x19bootstrap_egress_outbound\x18\a \x01(\tR\x17bootstrapEgressOutboundB\xee\x01\n" +
+	"Tcom.github.exclavenetwork.exclave.core.transport.internet.tlsmirror.mirrorenrollmentP\x01ZWgithub.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror/mirrorenrollment\xaa\x02:Exclave.Core.Transport.Internet.Tlsmirror.MirrorEnrollmentb\x06proto3"
 
 var (
 	file_transport_internet_tlsmirror_mirrorenrollment_config_proto_rawDescOnce sync.Once
@@ -138,12 +138,12 @@ func file_transport_internet_tlsmirror_mirrorenrollment_config_proto_rawDescGZIP
 
 var file_transport_internet_tlsmirror_mirrorenrollment_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_tlsmirror_mirrorenrollment_config_proto_goTypes = []any{
-	(*Config)(nil),    // 0: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.Config
+	(*Config)(nil),    // 0: exclave.core.transport.internet.tlsmirror.mirrorenrollment.Config
 	(*anypb.Any)(nil), // 1: google.protobuf.Any
 }
 var file_transport_internet_tlsmirror_mirrorenrollment_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.Config.bootstrap_ingress_config:type_name -> google.protobuf.Any
-	1, // 1: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.Config.bootstrap_egress_config:type_name -> google.protobuf.Any
+	1, // 0: exclave.core.transport.internet.tlsmirror.mirrorenrollment.Config.bootstrap_ingress_config:type_name -> google.protobuf.Any
+	1, // 1: exclave.core.transport.internet.tlsmirror.mirrorenrollment.Config.bootstrap_egress_config:type_name -> google.protobuf.Any
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

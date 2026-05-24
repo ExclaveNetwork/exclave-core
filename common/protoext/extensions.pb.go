@@ -177,7 +177,7 @@ var file_common_protoext_extensions_proto_extTypes = []protoimpl.ExtensionInfo{
 		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
 		ExtensionType: (*MessageOpt)(nil),
 		Field:         50000,
-		Name:          "v2ray.core.common.protoext.message_opt",
+		Name:          "exclave.core.common.protoext.message_opt",
 		Tag:           "bytes,50000,opt,name=message_opt",
 		Filename:      "common/protoext/extensions.proto",
 	},
@@ -185,7 +185,7 @@ var file_common_protoext_extensions_proto_extTypes = []protoimpl.ExtensionInfo{
 		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
 		ExtensionType: (*FieldOpt)(nil),
 		Field:         50000,
-		Name:          "v2ray.core.common.protoext.field_opt",
+		Name:          "exclave.core.common.protoext.field_opt",
 		Tag:           "bytes,50000,opt,name=field_opt",
 		Filename:      "common/protoext/extensions.proto",
 	},
@@ -193,13 +193,13 @@ var file_common_protoext_extensions_proto_extTypes = []protoimpl.ExtensionInfo{
 
 // Extension fields to descriptorpb.MessageOptions.
 var (
-	// optional v2ray.core.common.protoext.MessageOpt message_opt = 50000;
+	// optional exclave.core.common.protoext.MessageOpt message_opt = 50000;
 	E_MessageOpt = &file_common_protoext_extensions_proto_extTypes[0]
 )
 
 // Extension fields to descriptorpb.FieldOptions.
 var (
-	// optional v2ray.core.common.protoext.FieldOpt field_opt = 50000;
+	// optional exclave.core.common.protoext.FieldOpt field_opt = 50000;
 	E_FieldOpt = &file_common_protoext_extensions_proto_extTypes[1]
 )
 
@@ -207,7 +207,7 @@ var File_common_protoext_extensions_proto protoreflect.FileDescriptor
 
 const file_common_protoext_extensions_proto_rawDesc = "" +
 	"\n" +
-	" common/protoext/extensions.proto\x12\x1av2ray.core.common.protoext\x1a google/protobuf/descriptor.proto\"y\n" +
+	" common/protoext/extensions.proto\x12\x1cexclave.core.common.protoext\x1a google/protobuf/descriptor.proto\"y\n" +
 	"\n" +
 	"MessageOpt\x12\x12\n" +
 	"\x04type\x18\x01 \x03(\tR\x04type\x12\x1d\n" +
@@ -221,11 +221,11 @@ const file_common_protoext_extensions_proto_rawDesc = "" +
 	"\x1bconvert_time_read_file_into\x18\x04 \x01(\tR\x17convertTimeReadFileInto\x12\x1c\n" +
 	"\tforbidden\x18\x05 \x01(\bR\tforbidden\x12A\n" +
 	"\x1dconvert_time_resource_loading\x18\x06 \x01(\tR\x1aconvertTimeResourceLoading\x121\n" +
-	"\x15convert_time_parse_ip\x18\a \x01(\tR\x12convertTimeParseIp:j\n" +
-	"\vmessage_opt\x12\x1f.google.protobuf.MessageOptions\x18І\x03 \x01(\v2&.v2ray.core.common.protoext.MessageOptR\n" +
-	"messageOpt:b\n" +
-	"\tfield_opt\x12\x1d.google.protobuf.FieldOptions\x18І\x03 \x01(\v2$.v2ray.core.common.protoext.FieldOptR\bfieldOptBo\n" +
-	"\x1ecom.v2ray.core.common.protoextP\x01Z.github.com/v2fly/v2ray-core/v5/common/protoext\xaa\x02\x1aV2Ray.Core.Common.ProtoExtb\x06proto3"
+	"\x15convert_time_parse_ip\x18\a \x01(\tR\x12convertTimeParseIp:l\n" +
+	"\vmessage_opt\x12\x1f.google.protobuf.MessageOptions\x18І\x03 \x01(\v2(.exclave.core.common.protoext.MessageOptR\n" +
+	"messageOpt:d\n" +
+	"\tfield_opt\x12\x1d.google.protobuf.FieldOptions\x18І\x03 \x01(\v2&.exclave.core.common.protoext.FieldOptR\bfieldOptB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.common.protoextP\x01Z9github.com/exclavenetwork/exclave-core/v5/common/protoext\xaa\x02\x1cExclave.Core.Common.ProtoExtb\x06proto3"
 
 var (
 	file_common_protoext_extensions_proto_rawDescOnce sync.Once
@@ -241,16 +241,16 @@ func file_common_protoext_extensions_proto_rawDescGZIP() []byte {
 
 var file_common_protoext_extensions_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_common_protoext_extensions_proto_goTypes = []any{
-	(*MessageOpt)(nil),                  // 0: v2ray.core.common.protoext.MessageOpt
-	(*FieldOpt)(nil),                    // 1: v2ray.core.common.protoext.FieldOpt
+	(*MessageOpt)(nil),                  // 0: exclave.core.common.protoext.MessageOpt
+	(*FieldOpt)(nil),                    // 1: exclave.core.common.protoext.FieldOpt
 	(*descriptorpb.MessageOptions)(nil), // 2: google.protobuf.MessageOptions
 	(*descriptorpb.FieldOptions)(nil),   // 3: google.protobuf.FieldOptions
 }
 var file_common_protoext_extensions_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.common.protoext.message_opt:extendee -> google.protobuf.MessageOptions
-	3, // 1: v2ray.core.common.protoext.field_opt:extendee -> google.protobuf.FieldOptions
-	0, // 2: v2ray.core.common.protoext.message_opt:type_name -> v2ray.core.common.protoext.MessageOpt
-	1, // 3: v2ray.core.common.protoext.field_opt:type_name -> v2ray.core.common.protoext.FieldOpt
+	2, // 0: exclave.core.common.protoext.message_opt:extendee -> google.protobuf.MessageOptions
+	3, // 1: exclave.core.common.protoext.field_opt:extendee -> google.protobuf.FieldOptions
+	0, // 2: exclave.core.common.protoext.message_opt:type_name -> exclave.core.common.protoext.MessageOpt
+	1, // 3: exclave.core.common.protoext.field_opt:type_name -> exclave.core.common.protoext.FieldOpt
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	2, // [2:4] is the sub-list for extension type_name

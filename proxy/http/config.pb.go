@@ -1,7 +1,7 @@
 package http
 
 import (
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -205,27 +205,27 @@ var File_proxy_http_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http_config_proto_rawDesc = "" +
 	"\n" +
-	"\x17proxy/http/config.proto\x12\x15v2ray.core.proxy.http\x1a!common/protocol/server_spec.proto\"\xc4\x01\n" +
+	"\x17proxy/http/config.proto\x12\x17exclave.core.proxy.http\x1a!common/protocol/server_spec.proto\"\xc6\x01\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12E\n" +
-	"\aheaders\x18\x03 \x03(\v2+.v2ray.core.proxy.http.Account.HeadersEntryR\aheaders\x1a:\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12G\n" +
+	"\aheaders\x18\x03 \x03(\v2-.exclave.core.proxy.http.Account.HeadersEntryR\aheaders\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x84\x02\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x86\x02\n" +
 	"\fServerConfig\x12\x1c\n" +
-	"\atimeout\x18\x01 \x01(\rB\x02\x18\x01R\atimeout\x12M\n" +
-	"\baccounts\x18\x02 \x03(\v21.v2ray.core.proxy.http.ServerConfig.AccountsEntryR\baccounts\x12+\n" +
+	"\atimeout\x18\x01 \x01(\rB\x02\x18\x01R\atimeout\x12O\n" +
+	"\baccounts\x18\x02 \x03(\v23.exclave.core.proxy.http.ServerConfig.AccountsEntryR\baccounts\x12+\n" +
 	"\x11allow_transparent\x18\x03 \x01(\bR\x10allowTransparent\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x86\x01\n" +
-	"\fClientConfig\x12B\n" +
-	"\x06server\x18\x01 \x03(\v2*.v2ray.core.common.protocol.ServerEndpointR\x06server\x122\n" +
-	"\x16h1_skip_wait_for_reply\x18\x02 \x01(\bR\x12h1SkipWaitForReplyB`\n" +
-	"\x19com.v2ray.core.proxy.httpP\x01Z)github.com/v2fly/v2ray-core/v5/proxy/http\xaa\x02\x15V2Ray.Core.Proxy.Httpb\x06proto3"
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x88\x01\n" +
+	"\fClientConfig\x12D\n" +
+	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x122\n" +
+	"\x16h1_skip_wait_for_reply\x18\x02 \x01(\bR\x12h1SkipWaitForReplyB\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.proxy.httpP\x01Z4github.com/exclavenetwork/exclave-core/v5/proxy/http\xaa\x02\x17Exclave.Core.Proxy.Httpb\x06proto3"
 
 var (
 	file_proxy_http_config_proto_rawDescOnce sync.Once
@@ -241,17 +241,17 @@ func file_proxy_http_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_http_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_proxy_http_config_proto_goTypes = []any{
-	(*Account)(nil),                 // 0: v2ray.core.proxy.http.Account
-	(*ServerConfig)(nil),            // 1: v2ray.core.proxy.http.ServerConfig
-	(*ClientConfig)(nil),            // 2: v2ray.core.proxy.http.ClientConfig
-	nil,                             // 3: v2ray.core.proxy.http.Account.HeadersEntry
-	nil,                             // 4: v2ray.core.proxy.http.ServerConfig.AccountsEntry
-	(*protocol.ServerEndpoint)(nil), // 5: v2ray.core.common.protocol.ServerEndpoint
+	(*Account)(nil),                 // 0: exclave.core.proxy.http.Account
+	(*ServerConfig)(nil),            // 1: exclave.core.proxy.http.ServerConfig
+	(*ClientConfig)(nil),            // 2: exclave.core.proxy.http.ClientConfig
+	nil,                             // 3: exclave.core.proxy.http.Account.HeadersEntry
+	nil,                             // 4: exclave.core.proxy.http.ServerConfig.AccountsEntry
+	(*protocol.ServerEndpoint)(nil), // 5: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_http_config_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.proxy.http.Account.headers:type_name -> v2ray.core.proxy.http.Account.HeadersEntry
-	4, // 1: v2ray.core.proxy.http.ServerConfig.accounts:type_name -> v2ray.core.proxy.http.ServerConfig.AccountsEntry
-	5, // 2: v2ray.core.proxy.http.ClientConfig.server:type_name -> v2ray.core.common.protocol.ServerEndpoint
+	3, // 0: exclave.core.proxy.http.Account.headers:type_name -> exclave.core.proxy.http.Account.HeadersEntry
+	4, // 1: exclave.core.proxy.http.ServerConfig.accounts:type_name -> exclave.core.proxy.http.ServerConfig.AccountsEntry
+	5, // 2: exclave.core.proxy.http.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

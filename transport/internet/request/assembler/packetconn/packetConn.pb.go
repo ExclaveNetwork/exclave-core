@@ -1,7 +1,7 @@
 package packetconn
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -181,7 +181,7 @@ var File_transport_internet_request_assembler_packetconn_packetConn_proto protor
 
 const file_transport_internet_request_assembler_packetconn_packetConn_proto_rawDesc = "" +
 	"\n" +
-	"@transport/internet/request/assembler/packetconn/packetConn.proto\x12:v2ray.core.transport.internet.request.assembler.packetconn\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\"\xe4\x02\n" +
+	"@transport/internet/request/assembler/packetconn/packetConn.proto\x12<exclave.core.transport.internet.request.assembler.packetconn\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\"\xe4\x02\n" +
 	"\fClientConfig\x12V\n" +
 	"\x1cunderlying_transport_setting\x18\x01 \x01(\v2\x14.google.protobuf.AnyR\x1aunderlyingTransportSetting\x12:\n" +
 	"\x19underlying_transport_name\x18\x02 \x01(\tR\x17underlyingTransportName\x12&\n" +
@@ -198,8 +198,8 @@ const file_transport_internet_request_assembler_packetconn_packetConn_proto_rawD
 	"!max_simultaneous_write_connection\x18\x05 \x01(\x05R\x1emaxSimultaneousWriteConnection\x122\n" +
 	"\x15packet_writing_buffer\x18\x06 \x01(\x05R\x13packetWritingBuffer:4\x82\xb5\x180\n" +
 	"\"transport.request.assembler.server\x12\n" +
-	"packetconnB\xcf\x01\n" +
-	">com.v2ray.core.transport.internet.request.assembler.packetconnP\x01ZNgithub.com/v2fly/v2ray-core/v5/transport/internet/request/assembler/packetconn\xaa\x02:V2Ray.Core.Transport.Internet.Request.Assembler.Packetconnb\x06proto3"
+	"packetconnB\xf4\x01\n" +
+	"Vcom.github.exclavenetwork.exclave.core.transport.internet.request.assembler.packetconnP\x01ZYgithub.com/exclavenetwork/exclave-core/v5/transport/internet/request/assembler/packetconn\xaa\x02<Exclave.Core.Transport.Internet.Request.Assembler.Packetconnb\x06proto3"
 
 var (
 	file_transport_internet_request_assembler_packetconn_packetConn_proto_rawDescOnce sync.Once
@@ -215,13 +215,13 @@ func file_transport_internet_request_assembler_packetconn_packetConn_proto_rawDe
 
 var file_transport_internet_request_assembler_packetconn_packetConn_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_transport_internet_request_assembler_packetconn_packetConn_proto_goTypes = []any{
-	(*ClientConfig)(nil), // 0: v2ray.core.transport.internet.request.assembler.packetconn.ClientConfig
-	(*ServerConfig)(nil), // 1: v2ray.core.transport.internet.request.assembler.packetconn.ServerConfig
+	(*ClientConfig)(nil), // 0: exclave.core.transport.internet.request.assembler.packetconn.ClientConfig
+	(*ServerConfig)(nil), // 1: exclave.core.transport.internet.request.assembler.packetconn.ServerConfig
 	(*anypb.Any)(nil),    // 2: google.protobuf.Any
 }
 var file_transport_internet_request_assembler_packetconn_packetConn_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.transport.internet.request.assembler.packetconn.ClientConfig.underlying_transport_setting:type_name -> google.protobuf.Any
-	2, // 1: v2ray.core.transport.internet.request.assembler.packetconn.ServerConfig.underlying_transport_setting:type_name -> google.protobuf.Any
+	2, // 0: exclave.core.transport.internet.request.assembler.packetconn.ClientConfig.underlying_transport_setting:type_name -> google.protobuf.Any
+	2, // 1: exclave.core.transport.internet.request.assembler.packetconn.ServerConfig.underlying_transport_setting:type_name -> google.protobuf.Any
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

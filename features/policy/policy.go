@@ -5,8 +5,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common/platform"
-	"github.com/v2fly/v2ray-core/v5/features"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/features"
 )
 
 // Timeout contains limits for connection timeout.
@@ -84,12 +84,9 @@ func ManagerType() interface{} {
 var defaultBufferSize int32
 
 func init() {
-	const key = "v2ray.ray.buffer.size"
+	const key = "exclave.ray.buffer.size"
 	const defaultValue = -17
-	size := platform.EnvFlag{
-		Name:    key,
-		AltName: platform.NormalizeEnvName(key),
-	}.GetValueAsInt(defaultValue)
+	size := platform.NewEnvFlag(key).GetValueAsInt(defaultValue)
 
 	switch size {
 	case 0:

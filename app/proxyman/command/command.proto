@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.app.proxyman.command;
-option csharp_namespace = "V2Ray.Core.App.Proxyman.Command";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/proxyman/command";
-option java_package = "com.v2ray.core.app.proxyman.command";
+package exclave.core.app.proxyman.command;
+option csharp_namespace = "Exclave.Core.App.Proxyman.Command";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/proxyman/command";
+option java_package = "com.github.exclavenetwork.exclave.core.app.proxyman.command";
 option java_multiple_files = true;
 
 import "common/protocol/user.proto";
@@ -12,7 +12,7 @@ import "common/protoext/extensions.proto";
 import "config.proto";
 
 message AddUserOperation {
-  v2ray.core.common.protocol.User user = 1;
+  exclave.core.common.protocol.User user = 1;
 }
 
 message RemoveUserOperation {
@@ -72,6 +72,6 @@ service HandlerService {
 }
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "grpcservice";
-  option (v2ray.core.common.protoext.message_opt).short_name = "proxyman";
+  option (exclave.core.common.protoext.message_opt).type = "grpcservice";
+  option (exclave.core.common.protoext.message_opt).short_name = "proxyman";
 }

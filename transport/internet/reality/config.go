@@ -6,7 +6,7 @@ import (
 
 	utls "github.com/metacubex/utls"
 
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
 func (c *Config) GetREALITYConfig() *utls.RealityConfig {

@@ -3,8 +3,8 @@ package quic
 import (
 	"sync"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/bytespool"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/bytespool"
 )
 
 var pool *sync.Pool

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	. "github.com/v2fly/v2ray-core/v5/transport/internet/splithttp"
+	. "github.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp"
 )
 
 type fakeRoundTripper struct{}

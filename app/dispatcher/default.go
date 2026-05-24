@@ -1,6 +1,6 @@
 package dispatcher
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"context"
@@ -9,21 +9,21 @@ import (
 	"sync"
 	"time"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	dns_proto "github.com/v2fly/v2ray-core/v5/common/protocol/dns"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/outbound"
-	"github.com/v2fly/v2ray-core/v5/features/policy"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
-	routing_session "github.com/v2fly/v2ray-core/v5/features/routing/session"
-	"github.com/v2fly/v2ray-core/v5/features/stats"
-	"github.com/v2fly/v2ray-core/v5/transport"
-	"github.com/v2fly/v2ray-core/v5/transport/pipe"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	dns_proto "github.com/exclavenetwork/exclave-core/v5/common/protocol/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	routing_session "github.com/exclavenetwork/exclave-core/v5/features/routing/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/transport"
+	"github.com/exclavenetwork/exclave-core/v5/transport/pipe"
 )
 
 var errSniffingTimeout = newError("timeout on sniffing")

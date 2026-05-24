@@ -55,9 +55,9 @@ var File_transport_internet_headers_wireguard_config_proto protoreflect.FileDesc
 
 const file_transport_internet_headers_wireguard_config_proto_rawDesc = "" +
 	"\n" +
-	"1transport/internet/headers/wireguard/config.proto\x12/v2ray.core.transport.internet.headers.wireguard\"\x11\n" +
-	"\x0fWireguardConfigB\xae\x01\n" +
-	"3com.v2ray.core.transport.internet.headers.wireguardP\x01ZCgithub.com/v2fly/v2ray-core/v5/transport/internet/headers/wireguard\xaa\x02/V2Ray.Core.Transport.Internet.Headers.Wireguardb\x06proto3"
+	"1transport/internet/headers/wireguard/config.proto\x121exclave.core.transport.internet.headers.wireguard\"\x11\n" +
+	"\x0fWireguardConfigB\xd3\x01\n" +
+	"Kcom.github.exclavenetwork.exclave.core.transport.internet.headers.wireguardP\x01ZNgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/wireguard\xaa\x021Exclave.Core.Transport.Internet.Headers.Wireguardb\x06proto3"
 
 var (
 	file_transport_internet_headers_wireguard_config_proto_rawDescOnce sync.Once
@@ -73,7 +73,7 @@ func file_transport_internet_headers_wireguard_config_proto_rawDescGZIP() []byte
 
 var file_transport_internet_headers_wireguard_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_headers_wireguard_config_proto_goTypes = []any{
-	(*WireguardConfig)(nil), // 0: v2ray.core.transport.internet.headers.wireguard.WireguardConfig
+	(*WireguardConfig)(nil), // 0: exclave.core.transport.internet.headers.wireguard.WireguardConfig
 }
 var file_transport_internet_headers_wireguard_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

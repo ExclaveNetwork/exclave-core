@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.app.proxyman;
-option csharp_namespace = "V2Ray.Core.App.Proxyman";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/proxyman";
-option java_package = "com.v2ray.core.app.proxyman";
+package exclave.core.app.proxyman;
+option csharp_namespace = "Exclave.Core.App.Proxyman";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/proxyman";
+option java_package = "com.github.exclavenetwork.exclave.core.app.proxyman";
 option java_multiple_files = true;
 
 import "common/net/address.proto";
@@ -67,11 +67,11 @@ message SniffingConfig {
 
 message ReceiverConfig {
   // PortRange specifies the ports which the Receiver should listen on.
-  v2ray.core.common.net.PortRange port_range = 1;
+  exclave.core.common.net.PortRange port_range = 1;
   // Listen specifies the IP address that the Receiver should listen on.
-  v2ray.core.common.net.IPOrDomain listen = 2;
+  exclave.core.common.net.IPOrDomain listen = 2;
   AllocationStrategy allocation_strategy = 3;
-  v2ray.core.transport.internet.StreamConfig stream_settings = 4;
+  exclave.core.transport.internet.StreamConfig stream_settings = 4;
   bool receive_original_destination = 5;
   reserved 6;
   // Override domains for the given protocol.
@@ -99,9 +99,9 @@ message SenderConfig {
   }
 
   // Send traffic through the given IP. Only IP is allowed.
-  v2ray.core.common.net.IPOrDomain via = 1;
-  v2ray.core.transport.internet.StreamConfig stream_settings = 2;
-  v2ray.core.transport.internet.ProxyConfig proxy_settings = 3;
+  exclave.core.common.net.IPOrDomain via = 1;
+  exclave.core.transport.internet.StreamConfig stream_settings = 2;
+  exclave.core.transport.internet.ProxyConfig proxy_settings = 3;
   MultiplexingConfig multiplex_settings = 4;
   DomainStrategy domain_strategy = 5;
   DomainStrategy dial_domain_strategy = 6;
@@ -113,7 +113,7 @@ message MultiplexingConfig {
   bool enabled = 1;
   // Max number of concurrent connections that one Mux connection can handle.
   uint32 concurrency = 2;
-  v2ray.core.net.packetaddr.PacketAddrType packet_encoding = 3;
+  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 3;
 }
 
 message SingMultiplexConfig {

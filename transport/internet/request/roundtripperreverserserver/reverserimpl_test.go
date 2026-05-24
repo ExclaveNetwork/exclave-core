@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/transport/internet/request"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/request"
 )
 
 // helper to make a byte slice of given length filled with a pattern

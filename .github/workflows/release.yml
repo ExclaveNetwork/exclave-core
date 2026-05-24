@@ -130,7 +130,7 @@ jobs:
           go-version: ~1.26
           cache-dependency-path: ./go.sum
 
-      - name: Build V2Ray
+      - name: Build Exclave-core
         run: |
           mkdir -p build_assets
           EXTRA_ARG=""
@@ -144,13 +144,13 @@ jobs:
             fi
               ;;
           esac
-          go build $EXTRA_ARG -v -o build_assets/v2ray -trimpath -ldflags "-s -w -buildid=" ./main
+          go build $EXTRA_ARG -v -o build_assets/exclave-core -trimpath -ldflags "-s -w -buildid=" ./main
 
-      - name: Rename Windows V2Ray
+      - name: Rename Windows Exclave-core
         if: matrix.goos == 'windows'
         run: |
           cd ./build_assets || exit 1
-          mv v2ray v2ray.exe
+          mv exclave-core exclave-core.exe
 
       - name: Download geo files
         run: |
@@ -168,9 +168,9 @@ jobs:
       - name: Create ZIP archive
         run: |
           pushd build_assets || exit 1
-          zip -9vr ../v2ray-$ASSET_NAME.zip .
+          zip -9vr ../exclave-core-$ASSET_NAME.zip .
           popd || exit 1
-          FILE=./v2ray-$ASSET_NAME.zip
+          FILE=./exclave-core-$ASSET_NAME.zip
           DGST=$FILE.dgst
           openssl dgst -md5    $FILE | sed 's/([^)]*)//g' >>$DGST
           openssl dgst -sha1   $FILE | sed 's/([^)]*)//g' >>$DGST
@@ -180,8 +180,8 @@ jobs:
       - name: Upload ZIP file to Artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: v2ray-${{ steps.get_filename.outputs.ASSET_NAME }}.zip
-          path: v2ray-${{ steps.get_filename.outputs.ASSET_NAME }}.zip
+          name: exclave-core-${{ steps.get_filename.outputs.ASSET_NAME }}.zip
+          path: exclave-core-${{ steps.get_filename.outputs.ASSET_NAME }}.zip
 
       - name: Upload files to GitHub release
         uses: svenstaro/upload-release-action@v2
@@ -189,6 +189,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
-          file: ./v2ray-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
+          file: ./exclave-core-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
           tag: ${{ github.ref }}
           overwrite: true

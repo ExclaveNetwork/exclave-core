@@ -7,9 +7,9 @@ import (
 
 	"google.golang.org/grpc/peer"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net/cnc"
-	"github.com/v2fly/v2ray-core/v5/common/signal/done"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net/cnc"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
 )
 
 type GunMultiService interface {

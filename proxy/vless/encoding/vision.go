@@ -11,17 +11,17 @@ import (
 	goreality "github.com/metacubex/utls"
 	"github.com/pires/go-proxyproto"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/stats"
-	"github.com/v2fly/v2ray-core/v5/proxy/vless/encryption"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/httpupgrade"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/reality"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls/utls"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/websocket"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encryption"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/httpupgrade"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 var (

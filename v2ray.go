@@ -7,22 +7,22 @@ import (
 	"runtime/debug"
 	sync "sync"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/environment"
-	"github.com/v2fly/v2ray-core/v5/common/environment/deferredpersistentstorage"
-	"github.com/v2fly/v2ray-core/v5/common/environment/filesystemimpl"
-	"github.com/v2fly/v2ray-core/v5/common/environment/systemnetworkimpl"
-	"github.com/v2fly/v2ray-core/v5/common/environment/transientstorageimpl"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/features"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
-	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
-	"github.com/v2fly/v2ray-core/v5/features/extension/storage"
-	"github.com/v2fly/v2ray-core/v5/features/inbound"
-	"github.com/v2fly/v2ray-core/v5/features/outbound"
-	"github.com/v2fly/v2ray-core/v5/features/policy"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
-	"github.com/v2fly/v2ray-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/deferredpersistentstorage"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/filesystemimpl"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/systemnetworkimpl"
+	"github.com/exclavenetwork/exclave-core/v5/common/environment/transientstorageimpl"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/features"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
+	"github.com/exclavenetwork/exclave-core/v5/features/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/features/stats"
 )
 
 // Server is an instance of V2Ray. At any time, there must be at most one Server instance running.
@@ -383,7 +383,7 @@ func (s *Instance) Start() error {
 		}
 	}
 
-	newError("V2Ray ", Version(), " started").AtWarning().WriteToLog()
+	newError("Exclave-core ", Version(), " started").AtWarning().WriteToLog()
 
 	return nil
 }

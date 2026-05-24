@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.shadowsocks_2022;
-option csharp_namespace = "V2Ray.Core.Proxy.Shadowsocks_2022";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/shadowsocks_2022";
-option java_package = "com.v2ray.core.proxy.shadowsocks_2022";
+package exclave.core.proxy.shadowsocks_2022;
+option csharp_namespace = "Exclave.Core.Proxy.Shadowsocks_2022";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks_2022";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.shadowsocks_2022";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
@@ -11,14 +11,14 @@ import "common/net/network.proto";
 import "common/net/address.proto";
 
 message ServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks-2022";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks-2022";
 
   string method = 1;
   string key = 2;
   string email = 3;
   int32 level = 4;
-  repeated v2ray.core.common.net.Network network = 5;
+  repeated exclave.core.common.net.Network network = 5;
   string plugin = 6;
   string plugin_opts = 7;
   repeated string plugin_args = 8;
@@ -26,13 +26,13 @@ message ServerConfig {
 }
 
 message MultiUserServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks-2022-multi";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks-2022-multi";
 
   string method = 1;
   string key = 2;
   repeated User users = 3;
-  repeated v2ray.core.common.net.Network network = 4;
+  repeated exclave.core.common.net.Network network = 4;
   string plugin = 5;
   string plugin_opts = 6;
   repeated string plugin_args = 7;
@@ -41,20 +41,20 @@ message MultiUserServerConfig {
 
 message RelayDestination {
   string key = 1;
-  v2ray.core.common.net.IPOrDomain address = 2;
+  exclave.core.common.net.IPOrDomain address = 2;
   uint32 port = 3;
   string email = 4;
   int32 level = 5;
 }
 
 message RelayServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks-2022-relay";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks-2022-relay";
 
   string method = 1;
   string key = 2;
   repeated RelayDestination destinations = 3;
-  repeated v2ray.core.common.net.Network network = 4;
+  repeated exclave.core.common.net.Network network = 4;
   string plugin = 5;
   string plugin_opts = 6;
   repeated string plugin_args = 7;
@@ -68,10 +68,10 @@ message User {
 }
 
 message ClientConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks-2022";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks-2022";
 
-  v2ray.core.common.net.IPOrDomain address = 1;
+  exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   string method = 3;
   string key = 4;

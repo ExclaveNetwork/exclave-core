@@ -1,7 +1,7 @@
 package loopback
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -64,12 +64,12 @@ var File_proxy_loopback_config_proto protoreflect.FileDescriptor
 
 const file_proxy_loopback_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproxy/loopback/config.proto\x12\x19v2ray.core.proxy.loopback\x1a common/protoext/extensions.proto\"C\n" +
+	"\x1bproxy/loopback/config.proto\x12\x1bexclave.core.proxy.loopback\x1a common/protoext/extensions.proto\"C\n" +
 	"\x06Config\x12\x1f\n" +
 	"\vinbound_tag\x18\x01 \x01(\tR\n" +
 	"inboundTag:\x18\x82\xb5\x18\x14\n" +
-	"\boutbound\x12\bloopbackBl\n" +
-	"\x1dcom.v2ray.core.proxy.loopbackP\x01Z-github.com/v2fly/v2ray-core/v5/proxy/loopback\xaa\x02\x19V2Ray.Core.Proxy.Loopbackb\x06proto3"
+	"\boutbound\x12\bloopbackB\x91\x01\n" +
+	"5com.github.exclavenetwork.exclave.core.proxy.loopbackP\x01Z8github.com/exclavenetwork/exclave-core/v5/proxy/loopback\xaa\x02\x1bExclave.Core.Proxy.Loopbackb\x06proto3"
 
 var (
 	file_proxy_loopback_config_proto_rawDescOnce sync.Once
@@ -85,7 +85,7 @@ func file_proxy_loopback_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_loopback_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_loopback_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.proxy.loopback.Config
+	(*Config)(nil), // 0: exclave.core.proxy.loopback.Config
 }
 var file_proxy_loopback_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

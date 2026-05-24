@@ -1,9 +1,9 @@
 package router
 
 import (
-	routercommon "github.com/v2fly/v2ray-core/v5/app/router/routercommon"
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	routercommon "github.com/exclavenetwork/exclave-core/v5/app/router/routercommon"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -158,7 +158,7 @@ type RoutingRule struct {
 	// Deprecated: Marked as deprecated in app/router/config.proto.
 	NetworkList *net.NetworkList `protobuf:"bytes,5,opt,name=network_list,json=networkList,proto3" json:"network_list,omitempty"`
 	// List of networks for matching.
-	Networks []net.Network `protobuf:"varint,13,rep,packed,name=networks,proto3,enum=v2ray.core.common.net.Network" json:"networks,omitempty"`
+	Networks []net.Network `protobuf:"varint,13,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
 	// List of CIDRs for source IP address matching.
 	//
 	// Deprecated: Marked as deprecated in app/router/config.proto.
@@ -783,7 +783,7 @@ func (x *StrategyLeastLoadConfig) GetObserverTag() string {
 
 type Config struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	DomainStrategy DomainStrategy         `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.app.router.DomainStrategy" json:"domain_strategy,omitempty"`
+	DomainStrategy DomainStrategy         `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.app.router.DomainStrategy" json:"domain_strategy,omitempty"`
 	Rule           []*RoutingRule         `protobuf:"bytes,2,rep,name=rule,proto3" json:"rule,omitempty"`
 	BalancingRule  []*BalancingRule       `protobuf:"bytes,3,rep,name=balancing_rule,json=balancingRule,proto3" json:"balancing_rule,omitempty"`
 	unknownFields  protoimpl.UnknownFields
@@ -1074,7 +1074,7 @@ func (*SimplifiedRoutingRule_BalancingTag) isSimplifiedRoutingRule_TargetTag() {
 
 type SimplifiedConfig struct {
 	state          protoimpl.MessageState   `protogen:"open.v1"`
-	DomainStrategy DomainStrategy           `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.app.router.DomainStrategy" json:"domain_strategy,omitempty"`
+	DomainStrategy DomainStrategy           `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.app.router.DomainStrategy" json:"domain_strategy,omitempty"`
 	Rule           []*SimplifiedRoutingRule `protobuf:"bytes,2,rep,name=rule,proto3" json:"rule,omitempty"`
 	BalancingRule  []*BalancingRule         `protobuf:"bytes,3,rep,name=balancing_rule,json=balancingRule,proto3" json:"balancing_rule,omitempty"`
 	unknownFields  protoimpl.UnknownFields
@@ -1136,26 +1136,26 @@ var File_app_router_config_proto protoreflect.FileDescriptor
 
 const file_app_router_config_proto_rawDesc = "" +
 	"\n" +
-	"\x17app/router/config.proto\x12\x15v2ray.core.app.router\x1a\x19google/protobuf/any.proto\x1a\x15common/net/port.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\x1a$app/router/routercommon/common.proto\"6\n" +
+	"\x17app/router/config.proto\x12\x17exclave.core.app.router\x1a\x19google/protobuf/any.proto\x1a\x15common/net/port.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\x1a$app/router/routercommon/common.proto\"6\n" +
 	"\fSetAttribute\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\"\xb4\t\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"\xcc\t\n" +
 	"\vRoutingRule\x12\x12\n" +
 	"\x03tag\x18\x01 \x01(\tH\x00R\x03tag\x12%\n" +
-	"\rbalancing_tag\x18\f \x01(\tH\x00R\fbalancingTag\x12B\n" +
-	"\x06domain\x18\x02 \x03(\v2*.v2ray.core.app.router.routercommon.DomainR\x06domain\x12@\n" +
-	"\x04cidr\x18\x03 \x03(\v2(.v2ray.core.app.router.routercommon.CIDRB\x02\x18\x01R\x04cidr\x12?\n" +
+	"\rbalancing_tag\x18\f \x01(\tH\x00R\fbalancingTag\x12D\n" +
+	"\x06domain\x18\x02 \x03(\v2,.exclave.core.app.router.routercommon.DomainR\x06domain\x12B\n" +
+	"\x04cidr\x18\x03 \x03(\v2*.exclave.core.app.router.routercommon.CIDRB\x02\x18\x01R\x04cidr\x12A\n" +
 	"\x05geoip\x18\n" +
-	" \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\x05geoip\x12C\n" +
+	" \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12E\n" +
 	"\n" +
-	"port_range\x18\x04 \x01(\v2 .v2ray.core.common.net.PortRangeB\x02\x18\x01R\tportRange\x12<\n" +
-	"\tport_list\x18\x0e \x01(\v2\x1f.v2ray.core.common.net.PortListR\bportList\x12I\n" +
-	"\fnetwork_list\x18\x05 \x01(\v2\".v2ray.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12:\n" +
-	"\bnetworks\x18\r \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\bnetworks\x12M\n" +
-	"\vsource_cidr\x18\x06 \x03(\v2(.v2ray.core.app.router.routercommon.CIDRB\x02\x18\x01R\n" +
-	"sourceCidr\x12L\n" +
-	"\fsource_geoip\x18\v \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\vsourceGeoip\x12I\n" +
-	"\x10source_port_list\x18\x10 \x01(\v2\x1f.v2ray.core.common.net.PortListR\x0esourcePortList\x12\x1d\n" +
+	"port_range\x18\x04 \x01(\v2\".exclave.core.common.net.PortRangeB\x02\x18\x01R\tportRange\x12>\n" +
+	"\tport_list\x18\x0e \x01(\v2!.exclave.core.common.net.PortListR\bportList\x12K\n" +
+	"\fnetwork_list\x18\x05 \x01(\v2$.exclave.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12<\n" +
+	"\bnetworks\x18\r \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12O\n" +
+	"\vsource_cidr\x18\x06 \x03(\v2*.exclave.core.app.router.routercommon.CIDRB\x02\x18\x01R\n" +
+	"sourceCidr\x12N\n" +
+	"\fsource_geoip\x18\v \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\vsourceGeoip\x12K\n" +
+	"\x10source_port_list\x18\x10 \x01(\v2!.exclave.core.common.net.PortListR\x0esourcePortList\x12\x1d\n" +
 	"\n" +
 	"user_email\x18\a \x03(\tR\tuserEmail\x12\x1f\n" +
 	"\vinbound_tag\x18\b \x03(\tR\n" +
@@ -1164,15 +1164,15 @@ const file_app_router_config_proto_rawDesc = "" +
 	"\n" +
 	"attributes\x18\x0f \x01(\tR\n" +
 	"attributes\x12%\n" +
-	"\x0edomain_matcher\x18\x11 \x01(\tR\rdomainMatcher\x12H\n" +
-	"\rset_attribute\x18\x12 \x03(\v2#.v2ray.core.app.router.SetAttributeR\fsetAttribute\x12\x10\n" +
+	"\x0edomain_matcher\x18\x11 \x01(\tR\rdomainMatcher\x12J\n" +
+	"\rset_attribute\x18\x12 \x03(\v2%.exclave.core.app.router.SetAttributeR\fsetAttribute\x12\x10\n" +
 	"\x03uid\x18\x13 \x03(\x05R\x03uid\x12\x12\n" +
 	"\x04ssid\x18\x14 \x03(\tR\x04ssid\x12!\n" +
 	"\fnetwork_type\x18\x15 \x03(\tR\vnetworkType\x12\x1f\n" +
 	"\vskip_domain\x18\x16 \x01(\bR\n" +
-	"skipDomain\x12L\n" +
+	"skipDomain\x12N\n" +
 	"\n" +
-	"geo_domain\x18\xa1\x93\x04 \x03(\v2+.v2ray.core.app.router.routercommon.GeoSiteR\tgeoDomainB\f\n" +
+	"geo_domain\x18\xa1\x93\x04 \x03(\v2-.exclave.core.app.router.routercommon.GeoSiteR\tgeoDomainB\f\n" +
 	"\n" +
 	"target_tag\"\xd0\x01\n" +
 	"\rBalancingRule\x12\x10\n" +
@@ -1196,28 +1196,28 @@ const file_app_router_config_proto_rawDesc = "" +
 	"\bbalancer\x12\tleastping\"U\n" +
 	"\x16StrategyFallbackConfig\x12!\n" +
 	"\fobserver_tag\x18\a \x01(\tR\vobserverTag:\x18\x82\xb5\x18\x14\n" +
-	"\bbalancer\x12\bfallback\"\x84\x02\n" +
-	"\x17StrategyLeastLoadConfig\x12;\n" +
-	"\x05costs\x18\x02 \x03(\v2%.v2ray.core.app.router.StrategyWeightR\x05costs\x12\x1c\n" +
+	"\bbalancer\x12\bfallback\"\x86\x02\n" +
+	"\x17StrategyLeastLoadConfig\x12=\n" +
+	"\x05costs\x18\x02 \x03(\v2'.exclave.core.app.router.StrategyWeightR\x05costs\x12\x1c\n" +
 	"\tbaselines\x18\x03 \x03(\x03R\tbaselines\x12\x1a\n" +
 	"\bexpected\x18\x04 \x01(\x05R\bexpected\x12\x16\n" +
 	"\x06maxRTT\x18\x05 \x01(\x03R\x06maxRTT\x12\x1c\n" +
 	"\ttolerance\x18\x06 \x01(\x02R\ttolerance\x12!\n" +
 	"\fobserver_tag\x18\a \x01(\tR\vobserverTag:\x19\x82\xb5\x18\x15\n" +
-	"\bbalancer\x12\tleastload\"\xdd\x01\n" +
-	"\x06Config\x12N\n" +
-	"\x0fdomain_strategy\x18\x01 \x01(\x0e2%.v2ray.core.app.router.DomainStrategyR\x0edomainStrategy\x126\n" +
-	"\x04rule\x18\x02 \x03(\v2\".v2ray.core.app.router.RoutingRuleR\x04rule\x12K\n" +
-	"\x0ebalancing_rule\x18\x03 \x03(\v2$.v2ray.core.app.router.BalancingRuleR\rbalancingRule\"\xdf\x06\n" +
+	"\bbalancer\x12\tleastload\"\xe3\x01\n" +
+	"\x06Config\x12P\n" +
+	"\x0fdomain_strategy\x18\x01 \x01(\x0e2'.exclave.core.app.router.DomainStrategyR\x0edomainStrategy\x128\n" +
+	"\x04rule\x18\x02 \x03(\v2$.exclave.core.app.router.RoutingRuleR\x04rule\x12M\n" +
+	"\x0ebalancing_rule\x18\x03 \x03(\v2&.exclave.core.app.router.BalancingRuleR\rbalancingRule\"\xeb\x06\n" +
 	"\x15SimplifiedRoutingRule\x12\x12\n" +
 	"\x03tag\x18\x01 \x01(\tH\x00R\x03tag\x12%\n" +
-	"\rbalancing_tag\x18\f \x01(\tH\x00R\fbalancingTag\x12B\n" +
-	"\x06domain\x18\x02 \x03(\v2*.v2ray.core.app.router.routercommon.DomainR\x06domain\x12?\n" +
+	"\rbalancing_tag\x18\f \x01(\tH\x00R\fbalancingTag\x12D\n" +
+	"\x06domain\x18\x02 \x03(\v2,.exclave.core.app.router.routercommon.DomainR\x06domain\x12A\n" +
 	"\x05geoip\x18\n" +
-	" \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\x05geoip\x12\x1b\n" +
-	"\tport_list\x18\x0e \x01(\tR\bportList\x12>\n" +
-	"\bnetworks\x18\r \x01(\v2\".v2ray.core.common.net.NetworkListR\bnetworks\x12L\n" +
-	"\fsource_geoip\x18\v \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\vsourceGeoip\x12(\n" +
+	" \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12\x1b\n" +
+	"\tport_list\x18\x0e \x01(\tR\bportList\x12@\n" +
+	"\bnetworks\x18\r \x01(\v2$.exclave.core.common.net.NetworkListR\bnetworks\x12N\n" +
+	"\fsource_geoip\x18\v \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\vsourceGeoip\x12(\n" +
 	"\x10source_port_list\x18\x10 \x01(\tR\x0esourcePortList\x12\x1d\n" +
 	"\n" +
 	"user_email\x18\a \x03(\tR\tuserEmail\x12\x1f\n" +
@@ -1227,29 +1227,29 @@ const file_app_router_config_proto_rawDesc = "" +
 	"\n" +
 	"attributes\x18\x0f \x01(\tR\n" +
 	"attributes\x12%\n" +
-	"\x0edomain_matcher\x18\x11 \x01(\tR\rdomainMatcher\x12H\n" +
-	"\rset_attribute\x18\x12 \x03(\v2#.v2ray.core.app.router.SetAttributeR\fsetAttribute\x12\x10\n" +
+	"\x0edomain_matcher\x18\x11 \x01(\tR\rdomainMatcher\x12J\n" +
+	"\rset_attribute\x18\x12 \x03(\v2%.exclave.core.app.router.SetAttributeR\fsetAttribute\x12\x10\n" +
 	"\x03uid\x18\x13 \x03(\x05R\x03uid\x12\x12\n" +
 	"\x04ssid\x18\x14 \x03(\tR\x04ssid\x12!\n" +
 	"\fnetwork_type\x18\x15 \x03(\tR\vnetworkType\x12\x1f\n" +
 	"\vskip_domain\x18\x16 \x01(\bR\n" +
-	"skipDomain\x12L\n" +
+	"skipDomain\x12N\n" +
 	"\n" +
-	"geo_domain\x18\xa1\x93\x04 \x03(\v2+.v2ray.core.app.router.routercommon.GeoSiteR\tgeoDomainB\f\n" +
+	"geo_domain\x18\xa1\x93\x04 \x03(\v2-.exclave.core.app.router.routercommon.GeoSiteR\tgeoDomainB\f\n" +
 	"\n" +
-	"target_tag\"\x88\x02\n" +
-	"\x10SimplifiedConfig\x12N\n" +
-	"\x0fdomain_strategy\x18\x01 \x01(\x0e2%.v2ray.core.app.router.DomainStrategyR\x0edomainStrategy\x12@\n" +
-	"\x04rule\x18\x02 \x03(\v2,.v2ray.core.app.router.SimplifiedRoutingRuleR\x04rule\x12K\n" +
-	"\x0ebalancing_rule\x18\x03 \x03(\v2$.v2ray.core.app.router.BalancingRuleR\rbalancingRule:\x15\x82\xb5\x18\x11\n" +
+	"target_tag\"\x8e\x02\n" +
+	"\x10SimplifiedConfig\x12P\n" +
+	"\x0fdomain_strategy\x18\x01 \x01(\x0e2'.exclave.core.app.router.DomainStrategyR\x0edomainStrategy\x12B\n" +
+	"\x04rule\x18\x02 \x03(\v2..exclave.core.app.router.SimplifiedRoutingRuleR\x04rule\x12M\n" +
+	"\x0ebalancing_rule\x18\x03 \x03(\v2&.exclave.core.app.router.BalancingRuleR\rbalancingRule:\x15\x82\xb5\x18\x11\n" +
 	"\aservice\x12\x06router*G\n" +
 	"\x0eDomainStrategy\x12\b\n" +
 	"\x04AsIs\x10\x00\x12\t\n" +
 	"\x05UseIp\x10\x01\x12\x10\n" +
 	"\fIpIfNonMatch\x10\x02\x12\x0e\n" +
 	"\n" +
-	"IpOnDemand\x10\x03B`\n" +
-	"\x19com.v2ray.core.app.routerP\x01Z)github.com/v2fly/v2ray-core/v5/app/router\xaa\x02\x15V2Ray.Core.App.Routerb\x06proto3"
+	"IpOnDemand\x10\x03B\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.app.routerP\x01Z4github.com/exclavenetwork/exclave-core/v5/app/router\xaa\x02\x17Exclave.Core.App.Routerb\x06proto3"
 
 var (
 	file_app_router_config_proto_rawDescOnce sync.Once
@@ -1266,55 +1266,55 @@ func file_app_router_config_proto_rawDescGZIP() []byte {
 var file_app_router_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_app_router_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_app_router_config_proto_goTypes = []any{
-	(DomainStrategy)(0),             // 0: v2ray.core.app.router.DomainStrategy
-	(*SetAttribute)(nil),            // 1: v2ray.core.app.router.SetAttribute
-	(*RoutingRule)(nil),             // 2: v2ray.core.app.router.RoutingRule
-	(*BalancingRule)(nil),           // 3: v2ray.core.app.router.BalancingRule
-	(*StrategyWeight)(nil),          // 4: v2ray.core.app.router.StrategyWeight
-	(*StrategyRandomConfig)(nil),    // 5: v2ray.core.app.router.StrategyRandomConfig
-	(*StrategyLeastPingConfig)(nil), // 6: v2ray.core.app.router.StrategyLeastPingConfig
-	(*StrategyFallbackConfig)(nil),  // 7: v2ray.core.app.router.StrategyFallbackConfig
-	(*StrategyLeastLoadConfig)(nil), // 8: v2ray.core.app.router.StrategyLeastLoadConfig
-	(*Config)(nil),                  // 9: v2ray.core.app.router.Config
-	(*SimplifiedRoutingRule)(nil),   // 10: v2ray.core.app.router.SimplifiedRoutingRule
-	(*SimplifiedConfig)(nil),        // 11: v2ray.core.app.router.SimplifiedConfig
-	(*routercommon.Domain)(nil),     // 12: v2ray.core.app.router.routercommon.Domain
-	(*routercommon.CIDR)(nil),       // 13: v2ray.core.app.router.routercommon.CIDR
-	(*routercommon.GeoIP)(nil),      // 14: v2ray.core.app.router.routercommon.GeoIP
-	(*net.PortRange)(nil),           // 15: v2ray.core.common.net.PortRange
-	(*net.PortList)(nil),            // 16: v2ray.core.common.net.PortList
-	(*net.NetworkList)(nil),         // 17: v2ray.core.common.net.NetworkList
-	(net.Network)(0),                // 18: v2ray.core.common.net.Network
-	(*routercommon.GeoSite)(nil),    // 19: v2ray.core.app.router.routercommon.GeoSite
+	(DomainStrategy)(0),             // 0: exclave.core.app.router.DomainStrategy
+	(*SetAttribute)(nil),            // 1: exclave.core.app.router.SetAttribute
+	(*RoutingRule)(nil),             // 2: exclave.core.app.router.RoutingRule
+	(*BalancingRule)(nil),           // 3: exclave.core.app.router.BalancingRule
+	(*StrategyWeight)(nil),          // 4: exclave.core.app.router.StrategyWeight
+	(*StrategyRandomConfig)(nil),    // 5: exclave.core.app.router.StrategyRandomConfig
+	(*StrategyLeastPingConfig)(nil), // 6: exclave.core.app.router.StrategyLeastPingConfig
+	(*StrategyFallbackConfig)(nil),  // 7: exclave.core.app.router.StrategyFallbackConfig
+	(*StrategyLeastLoadConfig)(nil), // 8: exclave.core.app.router.StrategyLeastLoadConfig
+	(*Config)(nil),                  // 9: exclave.core.app.router.Config
+	(*SimplifiedRoutingRule)(nil),   // 10: exclave.core.app.router.SimplifiedRoutingRule
+	(*SimplifiedConfig)(nil),        // 11: exclave.core.app.router.SimplifiedConfig
+	(*routercommon.Domain)(nil),     // 12: exclave.core.app.router.routercommon.Domain
+	(*routercommon.CIDR)(nil),       // 13: exclave.core.app.router.routercommon.CIDR
+	(*routercommon.GeoIP)(nil),      // 14: exclave.core.app.router.routercommon.GeoIP
+	(*net.PortRange)(nil),           // 15: exclave.core.common.net.PortRange
+	(*net.PortList)(nil),            // 16: exclave.core.common.net.PortList
+	(*net.NetworkList)(nil),         // 17: exclave.core.common.net.NetworkList
+	(net.Network)(0),                // 18: exclave.core.common.net.Network
+	(*routercommon.GeoSite)(nil),    // 19: exclave.core.app.router.routercommon.GeoSite
 	(*anypb.Any)(nil),               // 20: google.protobuf.Any
 }
 var file_app_router_config_proto_depIdxs = []int32{
-	12, // 0: v2ray.core.app.router.RoutingRule.domain:type_name -> v2ray.core.app.router.routercommon.Domain
-	13, // 1: v2ray.core.app.router.RoutingRule.cidr:type_name -> v2ray.core.app.router.routercommon.CIDR
-	14, // 2: v2ray.core.app.router.RoutingRule.geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	15, // 3: v2ray.core.app.router.RoutingRule.port_range:type_name -> v2ray.core.common.net.PortRange
-	16, // 4: v2ray.core.app.router.RoutingRule.port_list:type_name -> v2ray.core.common.net.PortList
-	17, // 5: v2ray.core.app.router.RoutingRule.network_list:type_name -> v2ray.core.common.net.NetworkList
-	18, // 6: v2ray.core.app.router.RoutingRule.networks:type_name -> v2ray.core.common.net.Network
-	13, // 7: v2ray.core.app.router.RoutingRule.source_cidr:type_name -> v2ray.core.app.router.routercommon.CIDR
-	14, // 8: v2ray.core.app.router.RoutingRule.source_geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	16, // 9: v2ray.core.app.router.RoutingRule.source_port_list:type_name -> v2ray.core.common.net.PortList
-	1,  // 10: v2ray.core.app.router.RoutingRule.set_attribute:type_name -> v2ray.core.app.router.SetAttribute
-	19, // 11: v2ray.core.app.router.RoutingRule.geo_domain:type_name -> v2ray.core.app.router.routercommon.GeoSite
-	20, // 12: v2ray.core.app.router.BalancingRule.strategy_settings:type_name -> google.protobuf.Any
-	4,  // 13: v2ray.core.app.router.StrategyLeastLoadConfig.costs:type_name -> v2ray.core.app.router.StrategyWeight
-	0,  // 14: v2ray.core.app.router.Config.domain_strategy:type_name -> v2ray.core.app.router.DomainStrategy
-	2,  // 15: v2ray.core.app.router.Config.rule:type_name -> v2ray.core.app.router.RoutingRule
-	3,  // 16: v2ray.core.app.router.Config.balancing_rule:type_name -> v2ray.core.app.router.BalancingRule
-	12, // 17: v2ray.core.app.router.SimplifiedRoutingRule.domain:type_name -> v2ray.core.app.router.routercommon.Domain
-	14, // 18: v2ray.core.app.router.SimplifiedRoutingRule.geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	17, // 19: v2ray.core.app.router.SimplifiedRoutingRule.networks:type_name -> v2ray.core.common.net.NetworkList
-	14, // 20: v2ray.core.app.router.SimplifiedRoutingRule.source_geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	1,  // 21: v2ray.core.app.router.SimplifiedRoutingRule.set_attribute:type_name -> v2ray.core.app.router.SetAttribute
-	19, // 22: v2ray.core.app.router.SimplifiedRoutingRule.geo_domain:type_name -> v2ray.core.app.router.routercommon.GeoSite
-	0,  // 23: v2ray.core.app.router.SimplifiedConfig.domain_strategy:type_name -> v2ray.core.app.router.DomainStrategy
-	10, // 24: v2ray.core.app.router.SimplifiedConfig.rule:type_name -> v2ray.core.app.router.SimplifiedRoutingRule
-	3,  // 25: v2ray.core.app.router.SimplifiedConfig.balancing_rule:type_name -> v2ray.core.app.router.BalancingRule
+	12, // 0: exclave.core.app.router.RoutingRule.domain:type_name -> exclave.core.app.router.routercommon.Domain
+	13, // 1: exclave.core.app.router.RoutingRule.cidr:type_name -> exclave.core.app.router.routercommon.CIDR
+	14, // 2: exclave.core.app.router.RoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	15, // 3: exclave.core.app.router.RoutingRule.port_range:type_name -> exclave.core.common.net.PortRange
+	16, // 4: exclave.core.app.router.RoutingRule.port_list:type_name -> exclave.core.common.net.PortList
+	17, // 5: exclave.core.app.router.RoutingRule.network_list:type_name -> exclave.core.common.net.NetworkList
+	18, // 6: exclave.core.app.router.RoutingRule.networks:type_name -> exclave.core.common.net.Network
+	13, // 7: exclave.core.app.router.RoutingRule.source_cidr:type_name -> exclave.core.app.router.routercommon.CIDR
+	14, // 8: exclave.core.app.router.RoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	16, // 9: exclave.core.app.router.RoutingRule.source_port_list:type_name -> exclave.core.common.net.PortList
+	1,  // 10: exclave.core.app.router.RoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
+	19, // 11: exclave.core.app.router.RoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	20, // 12: exclave.core.app.router.BalancingRule.strategy_settings:type_name -> google.protobuf.Any
+	4,  // 13: exclave.core.app.router.StrategyLeastLoadConfig.costs:type_name -> exclave.core.app.router.StrategyWeight
+	0,  // 14: exclave.core.app.router.Config.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
+	2,  // 15: exclave.core.app.router.Config.rule:type_name -> exclave.core.app.router.RoutingRule
+	3,  // 16: exclave.core.app.router.Config.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
+	12, // 17: exclave.core.app.router.SimplifiedRoutingRule.domain:type_name -> exclave.core.app.router.routercommon.Domain
+	14, // 18: exclave.core.app.router.SimplifiedRoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	17, // 19: exclave.core.app.router.SimplifiedRoutingRule.networks:type_name -> exclave.core.common.net.NetworkList
+	14, // 20: exclave.core.app.router.SimplifiedRoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	1,  // 21: exclave.core.app.router.SimplifiedRoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
+	19, // 22: exclave.core.app.router.SimplifiedRoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	0,  // 23: exclave.core.app.router.SimplifiedConfig.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
+	10, // 24: exclave.core.app.router.SimplifiedConfig.rule:type_name -> exclave.core.app.router.SimplifiedRoutingRule
+	3,  // 25: exclave.core.app.router.SimplifiedConfig.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
 	26, // [26:26] is the sub-list for method output_type
 	26, // [26:26] is the sub-list for method input_type
 	26, // [26:26] is the sub-list for extension type_name

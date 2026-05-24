@@ -1,7 +1,7 @@
 package grpc
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -120,7 +120,7 @@ var File_transport_internet_grpc_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_grpc_config_proto_rawDesc = "" +
 	"\n" +
-	"$transport/internet/grpc/config.proto\x12+v2ray.core.transport.internet.grpc.encoding\x1a common/protoext/extensions.proto\"\xe7\x02\n" +
+	"$transport/internet/grpc/config.proto\x12-exclave.core.transport.internet.grpc.encoding\x1a common/protoext/extensions.proto\"\xe7\x02\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12!\n" +
 	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x12!\n" +
@@ -131,8 +131,8 @@ const file_transport_internet_grpc_config_proto_rawDesc = "" +
 	"\n" +
 	"multi_mode\x18b \x01(\bR\tmultiMode\x12.\n" +
 	"\x13service_name_compat\x18c \x01(\bR\x11serviceNameCompat:\x1c\x82\xb5\x18\x18\n" +
-	"\ttransport\x12\x04grpc\x8a\xff)\x03gunB\x87\x01\n" +
-	"&com.v2ray.core.transport.internet.grpcP\x01Z6github.com/v2fly/v2ray-core/v5/transport/internet/grpc\xaa\x02\"V2Ray.Core.Transport.Internet.Grpcb\x06proto3"
+	"\ttransport\x12\x04grpc\x8a\xff)\x03gunB\xac\x01\n" +
+	">com.github.exclavenetwork.exclave.core.transport.internet.grpcP\x01ZAgithub.com/exclavenetwork/exclave-core/v5/transport/internet/grpc\xaa\x02$Exclave.Core.Transport.Internet.Grpcb\x06proto3"
 
 var (
 	file_transport_internet_grpc_config_proto_rawDescOnce sync.Once
@@ -148,7 +148,7 @@ func file_transport_internet_grpc_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_grpc_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_grpc_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.grpc.encoding.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.grpc.encoding.Config
 }
 var file_transport_internet_grpc_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

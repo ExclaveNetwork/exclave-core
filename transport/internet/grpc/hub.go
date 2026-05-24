@@ -7,13 +7,13 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/grpc/encoding"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/reality"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/grpc/encoding"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 type Listener struct {

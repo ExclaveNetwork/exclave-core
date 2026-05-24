@@ -1,8 +1,8 @@
 package http
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
-	http "github.com/v2fly/v2ray-core/v5/transport/internet/headers/http"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
+	http "github.com/exclavenetwork/exclave-core/v5/transport/internet/headers/http"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -97,15 +97,15 @@ var File_transport_internet_http_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_http_config_proto_rawDesc = "" +
 	"\n" +
-	"$transport/internet/http/config.proto\x12\"v2ray.core.transport.internet.http\x1a common/protoext/extensions.proto\x1a,transport/internet/headers/http/config.proto\"\xe4\x01\n" +
+	"$transport/internet/http/config.proto\x12$exclave.core.transport.internet.http\x1a common/protoext/extensions.proto\x1a,transport/internet/headers/http/config.proto\"\xe6\x01\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x03(\tR\x04host\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x16\n" +
-	"\x06method\x18\x03 \x01(\tR\x06method\x12J\n" +
-	"\x06header\x18\x04 \x03(\v22.v2ray.core.transport.internet.headers.http.HeaderR\x06header\x121\n" +
+	"\x06method\x18\x03 \x01(\tR\x06method\x12L\n" +
+	"\x06header\x18\x04 \x03(\v24.exclave.core.transport.internet.headers.http.HeaderR\x06header\x121\n" +
 	"\x15parse_x_forwarded_for\x18\x05 \x01(\bR\x12parseXForwardedFor:\x1b\x82\xb5\x18\x17\n" +
-	"\ttransport\x12\x02h2\x8a\xff)\x04httpB\x87\x01\n" +
-	"&com.v2ray.core.transport.internet.httpP\x01Z6github.com/v2fly/v2ray-core/v5/transport/internet/http\xaa\x02\"V2Ray.Core.Transport.Internet.Httpb\x06proto3"
+	"\ttransport\x12\x02h2\x8a\xff)\x04httpB\xac\x01\n" +
+	">com.github.exclavenetwork.exclave.core.transport.internet.httpP\x01ZAgithub.com/exclavenetwork/exclave-core/v5/transport/internet/http\xaa\x02$Exclave.Core.Transport.Internet.Httpb\x06proto3"
 
 var (
 	file_transport_internet_http_config_proto_rawDescOnce sync.Once
@@ -121,11 +121,11 @@ func file_transport_internet_http_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_http_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_http_config_proto_goTypes = []any{
-	(*Config)(nil),      // 0: v2ray.core.transport.internet.http.Config
-	(*http.Header)(nil), // 1: v2ray.core.transport.internet.headers.http.Header
+	(*Config)(nil),      // 0: exclave.core.transport.internet.http.Config
+	(*http.Header)(nil), // 1: exclave.core.transport.internet.headers.http.Header
 }
 var file_transport_internet_http_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.internet.http.Config.header:type_name -> v2ray.core.transport.internet.headers.http.Header
+	1, // 0: exclave.core.transport.internet.http.Config.header:type_name -> exclave.core.transport.internet.headers.http.Header
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

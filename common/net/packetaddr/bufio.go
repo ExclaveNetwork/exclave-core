@@ -1,8 +1,8 @@
 package packetaddr
 
 import (
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 var _ buf.Reader = (*BufReader)(nil)

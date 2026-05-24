@@ -1,9 +1,9 @@
 package command
 
 import (
-	v5 "github.com/v2fly/v2ray-core/v5"
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	v5 "github.com/exclavenetwork/exclave-core/v5"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -643,13 +643,13 @@ var File_app_proxyman_command_command_proto protoreflect.FileDescriptor
 
 const file_app_proxyman_command_command_proto_rawDesc = "" +
 	"\n" +
-	"\"app/proxyman/command/command.proto\x12\x1fv2ray.core.app.proxyman.command\x1a\x1acommon/protocol/user.proto\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\x1a\fconfig.proto\"H\n" +
-	"\x10AddUserOperation\x124\n" +
-	"\x04user\x18\x01 \x01(\v2 .v2ray.core.common.protocol.UserR\x04user\"+\n" +
+	"\"app/proxyman/command/command.proto\x12!exclave.core.app.proxyman.command\x1a\x1acommon/protocol/user.proto\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\x1a\fconfig.proto\"J\n" +
+	"\x10AddUserOperation\x126\n" +
+	"\x04user\x18\x01 \x01(\v2\".exclave.core.common.protocol.UserR\x04user\"+\n" +
 	"\x13RemoveUserOperation\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"O\n" +
-	"\x11AddInboundRequest\x12:\n" +
-	"\ainbound\x18\x01 \x01(\v2 .v2ray.core.InboundHandlerConfigR\ainbound\"\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"Q\n" +
+	"\x11AddInboundRequest\x12<\n" +
+	"\ainbound\x18\x01 \x01(\v2\".exclave.core.InboundHandlerConfigR\ainbound\"\x14\n" +
 	"\x12AddInboundResponse\"(\n" +
 	"\x14RemoveInboundRequest\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\"\x17\n" +
@@ -657,9 +657,9 @@ const file_app_proxyman_command_command_proto_rawDesc = "" +
 	"\x13AlterInboundRequest\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x122\n" +
 	"\toperation\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\toperation\"\x16\n" +
-	"\x14AlterInboundResponse\"S\n" +
-	"\x12AddOutboundRequest\x12=\n" +
-	"\boutbound\x18\x01 \x01(\v2!.v2ray.core.OutboundHandlerConfigR\boutbound\"\x15\n" +
+	"\x14AlterInboundResponse\"U\n" +
+	"\x12AddOutboundRequest\x12?\n" +
+	"\boutbound\x18\x01 \x01(\v2#.exclave.core.OutboundHandlerConfigR\boutbound\"\x15\n" +
 	"\x13AddOutboundResponse\")\n" +
 	"\x15RemoveOutboundRequest\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\"\x18\n" +
@@ -669,16 +669,16 @@ const file_app_proxyman_command_command_proto_rawDesc = "" +
 	"\toperation\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\toperation\"\x17\n" +
 	"\x15AlterOutboundResponse\"%\n" +
 	"\x06Config:\x1b\x82\xb5\x18\x17\n" +
-	"\vgrpcservice\x12\bproxyman2\x90\x06\n" +
-	"\x0eHandlerService\x12w\n" +
+	"\vgrpcservice\x12\bproxyman2\xa9\x06\n" +
+	"\x0eHandlerService\x12{\n" +
 	"\n" +
-	"AddInbound\x122.v2ray.core.app.proxyman.command.AddInboundRequest\x1a3.v2ray.core.app.proxyman.command.AddInboundResponse\"\x00\x12\x80\x01\n" +
-	"\rRemoveInbound\x125.v2ray.core.app.proxyman.command.RemoveInboundRequest\x1a6.v2ray.core.app.proxyman.command.RemoveInboundResponse\"\x00\x12}\n" +
-	"\fAlterInbound\x124.v2ray.core.app.proxyman.command.AlterInboundRequest\x1a5.v2ray.core.app.proxyman.command.AlterInboundResponse\"\x00\x12z\n" +
-	"\vAddOutbound\x123.v2ray.core.app.proxyman.command.AddOutboundRequest\x1a4.v2ray.core.app.proxyman.command.AddOutboundResponse\"\x00\x12\x83\x01\n" +
-	"\x0eRemoveOutbound\x126.v2ray.core.app.proxyman.command.RemoveOutboundRequest\x1a7.v2ray.core.app.proxyman.command.RemoveOutboundResponse\"\x00\x12\x80\x01\n" +
-	"\rAlterOutbound\x125.v2ray.core.app.proxyman.command.AlterOutboundRequest\x1a6.v2ray.core.app.proxyman.command.AlterOutboundResponse\"\x00B~\n" +
-	"#com.v2ray.core.app.proxyman.commandP\x01Z3github.com/v2fly/v2ray-core/v5/app/proxyman/command\xaa\x02\x1fV2Ray.Core.App.Proxyman.Commandb\x06proto3"
+	"AddInbound\x124.exclave.core.app.proxyman.command.AddInboundRequest\x1a5.exclave.core.app.proxyman.command.AddInboundResponse\"\x00\x12\x84\x01\n" +
+	"\rRemoveInbound\x127.exclave.core.app.proxyman.command.RemoveInboundRequest\x1a8.exclave.core.app.proxyman.command.RemoveInboundResponse\"\x00\x12\x81\x01\n" +
+	"\fAlterInbound\x126.exclave.core.app.proxyman.command.AlterInboundRequest\x1a7.exclave.core.app.proxyman.command.AlterInboundResponse\"\x00\x12~\n" +
+	"\vAddOutbound\x125.exclave.core.app.proxyman.command.AddOutboundRequest\x1a6.exclave.core.app.proxyman.command.AddOutboundResponse\"\x00\x12\x87\x01\n" +
+	"\x0eRemoveOutbound\x128.exclave.core.app.proxyman.command.RemoveOutboundRequest\x1a9.exclave.core.app.proxyman.command.RemoveOutboundResponse\"\x00\x12\x84\x01\n" +
+	"\rAlterOutbound\x127.exclave.core.app.proxyman.command.AlterOutboundRequest\x1a8.exclave.core.app.proxyman.command.AlterOutboundResponse\"\x00B\xa3\x01\n" +
+	";com.github.exclavenetwork.exclave.core.app.proxyman.commandP\x01Z>github.com/exclavenetwork/exclave-core/v5/app/proxyman/command\xaa\x02!Exclave.Core.App.Proxyman.Commandb\x06proto3"
 
 var (
 	file_app_proxyman_command_command_proto_rawDescOnce sync.Once
@@ -694,44 +694,44 @@ func file_app_proxyman_command_command_proto_rawDescGZIP() []byte {
 
 var file_app_proxyman_command_command_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_app_proxyman_command_command_proto_goTypes = []any{
-	(*AddUserOperation)(nil),         // 0: v2ray.core.app.proxyman.command.AddUserOperation
-	(*RemoveUserOperation)(nil),      // 1: v2ray.core.app.proxyman.command.RemoveUserOperation
-	(*AddInboundRequest)(nil),        // 2: v2ray.core.app.proxyman.command.AddInboundRequest
-	(*AddInboundResponse)(nil),       // 3: v2ray.core.app.proxyman.command.AddInboundResponse
-	(*RemoveInboundRequest)(nil),     // 4: v2ray.core.app.proxyman.command.RemoveInboundRequest
-	(*RemoveInboundResponse)(nil),    // 5: v2ray.core.app.proxyman.command.RemoveInboundResponse
-	(*AlterInboundRequest)(nil),      // 6: v2ray.core.app.proxyman.command.AlterInboundRequest
-	(*AlterInboundResponse)(nil),     // 7: v2ray.core.app.proxyman.command.AlterInboundResponse
-	(*AddOutboundRequest)(nil),       // 8: v2ray.core.app.proxyman.command.AddOutboundRequest
-	(*AddOutboundResponse)(nil),      // 9: v2ray.core.app.proxyman.command.AddOutboundResponse
-	(*RemoveOutboundRequest)(nil),    // 10: v2ray.core.app.proxyman.command.RemoveOutboundRequest
-	(*RemoveOutboundResponse)(nil),   // 11: v2ray.core.app.proxyman.command.RemoveOutboundResponse
-	(*AlterOutboundRequest)(nil),     // 12: v2ray.core.app.proxyman.command.AlterOutboundRequest
-	(*AlterOutboundResponse)(nil),    // 13: v2ray.core.app.proxyman.command.AlterOutboundResponse
-	(*Config)(nil),                   // 14: v2ray.core.app.proxyman.command.Config
-	(*protocol.User)(nil),            // 15: v2ray.core.common.protocol.User
-	(*v5.InboundHandlerConfig)(nil),  // 16: v2ray.core.InboundHandlerConfig
+	(*AddUserOperation)(nil),         // 0: exclave.core.app.proxyman.command.AddUserOperation
+	(*RemoveUserOperation)(nil),      // 1: exclave.core.app.proxyman.command.RemoveUserOperation
+	(*AddInboundRequest)(nil),        // 2: exclave.core.app.proxyman.command.AddInboundRequest
+	(*AddInboundResponse)(nil),       // 3: exclave.core.app.proxyman.command.AddInboundResponse
+	(*RemoveInboundRequest)(nil),     // 4: exclave.core.app.proxyman.command.RemoveInboundRequest
+	(*RemoveInboundResponse)(nil),    // 5: exclave.core.app.proxyman.command.RemoveInboundResponse
+	(*AlterInboundRequest)(nil),      // 6: exclave.core.app.proxyman.command.AlterInboundRequest
+	(*AlterInboundResponse)(nil),     // 7: exclave.core.app.proxyman.command.AlterInboundResponse
+	(*AddOutboundRequest)(nil),       // 8: exclave.core.app.proxyman.command.AddOutboundRequest
+	(*AddOutboundResponse)(nil),      // 9: exclave.core.app.proxyman.command.AddOutboundResponse
+	(*RemoveOutboundRequest)(nil),    // 10: exclave.core.app.proxyman.command.RemoveOutboundRequest
+	(*RemoveOutboundResponse)(nil),   // 11: exclave.core.app.proxyman.command.RemoveOutboundResponse
+	(*AlterOutboundRequest)(nil),     // 12: exclave.core.app.proxyman.command.AlterOutboundRequest
+	(*AlterOutboundResponse)(nil),    // 13: exclave.core.app.proxyman.command.AlterOutboundResponse
+	(*Config)(nil),                   // 14: exclave.core.app.proxyman.command.Config
+	(*protocol.User)(nil),            // 15: exclave.core.common.protocol.User
+	(*v5.InboundHandlerConfig)(nil),  // 16: exclave.core.InboundHandlerConfig
 	(*anypb.Any)(nil),                // 17: google.protobuf.Any
-	(*v5.OutboundHandlerConfig)(nil), // 18: v2ray.core.OutboundHandlerConfig
+	(*v5.OutboundHandlerConfig)(nil), // 18: exclave.core.OutboundHandlerConfig
 }
 var file_app_proxyman_command_command_proto_depIdxs = []int32{
-	15, // 0: v2ray.core.app.proxyman.command.AddUserOperation.user:type_name -> v2ray.core.common.protocol.User
-	16, // 1: v2ray.core.app.proxyman.command.AddInboundRequest.inbound:type_name -> v2ray.core.InboundHandlerConfig
-	17, // 2: v2ray.core.app.proxyman.command.AlterInboundRequest.operation:type_name -> google.protobuf.Any
-	18, // 3: v2ray.core.app.proxyman.command.AddOutboundRequest.outbound:type_name -> v2ray.core.OutboundHandlerConfig
-	17, // 4: v2ray.core.app.proxyman.command.AlterOutboundRequest.operation:type_name -> google.protobuf.Any
-	2,  // 5: v2ray.core.app.proxyman.command.HandlerService.AddInbound:input_type -> v2ray.core.app.proxyman.command.AddInboundRequest
-	4,  // 6: v2ray.core.app.proxyman.command.HandlerService.RemoveInbound:input_type -> v2ray.core.app.proxyman.command.RemoveInboundRequest
-	6,  // 7: v2ray.core.app.proxyman.command.HandlerService.AlterInbound:input_type -> v2ray.core.app.proxyman.command.AlterInboundRequest
-	8,  // 8: v2ray.core.app.proxyman.command.HandlerService.AddOutbound:input_type -> v2ray.core.app.proxyman.command.AddOutboundRequest
-	10, // 9: v2ray.core.app.proxyman.command.HandlerService.RemoveOutbound:input_type -> v2ray.core.app.proxyman.command.RemoveOutboundRequest
-	12, // 10: v2ray.core.app.proxyman.command.HandlerService.AlterOutbound:input_type -> v2ray.core.app.proxyman.command.AlterOutboundRequest
-	3,  // 11: v2ray.core.app.proxyman.command.HandlerService.AddInbound:output_type -> v2ray.core.app.proxyman.command.AddInboundResponse
-	5,  // 12: v2ray.core.app.proxyman.command.HandlerService.RemoveInbound:output_type -> v2ray.core.app.proxyman.command.RemoveInboundResponse
-	7,  // 13: v2ray.core.app.proxyman.command.HandlerService.AlterInbound:output_type -> v2ray.core.app.proxyman.command.AlterInboundResponse
-	9,  // 14: v2ray.core.app.proxyman.command.HandlerService.AddOutbound:output_type -> v2ray.core.app.proxyman.command.AddOutboundResponse
-	11, // 15: v2ray.core.app.proxyman.command.HandlerService.RemoveOutbound:output_type -> v2ray.core.app.proxyman.command.RemoveOutboundResponse
-	13, // 16: v2ray.core.app.proxyman.command.HandlerService.AlterOutbound:output_type -> v2ray.core.app.proxyman.command.AlterOutboundResponse
+	15, // 0: exclave.core.app.proxyman.command.AddUserOperation.user:type_name -> exclave.core.common.protocol.User
+	16, // 1: exclave.core.app.proxyman.command.AddInboundRequest.inbound:type_name -> exclave.core.InboundHandlerConfig
+	17, // 2: exclave.core.app.proxyman.command.AlterInboundRequest.operation:type_name -> google.protobuf.Any
+	18, // 3: exclave.core.app.proxyman.command.AddOutboundRequest.outbound:type_name -> exclave.core.OutboundHandlerConfig
+	17, // 4: exclave.core.app.proxyman.command.AlterOutboundRequest.operation:type_name -> google.protobuf.Any
+	2,  // 5: exclave.core.app.proxyman.command.HandlerService.AddInbound:input_type -> exclave.core.app.proxyman.command.AddInboundRequest
+	4,  // 6: exclave.core.app.proxyman.command.HandlerService.RemoveInbound:input_type -> exclave.core.app.proxyman.command.RemoveInboundRequest
+	6,  // 7: exclave.core.app.proxyman.command.HandlerService.AlterInbound:input_type -> exclave.core.app.proxyman.command.AlterInboundRequest
+	8,  // 8: exclave.core.app.proxyman.command.HandlerService.AddOutbound:input_type -> exclave.core.app.proxyman.command.AddOutboundRequest
+	10, // 9: exclave.core.app.proxyman.command.HandlerService.RemoveOutbound:input_type -> exclave.core.app.proxyman.command.RemoveOutboundRequest
+	12, // 10: exclave.core.app.proxyman.command.HandlerService.AlterOutbound:input_type -> exclave.core.app.proxyman.command.AlterOutboundRequest
+	3,  // 11: exclave.core.app.proxyman.command.HandlerService.AddInbound:output_type -> exclave.core.app.proxyman.command.AddInboundResponse
+	5,  // 12: exclave.core.app.proxyman.command.HandlerService.RemoveInbound:output_type -> exclave.core.app.proxyman.command.RemoveInboundResponse
+	7,  // 13: exclave.core.app.proxyman.command.HandlerService.AlterInbound:output_type -> exclave.core.app.proxyman.command.AlterInboundResponse
+	9,  // 14: exclave.core.app.proxyman.command.HandlerService.AddOutbound:output_type -> exclave.core.app.proxyman.command.AddOutboundResponse
+	11, // 15: exclave.core.app.proxyman.command.HandlerService.RemoveOutbound:output_type -> exclave.core.app.proxyman.command.RemoveOutboundResponse
+	13, // 16: exclave.core.app.proxyman.command.HandlerService.AlterOutbound:output_type -> exclave.core.app.proxyman.command.AlterOutboundResponse
 	11, // [11:17] is the sub-list for method output_type
 	5,  // [5:11] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name

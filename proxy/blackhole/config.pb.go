@@ -1,7 +1,7 @@
 package blackhole
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -173,14 +173,14 @@ var File_proxy_blackhole_config_proto protoreflect.FileDescriptor
 
 const file_proxy_blackhole_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproxy/blackhole/config.proto\x12\x1av2ray.core.proxy.blackhole\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"\x0e\n" +
+	"\x1cproxy/blackhole/config.proto\x12\x1cexclave.core.proxy.blackhole\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"\x0e\n" +
 	"\fNoneResponse\"\x0e\n" +
 	"\fHTTPResponse\":\n" +
 	"\x06Config\x120\n" +
 	"\bresponse\x18\x01 \x01(\v2\x14.google.protobuf.AnyR\bresponse\"-\n" +
 	"\x10SimplifiedConfig:\x19\x82\xb5\x18\x15\n" +
-	"\boutbound\x12\tblackholeBo\n" +
-	"\x1ecom.v2ray.core.proxy.blackholeP\x01Z.github.com/v2fly/v2ray-core/v5/proxy/blackhole\xaa\x02\x1aV2Ray.Core.Proxy.Blackholeb\x06proto3"
+	"\boutbound\x12\tblackholeB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.proxy.blackholeP\x01Z9github.com/exclavenetwork/exclave-core/v5/proxy/blackhole\xaa\x02\x1cExclave.Core.Proxy.Blackholeb\x06proto3"
 
 var (
 	file_proxy_blackhole_config_proto_rawDescOnce sync.Once
@@ -196,14 +196,14 @@ func file_proxy_blackhole_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_blackhole_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proxy_blackhole_config_proto_goTypes = []any{
-	(*NoneResponse)(nil),     // 0: v2ray.core.proxy.blackhole.NoneResponse
-	(*HTTPResponse)(nil),     // 1: v2ray.core.proxy.blackhole.HTTPResponse
-	(*Config)(nil),           // 2: v2ray.core.proxy.blackhole.Config
-	(*SimplifiedConfig)(nil), // 3: v2ray.core.proxy.blackhole.SimplifiedConfig
+	(*NoneResponse)(nil),     // 0: exclave.core.proxy.blackhole.NoneResponse
+	(*HTTPResponse)(nil),     // 1: exclave.core.proxy.blackhole.HTTPResponse
+	(*Config)(nil),           // 2: exclave.core.proxy.blackhole.Config
+	(*SimplifiedConfig)(nil), // 3: exclave.core.proxy.blackhole.SimplifiedConfig
 	(*anypb.Any)(nil),        // 4: google.protobuf.Any
 }
 var file_proxy_blackhole_config_proto_depIdxs = []int32{
-	4, // 0: v2ray.core.proxy.blackhole.Config.response:type_name -> google.protobuf.Any
+	4, // 0: exclave.core.proxy.blackhole.Config.response:type_name -> google.protobuf.Any
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

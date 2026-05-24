@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.blackhole;
-option csharp_namespace = "V2Ray.Core.Proxy.Blackhole";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/blackhole";
-option java_package = "com.v2ray.core.proxy.blackhole";
+package exclave.core.proxy.blackhole;
+option csharp_namespace = "Exclave.Core.Proxy.Blackhole";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/blackhole";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.blackhole";
 option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
@@ -19,6 +19,6 @@ message Config {
 
 
 message SimplifiedConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "blackhole";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "blackhole";
 }

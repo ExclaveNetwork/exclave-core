@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.freedom;
-option csharp_namespace = "V2Ray.Core.Proxy.Freedom";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/freedom";
-option java_package = "com.v2ray.core.proxy.freedom";
+package exclave.core.proxy.freedom;
+option csharp_namespace = "Exclave.Core.Proxy.Freedom";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/freedom";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.freedom";
 option java_multiple_files = true;
 
 import "common/protocol/server_spec.proto";
 import "common/protoext/extensions.proto";
 
 message DestinationOverride {
-  v2ray.core.common.protocol.ServerEndpoint server = 1;
+  exclave.core.common.protocol.ServerEndpoint server = 1;
 }
 
 message Config {
@@ -31,8 +31,8 @@ message Config {
 }
 
 message SimplifiedConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "freedom";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "freedom";
 
   DestinationOverride destination_override = 3;
   // SagerNet private

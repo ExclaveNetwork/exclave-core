@@ -1,7 +1,7 @@
 package routercommon
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -77,7 +77,7 @@ func (Domain_Type) EnumDescriptor() ([]byte, []int) {
 type Domain struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Domain matching type.
-	Type Domain_Type `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.router.routercommon.Domain_Type" json:"type,omitempty"`
+	Type Domain_Type `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.router.routercommon.Domain_Type" json:"type,omitempty"`
 	// Domain value.
 	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 	// Attributes of this domain. May be used for filtering.
@@ -544,11 +544,11 @@ var File_app_router_routercommon_common_proto protoreflect.FileDescriptor
 
 const file_app_router_routercommon_common_proto_rawDesc = "" +
 	"\n" +
-	"$app/router/routercommon/common.proto\x12\"v2ray.core.app.router.routercommon\x1a common/protoext/extensions.proto\"\xdd\x02\n" +
-	"\x06Domain\x12C\n" +
-	"\x04type\x18\x01 \x01(\x0e2/.v2ray.core.app.router.routercommon.Domain.TypeR\x04type\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\x12R\n" +
-	"\tattribute\x18\x03 \x03(\v24.v2ray.core.app.router.routercommon.Domain.AttributeR\tattribute\x1al\n" +
+	"$app/router/routercommon/common.proto\x12$exclave.core.app.router.routercommon\x1a common/protoext/extensions.proto\"\xe1\x02\n" +
+	"\x06Domain\x12E\n" +
+	"\x04type\x18\x01 \x01(\x0e21.exclave.core.app.router.routercommon.Domain.TypeR\x04type\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\x12T\n" +
+	"\tattribute\x18\x03 \x03(\v26.exclave.core.app.router.routercommon.Domain.AttributeR\tattribute\x1al\n" +
 	"\tAttribute\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x1f\n" +
 	"\n" +
@@ -564,25 +564,25 @@ const file_app_router_routercommon_common_proto_rawDesc = "" +
 	"\x04CIDR\x12\x0e\n" +
 	"\x02ip\x18\x01 \x01(\fR\x02ip\x12\x16\n" +
 	"\x06prefix\x18\x02 \x01(\rR\x06prefix\x12#\n" +
-	"\aip_addr\x18\xa0\x93\x04 \x01(\tB\b\x82\xb5\x18\x04:\x02ipR\x06ipAddr\"\xfa\x01\n" +
+	"\aip_addr\x18\xa0\x93\x04 \x01(\tB\b\x82\xb5\x18\x04:\x02ipR\x06ipAddr\"\xfc\x01\n" +
 	"\x05GeoIP\x12!\n" +
-	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12<\n" +
-	"\x04cidr\x18\x02 \x03(\v2(.v2ray.core.app.router.routercommon.CIDRR\x04cidr\x12#\n" +
+	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12>\n" +
+	"\x04cidr\x18\x02 \x03(\v2*.exclave.core.app.router.routercommon.CIDRR\x04cidr\x12#\n" +
 	"\rinverse_match\x18\x03 \x01(\bR\finverseMatch\x12#\n" +
 	"\rresource_hash\x18\x04 \x01(\fR\fresourceHash\x12\x12\n" +
 	"\x04code\x18\x05 \x01(\tR\x04code\x122\n" +
-	"\tfile_path\x18\xa0\x93\x04 \x01(\tB\x13\x82\xb5\x18\x0f2\rresource_hashR\bfilePath\"L\n" +
-	"\tGeoIPList\x12?\n" +
-	"\x05entry\x18\x01 \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\x05entry\"\xdd\x01\n" +
+	"\tfile_path\x18\xa0\x93\x04 \x01(\tB\x13\x82\xb5\x18\x0f2\rresource_hashR\bfilePath\"N\n" +
+	"\tGeoIPList\x12A\n" +
+	"\x05entry\x18\x01 \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05entry\"\xdf\x01\n" +
 	"\aGeoSite\x12!\n" +
-	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12B\n" +
-	"\x06domain\x18\x02 \x03(\v2*.v2ray.core.app.router.routercommon.DomainR\x06domain\x12#\n" +
+	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12D\n" +
+	"\x06domain\x18\x02 \x03(\v2,.exclave.core.app.router.routercommon.DomainR\x06domain\x12#\n" +
 	"\rresource_hash\x18\x03 \x01(\fR\fresourceHash\x12\x12\n" +
 	"\x04code\x18\x04 \x01(\tR\x04code\x122\n" +
-	"\tfile_path\x18\xa0\x93\x04 \x01(\tB\x13\x82\xb5\x18\x0f2\rresource_hashR\bfilePath\"P\n" +
-	"\vGeoSiteList\x12A\n" +
-	"\x05entry\x18\x01 \x03(\v2+.v2ray.core.app.router.routercommon.GeoSiteR\x05entryB\x87\x01\n" +
-	"&com.v2ray.core.app.router.routercommonP\x01Z6github.com/v2fly/v2ray-core/v5/app/router/routercommon\xaa\x02\"V2Ray.Core.App.Router.Routercommonb\x06proto3"
+	"\tfile_path\x18\xa0\x93\x04 \x01(\tB\x13\x82\xb5\x18\x0f2\rresource_hashR\bfilePath\"R\n" +
+	"\vGeoSiteList\x12C\n" +
+	"\x05entry\x18\x01 \x03(\v2-.exclave.core.app.router.routercommon.GeoSiteR\x05entryB\xac\x01\n" +
+	">com.github.exclavenetwork.exclave.core.app.router.routercommonP\x01ZAgithub.com/exclavenetwork/exclave-core/v5/app/router/routercommon\xaa\x02$Exclave.Core.App.Router.Routercommonb\x06proto3"
 
 var (
 	file_app_router_routercommon_common_proto_rawDescOnce sync.Once
@@ -599,22 +599,22 @@ func file_app_router_routercommon_common_proto_rawDescGZIP() []byte {
 var file_app_router_routercommon_common_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_app_router_routercommon_common_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_app_router_routercommon_common_proto_goTypes = []any{
-	(Domain_Type)(0),         // 0: v2ray.core.app.router.routercommon.Domain.Type
-	(*Domain)(nil),           // 1: v2ray.core.app.router.routercommon.Domain
-	(*CIDR)(nil),             // 2: v2ray.core.app.router.routercommon.CIDR
-	(*GeoIP)(nil),            // 3: v2ray.core.app.router.routercommon.GeoIP
-	(*GeoIPList)(nil),        // 4: v2ray.core.app.router.routercommon.GeoIPList
-	(*GeoSite)(nil),          // 5: v2ray.core.app.router.routercommon.GeoSite
-	(*GeoSiteList)(nil),      // 6: v2ray.core.app.router.routercommon.GeoSiteList
-	(*Domain_Attribute)(nil), // 7: v2ray.core.app.router.routercommon.Domain.Attribute
+	(Domain_Type)(0),         // 0: exclave.core.app.router.routercommon.Domain.Type
+	(*Domain)(nil),           // 1: exclave.core.app.router.routercommon.Domain
+	(*CIDR)(nil),             // 2: exclave.core.app.router.routercommon.CIDR
+	(*GeoIP)(nil),            // 3: exclave.core.app.router.routercommon.GeoIP
+	(*GeoIPList)(nil),        // 4: exclave.core.app.router.routercommon.GeoIPList
+	(*GeoSite)(nil),          // 5: exclave.core.app.router.routercommon.GeoSite
+	(*GeoSiteList)(nil),      // 6: exclave.core.app.router.routercommon.GeoSiteList
+	(*Domain_Attribute)(nil), // 7: exclave.core.app.router.routercommon.Domain.Attribute
 }
 var file_app_router_routercommon_common_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.router.routercommon.Domain.type:type_name -> v2ray.core.app.router.routercommon.Domain.Type
-	7, // 1: v2ray.core.app.router.routercommon.Domain.attribute:type_name -> v2ray.core.app.router.routercommon.Domain.Attribute
-	2, // 2: v2ray.core.app.router.routercommon.GeoIP.cidr:type_name -> v2ray.core.app.router.routercommon.CIDR
-	3, // 3: v2ray.core.app.router.routercommon.GeoIPList.entry:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	1, // 4: v2ray.core.app.router.routercommon.GeoSite.domain:type_name -> v2ray.core.app.router.routercommon.Domain
-	5, // 5: v2ray.core.app.router.routercommon.GeoSiteList.entry:type_name -> v2ray.core.app.router.routercommon.GeoSite
+	0, // 0: exclave.core.app.router.routercommon.Domain.type:type_name -> exclave.core.app.router.routercommon.Domain.Type
+	7, // 1: exclave.core.app.router.routercommon.Domain.attribute:type_name -> exclave.core.app.router.routercommon.Domain.Attribute
+	2, // 2: exclave.core.app.router.routercommon.GeoIP.cidr:type_name -> exclave.core.app.router.routercommon.CIDR
+	3, // 3: exclave.core.app.router.routercommon.GeoIPList.entry:type_name -> exclave.core.app.router.routercommon.GeoIP
+	1, // 4: exclave.core.app.router.routercommon.GeoSite.domain:type_name -> exclave.core.app.router.routercommon.Domain
+	5, // 5: exclave.core.app.router.routercommon.GeoSiteList.entry:type_name -> exclave.core.app.router.routercommon.GeoSite
 	6, // [6:6] is the sub-list for method output_type
 	6, // [6:6] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name

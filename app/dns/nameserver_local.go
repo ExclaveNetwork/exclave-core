@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
-	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
 )
 
 // LocalNameServer is an wrapper over local DNS feature.

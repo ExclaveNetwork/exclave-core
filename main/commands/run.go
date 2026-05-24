@@ -9,33 +9,33 @@ import (
 	"strings"
 	"syscall"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/common/cmdarg"
-	"github.com/v2fly/v2ray-core/v5/common/platform"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
-	"github.com/v2fly/v2ray-core/v5/main/plugins"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/common/cmdarg"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/plugins"
 )
 
 // CmdRun runs V2Ray with config
 var CmdRun = &base.Command{
 	CustomFlags: true,
 	UsageLine:   "{{.Exec}} run [-c config.json] [-d dir]",
-	Short:       "run V2Ray with config",
+	Short:       "run Exclave-core with config",
 	Long: `
-Run V2Ray with config.
+Run Exclave-core with config.
 
 {{.Exec}} will also use the config directory specified by environment 
-variable "v2ray.location.confdir". If no config found, it tries 
+variable "exclave.location.confdir". If no config found, it tries 
 to load config from one of below:
 
 	1. The default "config.json" in the current directory
-	2. The config file from ENV "v2ray.location.config"
+	2. The config file from ENV "exclave.location.config"
 	3. The stdin if all failed above
 
 Arguments:
 
 	-c, -config <file>
-		Config file for V2Ray. Multiple assign is accepted.
+		Config file for Exclave-core. Multiple assign is accepted.
 
 	-d, -confdir <dir>
 		A directory with config files. Multiple assign is accepted.

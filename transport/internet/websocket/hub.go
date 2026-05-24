@@ -14,13 +14,13 @@ import (
 	"github.com/gorilla/websocket"
 	utls "github.com/metacubex/utls"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	http_proto "github.com/v2fly/v2ray-core/v5/common/protocol/http"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/reality"
-	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	http_proto "github.com/exclavenetwork/exclave-core/v5/common/protocol/http"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
+	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 type requestHandler struct {

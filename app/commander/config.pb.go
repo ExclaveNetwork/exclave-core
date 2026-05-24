@@ -1,7 +1,7 @@
 package commander
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -166,7 +166,7 @@ var File_app_commander_config_proto protoreflect.FileDescriptor
 
 const file_app_commander_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapp/commander/config.proto\x12\x18v2ray.core.app.commander\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"J\n" +
+	"\x1aapp/commander/config.proto\x12\x1aexclave.core.app.commander\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"J\n" +
 	"\x06Config\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12.\n" +
 	"\aservice\x18\x02 \x03(\v2\x14.google.protobuf.AnyR\aservice\"1\n" +
@@ -176,8 +176,8 @@ const file_app_commander_config_proto_rawDesc = "" +
 	"\x10SimplifiedConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12\x12\n" +
 	"\x04name\x18\x02 \x03(\tR\x04name:\x18\x82\xb5\x18\x14\n" +
-	"\aservice\x12\tcommanderBi\n" +
-	"\x1ccom.v2ray.core.app.commanderP\x01Z,github.com/v2fly/v2ray-core/v5/app/commander\xaa\x02\x18V2Ray.Core.App.Commanderb\x06proto3"
+	"\aservice\x12\tcommanderB\x8e\x01\n" +
+	"4com.github.exclavenetwork.exclave.core.app.commanderP\x01Z7github.com/exclavenetwork/exclave-core/v5/app/commander\xaa\x02\x1aExclave.Core.App.Commanderb\x06proto3"
 
 var (
 	file_app_commander_config_proto_rawDescOnce sync.Once
@@ -193,13 +193,13 @@ func file_app_commander_config_proto_rawDescGZIP() []byte {
 
 var file_app_commander_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_app_commander_config_proto_goTypes = []any{
-	(*Config)(nil),           // 0: v2ray.core.app.commander.Config
-	(*ReflectionConfig)(nil), // 1: v2ray.core.app.commander.ReflectionConfig
-	(*SimplifiedConfig)(nil), // 2: v2ray.core.app.commander.SimplifiedConfig
+	(*Config)(nil),           // 0: exclave.core.app.commander.Config
+	(*ReflectionConfig)(nil), // 1: exclave.core.app.commander.ReflectionConfig
+	(*SimplifiedConfig)(nil), // 2: exclave.core.app.commander.SimplifiedConfig
 	(*anypb.Any)(nil),        // 3: google.protobuf.Any
 }
 var file_app_commander_config_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.app.commander.Config.service:type_name -> google.protobuf.Any
+	3, // 0: exclave.core.app.commander.Config.service:type_name -> google.protobuf.Any
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

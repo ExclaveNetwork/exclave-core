@@ -1,8 +1,8 @@
 package simplified
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -117,15 +117,15 @@ var File_proxy_http_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	"\"proxy/http/simplified/config.proto\x12 v2ray.core.proxy.http.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"#\n" +
+	"\"proxy/http/simplified/config.proto\x12\"exclave.core.proxy.http.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"#\n" +
 	"\fServerConfig:\x13\x82\xb5\x18\x0f\n" +
-	"\ainbound\x12\x04http\"\xa9\x01\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\ainbound\x12\x04http\"\xab\x01\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x122\n" +
 	"\x16h1_skip_wait_for_reply\x18\x03 \x01(\bR\x12h1SkipWaitForReply:\x14\x82\xb5\x18\x10\n" +
-	"\boutbound\x12\x04httpB\x81\x01\n" +
-	"$com.v2ray.core.proxy.http.simplifiedP\x01Z4github.com/v2fly/v2ray-core/v5/proxy/http/simplified\xaa\x02 V2Ray.Core.Proxy.Http.Simplifiedb\x06proto3"
+	"\boutbound\x12\x04httpB\xa6\x01\n" +
+	"<com.github.exclavenetwork.exclave.core.proxy.http.simplifiedP\x01Z?github.com/exclavenetwork/exclave-core/v5/proxy/http/simplified\xaa\x02\"Exclave.Core.Proxy.Http.Simplifiedb\x06proto3"
 
 var (
 	file_proxy_http_simplified_config_proto_rawDescOnce sync.Once
@@ -141,12 +141,12 @@ func file_proxy_http_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_http_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_http_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),   // 0: v2ray.core.proxy.http.simplified.ServerConfig
-	(*ClientConfig)(nil),   // 1: v2ray.core.proxy.http.simplified.ClientConfig
-	(*net.IPOrDomain)(nil), // 2: v2ray.core.common.net.IPOrDomain
+	(*ServerConfig)(nil),   // 0: exclave.core.proxy.http.simplified.ServerConfig
+	(*ClientConfig)(nil),   // 1: exclave.core.proxy.http.simplified.ClientConfig
+	(*net.IPOrDomain)(nil), // 2: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_http_simplified_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.http.simplified.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	2, // 0: exclave.core.proxy.http.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

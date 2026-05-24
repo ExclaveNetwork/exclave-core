@@ -3,14 +3,14 @@ package dispatcher
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/protocol/bittorrent"
-	"github.com/v2fly/v2ray-core/v5/common/protocol/dns"
-	"github.com/v2fly/v2ray-core/v5/common/protocol/http"
-	"github.com/v2fly/v2ray-core/v5/common/protocol/quic"
-	"github.com/v2fly/v2ray-core/v5/common/protocol/tls"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol/bittorrent"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol/http"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol/quic"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol/tls"
 )
 
 type SniffResult interface {

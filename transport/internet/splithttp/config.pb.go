@@ -1,9 +1,9 @@
 package splithttp
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
-	internet "github.com/v2fly/v2ray-core/v5/transport/internet"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
+	internet "github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -419,34 +419,34 @@ var File_transport_internet_splithttp_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\n" +
-	")transport/internet/splithttp/config.proto\x12\"v2ray.transport.internet.splithttp\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\x1a\x1ftransport/internet/config.proto\"\xdc\x01\n" +
+	")transport/internet/splithttp/config.proto\x12)exclave.core.transport.internet.splithttp\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\x1a\x1ftransport/internet/config.proto\"\xdc\x01\n" +
 	"\n" +
 	"XmuxConfig\x12&\n" +
 	"\x0emaxConcurrency\x18\x01 \x01(\tR\x0emaxConcurrency\x12&\n" +
 	"\x0emaxConnections\x18\x02 \x01(\tR\x0emaxConnections\x12&\n" +
 	"\x0ecMaxReuseTimes\x18\x03 \x01(\tR\x0ecMaxReuseTimes\x12*\n" +
 	"\x10hMaxRequestTimes\x18\x04 \x01(\tR\x10hMaxRequestTimes\x12*\n" +
-	"\x10hMaxReusableSecs\x18\x05 \x01(\tR\x10hMaxReusableSecs\"\xe4\x02\n" +
-	"\x0eDownloadConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x10hMaxReusableSecs\x18\x05 \x01(\tR\x10hMaxReusableSecs\"\xe8\x02\n" +
+	"\x0eDownloadConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12C\n" +
 	"\x12transport_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x04 \x01(\tR\fsecurityType\x12A\n" +
-	"\x11security_settings\x18\x05 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12T\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2+.v2ray.core.transport.internet.SocketConfigR\x0esocketSettings\"\xd1\t\n" +
+	"\x11security_settings\x18\x05 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xe6\t\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x12\n" +
-	"\x04mode\x18\x03 \x01(\tR\x04mode\x12Q\n" +
-	"\aheaders\x18\x04 \x03(\v27.v2ray.transport.internet.splithttp.Config.HeadersEntryR\aheaders\x12$\n" +
+	"\x04mode\x18\x03 \x01(\tR\x04mode\x12X\n" +
+	"\aheaders\x18\x04 \x03(\v2>.exclave.core.transport.internet.splithttp.Config.HeadersEntryR\aheaders\x12$\n" +
 	"\rxPaddingBytes\x18\x05 \x01(\tR\rxPaddingBytes\x12\"\n" +
 	"\fnoGRPCHeader\x18\x06 \x01(\bR\fnoGRPCHeader\x12.\n" +
 	"\x12scMaxEachPostBytes\x18\a \x01(\tR\x12scMaxEachPostBytes\x122\n" +
 	"\x14scMinPostsIntervalMs\x18\b \x01(\tR\x14scMinPostsIntervalMs\x12.\n" +
-	"\x12scMaxBufferedPosts\x18\t \x01(\x03R\x12scMaxBufferedPosts\x12G\n" +
+	"\x12scMaxBufferedPosts\x18\t \x01(\x03R\x12scMaxBufferedPosts\x12N\n" +
 	"\x04xmux\x18\n" +
-	" \x01(\v2..v2ray.transport.internet.splithttp.XmuxConfigH\x00R\x04xmux\x88\x01\x01\x12c\n" +
-	"\x10downloadSettings\x18\v \x01(\v22.v2ray.transport.internet.splithttp.DownloadConfigH\x01R\x10downloadSettings\x88\x01\x01\x12*\n" +
+	" \x01(\v25.exclave.core.transport.internet.splithttp.XmuxConfigH\x00R\x04xmux\x88\x01\x01\x12j\n" +
+	"\x10downloadSettings\x18\v \x01(\v29.exclave.core.transport.internet.splithttp.DownloadConfigH\x01R\x10downloadSettings\x88\x01\x01\x12*\n" +
 	"\x10xPaddingObfsMode\x18\f \x01(\bR\x10xPaddingObfsMode\x12 \n" +
 	"\vxPaddingKey\x18\r \x01(\tR\vxPaddingKey\x12&\n" +
 	"\x0exPaddingHeader\x18\x0e \x01(\tR\x0exPaddingHeader\x12,\n" +
@@ -468,8 +468,8 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01:\x1a\x82\xb5\x18\x16\n" +
 	"\ttransport\x12\tsplithttpB\a\n" +
 	"\x05_xmuxB\x13\n" +
-	"\x11_downloadSettingsB\x8c\x01\n" +
-	"&com.v2ray.transport.internet.splithttpP\x01Z;github.com/v2fly/v2ray-core/v5/transport/internet/splithttp\xaa\x02\"V2Ray.Transport.Internet.SplitHttpb\x06proto3"
+	"\x11_downloadSettingsB\xbb\x01\n" +
+	"Ccom.github.exclavenetwork.exclave.core.transport.internet.splithttpP\x01ZFgithub.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp\xaa\x02)Exclave.Core.Transport.Internet.SplitHttpb\x06proto3"
 
 var (
 	file_transport_internet_splithttp_config_proto_rawDescOnce sync.Once
@@ -485,22 +485,22 @@ func file_transport_internet_splithttp_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_splithttp_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_transport_internet_splithttp_config_proto_goTypes = []any{
-	(*XmuxConfig)(nil),            // 0: v2ray.transport.internet.splithttp.XmuxConfig
-	(*DownloadConfig)(nil),        // 1: v2ray.transport.internet.splithttp.DownloadConfig
-	(*Config)(nil),                // 2: v2ray.transport.internet.splithttp.Config
-	nil,                           // 3: v2ray.transport.internet.splithttp.Config.HeadersEntry
-	(*net.IPOrDomain)(nil),        // 4: v2ray.core.common.net.IPOrDomain
+	(*XmuxConfig)(nil),            // 0: exclave.core.transport.internet.splithttp.XmuxConfig
+	(*DownloadConfig)(nil),        // 1: exclave.core.transport.internet.splithttp.DownloadConfig
+	(*Config)(nil),                // 2: exclave.core.transport.internet.splithttp.Config
+	nil,                           // 3: exclave.core.transport.internet.splithttp.Config.HeadersEntry
+	(*net.IPOrDomain)(nil),        // 4: exclave.core.common.net.IPOrDomain
 	(*anypb.Any)(nil),             // 5: google.protobuf.Any
-	(*internet.SocketConfig)(nil), // 6: v2ray.core.transport.internet.SocketConfig
+	(*internet.SocketConfig)(nil), // 6: exclave.core.transport.internet.SocketConfig
 }
 var file_transport_internet_splithttp_config_proto_depIdxs = []int32{
-	4, // 0: v2ray.transport.internet.splithttp.DownloadConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	5, // 1: v2ray.transport.internet.splithttp.DownloadConfig.transport_settings:type_name -> google.protobuf.Any
-	5, // 2: v2ray.transport.internet.splithttp.DownloadConfig.security_settings:type_name -> google.protobuf.Any
-	6, // 3: v2ray.transport.internet.splithttp.DownloadConfig.socket_settings:type_name -> v2ray.core.transport.internet.SocketConfig
-	3, // 4: v2ray.transport.internet.splithttp.Config.headers:type_name -> v2ray.transport.internet.splithttp.Config.HeadersEntry
-	0, // 5: v2ray.transport.internet.splithttp.Config.xmux:type_name -> v2ray.transport.internet.splithttp.XmuxConfig
-	1, // 6: v2ray.transport.internet.splithttp.Config.downloadSettings:type_name -> v2ray.transport.internet.splithttp.DownloadConfig
+	4, // 0: exclave.core.transport.internet.splithttp.DownloadConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	5, // 1: exclave.core.transport.internet.splithttp.DownloadConfig.transport_settings:type_name -> google.protobuf.Any
+	5, // 2: exclave.core.transport.internet.splithttp.DownloadConfig.security_settings:type_name -> google.protobuf.Any
+	6, // 3: exclave.core.transport.internet.splithttp.DownloadConfig.socket_settings:type_name -> exclave.core.transport.internet.SocketConfig
+	3, // 4: exclave.core.transport.internet.splithttp.Config.headers:type_name -> exclave.core.transport.internet.splithttp.Config.HeadersEntry
+	0, // 5: exclave.core.transport.internet.splithttp.Config.xmux:type_name -> exclave.core.transport.internet.splithttp.XmuxConfig
+	1, // 6: exclave.core.transport.internet.splithttp.Config.downloadSettings:type_name -> exclave.core.transport.internet.splithttp.DownloadConfig
 	7, // [7:7] is the sub-list for method output_type
 	7, // [7:7] is the sub-list for method input_type
 	7, // [7:7] is the sub-list for extension type_name

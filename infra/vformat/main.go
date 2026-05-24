@@ -173,7 +173,7 @@ func main() {
 		"write",
 		"--section", "standard",
 		"--section", "default",
-		"--section", "Prefix(github.com/v2fly/v2ray-core)",
+		"--section", "Prefix(github.com/exclavenetwork/exclave-core)",
 	}
 
 	RunMany(gofmt, gofmtArgs, rawFilesSlice)

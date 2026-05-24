@@ -1,7 +1,7 @@
 package wireguard
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -155,7 +155,7 @@ type ClientConfig struct {
 	Mtu            int32                       `protobuf:"varint,4,opt,name=mtu,proto3" json:"mtu,omitempty"`
 	NumWorkers     int32                       `protobuf:"varint,5,opt,name=num_workers,json=numWorkers,proto3" json:"num_workers,omitempty"`
 	Reserved       []byte                      `protobuf:"bytes,6,opt,name=reserved,proto3" json:"reserved,omitempty"`
-	DomainStrategy ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.proxy.wireguard.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
+	DomainStrategy ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.wireguard.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -319,7 +319,7 @@ var File_proxy_wireguard_config_proto protoreflect.FileDescriptor
 
 const file_proxy_wireguard_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproxy/wireguard/config.proto\x12\x1av2ray.core.proxy.wireguard\x1a common/protoext/extensions.proto\"\xad\x01\n" +
+	"\x1cproxy/wireguard/config.proto\x12\x1cexclave.core.proxy.wireguard\x1a common/protoext/extensions.proto\"\xad\x01\n" +
 	"\n" +
 	"PeerConfig\x12\x1d\n" +
 	"\n" +
@@ -329,17 +329,17 @@ const file_proxy_wireguard_config_proto_rawDesc = "" +
 	"\n" +
 	"keep_alive\x18\x04 \x01(\rR\tkeepAlive\x12\x1f\n" +
 	"\vallowed_ips\x18\x05 \x03(\tR\n" +
-	"allowedIps\"\xa9\x03\n" +
+	"allowedIps\"\xad\x03\n" +
 	"\fClientConfig\x12\x1d\n" +
 	"\n" +
 	"secret_key\x18\x01 \x01(\tR\tsecretKey\x12\x18\n" +
-	"\aaddress\x18\x02 \x03(\tR\aaddress\x12<\n" +
-	"\x05peers\x18\x03 \x03(\v2&.v2ray.core.proxy.wireguard.PeerConfigR\x05peers\x12\x10\n" +
+	"\aaddress\x18\x02 \x03(\tR\aaddress\x12>\n" +
+	"\x05peers\x18\x03 \x03(\v2(.exclave.core.proxy.wireguard.PeerConfigR\x05peers\x12\x10\n" +
 	"\x03mtu\x18\x04 \x01(\x05R\x03mtu\x12\x1f\n" +
 	"\vnum_workers\x18\x05 \x01(\x05R\n" +
 	"numWorkers\x12\x1a\n" +
-	"\breserved\x18\x06 \x01(\fR\breserved\x12`\n" +
-	"\x0fdomain_strategy\x18\a \x01(\x0e27.v2ray.core.proxy.wireguard.ClientConfig.DomainStrategyR\x0edomainStrategy\"V\n" +
+	"\breserved\x18\x06 \x01(\fR\breserved\x12b\n" +
+	"\x0fdomain_strategy\x18\a \x01(\x0e29.exclave.core.proxy.wireguard.ClientConfig.DomainStrategyR\x0edomainStrategy\"V\n" +
 	"\x0eDomainStrategy\x12\n" +
 	"\n" +
 	"\x06USE_IP\x10\x00\x12\v\n" +
@@ -349,17 +349,17 @@ const file_proxy_wireguard_config_proto_rawDesc = "" +
 	"PREFER_IP4\x10\x03\x12\x0e\n" +
 	"\n" +
 	"PREFER_IP6\x10\x04:\x19\x82\xb5\x18\x15\n" +
-	"\boutbound\x12\twireguard\"\xd2\x01\n" +
+	"\boutbound\x12\twireguard\"\xd4\x01\n" +
 	"\fServerConfig\x12\x1d\n" +
 	"\n" +
 	"secret_key\x18\x01 \x01(\tR\tsecretKey\x12\x18\n" +
-	"\aaddress\x18\x02 \x03(\tR\aaddress\x12<\n" +
-	"\x05peers\x18\x03 \x03(\v2&.v2ray.core.proxy.wireguard.PeerConfigR\x05peers\x12\x10\n" +
+	"\aaddress\x18\x02 \x03(\tR\aaddress\x12>\n" +
+	"\x05peers\x18\x03 \x03(\v2(.exclave.core.proxy.wireguard.PeerConfigR\x05peers\x12\x10\n" +
 	"\x03mtu\x18\x04 \x01(\x05R\x03mtu\x12\x1f\n" +
 	"\vnum_workers\x18\x05 \x01(\x05R\n" +
 	"numWorkers:\x18\x82\xb5\x18\x14\n" +
-	"\ainbound\x12\twireguardBo\n" +
-	"\x1ecom.v2ray.core.proxy.wireguardP\x01Z.github.com/v2fly/v2ray-core/v5/proxy/wireguard\xaa\x02\x1aV2Ray.Core.Proxy.WireGuardb\x06proto3"
+	"\ainbound\x12\twireguardB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.proxy.wireguardP\x01Z9github.com/exclavenetwork/exclave-core/v5/proxy/wireguard\xaa\x02\x1cExclave.Core.Proxy.WireGuardb\x06proto3"
 
 var (
 	file_proxy_wireguard_config_proto_rawDescOnce sync.Once
@@ -376,15 +376,15 @@ func file_proxy_wireguard_config_proto_rawDescGZIP() []byte {
 var file_proxy_wireguard_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_proxy_wireguard_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_wireguard_config_proto_goTypes = []any{
-	(ClientConfig_DomainStrategy)(0), // 0: v2ray.core.proxy.wireguard.ClientConfig.DomainStrategy
-	(*PeerConfig)(nil),               // 1: v2ray.core.proxy.wireguard.PeerConfig
-	(*ClientConfig)(nil),             // 2: v2ray.core.proxy.wireguard.ClientConfig
-	(*ServerConfig)(nil),             // 3: v2ray.core.proxy.wireguard.ServerConfig
+	(ClientConfig_DomainStrategy)(0), // 0: exclave.core.proxy.wireguard.ClientConfig.DomainStrategy
+	(*PeerConfig)(nil),               // 1: exclave.core.proxy.wireguard.PeerConfig
+	(*ClientConfig)(nil),             // 2: exclave.core.proxy.wireguard.ClientConfig
+	(*ServerConfig)(nil),             // 3: exclave.core.proxy.wireguard.ServerConfig
 }
 var file_proxy_wireguard_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.wireguard.ClientConfig.peers:type_name -> v2ray.core.proxy.wireguard.PeerConfig
-	0, // 1: v2ray.core.proxy.wireguard.ClientConfig.domain_strategy:type_name -> v2ray.core.proxy.wireguard.ClientConfig.DomainStrategy
-	1, // 2: v2ray.core.proxy.wireguard.ServerConfig.peers:type_name -> v2ray.core.proxy.wireguard.PeerConfig
+	1, // 0: exclave.core.proxy.wireguard.ClientConfig.peers:type_name -> exclave.core.proxy.wireguard.PeerConfig
+	0, // 1: exclave.core.proxy.wireguard.ClientConfig.domain_strategy:type_name -> exclave.core.proxy.wireguard.ClientConfig.DomainStrategy
+	1, // 2: exclave.core.proxy.wireguard.ServerConfig.peers:type_name -> exclave.core.proxy.wireguard.PeerConfig
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

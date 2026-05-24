@@ -1,7 +1,7 @@
 package filesystemstorage
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -61,7 +61,7 @@ func (StateStorageRoot) EnumDescriptor() ([]byte, []int) {
 
 type Config struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
-	StateStorageRoot StateStorageRoot       `protobuf:"varint,1,opt,name=state_storage_root,json=stateStorageRoot,proto3,enum=v2ray.core.app.persistentstorage.filesystemstorage.StateStorageRoot" json:"state_storage_root,omitempty"`
+	StateStorageRoot StateStorageRoot       `protobuf:"varint,1,opt,name=state_storage_root,json=stateStorageRoot,proto3,enum=exclave.core.app.persistentstorage.filesystemstorage.StateStorageRoot" json:"state_storage_root,omitempty"`
 	InstanceName     string                 `protobuf:"bytes,4,opt,name=instance_name,json=instanceName,proto3" json:"instance_name,omitempty"`
 	Protojson        bool                   `protobuf:"varint,5,opt,name=protojson,proto3" json:"protojson,omitempty"`
 	unknownFields    protoimpl.UnknownFields
@@ -123,15 +123,15 @@ var File_app_persistentstorage_filesystemstorage_config_proto protoreflect.FileD
 
 const file_app_persistentstorage_filesystemstorage_config_proto_rawDesc = "" +
 	"\n" +
-	"4app/persistentstorage/filesystemstorage/config.proto\x122v2ray.core.app.persistentstorage.filesystemstorage\x1a common/protoext/extensions.proto\"\xe1\x01\n" +
-	"\x06Config\x12r\n" +
-	"\x12state_storage_root\x18\x01 \x01(\x0e2D.v2ray.core.app.persistentstorage.filesystemstorage.StateStorageRootR\x10stateStorageRoot\x12#\n" +
+	"4app/persistentstorage/filesystemstorage/config.proto\x124exclave.core.app.persistentstorage.filesystemstorage\x1a common/protoext/extensions.proto\"\xe3\x01\n" +
+	"\x06Config\x12t\n" +
+	"\x12state_storage_root\x18\x01 \x01(\x0e2F.exclave.core.app.persistentstorage.filesystemstorage.StateStorageRootR\x10stateStorageRoot\x12#\n" +
 	"\rinstance_name\x18\x04 \x01(\tR\finstanceName\x12\x1c\n" +
 	"\tprotojson\x18\x05 \x01(\bR\tprotojson: \x82\xb5\x18\x1c\n" +
 	"\aservice\x12\x11filesystemstorage*\x1f\n" +
 	"\x10StateStorageRoot\x12\v\n" +
-	"\aWorkDir\x10\x00B\xb3\x01\n" +
-	"2com.v2ray.core.persistentstorage.filesystemstorageP\x01ZFgithub.com/v2fly/v2ray-core/v5/app/persistentstorage/filesystemstorage\xaa\x022V2Ray.Core.App.Persistentstorage.Filesystemstorageb\x06proto3"
+	"\aWorkDir\x10\x00B\xd8\x01\n" +
+	"Jcom.github.exclavenetwork.exclave.core.persistentstorage.filesystemstorageP\x01ZQgithub.com/exclavenetwork/exclave-core/v5/app/persistentstorage/filesystemstorage\xaa\x024Exclave.Core.App.Persistentstorage.Filesystemstorageb\x06proto3"
 
 var (
 	file_app_persistentstorage_filesystemstorage_config_proto_rawDescOnce sync.Once
@@ -148,11 +148,11 @@ func file_app_persistentstorage_filesystemstorage_config_proto_rawDescGZIP() []b
 var file_app_persistentstorage_filesystemstorage_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_app_persistentstorage_filesystemstorage_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_app_persistentstorage_filesystemstorage_config_proto_goTypes = []any{
-	(StateStorageRoot)(0), // 0: v2ray.core.app.persistentstorage.filesystemstorage.StateStorageRoot
-	(*Config)(nil),        // 1: v2ray.core.app.persistentstorage.filesystemstorage.Config
+	(StateStorageRoot)(0), // 0: exclave.core.app.persistentstorage.filesystemstorage.StateStorageRoot
+	(*Config)(nil),        // 1: exclave.core.app.persistentstorage.filesystemstorage.Config
 }
 var file_app_persistentstorage_filesystemstorage_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.persistentstorage.filesystemstorage.Config.state_storage_root:type_name -> v2ray.core.app.persistentstorage.filesystemstorage.StateStorageRoot
+	0, // 0: exclave.core.app.persistentstorage.filesystemstorage.Config.state_storage_root:type_name -> exclave.core.app.persistentstorage.filesystemstorage.StateStorageRoot
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

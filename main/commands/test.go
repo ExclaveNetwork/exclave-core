@@ -3,7 +3,7 @@ package commands
 import (
 	"fmt"
 
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
 )
 
 // CmdTest tests config files
@@ -12,20 +12,20 @@ var CmdTest = &base.Command{
 	UsageLine:   "{{.Exec}} test [-format=json] [-c config.json] [-d dir]",
 	Short:       "test config files",
 	Long: `
-Test config files, without launching V2Ray server.
+Test config files, without launching Exclave-core server.
 
 {{.Exec}} will also use the config directory specified by environment 
-variable "v2ray.location.confdir". If no config found, it tries 
+variable "exclave.location.confdir". If no config found, it tries 
 to load config from one of below:
 
 	1. The default "config.json" in the current directory
-	2. The config file from ENV "v2ray.location.config"
+	2. The config file from ENV "exclave.location.config"
 	3. The stdin if all failed above
 
 Arguments:
 
 	-c, -config <file>
-		Config file for V2Ray. Multiple assign is accepted.
+		Config file for Exclave-core. Multiple assign is accepted.
 
 	-d, -confdir <dir>
 		A directory with config files. Multiple assign is accepted.

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core;
-option csharp_namespace = "V2Ray.Core";
-option go_package = "github.com/v2fly/v2ray-core/v5;core";
-option java_package = "com.v2ray.core";
+package exclave.core;
+option csharp_namespace = "Exclave.Core";
+option go_package = "github.com/exclavenetwork/exclave-core/v5;core";
+option java_package = "com.github.exclavenetwork.exclave.core";
 option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
@@ -29,7 +29,7 @@ message Config {
   // Transport settings.
   // Deprecated. Each inbound and outbound should choose their own transport
   // config. Date to remove: 2020-01-13
-  v2ray.core.transport.global.Config transport = 5 [deprecated = true];
+  exclave.core.transport.global.Config transport = 5 [deprecated = true];
 
   // Configuration for extensions. The config may not work if corresponding
   // extension is not loaded into V2Ray. V2Ray will ignore such config during

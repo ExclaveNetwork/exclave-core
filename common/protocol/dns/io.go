@@ -6,9 +6,9 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 )
 
 func PackMessage(msg *dns.Msg) (*buf.Buffer, error) {

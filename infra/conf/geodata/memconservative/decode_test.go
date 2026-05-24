@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/platform"
-	"github.com/v2fly/v2ray-core/v5/common/platform/filesystem"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform/filesystem"
 )
 
 func init() {
@@ -26,7 +26,7 @@ func init() {
 	geoipPath := filepath.Join(tempPath, "geoip.dat")
 	geositePath := filepath.Join(tempPath, "geosite.dat")
 
-	os.Setenv("v2ray.location.asset", tempPath)
+	os.Setenv("exclave.location.asset", tempPath)
 
 	if _, err := os.Stat(geoipPath); err != nil && errors.Is(err, fs.ErrNotExist) {
 		common.Must(os.MkdirAll(tempPath, 0o755))

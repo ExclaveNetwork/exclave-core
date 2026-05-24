@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.tuic;
-option csharp_namespace = "V2Ray.Core.Proxy.Tuic";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/tuic";
-option java_package = "com.v2ray.core.proxy.tuic";
+package exclave.core.proxy.tuic;
+option csharp_namespace = "Exclave.Core.Proxy.Tuic";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/tuic";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.tuic";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
 import "common/net/address.proto";
 
 message ClientConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "tuic";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "tuic";
 
-  v2ray.core.common.net.IPOrDomain address = 1;
+  exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   string uuid = 3;
   string password = 4;

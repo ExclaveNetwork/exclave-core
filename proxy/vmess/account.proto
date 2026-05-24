@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.vmess;
-option csharp_namespace = "V2Ray.Core.Proxy.Vmess";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/vmess";
-option java_package = "com.v2ray.core.proxy.vmess";
+package exclave.core.proxy.vmess;
+option csharp_namespace = "Exclave.Core.Proxy.Vmess";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/vmess";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.vmess";
 option java_multiple_files = true;
 
 import "common/protocol/headers.proto";
@@ -15,7 +15,7 @@ message Account {
   // Number of alternative IDs. Client and server must share the same number.
   uint32 alter_id = 2;
   // Security settings. Only applies to client side.
-  v2ray.core.common.protocol.SecurityConfig security_settings = 3;
+  exclave.core.common.protocol.SecurityConfig security_settings = 3;
   // Define tests enabled for this account
   string tests_enabled = 4;
 }

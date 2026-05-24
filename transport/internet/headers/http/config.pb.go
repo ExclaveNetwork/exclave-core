@@ -405,30 +405,30 @@ var File_transport_internet_headers_http_config_proto protoreflect.FileDescripto
 
 const file_transport_internet_headers_http_config_proto_rawDesc = "" +
 	"\n" +
-	",transport/internet/headers/http/config.proto\x12*v2ray.core.transport.internet.headers.http\"2\n" +
+	",transport/internet/headers/http/config.proto\x12,exclave.core.transport.internet.headers.http\"2\n" +
 	"\x06Header\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05value\x18\x02 \x03(\tR\x05value\"\x1f\n" +
 	"\aVersion\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\tR\x05value\"\x1e\n" +
 	"\x06Method\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value\"\x88\x02\n" +
-	"\rRequestConfig\x12M\n" +
-	"\aversion\x18\x01 \x01(\v23.v2ray.core.transport.internet.headers.http.VersionR\aversion\x12J\n" +
-	"\x06method\x18\x02 \x01(\v22.v2ray.core.transport.internet.headers.http.MethodR\x06method\x12\x10\n" +
-	"\x03uri\x18\x03 \x03(\tR\x03uri\x12J\n" +
-	"\x06header\x18\x04 \x03(\v22.v2ray.core.transport.internet.headers.http.HeaderR\x06header\"4\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\"\x8e\x02\n" +
+	"\rRequestConfig\x12O\n" +
+	"\aversion\x18\x01 \x01(\v25.exclave.core.transport.internet.headers.http.VersionR\aversion\x12L\n" +
+	"\x06method\x18\x02 \x01(\v24.exclave.core.transport.internet.headers.http.MethodR\x06method\x12\x10\n" +
+	"\x03uri\x18\x03 \x03(\tR\x03uri\x12L\n" +
+	"\x06header\x18\x04 \x03(\v24.exclave.core.transport.internet.headers.http.HeaderR\x06header\"4\n" +
 	"\x06Status\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\tR\x04code\x12\x16\n" +
-	"\x06reason\x18\x02 \x01(\tR\x06reason\"\xf7\x01\n" +
-	"\x0eResponseConfig\x12M\n" +
-	"\aversion\x18\x01 \x01(\v23.v2ray.core.transport.internet.headers.http.VersionR\aversion\x12J\n" +
-	"\x06status\x18\x02 \x01(\v22.v2ray.core.transport.internet.headers.http.StatusR\x06status\x12J\n" +
-	"\x06header\x18\x03 \x03(\v22.v2ray.core.transport.internet.headers.http.HeaderR\x06header\"\xb5\x01\n" +
-	"\x06Config\x12S\n" +
-	"\arequest\x18\x01 \x01(\v29.v2ray.core.transport.internet.headers.http.RequestConfigR\arequest\x12V\n" +
-	"\bresponse\x18\x02 \x01(\v2:.v2ray.core.transport.internet.headers.http.ResponseConfigR\bresponseB\x9f\x01\n" +
-	".com.v2ray.core.transport.internet.headers.httpP\x01Z>github.com/v2fly/v2ray-core/v5/transport/internet/headers/http\xaa\x02*V2Ray.Core.Transport.Internet.Headers.Httpb\x06proto3"
+	"\x06reason\x18\x02 \x01(\tR\x06reason\"\xfd\x01\n" +
+	"\x0eResponseConfig\x12O\n" +
+	"\aversion\x18\x01 \x01(\v25.exclave.core.transport.internet.headers.http.VersionR\aversion\x12L\n" +
+	"\x06status\x18\x02 \x01(\v24.exclave.core.transport.internet.headers.http.StatusR\x06status\x12L\n" +
+	"\x06header\x18\x03 \x03(\v24.exclave.core.transport.internet.headers.http.HeaderR\x06header\"\xb9\x01\n" +
+	"\x06Config\x12U\n" +
+	"\arequest\x18\x01 \x01(\v2;.exclave.core.transport.internet.headers.http.RequestConfigR\arequest\x12X\n" +
+	"\bresponse\x18\x02 \x01(\v2<.exclave.core.transport.internet.headers.http.ResponseConfigR\bresponseB\xc4\x01\n" +
+	"Fcom.github.exclavenetwork.exclave.core.transport.internet.headers.httpP\x01ZIgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/http\xaa\x02,Exclave.Core.Transport.Internet.Headers.Httpb\x06proto3"
 
 var (
 	file_transport_internet_headers_http_config_proto_rawDescOnce sync.Once
@@ -444,23 +444,23 @@ func file_transport_internet_headers_http_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_headers_http_config_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_transport_internet_headers_http_config_proto_goTypes = []any{
-	(*Header)(nil),         // 0: v2ray.core.transport.internet.headers.http.Header
-	(*Version)(nil),        // 1: v2ray.core.transport.internet.headers.http.Version
-	(*Method)(nil),         // 2: v2ray.core.transport.internet.headers.http.Method
-	(*RequestConfig)(nil),  // 3: v2ray.core.transport.internet.headers.http.RequestConfig
-	(*Status)(nil),         // 4: v2ray.core.transport.internet.headers.http.Status
-	(*ResponseConfig)(nil), // 5: v2ray.core.transport.internet.headers.http.ResponseConfig
-	(*Config)(nil),         // 6: v2ray.core.transport.internet.headers.http.Config
+	(*Header)(nil),         // 0: exclave.core.transport.internet.headers.http.Header
+	(*Version)(nil),        // 1: exclave.core.transport.internet.headers.http.Version
+	(*Method)(nil),         // 2: exclave.core.transport.internet.headers.http.Method
+	(*RequestConfig)(nil),  // 3: exclave.core.transport.internet.headers.http.RequestConfig
+	(*Status)(nil),         // 4: exclave.core.transport.internet.headers.http.Status
+	(*ResponseConfig)(nil), // 5: exclave.core.transport.internet.headers.http.ResponseConfig
+	(*Config)(nil),         // 6: exclave.core.transport.internet.headers.http.Config
 }
 var file_transport_internet_headers_http_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.internet.headers.http.RequestConfig.version:type_name -> v2ray.core.transport.internet.headers.http.Version
-	2, // 1: v2ray.core.transport.internet.headers.http.RequestConfig.method:type_name -> v2ray.core.transport.internet.headers.http.Method
-	0, // 2: v2ray.core.transport.internet.headers.http.RequestConfig.header:type_name -> v2ray.core.transport.internet.headers.http.Header
-	1, // 3: v2ray.core.transport.internet.headers.http.ResponseConfig.version:type_name -> v2ray.core.transport.internet.headers.http.Version
-	4, // 4: v2ray.core.transport.internet.headers.http.ResponseConfig.status:type_name -> v2ray.core.transport.internet.headers.http.Status
-	0, // 5: v2ray.core.transport.internet.headers.http.ResponseConfig.header:type_name -> v2ray.core.transport.internet.headers.http.Header
-	3, // 6: v2ray.core.transport.internet.headers.http.Config.request:type_name -> v2ray.core.transport.internet.headers.http.RequestConfig
-	5, // 7: v2ray.core.transport.internet.headers.http.Config.response:type_name -> v2ray.core.transport.internet.headers.http.ResponseConfig
+	1, // 0: exclave.core.transport.internet.headers.http.RequestConfig.version:type_name -> exclave.core.transport.internet.headers.http.Version
+	2, // 1: exclave.core.transport.internet.headers.http.RequestConfig.method:type_name -> exclave.core.transport.internet.headers.http.Method
+	0, // 2: exclave.core.transport.internet.headers.http.RequestConfig.header:type_name -> exclave.core.transport.internet.headers.http.Header
+	1, // 3: exclave.core.transport.internet.headers.http.ResponseConfig.version:type_name -> exclave.core.transport.internet.headers.http.Version
+	4, // 4: exclave.core.transport.internet.headers.http.ResponseConfig.status:type_name -> exclave.core.transport.internet.headers.http.Status
+	0, // 5: exclave.core.transport.internet.headers.http.ResponseConfig.header:type_name -> exclave.core.transport.internet.headers.http.Header
+	3, // 6: exclave.core.transport.internet.headers.http.Config.request:type_name -> exclave.core.transport.internet.headers.http.RequestConfig
+	5, // 7: exclave.core.transport.internet.headers.http.Config.response:type_name -> exclave.core.transport.internet.headers.http.ResponseConfig
 	8, // [8:8] is the sub-list for method output_type
 	8, // [8:8] is the sub-list for method input_type
 	8, // [8:8] is the sub-list for extension type_name

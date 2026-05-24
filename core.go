@@ -9,19 +9,16 @@
 // connections.
 package core
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"runtime"
 
-	"github.com/v2fly/v2ray-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 )
 
 var (
-	version  = "5.50.0"
-	build    = "Custom"
-	codename = "V2Fly, a community-driven edition of V2Ray."
-	intro    = "A unified platform for anti-censorship."
+	version = "5.50.0"
 )
 
 // Version returns V2Ray's version as a string, in the form of "x.y.z" where x, y and z are numbers.
@@ -33,8 +30,7 @@ func Version() string {
 // VersionStatement returns a list of strings representing the full version info.
 func VersionStatement() []string {
 	return []string{
-		serial.Concat("V2Ray ", Version(), " (", codename, ") ", build, " (", runtime.Version(), " ", runtime.GOOS, "/", runtime.GOARCH, ")"),
-		intro,
+		serial.Concat("Exclave-core ", Version(), " (", runtime.Version(), " ", runtime.GOOS, "/", runtime.GOARCH, ")"),
 	}
 }
 

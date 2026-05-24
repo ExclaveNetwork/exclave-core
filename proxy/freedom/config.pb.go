@@ -1,8 +1,8 @@
 package freedom
 
 import (
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -121,7 +121,7 @@ func (x *DestinationOverride) GetServer() *protocol.ServerEndpoint {
 
 type Config struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	DomainStrategy Config_DomainStrategy  `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.proxy.freedom.Config_DomainStrategy" json:"domain_strategy,omitempty"`
+	DomainStrategy Config_DomainStrategy  `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.freedom.Config_DomainStrategy" json:"domain_strategy,omitempty"`
 	// Deprecated: Marked as deprecated in proxy/freedom/config.proto.
 	Timeout             uint32               `protobuf:"varint,2,opt,name=timeout,proto3" json:"timeout,omitempty"`
 	DestinationOverride *DestinationOverride `protobuf:"bytes,3,opt,name=destination_override,json=destinationOverride,proto3" json:"destination_override,omitempty"`
@@ -255,13 +255,13 @@ var File_proxy_freedom_config_proto protoreflect.FileDescriptor
 
 const file_proxy_freedom_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1aproxy/freedom/config.proto\x12\x18v2ray.core.proxy.freedom\x1a!common/protocol/server_spec.proto\x1a common/protoext/extensions.proto\"Y\n" +
-	"\x13DestinationOverride\x12B\n" +
-	"\x06server\x18\x01 \x01(\v2*.v2ray.core.common.protocol.ServerEndpointR\x06server\"\x9a\x03\n" +
-	"\x06Config\x12X\n" +
-	"\x0fdomain_strategy\x18\x01 \x01(\x0e2/.v2ray.core.proxy.freedom.Config.DomainStrategyR\x0edomainStrategy\x12\x1c\n" +
-	"\atimeout\x18\x02 \x01(\rB\x02\x18\x01R\atimeout\x12`\n" +
-	"\x14destination_override\x18\x03 \x01(\v2-.v2ray.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x12\x1d\n" +
+	"\x1aproxy/freedom/config.proto\x12\x1aexclave.core.proxy.freedom\x1a!common/protocol/server_spec.proto\x1a common/protoext/extensions.proto\"[\n" +
+	"\x13DestinationOverride\x12D\n" +
+	"\x06server\x18\x01 \x01(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\x9e\x03\n" +
+	"\x06Config\x12Z\n" +
+	"\x0fdomain_strategy\x18\x01 \x01(\x0e21.exclave.core.proxy.freedom.Config.DomainStrategyR\x0edomainStrategy\x12\x1c\n" +
+	"\atimeout\x18\x02 \x01(\rB\x02\x18\x01R\atimeout\x12b\n" +
+	"\x14destination_override\x18\x03 \x01(\v2/.exclave.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x124\n" +
 	"\x15interrupt_connections\x18\xe8\a \x01(\bR\x14interruptConnections\"a\n" +
@@ -274,12 +274,12 @@ const file_proxy_freedom_config_proto_rawDesc = "" +
 	"\n" +
 	"PREFER_IP4\x10\x04\x12\x0e\n" +
 	"\n" +
-	"PREFER_IP6\x10\x05\"\xc3\x01\n" +
-	"\x10SimplifiedConfig\x12`\n" +
-	"\x14destination_override\x18\x03 \x01(\v2-.v2ray.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x124\n" +
+	"PREFER_IP6\x10\x05\"\xc5\x01\n" +
+	"\x10SimplifiedConfig\x12b\n" +
+	"\x14destination_override\x18\x03 \x01(\v2/.exclave.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x124\n" +
 	"\x15interrupt_connections\x18\xe8\a \x01(\bR\x14interruptConnections:\x17\x82\xb5\x18\x13\n" +
-	"\boutbound\x12\afreedomBi\n" +
-	"\x1ccom.v2ray.core.proxy.freedomP\x01Z,github.com/v2fly/v2ray-core/v5/proxy/freedom\xaa\x02\x18V2Ray.Core.Proxy.Freedomb\x06proto3"
+	"\boutbound\x12\afreedomB\x8e\x01\n" +
+	"4com.github.exclavenetwork.exclave.core.proxy.freedomP\x01Z7github.com/exclavenetwork/exclave-core/v5/proxy/freedom\xaa\x02\x1aExclave.Core.Proxy.Freedomb\x06proto3"
 
 var (
 	file_proxy_freedom_config_proto_rawDescOnce sync.Once
@@ -296,17 +296,17 @@ func file_proxy_freedom_config_proto_rawDescGZIP() []byte {
 var file_proxy_freedom_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_proxy_freedom_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_freedom_config_proto_goTypes = []any{
-	(Config_DomainStrategy)(0),      // 0: v2ray.core.proxy.freedom.Config.DomainStrategy
-	(*DestinationOverride)(nil),     // 1: v2ray.core.proxy.freedom.DestinationOverride
-	(*Config)(nil),                  // 2: v2ray.core.proxy.freedom.Config
-	(*SimplifiedConfig)(nil),        // 3: v2ray.core.proxy.freedom.SimplifiedConfig
-	(*protocol.ServerEndpoint)(nil), // 4: v2ray.core.common.protocol.ServerEndpoint
+	(Config_DomainStrategy)(0),      // 0: exclave.core.proxy.freedom.Config.DomainStrategy
+	(*DestinationOverride)(nil),     // 1: exclave.core.proxy.freedom.DestinationOverride
+	(*Config)(nil),                  // 2: exclave.core.proxy.freedom.Config
+	(*SimplifiedConfig)(nil),        // 3: exclave.core.proxy.freedom.SimplifiedConfig
+	(*protocol.ServerEndpoint)(nil), // 4: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_freedom_config_proto_depIdxs = []int32{
-	4, // 0: v2ray.core.proxy.freedom.DestinationOverride.server:type_name -> v2ray.core.common.protocol.ServerEndpoint
-	0, // 1: v2ray.core.proxy.freedom.Config.domain_strategy:type_name -> v2ray.core.proxy.freedom.Config.DomainStrategy
-	1, // 2: v2ray.core.proxy.freedom.Config.destination_override:type_name -> v2ray.core.proxy.freedom.DestinationOverride
-	1, // 3: v2ray.core.proxy.freedom.SimplifiedConfig.destination_override:type_name -> v2ray.core.proxy.freedom.DestinationOverride
+	4, // 0: exclave.core.proxy.freedom.DestinationOverride.server:type_name -> exclave.core.common.protocol.ServerEndpoint
+	0, // 1: exclave.core.proxy.freedom.Config.domain_strategy:type_name -> exclave.core.proxy.freedom.Config.DomainStrategy
+	1, // 2: exclave.core.proxy.freedom.Config.destination_override:type_name -> exclave.core.proxy.freedom.DestinationOverride
+	1, // 3: exclave.core.proxy.freedom.SimplifiedConfig.destination_override:type_name -> exclave.core.proxy.freedom.DestinationOverride
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

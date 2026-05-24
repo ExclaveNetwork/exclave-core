@@ -1,7 +1,7 @@
 package burst
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -155,10 +155,10 @@ var File_app_observatory_burst_config_proto protoreflect.FileDescriptor
 
 const file_app_observatory_burst_config_proto_rawDesc = "" +
 	"\n" +
-	"\"app/observatory/burst/config.proto\x12 v2ray.core.app.observatory.burst\x1a common/protoext/extensions.proto\"\xa9\x01\n" +
+	"\"app/observatory/burst/config.proto\x12\"exclave.core.app.observatory.burst\x1a common/protoext/extensions.proto\"\xab\x01\n" +
 	"\x06Config\x12)\n" +
-	"\x10subject_selector\x18\x02 \x03(\tR\x0fsubjectSelector\x12S\n" +
-	"\vping_config\x18\x03 \x01(\v22.v2ray.core.app.observatory.burst.HealthPingConfigR\n" +
+	"\x10subject_selector\x18\x02 \x03(\tR\x0fsubjectSelector\x12U\n" +
+	"\vping_config\x18\x03 \x01(\v24.exclave.core.app.observatory.burst.HealthPingConfigR\n" +
 	"pingConfig:\x1f\x82\xb5\x18\x1b\n" +
 	"\aservice\x12\x10burstObservatory\"\xb4\x01\n" +
 	"\x10HealthPingConfig\x12 \n" +
@@ -166,8 +166,8 @@ const file_app_observatory_burst_config_proto_rawDesc = "" +
 	"\fconnectivity\x18\x02 \x01(\tR\fconnectivity\x12\x1a\n" +
 	"\binterval\x18\x03 \x01(\x03R\binterval\x12$\n" +
 	"\rsamplingCount\x18\x04 \x01(\x05R\rsamplingCount\x12\x18\n" +
-	"\atimeout\x18\x05 \x01(\x03R\atimeoutB\x81\x01\n" +
-	"$com.v2ray.core.app.observatory.burstP\x01Z4github.com/v2fly/v2ray-core/v5/app/observatory/burst\xaa\x02 V2Ray.Core.App.Observatory.Burstb\x06proto3"
+	"\atimeout\x18\x05 \x01(\x03R\atimeoutB\xa6\x01\n" +
+	"<com.github.exclavenetwork.exclave.core.app.observatory.burstP\x01Z?github.com/exclavenetwork/exclave-core/v5/app/observatory/burst\xaa\x02\"Exclave.Core.App.Observatory.Burstb\x06proto3"
 
 var (
 	file_app_observatory_burst_config_proto_rawDescOnce sync.Once
@@ -183,11 +183,11 @@ func file_app_observatory_burst_config_proto_rawDescGZIP() []byte {
 
 var file_app_observatory_burst_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_app_observatory_burst_config_proto_goTypes = []any{
-	(*Config)(nil),           // 0: v2ray.core.app.observatory.burst.Config
-	(*HealthPingConfig)(nil), // 1: v2ray.core.app.observatory.burst.HealthPingConfig
+	(*Config)(nil),           // 0: exclave.core.app.observatory.burst.Config
+	(*HealthPingConfig)(nil), // 1: exclave.core.app.observatory.burst.HealthPingConfig
 }
 var file_app_observatory_burst_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.app.observatory.burst.Config.ping_config:type_name -> v2ray.core.app.observatory.burst.HealthPingConfig
+	1, // 0: exclave.core.app.observatory.burst.Config.ping_config:type_name -> exclave.core.app.observatory.burst.HealthPingConfig
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

@@ -13,7 +13,7 @@ func main() {
 		os.Exit(1)
 	}
 	pkg := filepath.Base(pwd)
-	if pkg == "v2ray-core" {
+	if pkg == "exclave-core" {
 		pkg = "core"
 	}
 
@@ -26,7 +26,7 @@ func main() {
 
 	fmt.Fprintf(file, `package %s
 
-import "github.com/v2fly/v2ray-core/v5/common/errors"
+import "github.com/exclavenetwork/exclave-core/v5/common/errors"
 
 type errPathObjHolder struct{}
 

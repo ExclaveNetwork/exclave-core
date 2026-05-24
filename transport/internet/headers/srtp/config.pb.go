@@ -103,7 +103,7 @@ var File_transport_internet_headers_srtp_config_proto protoreflect.FileDescripto
 
 const file_transport_internet_headers_srtp_config_proto_rawDesc = "" +
 	"\n" +
-	",transport/internet/headers/srtp/config.proto\x12*v2ray.core.transport.internet.headers.srtp\"\xb4\x01\n" +
+	",transport/internet/headers/srtp/config.proto\x12,exclave.core.transport.internet.headers.srtp\"\xb4\x01\n" +
 	"\x06Config\x12\x18\n" +
 	"\aversion\x18\x01 \x01(\rR\aversion\x12\x18\n" +
 	"\apadding\x18\x02 \x01(\bR\apadding\x12\x1c\n" +
@@ -111,8 +111,8 @@ const file_transport_internet_headers_srtp_config_proto_rawDesc = "" +
 	"\n" +
 	"csrc_count\x18\x04 \x01(\rR\tcsrcCount\x12\x16\n" +
 	"\x06marker\x18\x05 \x01(\bR\x06marker\x12!\n" +
-	"\fpayload_type\x18\x06 \x01(\rR\vpayloadTypeB\x9f\x01\n" +
-	".com.v2ray.core.transport.internet.headers.srtpP\x01Z>github.com/v2fly/v2ray-core/v5/transport/internet/headers/srtp\xaa\x02*V2Ray.Core.Transport.Internet.Headers.Srtpb\x06proto3"
+	"\fpayload_type\x18\x06 \x01(\rR\vpayloadTypeB\xc4\x01\n" +
+	"Fcom.github.exclavenetwork.exclave.core.transport.internet.headers.srtpP\x01ZIgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/srtp\xaa\x02,Exclave.Core.Transport.Internet.Headers.Srtpb\x06proto3"
 
 var (
 	file_transport_internet_headers_srtp_config_proto_rawDescOnce sync.Once
@@ -128,7 +128,7 @@ func file_transport_internet_headers_srtp_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_headers_srtp_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_headers_srtp_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.headers.srtp.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.headers.srtp.Config
 }
 var file_transport_internet_headers_srtp_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -3,10 +3,10 @@ package router
 import (
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v5/app/router/routercommon"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/strmatcher"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/app/router/routercommon"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/strmatcher"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
 )
 
 type Condition interface {

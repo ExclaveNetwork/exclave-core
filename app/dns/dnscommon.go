@@ -6,9 +6,9 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	dns_feature "github.com/v2fly/v2ray-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	dns_feature "github.com/exclavenetwork/exclave-core/v5/features/dns"
 )
 
 var errTruncated = newError("truncated")

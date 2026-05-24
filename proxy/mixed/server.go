@@ -3,13 +3,13 @@ package mixed
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
-	"github.com/v2fly/v2ray-core/v5/proxy/http"
-	"github.com/v2fly/v2ray-core/v5/proxy/socks"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/http"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/socks"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
 const (

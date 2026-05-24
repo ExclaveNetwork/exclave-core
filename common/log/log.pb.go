@@ -74,14 +74,14 @@ var File_common_log_log_proto protoreflect.FileDescriptor
 
 const file_common_log_log_proto_rawDesc = "" +
 	"\n" +
-	"\x14common/log/log.proto\x12\x15v2ray.core.common.log*D\n" +
+	"\x14common/log/log.proto\x12\x17exclave.core.common.log*D\n" +
 	"\bSeverity\x12\v\n" +
 	"\aUnknown\x10\x00\x12\t\n" +
 	"\x05Error\x10\x01\x12\v\n" +
 	"\aWarning\x10\x02\x12\b\n" +
 	"\x04Info\x10\x03\x12\t\n" +
-	"\x05Debug\x10\x04B`\n" +
-	"\x19com.v2ray.core.common.logP\x01Z)github.com/v2fly/v2ray-core/v5/common/log\xaa\x02\x15V2Ray.Core.Common.Logb\x06proto3"
+	"\x05Debug\x10\x04B\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.common.logP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/log\xaa\x02\x17Exclave.Core.Common.Logb\x06proto3"
 
 var (
 	file_common_log_log_proto_rawDescOnce sync.Once
@@ -97,7 +97,7 @@ func file_common_log_log_proto_rawDescGZIP() []byte {
 
 var file_common_log_log_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_common_log_log_proto_goTypes = []any{
-	(Severity)(0), // 0: v2ray.core.common.log.Severity
+	(Severity)(0), // 0: exclave.core.common.log.Severity
 }
 var file_common_log_log_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

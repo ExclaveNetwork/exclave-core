@@ -3,8 +3,8 @@ package buf
 import (
 	"io"
 
-	"github.com/v2fly/v2ray-core/v5/common/bytespool"
-	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/bytespool"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 const (

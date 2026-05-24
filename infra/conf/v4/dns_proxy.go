@@ -3,9 +3,9 @@ package v4
 import (
 	"github.com/golang/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/proxy/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/dns"
 )
 
 type DNSOutboundConfig struct {

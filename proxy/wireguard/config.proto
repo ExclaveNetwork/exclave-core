@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.wireguard;
-option csharp_namespace = "V2Ray.Core.Proxy.WireGuard";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/wireguard";
-option java_package = "com.v2ray.core.proxy.wireguard";
+package exclave.core.proxy.wireguard;
+option csharp_namespace = "Exclave.Core.Proxy.WireGuard";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/wireguard";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.wireguard";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
@@ -17,8 +17,8 @@ message PeerConfig {
 }
 
 message ClientConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "wireguard";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "wireguard";
 
   enum DomainStrategy {
     USE_IP = 0;
@@ -38,8 +38,8 @@ message ClientConfig {
 }
 
 message ServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "wireguard";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "wireguard";
 
   string secret_key = 1;
   repeated string address = 2;

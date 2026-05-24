@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	_ "github.com/v2fly/v2ray-core/v5/main/distro/all"
-	"github.com/v2fly/v2ray-core/v5/testing/servers/tcp"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	_ "github.com/exclavenetwork/exclave-core/v5/main/distro/all"
+	"github.com/exclavenetwork/exclave-core/v5/testing/servers/tcp"
 )
 
 func TestMeek(t *testing.T) {

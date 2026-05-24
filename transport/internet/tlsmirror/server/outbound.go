@@ -4,11 +4,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/net/cnc"
-	"github.com/v2fly/v2ray-core/v5/common/signal/done"
-	"github.com/v2fly/v2ray-core/v5/transport"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/net/cnc"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
+	"github.com/exclavenetwork/exclave-core/v5/transport"
 )
 
 func NewOutboundListener() *OutboundListener {

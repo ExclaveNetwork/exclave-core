@@ -5,8 +5,8 @@ import (
 
 	"github.com/sagernet/sing/common/logger"
 
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
 )
 
 var _ logger.ContextLogger = (*loggerWrapper)(nil)

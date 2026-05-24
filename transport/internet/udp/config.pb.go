@@ -55,9 +55,9 @@ var File_transport_internet_udp_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_udp_config_proto_rawDesc = "" +
 	"\n" +
-	"#transport/internet/udp/config.proto\x12!v2ray.core.transport.internet.udp\"\b\n" +
-	"\x06ConfigB\x84\x01\n" +
-	"%com.v2ray.core.transport.internet.udpP\x01Z5github.com/v2fly/v2ray-core/v5/transport/internet/udp\xaa\x02!V2Ray.Core.Transport.Internet.Udpb\x06proto3"
+	"#transport/internet/udp/config.proto\x12#exclave.core.transport.internet.udp\"\b\n" +
+	"\x06ConfigB\xa9\x01\n" +
+	"=com.github.exclavenetwork.exclave.core.transport.internet.udpP\x01Z@github.com/exclavenetwork/exclave-core/v5/transport/internet/udp\xaa\x02#Exclave.Core.Transport.Internet.Udpb\x06proto3"
 
 var (
 	file_transport_internet_udp_config_proto_rawDescOnce sync.Once
@@ -73,7 +73,7 @@ func file_transport_internet_udp_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_udp_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_udp_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.udp.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.udp.Config
 }
 var file_transport_internet_udp_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

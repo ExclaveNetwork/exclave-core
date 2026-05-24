@@ -7,18 +7,18 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/log"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common"
-	clog "github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/proxy/dokodemo"
-	"github.com/v2fly/v2ray-core/v5/proxy/freedom"
-	"github.com/v2fly/v2ray-core/v5/proxy/wireguard"
-	"github.com/v2fly/v2ray-core/v5/testing/servers/tcp"
-	"github.com/v2fly/v2ray-core/v5/testing/servers/udp"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/log"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	clog "github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/dokodemo"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/freedom"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/wireguard"
+	"github.com/exclavenetwork/exclave-core/v5/testing/servers/tcp"
+	"github.com/exclavenetwork/exclave-core/v5/testing/servers/udp"
 )
 
 func TestWireguard(t *testing.T) {

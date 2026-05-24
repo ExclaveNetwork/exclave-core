@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	. "github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/transport/pipe"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	. "github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/transport/pipe"
 )
 
 func TestBytesReaderWriteTo(t *testing.T) {

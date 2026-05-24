@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.vmess.inbound;
-option csharp_namespace = "V2Ray.Core.Proxy.Vmess.Inbound";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound";
-option java_package = "com.v2ray.core.proxy.vmess.inbound";
+package exclave.core.proxy.vmess.inbound;
+option csharp_namespace = "Exclave.Core.Proxy.Vmess.Inbound";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.vmess.inbound";
 option java_multiple_files = true;
 
 import "common/protocol/user.proto";
@@ -19,15 +19,15 @@ message DefaultConfig {
 }
 
 message Config {
-  repeated v2ray.core.common.protocol.User user = 1;
+  repeated exclave.core.common.protocol.User user = 1;
   DefaultConfig default = 2;
   DetourConfig detour = 3;
   bool secure_encryption_only = 4;
 }
 
 message SimplifiedConfig{
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "vmess";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "vmess";
 
   repeated string users = 1;
 }

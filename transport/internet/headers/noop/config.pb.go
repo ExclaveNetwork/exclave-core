@@ -91,10 +91,10 @@ var File_transport_internet_headers_noop_config_proto protoreflect.FileDescripto
 
 const file_transport_internet_headers_noop_config_proto_rawDesc = "" +
 	"\n" +
-	",transport/internet/headers/noop/config.proto\x12*v2ray.core.transport.internet.headers.noop\"\b\n" +
+	",transport/internet/headers/noop/config.proto\x12,exclave.core.transport.internet.headers.noop\"\b\n" +
 	"\x06Config\"\x12\n" +
-	"\x10ConnectionConfigB\x9f\x01\n" +
-	".com.v2ray.core.transport.internet.headers.noopP\x01Z>github.com/v2fly/v2ray-core/v5/transport/internet/headers/noop\xaa\x02*V2Ray.Core.Transport.Internet.Headers.Noopb\x06proto3"
+	"\x10ConnectionConfigB\xc4\x01\n" +
+	"Fcom.github.exclavenetwork.exclave.core.transport.internet.headers.noopP\x01ZIgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/noop\xaa\x02,Exclave.Core.Transport.Internet.Headers.Noopb\x06proto3"
 
 var (
 	file_transport_internet_headers_noop_config_proto_rawDescOnce sync.Once
@@ -110,8 +110,8 @@ func file_transport_internet_headers_noop_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_headers_noop_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_transport_internet_headers_noop_config_proto_goTypes = []any{
-	(*Config)(nil),           // 0: v2ray.core.transport.internet.headers.noop.Config
-	(*ConnectionConfig)(nil), // 1: v2ray.core.transport.internet.headers.noop.ConnectionConfig
+	(*Config)(nil),           // 0: exclave.core.transport.internet.headers.noop.Config
+	(*ConnectionConfig)(nil), // 1: exclave.core.transport.internet.headers.noop.ConnectionConfig
 }
 var file_transport_internet_headers_noop_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -8,13 +8,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/platform"
-	"github.com/v2fly/v2ray-core/v5/common/platform/filesystem"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/geodata"
-	_ "github.com/v2fly/v2ray-core/v5/infra/conf/geodata/standard"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/rule"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform/filesystem"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata"
+	_ "github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata/standard"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/rule"
 )
 
 func init() {
@@ -26,7 +26,7 @@ func init() {
 	tempPath := filepath.Join(wd, "..", "..", "..", "testing", "temp")
 	geoipPath := filepath.Join(tempPath, "geoip.dat")
 
-	os.Setenv("v2ray.location.asset", tempPath)
+	os.Setenv("exclave.location.asset", tempPath)
 
 	if _, err := os.Stat(geoipPath); err != nil && errors.Is(err, fs.ErrNotExist) {
 		common.Must(os.MkdirAll(tempPath, 0o755))
@@ -37,7 +37,7 @@ func init() {
 }
 
 func TestToCidrList(t *testing.T) {
-	t.Log(os.Getenv("v2ray.location.asset"))
+	t.Log(os.Getenv("exclave.location.asset"))
 
 	common.Must(filesystem.CopyFile(platform.GetAssetLocation("geoiptestrouter.dat"), platform.GetAssetLocation("geoip.dat"), 0o600))
 

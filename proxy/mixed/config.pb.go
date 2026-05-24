@@ -1,8 +1,8 @@
 package mixed
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -123,7 +123,7 @@ func (x *Account) GetPassword() string {
 type ServerConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Deprecated: Marked as deprecated in proxy/mixed/config.proto.
-	AuthType AuthType          `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=v2ray.core.proxy.mixed.AuthType" json:"auth_type,omitempty"`
+	AuthType AuthType          `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.mixed.AuthType" json:"auth_type,omitempty"`
 	Accounts map[string]string `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Deprecated: Marked as deprecated in proxy/mixed/config.proto.
 	Timeout   uint32 `protobuf:"varint,3,opt,name=timeout,proto3" json:"timeout,omitempty"`
@@ -131,7 +131,7 @@ type ServerConfig struct {
 	// Socks
 	UdpEnabled     bool                      `protobuf:"varint,5,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
 	Address        *net.IPOrDomain           `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	DeferLastReply bool                      `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
 	// HTTP
 	AllowTransparent bool `protobuf:"varint,9,opt,name=allow_transparent,json=allowTransparent,proto3" json:"allow_transparent,omitempty"`
@@ -238,20 +238,20 @@ var File_proxy_mixed_config_proto protoreflect.FileDescriptor
 
 const file_proxy_mixed_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/mixed/config.proto\x12\x16v2ray.core.proxy.mixed\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"A\n" +
+	"\x18proxy/mixed/config.proto\x12\x18exclave.core.proxy.mixed\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"A\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xa4\x04\n" +
-	"\fServerConfig\x12A\n" +
-	"\tauth_type\x18\x01 \x01(\x0e2 .v2ray.core.proxy.mixed.AuthTypeB\x02\x18\x01R\bauthType\x12N\n" +
-	"\baccounts\x18\x02 \x03(\v22.v2ray.core.proxy.mixed.ServerConfig.AccountsEntryR\baccounts\x12\x1c\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xac\x04\n" +
+	"\fServerConfig\x12C\n" +
+	"\tauth_type\x18\x01 \x01(\x0e2\".exclave.core.proxy.mixed.AuthTypeB\x02\x18\x01R\bauthType\x12P\n" +
+	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.mixed.ServerConfig.AccountsEntryR\baccounts\x12\x1c\n" +
 	"\atimeout\x18\x03 \x01(\rB\x02\x18\x01R\atimeout\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x12\x1f\n" +
 	"\vudp_enabled\x18\x05 \x01(\bR\n" +
-	"udpEnabled\x12;\n" +
-	"\aaddress\x18\x06 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12R\n" +
-	"\x0fpacket_encoding\x18\a \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
+	"udpEnabled\x12=\n" +
+	"\aaddress\x18\x06 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12T\n" +
+	"\x0fpacket_encoding\x18\a \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
 	"\x10defer_last_reply\x18\b \x01(\bR\x0edeferLastReply\x12+\n" +
 	"\x11allow_transparent\x18\t \x01(\bR\x10allowTransparent\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
@@ -259,8 +259,8 @@ const file_proxy_mixed_config_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01*%\n" +
 	"\bAuthType\x12\v\n" +
 	"\aNO_AUTH\x10\x00\x12\f\n" +
-	"\bPASSWORD\x10\x01Bc\n" +
-	"\x1acom.v2ray.core.proxy.mixedP\x01Z*github.com/v2fly/v2ray-core/v5/proxy/mixed\xaa\x02\x16V2Ray.Core.Proxy.Mixedb\x06proto3"
+	"\bPASSWORD\x10\x01B\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.mixedP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/mixed\xaa\x02\x18Exclave.Core.Proxy.Mixedb\x06proto3"
 
 var (
 	file_proxy_mixed_config_proto_rawDescOnce sync.Once
@@ -277,18 +277,18 @@ func file_proxy_mixed_config_proto_rawDescGZIP() []byte {
 var file_proxy_mixed_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_proxy_mixed_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_mixed_config_proto_goTypes = []any{
-	(AuthType)(0),                  // 0: v2ray.core.proxy.mixed.AuthType
-	(*Account)(nil),                // 1: v2ray.core.proxy.mixed.Account
-	(*ServerConfig)(nil),           // 2: v2ray.core.proxy.mixed.ServerConfig
-	nil,                            // 3: v2ray.core.proxy.mixed.ServerConfig.AccountsEntry
-	(*net.IPOrDomain)(nil),         // 4: v2ray.core.common.net.IPOrDomain
-	(packetaddr.PacketAddrType)(0), // 5: v2ray.core.net.packetaddr.PacketAddrType
+	(AuthType)(0),                  // 0: exclave.core.proxy.mixed.AuthType
+	(*Account)(nil),                // 1: exclave.core.proxy.mixed.Account
+	(*ServerConfig)(nil),           // 2: exclave.core.proxy.mixed.ServerConfig
+	nil,                            // 3: exclave.core.proxy.mixed.ServerConfig.AccountsEntry
+	(*net.IPOrDomain)(nil),         // 4: exclave.core.common.net.IPOrDomain
+	(packetaddr.PacketAddrType)(0), // 5: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_proxy_mixed_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.proxy.mixed.ServerConfig.auth_type:type_name -> v2ray.core.proxy.mixed.AuthType
-	3, // 1: v2ray.core.proxy.mixed.ServerConfig.accounts:type_name -> v2ray.core.proxy.mixed.ServerConfig.AccountsEntry
-	4, // 2: v2ray.core.proxy.mixed.ServerConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	5, // 3: v2ray.core.proxy.mixed.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
+	0, // 0: exclave.core.proxy.mixed.ServerConfig.auth_type:type_name -> exclave.core.proxy.mixed.AuthType
+	3, // 1: exclave.core.proxy.mixed.ServerConfig.accounts:type_name -> exclave.core.proxy.mixed.ServerConfig.AccountsEntry
+	4, // 2: exclave.core.proxy.mixed.ServerConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	5, // 3: exclave.core.proxy.mixed.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

@@ -1,7 +1,7 @@
 package global
 
 import (
-	internet "github.com/v2fly/v2ray-core/v5/transport/internet"
+	internet "github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -68,10 +68,10 @@ var File_transport_global_config_proto protoreflect.FileDescriptor
 
 const file_transport_global_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1dtransport/global/config.proto\x12\x1bv2ray.core.transport.global\x1a\x1ftransport/internet/config.proto\"k\n" +
-	"\x06Config\x12]\n" +
-	"\x12transport_settings\x18\x01 \x03(\v2..v2ray.core.transport.internet.TransportConfigR\x11transportSettings:\x02\x18\x01Br\n" +
-	"\x1fcom.v2ray.core.transport.globalP\x01Z/github.com/v2fly/v2ray-core/v5/transport/global\xaa\x02\x1bV2Ray.Core.Transport.Globalb\x06proto3"
+	"\x1dtransport/global/config.proto\x12\x1dexclave.core.transport.global\x1a\x1ftransport/internet/config.proto\"m\n" +
+	"\x06Config\x12_\n" +
+	"\x12transport_settings\x18\x01 \x03(\v20.exclave.core.transport.internet.TransportConfigR\x11transportSettings:\x02\x18\x01B\x97\x01\n" +
+	"7com.github.exclavenetwork.exclave.core.transport.globalP\x01Z:github.com/exclavenetwork/exclave-core/v5/transport/global\xaa\x02\x1dExclave.Core.Transport.Globalb\x06proto3"
 
 var (
 	file_transport_global_config_proto_rawDescOnce sync.Once
@@ -87,11 +87,11 @@ func file_transport_global_config_proto_rawDescGZIP() []byte {
 
 var file_transport_global_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_global_config_proto_goTypes = []any{
-	(*Config)(nil),                   // 0: v2ray.core.transport.global.Config
-	(*internet.TransportConfig)(nil), // 1: v2ray.core.transport.internet.TransportConfig
+	(*Config)(nil),                   // 0: exclave.core.transport.global.Config
+	(*internet.TransportConfig)(nil), // 1: exclave.core.transport.internet.TransportConfig
 }
 var file_transport_global_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.global.Config.transport_settings:type_name -> v2ray.core.transport.internet.TransportConfig
+	1, // 0: exclave.core.transport.global.Config.transport_settings:type_name -> exclave.core.transport.internet.TransportConfig
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

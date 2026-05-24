@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.shadowsocks.simplified;
-option csharp_namespace = "V2Ray.Core.Proxy.Shadowsocks.Simplified";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/shadowsocks/simplified";
-option java_package = "com.v2ray.core.proxy.shadowsocks.simplified";
+package exclave.core.proxy.shadowsocks.simplified;
+option csharp_namespace = "Exclave.Core.Proxy.Shadowsocks.Simplified";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks/simplified";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.shadowsocks.simplified";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
@@ -13,13 +13,13 @@ import "common/net/packetaddr/config.proto";
 import "proxy/shadowsocks/config.proto";
 
 message ServerConfig{
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks";
 
   CipherTypeWrapper method = 1;
   string password = 2;
-  v2ray.core.common.net.NetworkList networks = 3;
-  v2ray.core.net.packetaddr.PacketAddrType packet_encoding = 4;
+  exclave.core.common.net.NetworkList networks = 3;
+  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 4;
   string plugin = 5;
   string plugin_opts = 6;
   repeated string plugin_args = 7;
@@ -27,10 +27,10 @@ message ServerConfig{
 }
 
 message ClientConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "shadowsocks";
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowsocks";
 
-  v2ray.core.common.net.IPOrDomain address = 1;
+  exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   CipherTypeWrapper method = 3;
   string password = 4;
@@ -43,5 +43,5 @@ message ClientConfig {
 }
 
 message CipherTypeWrapper {
-  v2ray.core.proxy.shadowsocks.CipherType value = 1;
+  exclave.core.proxy.shadowsocks.CipherType value = 1;
 }

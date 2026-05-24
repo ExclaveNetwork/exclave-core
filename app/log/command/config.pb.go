@@ -207,17 +207,17 @@ var File_app_log_command_config_proto protoreflect.FileDescriptor
 
 const file_app_log_command_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1capp/log/command/config.proto\x12\x1av2ray.core.app.log.command\"\b\n" +
+	"\x1capp/log/command/config.proto\x12\x1cexclave.core.app.log.command\"\b\n" +
 	"\x06Config\"\x16\n" +
 	"\x14RestartLoggerRequest\"\x17\n" +
 	"\x15RestartLoggerResponse\"\x12\n" +
 	"\x10FollowLogRequest\"-\n" +
 	"\x11FollowLogResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xf5\x01\n" +
-	"\rLoggerService\x12v\n" +
-	"\rRestartLogger\x120.v2ray.core.app.log.command.RestartLoggerRequest\x1a1.v2ray.core.app.log.command.RestartLoggerResponse\"\x00\x12l\n" +
-	"\tFollowLog\x12,.v2ray.core.app.log.command.FollowLogRequest\x1a-.v2ray.core.app.log.command.FollowLogResponse\"\x000\x01Bo\n" +
-	"\x1ecom.v2ray.core.app.log.commandP\x01Z.github.com/v2fly/v2ray-core/v5/app/log/command\xaa\x02\x1aV2Ray.Core.App.Log.Commandb\x06proto3"
+	"\amessage\x18\x01 \x01(\tR\amessage2\xfd\x01\n" +
+	"\rLoggerService\x12z\n" +
+	"\rRestartLogger\x122.exclave.core.app.log.command.RestartLoggerRequest\x1a3.exclave.core.app.log.command.RestartLoggerResponse\"\x00\x12p\n" +
+	"\tFollowLog\x12..exclave.core.app.log.command.FollowLogRequest\x1a/.exclave.core.app.log.command.FollowLogResponse\"\x000\x01B\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.app.log.commandP\x01Z9github.com/exclavenetwork/exclave-core/v5/app/log/command\xaa\x02\x1cExclave.Core.App.Log.Commandb\x06proto3"
 
 var (
 	file_app_log_command_config_proto_rawDescOnce sync.Once
@@ -233,17 +233,17 @@ func file_app_log_command_config_proto_rawDescGZIP() []byte {
 
 var file_app_log_command_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_app_log_command_config_proto_goTypes = []any{
-	(*Config)(nil),                // 0: v2ray.core.app.log.command.Config
-	(*RestartLoggerRequest)(nil),  // 1: v2ray.core.app.log.command.RestartLoggerRequest
-	(*RestartLoggerResponse)(nil), // 2: v2ray.core.app.log.command.RestartLoggerResponse
-	(*FollowLogRequest)(nil),      // 3: v2ray.core.app.log.command.FollowLogRequest
-	(*FollowLogResponse)(nil),     // 4: v2ray.core.app.log.command.FollowLogResponse
+	(*Config)(nil),                // 0: exclave.core.app.log.command.Config
+	(*RestartLoggerRequest)(nil),  // 1: exclave.core.app.log.command.RestartLoggerRequest
+	(*RestartLoggerResponse)(nil), // 2: exclave.core.app.log.command.RestartLoggerResponse
+	(*FollowLogRequest)(nil),      // 3: exclave.core.app.log.command.FollowLogRequest
+	(*FollowLogResponse)(nil),     // 4: exclave.core.app.log.command.FollowLogResponse
 }
 var file_app_log_command_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.app.log.command.LoggerService.RestartLogger:input_type -> v2ray.core.app.log.command.RestartLoggerRequest
-	3, // 1: v2ray.core.app.log.command.LoggerService.FollowLog:input_type -> v2ray.core.app.log.command.FollowLogRequest
-	2, // 2: v2ray.core.app.log.command.LoggerService.RestartLogger:output_type -> v2ray.core.app.log.command.RestartLoggerResponse
-	4, // 3: v2ray.core.app.log.command.LoggerService.FollowLog:output_type -> v2ray.core.app.log.command.FollowLogResponse
+	1, // 0: exclave.core.app.log.command.LoggerService.RestartLogger:input_type -> exclave.core.app.log.command.RestartLoggerRequest
+	3, // 1: exclave.core.app.log.command.LoggerService.FollowLog:input_type -> exclave.core.app.log.command.FollowLogRequest
+	2, // 2: exclave.core.app.log.command.LoggerService.RestartLogger:output_type -> exclave.core.app.log.command.RestartLoggerResponse
+	4, // 3: exclave.core.app.log.command.LoggerService.FollowLog:output_type -> exclave.core.app.log.command.FollowLogResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

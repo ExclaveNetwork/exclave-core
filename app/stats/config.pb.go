@@ -1,7 +1,7 @@
 package stats
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -116,7 +116,7 @@ var File_app_stats_config_proto protoreflect.FileDescriptor
 
 const file_app_stats_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16app/stats/config.proto\x12\x14v2ray.core.app.stats\x1a common/protoext/extensions.proto\"\x1e\n" +
+	"\x16app/stats/config.proto\x12\x16exclave.core.app.stats\x1a common/protoext/extensions.proto\"\x1e\n" +
 	"\x06Config:\x14\x82\xb5\x18\x10\n" +
 	"\aservice\x12\x05stats\"u\n" +
 	"\rChannelConfig\x12\x1a\n" +
@@ -124,8 +124,8 @@ const file_app_stats_config_proto_rawDesc = "" +
 	"\x0fSubscriberLimit\x18\x02 \x01(\x05R\x0fSubscriberLimit\x12\x1e\n" +
 	"\n" +
 	"BufferSize\x18\x03 \x01(\x05R\n" +
-	"BufferSizeB]\n" +
-	"\x18com.v2ray.core.app.statsP\x01Z(github.com/v2fly/v2ray-core/v5/app/stats\xaa\x02\x14V2Ray.Core.App.Statsb\x06proto3"
+	"BufferSizeB\x82\x01\n" +
+	"0com.github.exclavenetwork.exclave.core.app.statsP\x01Z3github.com/exclavenetwork/exclave-core/v5/app/stats\xaa\x02\x16Exclave.Core.App.Statsb\x06proto3"
 
 var (
 	file_app_stats_config_proto_rawDescOnce sync.Once
@@ -141,8 +141,8 @@ func file_app_stats_config_proto_rawDescGZIP() []byte {
 
 var file_app_stats_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_app_stats_config_proto_goTypes = []any{
-	(*Config)(nil),        // 0: v2ray.core.app.stats.Config
-	(*ChannelConfig)(nil), // 1: v2ray.core.app.stats.ChannelConfig
+	(*Config)(nil),        // 0: exclave.core.app.stats.Config
+	(*ChannelConfig)(nil), // 1: exclave.core.app.stats.ChannelConfig
 }
 var file_app_stats_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

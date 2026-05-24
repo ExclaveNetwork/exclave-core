@@ -3,8 +3,8 @@ package vless
 import (
 	"crypto/sha1"
 
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/uuid"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
 )
 
 // AsAccount implements protocol.Account.AsAccount().

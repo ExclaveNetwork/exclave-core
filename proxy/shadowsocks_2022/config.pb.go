@@ -1,8 +1,8 @@
 package shadowsocks_2022
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -23,7 +23,7 @@ type ServerConfig struct {
 	Key              string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	Email            string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	Level            int32                  `protobuf:"varint,4,opt,name=level,proto3" json:"level,omitempty"`
-	Network          []net.Network          `protobuf:"varint,5,rep,packed,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
+	Network          []net.Network          `protobuf:"varint,5,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
 	Plugin           string                 `protobuf:"bytes,6,opt,name=plugin,proto3" json:"plugin,omitempty"`
 	PluginOpts       string                 `protobuf:"bytes,7,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
 	PluginArgs       []string               `protobuf:"bytes,8,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
@@ -130,7 +130,7 @@ type MultiUserServerConfig struct {
 	Method           string                 `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
 	Key              string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	Users            []*User                `protobuf:"bytes,3,rep,name=users,proto3" json:"users,omitempty"`
-	Network          []net.Network          `protobuf:"varint,4,rep,packed,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
+	Network          []net.Network          `protobuf:"varint,4,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
 	Plugin           string                 `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
 	PluginOpts       string                 `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
 	PluginArgs       []string               `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
@@ -306,7 +306,7 @@ type RelayServerConfig struct {
 	Method           string                 `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
 	Key              string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	Destinations     []*RelayDestination    `protobuf:"bytes,3,rep,name=destinations,proto3" json:"destinations,omitempty"`
-	Network          []net.Network          `protobuf:"varint,4,rep,packed,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
+	Network          []net.Network          `protobuf:"varint,4,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
 	Plugin           string                 `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
 	PluginOpts       string                 `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
 	PluginArgs       []string               `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
@@ -573,43 +573,43 @@ var File_proxy_shadowsocks_2022_config_proto protoreflect.FileDescriptor
 
 const file_proxy_shadowsocks_2022_config_proto_rawDesc = "" +
 	"\n" +
-	"#proxy/shadowsocks_2022/config.proto\x12!v2ray.core.proxy.shadowsocks_2022\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\x1a\x18common/net/address.proto\"\xc7\x02\n" +
+	"#proxy/shadowsocks_2022/config.proto\x12#exclave.core.proxy.shadowsocks_2022\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\x1a\x18common/net/address.proto\"\xc9\x02\n" +
 	"\fServerConfig\x12\x16\n" +
 	"\x06method\x18\x01 \x01(\tR\x06method\x12\x10\n" +
 	"\x03key\x18\x02 \x01(\tR\x03key\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x14\n" +
-	"\x05level\x18\x04 \x01(\x05R\x05level\x128\n" +
-	"\anetwork\x18\x05 \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork\x12\x16\n" +
+	"\x05level\x18\x04 \x01(\x05R\x05level\x12:\n" +
+	"\anetwork\x18\x05 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12\x16\n" +
 	"\x06plugin\x18\x06 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\a \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
 	"\vplugin_args\x18\b \x03(\tR\n" +
 	"pluginArgs\x12,\n" +
 	"\x12plugin_working_dir\x18\t \x01(\tR\x10pluginWorkingDir:\x1f\x82\xb5\x18\x1b\n" +
-	"\ainbound\x12\x10shadowsocks-2022\"\xe9\x02\n" +
+	"\ainbound\x12\x10shadowsocks-2022\"\xed\x02\n" +
 	"\x15MultiUserServerConfig\x12\x16\n" +
 	"\x06method\x18\x01 \x01(\tR\x06method\x12\x10\n" +
-	"\x03key\x18\x02 \x01(\tR\x03key\x12=\n" +
-	"\x05users\x18\x03 \x03(\v2'.v2ray.core.proxy.shadowsocks_2022.UserR\x05users\x128\n" +
-	"\anetwork\x18\x04 \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork\x12\x16\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12?\n" +
+	"\x05users\x18\x03 \x03(\v2).exclave.core.proxy.shadowsocks_2022.UserR\x05users\x12:\n" +
+	"\anetwork\x18\x04 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12\x16\n" +
 	"\x06plugin\x18\x05 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x06 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
 	"\vplugin_args\x18\a \x03(\tR\n" +
 	"pluginArgs\x12,\n" +
 	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir:%\x82\xb5\x18!\n" +
-	"\ainbound\x12\x16shadowsocks-2022-multi\"\xa1\x01\n" +
+	"\ainbound\x12\x16shadowsocks-2022-multi\"\xa3\x01\n" +
 	"\x10RelayDestination\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12;\n" +
-	"\aaddress\x18\x02 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12=\n" +
+	"\aaddress\x18\x02 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x03 \x01(\rR\x04port\x12\x14\n" +
 	"\x05email\x18\x04 \x01(\tR\x05email\x12\x14\n" +
-	"\x05level\x18\x05 \x01(\x05R\x05level\"\xff\x02\n" +
+	"\x05level\x18\x05 \x01(\x05R\x05level\"\x83\x03\n" +
 	"\x11RelayServerConfig\x12\x16\n" +
 	"\x06method\x18\x01 \x01(\tR\x06method\x12\x10\n" +
-	"\x03key\x18\x02 \x01(\tR\x03key\x12W\n" +
-	"\fdestinations\x18\x03 \x03(\v23.v2ray.core.proxy.shadowsocks_2022.RelayDestinationR\fdestinations\x128\n" +
-	"\anetwork\x18\x04 \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork\x12\x16\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12Y\n" +
+	"\fdestinations\x18\x03 \x03(\v25.exclave.core.proxy.shadowsocks_2022.RelayDestinationR\fdestinations\x12:\n" +
+	"\anetwork\x18\x04 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12\x16\n" +
 	"\x06plugin\x18\x05 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x06 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
@@ -620,9 +620,9 @@ const file_proxy_shadowsocks_2022_config_proto_rawDesc = "" +
 	"\x04User\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x14\n" +
-	"\x05level\x18\x03 \x01(\x05R\x05level\"\xc5\x02\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x05level\x18\x03 \x01(\x05R\x05level\"\xc7\x02\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x16\n" +
 	"\x06method\x18\x03 \x01(\tR\x06method\x12\x10\n" +
 	"\x03key\x18\x04 \x01(\tR\x03key\x12\x16\n" +
@@ -633,8 +633,8 @@ const file_proxy_shadowsocks_2022_config_proto_rawDesc = "" +
 	"pluginArgs\x12,\n" +
 	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir\x12\x10\n" +
 	"\x03uot\x18\t \x01(\bR\x03uot: \x82\xb5\x18\x1c\n" +
-	"\boutbound\x12\x10shadowsocks-2022B\x84\x01\n" +
-	"%com.v2ray.core.proxy.shadowsocks_2022P\x01Z5github.com/v2fly/v2ray-core/v5/proxy/shadowsocks_2022\xaa\x02!V2Ray.Core.Proxy.Shadowsocks_2022b\x06proto3"
+	"\boutbound\x12\x10shadowsocks-2022B\xa9\x01\n" +
+	"=com.github.exclavenetwork.exclave.core.proxy.shadowsocks_2022P\x01Z@github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks_2022\xaa\x02#Exclave.Core.Proxy.Shadowsocks_2022b\x06proto3"
 
 var (
 	file_proxy_shadowsocks_2022_config_proto_rawDescOnce sync.Once
@@ -650,23 +650,23 @@ func file_proxy_shadowsocks_2022_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_shadowsocks_2022_config_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_proxy_shadowsocks_2022_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),          // 0: v2ray.core.proxy.shadowsocks_2022.ServerConfig
-	(*MultiUserServerConfig)(nil), // 1: v2ray.core.proxy.shadowsocks_2022.MultiUserServerConfig
-	(*RelayDestination)(nil),      // 2: v2ray.core.proxy.shadowsocks_2022.RelayDestination
-	(*RelayServerConfig)(nil),     // 3: v2ray.core.proxy.shadowsocks_2022.RelayServerConfig
-	(*User)(nil),                  // 4: v2ray.core.proxy.shadowsocks_2022.User
-	(*ClientConfig)(nil),          // 5: v2ray.core.proxy.shadowsocks_2022.ClientConfig
-	(net.Network)(0),              // 6: v2ray.core.common.net.Network
-	(*net.IPOrDomain)(nil),        // 7: v2ray.core.common.net.IPOrDomain
+	(*ServerConfig)(nil),          // 0: exclave.core.proxy.shadowsocks_2022.ServerConfig
+	(*MultiUserServerConfig)(nil), // 1: exclave.core.proxy.shadowsocks_2022.MultiUserServerConfig
+	(*RelayDestination)(nil),      // 2: exclave.core.proxy.shadowsocks_2022.RelayDestination
+	(*RelayServerConfig)(nil),     // 3: exclave.core.proxy.shadowsocks_2022.RelayServerConfig
+	(*User)(nil),                  // 4: exclave.core.proxy.shadowsocks_2022.User
+	(*ClientConfig)(nil),          // 5: exclave.core.proxy.shadowsocks_2022.ClientConfig
+	(net.Network)(0),              // 6: exclave.core.common.net.Network
+	(*net.IPOrDomain)(nil),        // 7: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_shadowsocks_2022_config_proto_depIdxs = []int32{
-	6, // 0: v2ray.core.proxy.shadowsocks_2022.ServerConfig.network:type_name -> v2ray.core.common.net.Network
-	4, // 1: v2ray.core.proxy.shadowsocks_2022.MultiUserServerConfig.users:type_name -> v2ray.core.proxy.shadowsocks_2022.User
-	6, // 2: v2ray.core.proxy.shadowsocks_2022.MultiUserServerConfig.network:type_name -> v2ray.core.common.net.Network
-	7, // 3: v2ray.core.proxy.shadowsocks_2022.RelayDestination.address:type_name -> v2ray.core.common.net.IPOrDomain
-	2, // 4: v2ray.core.proxy.shadowsocks_2022.RelayServerConfig.destinations:type_name -> v2ray.core.proxy.shadowsocks_2022.RelayDestination
-	6, // 5: v2ray.core.proxy.shadowsocks_2022.RelayServerConfig.network:type_name -> v2ray.core.common.net.Network
-	7, // 6: v2ray.core.proxy.shadowsocks_2022.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	6, // 0: exclave.core.proxy.shadowsocks_2022.ServerConfig.network:type_name -> exclave.core.common.net.Network
+	4, // 1: exclave.core.proxy.shadowsocks_2022.MultiUserServerConfig.users:type_name -> exclave.core.proxy.shadowsocks_2022.User
+	6, // 2: exclave.core.proxy.shadowsocks_2022.MultiUserServerConfig.network:type_name -> exclave.core.common.net.Network
+	7, // 3: exclave.core.proxy.shadowsocks_2022.RelayDestination.address:type_name -> exclave.core.common.net.IPOrDomain
+	2, // 4: exclave.core.proxy.shadowsocks_2022.RelayServerConfig.destinations:type_name -> exclave.core.proxy.shadowsocks_2022.RelayDestination
+	6, // 5: exclave.core.proxy.shadowsocks_2022.RelayServerConfig.network:type_name -> exclave.core.common.net.Network
+	7, // 6: exclave.core.proxy.shadowsocks_2022.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	7, // [7:7] is the sub-list for method output_type
 	7, // [7:7] is the sub-list for method input_type
 	7, // [7:7] is the sub-list for extension type_name

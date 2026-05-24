@@ -1,7 +1,7 @@
 package reality
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -152,7 +152,7 @@ var File_transport_internet_reality_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_reality_config_proto_rawDesc = "" +
 	"\n" +
-	"'transport/internet/reality/config.proto\x12%v2ray.core.transport.internet.reality\x1a common/protoext/extensions.proto\"\x99\x03\n" +
+	"'transport/internet/reality/config.proto\x12'exclave.core.transport.internet.reality\x1a common/protoext/extensions.proto\"\x99\x03\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04dest\x18\x01 \x01(\tR\x04dest\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n" +
@@ -169,8 +169,8 @@ const file_transport_internet_reality_config_proto_rawDesc = "" +
 	"\bshort_id\x18\x18 \x01(\fR\ashortId\x12%\n" +
 	"\x0emldsa65_verify\x18\x19 \x01(\fR\rmldsa65Verify\x125\n" +
 	"\x16disable_x25519mlkem768\x18c \x01(\bR\x15disableX25519mlkem768:\x17\x82\xb5\x18\x13\n" +
-	"\bsecurity\x12\arealityB\x90\x01\n" +
-	")com.v2ray.core.transport.internet.realityP\x01Z9github.com/v2fly/v2ray-core/v5/transport/internet/reality\xaa\x02%V2Ray.Core.Transport.Internet.Realityb\x06proto3"
+	"\bsecurity\x12\arealityB\xb5\x01\n" +
+	"Acom.github.exclavenetwork.exclave.core.transport.internet.realityP\x01ZDgithub.com/exclavenetwork/exclave-core/v5/transport/internet/reality\xaa\x02'Exclave.Core.Transport.Internet.Realityb\x06proto3"
 
 var (
 	file_transport_internet_reality_config_proto_rawDescOnce sync.Once
@@ -186,7 +186,7 @@ func file_transport_internet_reality_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_reality_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_reality_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.reality.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.reality.Config
 }
 var file_transport_internet_reality_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

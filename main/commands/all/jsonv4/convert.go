@@ -8,10 +8,10 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/merge"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
-	"github.com/v2fly/v2ray-core/v5/main/commands/helpers"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/merge"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/helpers"
 )
 
 var cmdConvert = &base.Command{

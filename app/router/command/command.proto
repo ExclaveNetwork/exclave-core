@@ -1,20 +1,20 @@
 syntax = "proto3";
 
-package v2ray.core.app.router.command;
-option csharp_namespace = "V2Ray.Core.App.Router.Command";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/router/command";
-option java_package = "com.v2ray.core.app.router.command";
+package exclave.core.app.router.command;
+option csharp_namespace = "Exclave.Core.App.Router.Command";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/router/command";
+option java_package = "com.github.exclavenetwork.exclave.core.app.router.command";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
 import "common/net/network.proto";
 
 // RoutingContext is the context with information relative to routing process.
-// It conforms to the structure of v2ray.core.features.routing.Context and
-// v2ray.core.features.routing.Route.
+// It conforms to the structure of exclave.core.features.routing.Context and
+// exclave.core.features.routing.Route.
 message RoutingContext {
   string InboundTag = 1;
-  v2ray.core.common.net.Network Network = 2;
+  exclave.core.common.net.Network Network = 2;
   repeated bytes SourceIPs = 3;
   repeated bytes TargetIPs = 4;
   uint32 SourcePort = 5;
@@ -102,6 +102,6 @@ service RoutingService {
 }
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "grpcservice";
-  option (v2ray.core.common.protoext.message_opt).short_name = "router";
+  option (exclave.core.common.protoext.message_opt).type = "grpcservice";
+  option (exclave.core.common.protoext.message_opt).short_name = "router";
 }

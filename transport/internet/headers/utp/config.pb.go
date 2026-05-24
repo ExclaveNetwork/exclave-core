@@ -63,10 +63,10 @@ var File_transport_internet_headers_utp_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_headers_utp_config_proto_rawDesc = "" +
 	"\n" +
-	"+transport/internet/headers/utp/config.proto\x12)v2ray.core.transport.internet.headers.utp\"\"\n" +
+	"+transport/internet/headers/utp/config.proto\x12+exclave.core.transport.internet.headers.utp\"\"\n" +
 	"\x06Config\x12\x18\n" +
-	"\aversion\x18\x01 \x01(\rR\aversionB\x9c\x01\n" +
-	"-com.v2ray.core.transport.internet.headers.utpP\x01Z=github.com/v2fly/v2ray-core/v5/transport/internet/headers/utp\xaa\x02)V2Ray.Core.Transport.Internet.Headers.Utpb\x06proto3"
+	"\aversion\x18\x01 \x01(\rR\aversionB\xc1\x01\n" +
+	"Ecom.github.exclavenetwork.exclave.core.transport.internet.headers.utpP\x01ZHgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/utp\xaa\x02+Exclave.Core.Transport.Internet.Headers.Utpb\x06proto3"
 
 var (
 	file_transport_internet_headers_utp_config_proto_rawDescOnce sync.Once
@@ -82,7 +82,7 @@ func file_transport_internet_headers_utp_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_headers_utp_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_headers_utp_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.headers.utp.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.headers.utp.Config
 }
 var file_transport_internet_headers_utp_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

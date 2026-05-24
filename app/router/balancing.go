@@ -3,8 +3,8 @@ package router
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/features/extension"
-	"github.com/v2fly/v2ray-core/v5/features/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension"
+	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
 )
 
 type BalancingStrategy interface {

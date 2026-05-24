@@ -224,7 +224,7 @@ var File_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentcon
 
 const file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentconfirmation_config_proto_rawDesc = "" +
 	"\n" +
-	"]transport/internet/tlsmirror/mirrorenrollment/roundtripperenrollmentconfirmation/config.proto\x12[v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation\x1a\x19google/protobuf/any.proto\"\xf5\x01\n" +
+	"]transport/internet/tlsmirror/mirrorenrollment/roundtripperenrollmentconfirmation/config.proto\x12]exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation\x1a\x19google/protobuf/any.proto\"\xf5\x01\n" +
 	"\fClientConfig\x12F\n" +
 	"\x14round_tripper_client\x18\x01 \x01(\v2\x14.google.protobuf.AnyR\x12roundTripperClient\x12=\n" +
 	"\x0fsecurity_config\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x0esecurityConfig\x12\x12\n" +
@@ -239,8 +239,8 @@ const file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentc
 	"\x0fserver_identity\x18\x05 \x01(\fR\x0eserverIdentity\"n\n" +
 	"\fServerConfig\x12F\n" +
 	"\x14round_tripper_server\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x12roundTripperServer\x12\x16\n" +
-	"\x06listen\x18\x03 \x01(\tR\x06listenB\xb2\x02\n" +
-	"_com.v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmationP\x01Zogithub.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror/mirrorenrollment/roundtripperenrollmentconfirmation\xaa\x02[V2Ray.Core.Transport.Internet.Tlsmirror.MirrorEnrollment.RoundTripperEnrollmentConfirmationb\x06proto3"
+	"\x06listen\x18\x03 \x01(\tR\x06listenB\xd7\x02\n" +
+	"wcom.github.exclavenetwork.exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmationP\x01Zzgithub.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror/mirrorenrollment/roundtripperenrollmentconfirmation\xaa\x02]Exclave.Core.Transport.Internet.Tlsmirror.MirrorEnrollment.RoundTripperEnrollmentConfirmationb\x06proto3"
 
 var (
 	file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentconfirmation_config_proto_rawDescOnce sync.Once
@@ -256,17 +256,17 @@ func file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentco
 
 var file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentconfirmation_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentconfirmation_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),            // 0: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig
-	(*ServerInverseRoleConfig)(nil), // 1: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig
-	(*ServerConfig)(nil),            // 2: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerConfig
+	(*ClientConfig)(nil),            // 0: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig
+	(*ServerInverseRoleConfig)(nil), // 1: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig
+	(*ServerConfig)(nil),            // 2: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerConfig
 	(*anypb.Any)(nil),               // 3: google.protobuf.Any
 }
 var file_transport_internet_tlsmirror_mirrorenrollment_roundtripperenrollmentconfirmation_config_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig.round_tripper_client:type_name -> google.protobuf.Any
-	3, // 1: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig.security_config:type_name -> google.protobuf.Any
-	3, // 2: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig.round_tripper_client:type_name -> google.protobuf.Any
-	3, // 3: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig.security_config:type_name -> google.protobuf.Any
-	3, // 4: v2ray.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerConfig.round_tripper_server:type_name -> google.protobuf.Any
+	3, // 0: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig.round_tripper_client:type_name -> google.protobuf.Any
+	3, // 1: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ClientConfig.security_config:type_name -> google.protobuf.Any
+	3, // 2: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig.round_tripper_client:type_name -> google.protobuf.Any
+	3, // 3: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerInverseRoleConfig.security_config:type_name -> google.protobuf.Any
+	3, // 4: exclave.core.transport.internet.tlsmirror.mirrorenrollment.roundtripperenrollmentconfirmation.ServerConfig.round_tripper_server:type_name -> google.protobuf.Any
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

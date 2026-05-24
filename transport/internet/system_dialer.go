@@ -5,9 +5,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
 )
 
 var effectiveSystemDialer SystemDialer = &DefaultSystemDialer{}

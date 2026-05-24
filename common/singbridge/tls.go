@@ -6,8 +6,8 @@ import (
 
 	singtls "github.com/sagernet/sing/common/tls"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 var _ singtls.Config = (*tlsConfigWrapper)(nil)

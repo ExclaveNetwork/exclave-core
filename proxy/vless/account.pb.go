@@ -82,14 +82,14 @@ var File_proxy_vless_account_proto protoreflect.FileDescriptor
 
 const file_proxy_vless_account_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/vless/account.proto\x12\x16v2ray.core.proxy.vless\"M\n" +
+	"\x19proxy/vless/account.proto\x12\x18exclave.core.proxy.vless\"M\n" +
 	"\aAccount\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04flow\x18\x02 \x01(\tR\x04flow\x12\x1e\n" +
 	"\n" +
 	"encryption\x18\x03 \x01(\tR\n" +
-	"encryptionBc\n" +
-	"\x1acom.v2ray.core.proxy.vlessP\x01Z*github.com/v2fly/v2ray-core/v5/proxy/vless\xaa\x02\x16V2Ray.Core.Proxy.Vlessb\x06proto3"
+	"encryptionB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.vlessP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/vless\xaa\x02\x18Exclave.Core.Proxy.Vlessb\x06proto3"
 
 var (
 	file_proxy_vless_account_proto_rawDescOnce sync.Once
@@ -105,7 +105,7 @@ func file_proxy_vless_account_proto_rawDescGZIP() []byte {
 
 var file_proxy_vless_account_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_vless_account_proto_goTypes = []any{
-	(*Account)(nil), // 0: v2ray.core.proxy.vless.Account
+	(*Account)(nil), // 0: exclave.core.proxy.vless.Account
 }
 var file_proxy_vless_account_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

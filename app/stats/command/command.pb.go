@@ -1,7 +1,7 @@
 package command
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -471,22 +471,22 @@ var File_app_stats_command_command_proto protoreflect.FileDescriptor
 
 const file_app_stats_command_command_proto_rawDesc = "" +
 	"\n" +
-	"\x1fapp/stats/command/command.proto\x12\x1cv2ray.core.app.stats.command\x1a common/protoext/extensions.proto\";\n" +
+	"\x1fapp/stats/command/command.proto\x12\x1eexclave.core.app.stats.command\x1a common/protoext/extensions.proto\";\n" +
 	"\x0fGetStatsRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05reset\x18\x02 \x01(\bR\x05reset\"0\n" +
 	"\x04Stat\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x03R\x05value\"J\n" +
-	"\x10GetStatsResponse\x126\n" +
-	"\x04stat\x18\x01 \x01(\v2\".v2ray.core.app.stats.command.StatR\x04stat\"w\n" +
+	"\x05value\x18\x02 \x01(\x03R\x05value\"L\n" +
+	"\x10GetStatsResponse\x128\n" +
+	"\x04stat\x18\x01 \x01(\v2$.exclave.core.app.stats.command.StatR\x04stat\"w\n" +
 	"\x11QueryStatsRequest\x12\x18\n" +
 	"\apattern\x18\x01 \x01(\tR\apattern\x12\x14\n" +
 	"\x05reset\x18\x02 \x01(\bR\x05reset\x12\x1a\n" +
 	"\bpatterns\x18\x03 \x03(\tR\bpatterns\x12\x16\n" +
-	"\x06regexp\x18\x04 \x01(\bR\x06regexp\"L\n" +
-	"\x12QueryStatsResponse\x126\n" +
-	"\x04stat\x18\x01 \x03(\v2\".v2ray.core.app.stats.command.StatR\x04stat\"\x11\n" +
+	"\x06regexp\x18\x04 \x01(\bR\x06regexp\"N\n" +
+	"\x12QueryStatsResponse\x128\n" +
+	"\x04stat\x18\x01 \x03(\v2$.exclave.core.app.stats.command.StatR\x04stat\"\x11\n" +
 	"\x0fSysStatsRequest\"\xa2\x02\n" +
 	"\x10SysStatsResponse\x12\"\n" +
 	"\fNumGoroutine\x18\x01 \x01(\rR\fNumGoroutine\x12\x14\n" +
@@ -503,13 +503,13 @@ const file_app_stats_command_command_proto_rawDesc = "" +
 	"\x06Uptime\x18\n" +
 	" \x01(\rR\x06Uptime\"\"\n" +
 	"\x06Config:\x18\x82\xb5\x18\x14\n" +
-	"\vgrpcservice\x12\x05stats2\xde\x02\n" +
-	"\fStatsService\x12k\n" +
-	"\bGetStats\x12-.v2ray.core.app.stats.command.GetStatsRequest\x1a..v2ray.core.app.stats.command.GetStatsResponse\"\x00\x12q\n" +
+	"\vgrpcservice\x12\x05stats2\xea\x02\n" +
+	"\fStatsService\x12o\n" +
+	"\bGetStats\x12/.exclave.core.app.stats.command.GetStatsRequest\x1a0.exclave.core.app.stats.command.GetStatsResponse\"\x00\x12u\n" +
 	"\n" +
-	"QueryStats\x12/.v2ray.core.app.stats.command.QueryStatsRequest\x1a0.v2ray.core.app.stats.command.QueryStatsResponse\"\x00\x12n\n" +
-	"\vGetSysStats\x12-.v2ray.core.app.stats.command.SysStatsRequest\x1a..v2ray.core.app.stats.command.SysStatsResponse\"\x00Bu\n" +
-	" com.v2ray.core.app.stats.commandP\x01Z0github.com/v2fly/v2ray-core/v5/app/stats/command\xaa\x02\x1cV2Ray.Core.App.Stats.Commandb\x06proto3"
+	"QueryStats\x121.exclave.core.app.stats.command.QueryStatsRequest\x1a2.exclave.core.app.stats.command.QueryStatsResponse\"\x00\x12r\n" +
+	"\vGetSysStats\x12/.exclave.core.app.stats.command.SysStatsRequest\x1a0.exclave.core.app.stats.command.SysStatsResponse\"\x00B\x9a\x01\n" +
+	"8com.github.exclavenetwork.exclave.core.app.stats.commandP\x01Z;github.com/exclavenetwork/exclave-core/v5/app/stats/command\xaa\x02\x1eExclave.Core.App.Stats.Commandb\x06proto3"
 
 var (
 	file_app_stats_command_command_proto_rawDescOnce sync.Once
@@ -525,24 +525,24 @@ func file_app_stats_command_command_proto_rawDescGZIP() []byte {
 
 var file_app_stats_command_command_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_app_stats_command_command_proto_goTypes = []any{
-	(*GetStatsRequest)(nil),    // 0: v2ray.core.app.stats.command.GetStatsRequest
-	(*Stat)(nil),               // 1: v2ray.core.app.stats.command.Stat
-	(*GetStatsResponse)(nil),   // 2: v2ray.core.app.stats.command.GetStatsResponse
-	(*QueryStatsRequest)(nil),  // 3: v2ray.core.app.stats.command.QueryStatsRequest
-	(*QueryStatsResponse)(nil), // 4: v2ray.core.app.stats.command.QueryStatsResponse
-	(*SysStatsRequest)(nil),    // 5: v2ray.core.app.stats.command.SysStatsRequest
-	(*SysStatsResponse)(nil),   // 6: v2ray.core.app.stats.command.SysStatsResponse
-	(*Config)(nil),             // 7: v2ray.core.app.stats.command.Config
+	(*GetStatsRequest)(nil),    // 0: exclave.core.app.stats.command.GetStatsRequest
+	(*Stat)(nil),               // 1: exclave.core.app.stats.command.Stat
+	(*GetStatsResponse)(nil),   // 2: exclave.core.app.stats.command.GetStatsResponse
+	(*QueryStatsRequest)(nil),  // 3: exclave.core.app.stats.command.QueryStatsRequest
+	(*QueryStatsResponse)(nil), // 4: exclave.core.app.stats.command.QueryStatsResponse
+	(*SysStatsRequest)(nil),    // 5: exclave.core.app.stats.command.SysStatsRequest
+	(*SysStatsResponse)(nil),   // 6: exclave.core.app.stats.command.SysStatsResponse
+	(*Config)(nil),             // 7: exclave.core.app.stats.command.Config
 }
 var file_app_stats_command_command_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.app.stats.command.GetStatsResponse.stat:type_name -> v2ray.core.app.stats.command.Stat
-	1, // 1: v2ray.core.app.stats.command.QueryStatsResponse.stat:type_name -> v2ray.core.app.stats.command.Stat
-	0, // 2: v2ray.core.app.stats.command.StatsService.GetStats:input_type -> v2ray.core.app.stats.command.GetStatsRequest
-	3, // 3: v2ray.core.app.stats.command.StatsService.QueryStats:input_type -> v2ray.core.app.stats.command.QueryStatsRequest
-	5, // 4: v2ray.core.app.stats.command.StatsService.GetSysStats:input_type -> v2ray.core.app.stats.command.SysStatsRequest
-	2, // 5: v2ray.core.app.stats.command.StatsService.GetStats:output_type -> v2ray.core.app.stats.command.GetStatsResponse
-	4, // 6: v2ray.core.app.stats.command.StatsService.QueryStats:output_type -> v2ray.core.app.stats.command.QueryStatsResponse
-	6, // 7: v2ray.core.app.stats.command.StatsService.GetSysStats:output_type -> v2ray.core.app.stats.command.SysStatsResponse
+	1, // 0: exclave.core.app.stats.command.GetStatsResponse.stat:type_name -> exclave.core.app.stats.command.Stat
+	1, // 1: exclave.core.app.stats.command.QueryStatsResponse.stat:type_name -> exclave.core.app.stats.command.Stat
+	0, // 2: exclave.core.app.stats.command.StatsService.GetStats:input_type -> exclave.core.app.stats.command.GetStatsRequest
+	3, // 3: exclave.core.app.stats.command.StatsService.QueryStats:input_type -> exclave.core.app.stats.command.QueryStatsRequest
+	5, // 4: exclave.core.app.stats.command.StatsService.GetSysStats:input_type -> exclave.core.app.stats.command.SysStatsRequest
+	2, // 5: exclave.core.app.stats.command.StatsService.GetStats:output_type -> exclave.core.app.stats.command.GetStatsResponse
+	4, // 6: exclave.core.app.stats.command.StatsService.QueryStats:output_type -> exclave.core.app.stats.command.QueryStatsResponse
+	6, // 7: exclave.core.app.stats.command.StatsService.GetSysStats:output_type -> exclave.core.app.stats.command.SysStatsResponse
 	5, // [5:8] is the sub-list for method output_type
 	2, // [2:5] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

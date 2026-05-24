@@ -1,8 +1,8 @@
 package mieru
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -129,9 +129,9 @@ var File_proxy_mieru_config_proto protoreflect.FileDescriptor
 
 const file_proxy_mieru_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/mieru/config.proto\x12\x16v2ray.core.proxy.mieru\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xdd\x02\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x18proxy/mieru/config.proto\x12\x18exclave.core.proxy.mieru\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xdf\x02\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1d\n" +
 	"\n" +
 	"port_range\x18\x03 \x03(\tR\tportRange\x12\x1a\n" +
@@ -141,8 +141,8 @@ const file_proxy_mieru_config_proto_rawDesc = "" +
 	"\fmultiplexing\x18\a \x01(\tR\fmultiplexing\x12%\n" +
 	"\x0ehandshake_mode\x18\b \x01(\tR\rhandshakeMode\x12'\n" +
 	"\x0ftraffic_pattern\x18\t \x01(\tR\x0etrafficPattern:\x15\x82\xb5\x18\x11\n" +
-	"\boutbound\x12\x05mieruBc\n" +
-	"\x1acom.v2ray.core.proxy.mieruP\x01Z*github.com/v2fly/v2ray-core/v5/proxy/mieru\xaa\x02\x16V2Ray.Core.Proxy.Mierub\x06proto3"
+	"\boutbound\x12\x05mieruB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.mieruP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/mieru\xaa\x02\x18Exclave.Core.Proxy.Mierub\x06proto3"
 
 var (
 	file_proxy_mieru_config_proto_rawDescOnce sync.Once
@@ -158,11 +158,11 @@ func file_proxy_mieru_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_mieru_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_mieru_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),   // 0: v2ray.core.proxy.mieru.ClientConfig
-	(*net.IPOrDomain)(nil), // 1: v2ray.core.common.net.IPOrDomain
+	(*ClientConfig)(nil),   // 0: exclave.core.proxy.mieru.ClientConfig
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_mieru_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.mieru.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	1, // 0: exclave.core.proxy.mieru.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

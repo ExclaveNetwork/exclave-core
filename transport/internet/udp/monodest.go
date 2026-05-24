@@ -1,9 +1,9 @@
 package udp
 
 import (
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
 func NewMonoDestUDPAddr(address net.Address, port net.Port) net.Addr {

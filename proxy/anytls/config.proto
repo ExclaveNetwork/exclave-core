@@ -1,18 +1,18 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.anytls;
-option csharp_namespace = "V2Ray.Core.Proxy.Anytls";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/anytls";
-option java_package = "com.v2ray.core.proxy.anytls";
+package exclave.core.proxy.anytls;
+option csharp_namespace = "Exclave.Core.Proxy.Anytls";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/anytls";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.anytls";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
 import "common/net/address.proto";
 
 message ClientConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "outbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "anytls";
-  v2ray.core.common.net.IPOrDomain address = 1;
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "anytls";
+  exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   string password = 3;
   int64 idle_session_check_interval = 4;
@@ -27,8 +27,8 @@ message User {
 }
 
 message ServerConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "inbound";
-  option (v2ray.core.common.protoext.message_opt).short_name = "anytls";
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "anytls";
   repeated User users = 1;
   repeated string padding_scheme = 2;
 }

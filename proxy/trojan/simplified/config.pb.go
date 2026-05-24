@@ -1,9 +1,9 @@
 package simplified
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -21,7 +21,7 @@ const (
 type ServerConfig struct {
 	state          protoimpl.MessageState    `protogen:"open.v1"`
 	Users          []string                  `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,2,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,2,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -134,17 +134,17 @@ var File_proxy_trojan_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trojan_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	"$proxy/trojan/simplified/config.proto\x12\"v2ray.core.proxy.trojan.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\x8f\x01\n" +
+	"$proxy/trojan/simplified/config.proto\x12$exclave.core.proxy.trojan.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\x91\x01\n" +
 	"\fServerConfig\x12\x14\n" +
-	"\x05users\x18\x01 \x03(\tR\x05users\x12R\n" +
-	"\x0fpacket_encoding\x18\x02 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding:\x15\x82\xb5\x18\x11\n" +
-	"\ainbound\x12\x06trojan\"\x93\x01\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x05users\x18\x01 \x03(\tR\x05users\x12T\n" +
+	"\x0fpacket_encoding\x18\x02 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding:\x15\x82\xb5\x18\x11\n" +
+	"\ainbound\x12\x06trojan\"\x95\x01\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword:\x16\x82\xb5\x18\x12\n" +
-	"\boutbound\x12\x06trojanB\x87\x01\n" +
-	"&com.v2ray.core.proxy.trojan.simplifiedP\x01Z6github.com/v2fly/v2ray-core/v5/proxy/trojan/simplified\xaa\x02\"V2Ray.Core.Proxy.Trojan.Simplifiedb\x06proto3"
+	"\boutbound\x12\x06trojanB\xac\x01\n" +
+	">com.github.exclavenetwork.exclave.core.proxy.trojan.simplifiedP\x01ZAgithub.com/exclavenetwork/exclave-core/v5/proxy/trojan/simplified\xaa\x02$Exclave.Core.Proxy.Trojan.Simplifiedb\x06proto3"
 
 var (
 	file_proxy_trojan_simplified_config_proto_rawDescOnce sync.Once
@@ -160,14 +160,14 @@ func file_proxy_trojan_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_trojan_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_trojan_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),           // 0: v2ray.core.proxy.trojan.simplified.ServerConfig
-	(*ClientConfig)(nil),           // 1: v2ray.core.proxy.trojan.simplified.ClientConfig
-	(packetaddr.PacketAddrType)(0), // 2: v2ray.core.net.packetaddr.PacketAddrType
-	(*net.IPOrDomain)(nil),         // 3: v2ray.core.common.net.IPOrDomain
+	(*ServerConfig)(nil),           // 0: exclave.core.proxy.trojan.simplified.ServerConfig
+	(*ClientConfig)(nil),           // 1: exclave.core.proxy.trojan.simplified.ClientConfig
+	(packetaddr.PacketAddrType)(0), // 2: exclave.core.net.packetaddr.PacketAddrType
+	(*net.IPOrDomain)(nil),         // 3: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_trojan_simplified_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.trojan.simplified.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
-	3, // 1: v2ray.core.proxy.trojan.simplified.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	2, // 0: exclave.core.proxy.trojan.simplified.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	3, // 1: exclave.core.proxy.trojan.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

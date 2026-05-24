@@ -1,7 +1,7 @@
 package meek
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -64,11 +64,11 @@ var File_transport_internet_request_stereotype_meek_config_proto protoreflect.Fi
 
 const file_transport_internet_request_stereotype_meek_config_proto_rawDesc = "" +
 	"\n" +
-	"7transport/internet/request/stereotype/meek/config.proto\x125v2ray.core.transport.internet.request.stereotype.meek\x1a common/protoext/extensions.proto\"1\n" +
+	"7transport/internet/request/stereotype/meek/config.proto\x127exclave.core.transport.internet.request.stereotype.meek\x1a common/protoext/extensions.proto\"1\n" +
 	"\x06Config\x12\x10\n" +
 	"\x03url\x18\x01 \x01(\tR\x03url:\x15\x82\xb5\x18\x11\n" +
-	"\ttransport\x12\x04meekB\xc0\x01\n" +
-	"9com.v2ray.core.transport.internet.request.stereotype.meekP\x01ZIgithub.com/v2fly/v2ray-core/v5/transport/internet/request/stereotype/meek\xaa\x025V2Ray.Core.Transport.Internet.Request.Stereotype.Meekb\x06proto3"
+	"\ttransport\x12\x04meekB\xe5\x01\n" +
+	"Qcom.github.exclavenetwork.exclave.core.transport.internet.request.stereotype.meekP\x01ZTgithub.com/exclavenetwork/exclave-core/v5/transport/internet/request/stereotype/meek\xaa\x027Exclave.Core.Transport.Internet.Request.Stereotype.Meekb\x06proto3"
 
 var (
 	file_transport_internet_request_stereotype_meek_config_proto_rawDescOnce sync.Once
@@ -84,7 +84,7 @@ func file_transport_internet_request_stereotype_meek_config_proto_rawDescGZIP() 
 
 var file_transport_internet_request_stereotype_meek_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_request_stereotype_meek_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.transport.internet.request.stereotype.meek.Config
+	(*Config)(nil), // 0: exclave.core.transport.internet.request.stereotype.meek.Config
 }
 var file_transport_internet_request_stereotype_meek_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

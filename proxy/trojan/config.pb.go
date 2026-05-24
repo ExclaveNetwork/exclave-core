@@ -1,8 +1,8 @@
 package trojan
 
 import (
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -193,7 +193,7 @@ type ServerConfig struct {
 	state          protoimpl.MessageState    `protogen:"open.v1"`
 	Users          []*protocol.User          `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
 	Fallbacks      []*Fallback               `protobuf:"bytes,3,rep,name=fallbacks,proto3" json:"fallbacks,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -253,7 +253,7 @@ var File_proxy_trojan_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trojan_config_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/trojan/config.proto\x12\x17v2ray.core.proxy.trojan\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"%\n" +
+	"\x19proxy/trojan/config.proto\x12\x19exclave.core.proxy.trojan\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"%\n" +
 	"\aAccount\x12\x1a\n" +
 	"\bpassword\x18\x01 \x01(\tR\bpassword\"\x82\x01\n" +
 	"\bFallback\x12\x12\n" +
@@ -262,14 +262,14 @@ const file_proxy_trojan_config_proto_rawDesc = "" +
 	"\x04type\x18\x03 \x01(\tR\x04type\x12\x12\n" +
 	"\x04dest\x18\x04 \x01(\tR\x04dest\x12\x12\n" +
 	"\x04xver\x18\x05 \x01(\x04R\x04xver\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name\"R\n" +
-	"\fClientConfig\x12B\n" +
-	"\x06server\x18\x01 \x03(\v2*.v2ray.core.common.protocol.ServerEndpointR\x06server\"\xdb\x01\n" +
-	"\fServerConfig\x126\n" +
-	"\x05users\x18\x01 \x03(\v2 .v2ray.core.common.protocol.UserR\x05users\x12?\n" +
-	"\tfallbacks\x18\x03 \x03(\v2!.v2ray.core.proxy.trojan.FallbackR\tfallbacks\x12R\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncodingBf\n" +
-	"\x1bcom.v2ray.core.proxy.trojanP\x01Z+github.com/v2fly/v2ray-core/v5/proxy/trojan\xaa\x02\x17V2Ray.Core.Proxy.Trojanb\x06proto3"
+	"\x04name\x18\x06 \x01(\tR\x04name\"T\n" +
+	"\fClientConfig\x12D\n" +
+	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\xe1\x01\n" +
+	"\fServerConfig\x128\n" +
+	"\x05users\x18\x01 \x03(\v2\".exclave.core.common.protocol.UserR\x05users\x12A\n" +
+	"\tfallbacks\x18\x03 \x03(\v2#.exclave.core.proxy.trojan.FallbackR\tfallbacks\x12T\n" +
+	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncodingB\x8b\x01\n" +
+	"3com.github.exclavenetwork.exclave.core.proxy.trojanP\x01Z6github.com/exclavenetwork/exclave-core/v5/proxy/trojan\xaa\x02\x19Exclave.Core.Proxy.Trojanb\x06proto3"
 
 var (
 	file_proxy_trojan_config_proto_rawDescOnce sync.Once
@@ -285,19 +285,19 @@ func file_proxy_trojan_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_trojan_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proxy_trojan_config_proto_goTypes = []any{
-	(*Account)(nil),                 // 0: v2ray.core.proxy.trojan.Account
-	(*Fallback)(nil),                // 1: v2ray.core.proxy.trojan.Fallback
-	(*ClientConfig)(nil),            // 2: v2ray.core.proxy.trojan.ClientConfig
-	(*ServerConfig)(nil),            // 3: v2ray.core.proxy.trojan.ServerConfig
-	(*protocol.ServerEndpoint)(nil), // 4: v2ray.core.common.protocol.ServerEndpoint
-	(*protocol.User)(nil),           // 5: v2ray.core.common.protocol.User
-	(packetaddr.PacketAddrType)(0),  // 6: v2ray.core.net.packetaddr.PacketAddrType
+	(*Account)(nil),                 // 0: exclave.core.proxy.trojan.Account
+	(*Fallback)(nil),                // 1: exclave.core.proxy.trojan.Fallback
+	(*ClientConfig)(nil),            // 2: exclave.core.proxy.trojan.ClientConfig
+	(*ServerConfig)(nil),            // 3: exclave.core.proxy.trojan.ServerConfig
+	(*protocol.ServerEndpoint)(nil), // 4: exclave.core.common.protocol.ServerEndpoint
+	(*protocol.User)(nil),           // 5: exclave.core.common.protocol.User
+	(packetaddr.PacketAddrType)(0),  // 6: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_proxy_trojan_config_proto_depIdxs = []int32{
-	4, // 0: v2ray.core.proxy.trojan.ClientConfig.server:type_name -> v2ray.core.common.protocol.ServerEndpoint
-	5, // 1: v2ray.core.proxy.trojan.ServerConfig.users:type_name -> v2ray.core.common.protocol.User
-	1, // 2: v2ray.core.proxy.trojan.ServerConfig.fallbacks:type_name -> v2ray.core.proxy.trojan.Fallback
-	6, // 3: v2ray.core.proxy.trojan.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
+	4, // 0: exclave.core.proxy.trojan.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
+	5, // 1: exclave.core.proxy.trojan.ServerConfig.users:type_name -> exclave.core.common.protocol.User
+	1, // 2: exclave.core.proxy.trojan.ServerConfig.fallbacks:type_name -> exclave.core.proxy.trojan.Fallback
+	6, // 3: exclave.core.proxy.trojan.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

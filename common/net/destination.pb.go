@@ -18,7 +18,7 @@ const (
 // Endpoint of a network connection.
 type Endpoint struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Network       Network                `protobuf:"varint,1,opt,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
+	Network       Network                `protobuf:"varint,1,opt,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
 	Address       *IPOrDomain            `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 	Port          uint32                 `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -80,12 +80,12 @@ var File_common_net_destination_proto protoreflect.FileDescriptor
 
 const file_common_net_destination_proto_rawDesc = "" +
 	"\n" +
-	"\x1ccommon/net/destination.proto\x12\x15v2ray.core.common.net\x1a\x18common/net/network.proto\x1a\x18common/net/address.proto\"\x95\x01\n" +
-	"\bEndpoint\x128\n" +
-	"\anetwork\x18\x01 \x01(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork\x12;\n" +
-	"\aaddress\x18\x02 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
-	"\x04port\x18\x03 \x01(\rR\x04portB`\n" +
-	"\x19com.v2ray.core.common.netP\x01Z)github.com/v2fly/v2ray-core/v5/common/net\xaa\x02\x15V2Ray.Core.Common.Netb\x06proto3"
+	"\x1ccommon/net/destination.proto\x12\x17exclave.core.common.net\x1a\x18common/net/network.proto\x1a\x18common/net/address.proto\"\x99\x01\n" +
+	"\bEndpoint\x12:\n" +
+	"\anetwork\x18\x01 \x01(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12=\n" +
+	"\aaddress\x18\x02 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x04port\x18\x03 \x01(\rR\x04portB\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.common.netP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/net\xaa\x02\x17Exclave.Core.Common.Netb\x06proto3"
 
 var (
 	file_common_net_destination_proto_rawDescOnce sync.Once
@@ -101,13 +101,13 @@ func file_common_net_destination_proto_rawDescGZIP() []byte {
 
 var file_common_net_destination_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_net_destination_proto_goTypes = []any{
-	(*Endpoint)(nil),   // 0: v2ray.core.common.net.Endpoint
-	(Network)(0),       // 1: v2ray.core.common.net.Network
-	(*IPOrDomain)(nil), // 2: v2ray.core.common.net.IPOrDomain
+	(*Endpoint)(nil),   // 0: exclave.core.common.net.Endpoint
+	(Network)(0),       // 1: exclave.core.common.net.Network
+	(*IPOrDomain)(nil), // 2: exclave.core.common.net.IPOrDomain
 }
 var file_common_net_destination_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.common.net.Endpoint.network:type_name -> v2ray.core.common.net.Network
-	2, // 1: v2ray.core.common.net.Endpoint.address:type_name -> v2ray.core.common.net.IPOrDomain
+	1, // 0: exclave.core.common.net.Endpoint.network:type_name -> exclave.core.common.net.Network
+	2, // 1: exclave.core.common.net.Endpoint.address:type_name -> exclave.core.common.net.IPOrDomain
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

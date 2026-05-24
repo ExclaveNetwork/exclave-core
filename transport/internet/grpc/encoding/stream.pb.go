@@ -107,17 +107,17 @@ var File_transport_internet_grpc_encoding_stream_proto protoreflect.FileDescript
 
 const file_transport_internet_grpc_encoding_stream_proto_rawDesc = "" +
 	"\n" +
-	"-transport/internet/grpc/encoding/stream.proto\x12+v2ray.core.transport.internet.grpc.encoding\"\x1a\n" +
+	"-transport/internet/grpc/encoding/stream.proto\x12-exclave.core.transport.internet.grpc.encoding\"\x1a\n" +
 	"\x04Hunk\x12\x12\n" +
 	"\x04data\x18\x01 \x01(\fR\x04data\"\x1f\n" +
 	"\tMultiHunk\x12\x12\n" +
-	"\x04data\x18\x01 \x03(\fR\x04data2}\n" +
+	"\x04data\x18\x01 \x03(\fR\x04data2\x81\x01\n" +
 	"\n" +
-	"GunService\x12o\n" +
-	"\x03Tun\x121.v2ray.core.transport.internet.grpc.encoding.Hunk\x1a1.v2ray.core.transport.internet.grpc.encoding.Hunk(\x010\x012\x8c\x01\n" +
-	"\x0fGunMultiService\x12y\n" +
-	"\x03Tun\x126.v2ray.core.transport.internet.grpc.encoding.MultiHunk\x1a6.v2ray.core.transport.internet.grpc.encoding.MultiHunk(\x010\x01B\xa2\x01\n" +
-	"/com.v2ray.core.transport.internet.grpc.encodingP\x01Z?github.com/v2fly/v2ray-core/v5/transport/internet/grpc/encoding\xaa\x02+V2Ray.Core.Transport.Internet.Grpc.Encodingb\x06proto3"
+	"GunService\x12s\n" +
+	"\x03Tun\x123.exclave.core.transport.internet.grpc.encoding.Hunk\x1a3.exclave.core.transport.internet.grpc.encoding.Hunk(\x010\x012\x90\x01\n" +
+	"\x0fGunMultiService\x12}\n" +
+	"\x03Tun\x128.exclave.core.transport.internet.grpc.encoding.MultiHunk\x1a8.exclave.core.transport.internet.grpc.encoding.MultiHunk(\x010\x01B\xc7\x01\n" +
+	"Gcom.github.exclavenetwork.exclave.core.transport.internet.grpc.encodingP\x01ZJgithub.com/exclavenetwork/exclave-core/v5/transport/internet/grpc/encoding\xaa\x02-Exclave.Core.Transport.Internet.Grpc.Encodingb\x06proto3"
 
 var (
 	file_transport_internet_grpc_encoding_stream_proto_rawDescOnce sync.Once
@@ -133,14 +133,14 @@ func file_transport_internet_grpc_encoding_stream_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_grpc_encoding_stream_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_transport_internet_grpc_encoding_stream_proto_goTypes = []any{
-	(*Hunk)(nil),      // 0: v2ray.core.transport.internet.grpc.encoding.Hunk
-	(*MultiHunk)(nil), // 1: v2ray.core.transport.internet.grpc.encoding.MultiHunk
+	(*Hunk)(nil),      // 0: exclave.core.transport.internet.grpc.encoding.Hunk
+	(*MultiHunk)(nil), // 1: exclave.core.transport.internet.grpc.encoding.MultiHunk
 }
 var file_transport_internet_grpc_encoding_stream_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.transport.internet.grpc.encoding.GunService.Tun:input_type -> v2ray.core.transport.internet.grpc.encoding.Hunk
-	1, // 1: v2ray.core.transport.internet.grpc.encoding.GunMultiService.Tun:input_type -> v2ray.core.transport.internet.grpc.encoding.MultiHunk
-	0, // 2: v2ray.core.transport.internet.grpc.encoding.GunService.Tun:output_type -> v2ray.core.transport.internet.grpc.encoding.Hunk
-	1, // 3: v2ray.core.transport.internet.grpc.encoding.GunMultiService.Tun:output_type -> v2ray.core.transport.internet.grpc.encoding.MultiHunk
+	0, // 0: exclave.core.transport.internet.grpc.encoding.GunService.Tun:input_type -> exclave.core.transport.internet.grpc.encoding.Hunk
+	1, // 1: exclave.core.transport.internet.grpc.encoding.GunMultiService.Tun:input_type -> exclave.core.transport.internet.grpc.encoding.MultiHunk
+	0, // 2: exclave.core.transport.internet.grpc.encoding.GunService.Tun:output_type -> exclave.core.transport.internet.grpc.encoding.Hunk
+	1, // 3: exclave.core.transport.internet.grpc.encoding.GunMultiService.Tun:output_type -> exclave.core.transport.internet.grpc.encoding.MultiHunk
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

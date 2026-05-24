@@ -1,10 +1,10 @@
 package dns
 
 import (
-	fakedns "github.com/v2fly/v2ray-core/v5/app/dns/fakedns"
-	routercommon "github.com/v2fly/v2ray-core/v5/app/router/routercommon"
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	fakedns "github.com/exclavenetwork/exclave-core/v5/app/dns/fakedns"
+	routercommon "github.com/exclavenetwork/exclave-core/v5/app/router/routercommon"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -228,9 +228,9 @@ type NameServer struct {
 	//
 	// Deprecated: Marked as deprecated in app/dns/config.proto.
 	SkipFallback     bool              `protobuf:"varint,6,opt,name=skipFallback,proto3" json:"skipFallback,omitempty"`
-	QueryStrategy    *QueryStrategy    `protobuf:"varint,8,opt,name=query_strategy,json=queryStrategy,proto3,enum=v2ray.core.app.dns.QueryStrategy,oneof" json:"query_strategy,omitempty"`
-	CacheStrategy    *CacheStrategy    `protobuf:"varint,9,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=v2ray.core.app.dns.CacheStrategy,oneof" json:"cache_strategy,omitempty"`
-	FallbackStrategy *FallbackStrategy `protobuf:"varint,10,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=v2ray.core.app.dns.FallbackStrategy,oneof" json:"fallback_strategy,omitempty"`
+	QueryStrategy    *QueryStrategy    `protobuf:"varint,8,opt,name=query_strategy,json=queryStrategy,proto3,enum=exclave.core.app.dns.QueryStrategy,oneof" json:"query_strategy,omitempty"`
+	CacheStrategy    *CacheStrategy    `protobuf:"varint,9,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=exclave.core.app.dns.CacheStrategy,oneof" json:"cache_strategy,omitempty"`
+	FallbackStrategy *FallbackStrategy `protobuf:"varint,10,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=exclave.core.app.dns.FallbackStrategy,oneof" json:"fallback_strategy,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -345,7 +345,7 @@ func (x *NameServer) GetFallbackStrategy() FallbackStrategy {
 
 type HostMapping struct {
 	state  protoimpl.MessageState `protogen:"open.v1"`
-	Type   DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.dns.DomainMatchingType" json:"type,omitempty"`
+	Type   DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.dns.DomainMatchingType" json:"type,omitempty"`
 	Domain string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
 	Ip     [][]byte               `protobuf:"bytes,3,rep,name=ip,proto3" json:"ip,omitempty"`
 	// ProxiedDomain indicates the mapped domain has the same IP address on this
@@ -453,11 +453,11 @@ type Config struct {
 	// Deprecated: Marked as deprecated in app/dns/config.proto.
 	DisableFallbackIfMatch bool `protobuf:"varint,11,opt,name=disableFallbackIfMatch,proto3" json:"disableFallbackIfMatch,omitempty"`
 	// Default query strategy (IPv4, IPv6, or both) for each name server.
-	QueryStrategy QueryStrategy `protobuf:"varint,9,opt,name=query_strategy,json=queryStrategy,proto3,enum=v2ray.core.app.dns.QueryStrategy" json:"query_strategy,omitempty"`
+	QueryStrategy QueryStrategy `protobuf:"varint,9,opt,name=query_strategy,json=queryStrategy,proto3,enum=exclave.core.app.dns.QueryStrategy" json:"query_strategy,omitempty"`
 	// Default cache strategy for each name server.
-	CacheStrategy CacheStrategy `protobuf:"varint,12,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=v2ray.core.app.dns.CacheStrategy" json:"cache_strategy,omitempty"`
+	CacheStrategy CacheStrategy `protobuf:"varint,12,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=exclave.core.app.dns.CacheStrategy" json:"cache_strategy,omitempty"`
 	// Default fallback strategy for each name server.
-	FallbackStrategy FallbackStrategy `protobuf:"varint,13,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=v2ray.core.app.dns.FallbackStrategy" json:"fallback_strategy,omitempty"`
+	FallbackStrategy FallbackStrategy `protobuf:"varint,13,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=exclave.core.app.dns.FallbackStrategy" json:"fallback_strategy,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -624,11 +624,11 @@ type SimplifiedConfig struct {
 	// Deprecated: Marked as deprecated in app/dns/config.proto.
 	DisableFallbackIfMatch bool `protobuf:"varint,11,opt,name=disableFallbackIfMatch,proto3" json:"disableFallbackIfMatch,omitempty"`
 	// Default query strategy (IPv4, IPv6, or both) for each name server.
-	QueryStrategy QueryStrategy `protobuf:"varint,9,opt,name=query_strategy,json=queryStrategy,proto3,enum=v2ray.core.app.dns.QueryStrategy" json:"query_strategy,omitempty"`
+	QueryStrategy QueryStrategy `protobuf:"varint,9,opt,name=query_strategy,json=queryStrategy,proto3,enum=exclave.core.app.dns.QueryStrategy" json:"query_strategy,omitempty"`
 	// Default cache strategy for each name server.
-	CacheStrategy CacheStrategy `protobuf:"varint,12,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=v2ray.core.app.dns.CacheStrategy" json:"cache_strategy,omitempty"`
+	CacheStrategy CacheStrategy `protobuf:"varint,12,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=exclave.core.app.dns.CacheStrategy" json:"cache_strategy,omitempty"`
 	// Default fallback strategy for each name server.
-	FallbackStrategy FallbackStrategy `protobuf:"varint,13,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=v2ray.core.app.dns.FallbackStrategy" json:"fallback_strategy,omitempty"`
+	FallbackStrategy FallbackStrategy `protobuf:"varint,13,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=exclave.core.app.dns.FallbackStrategy" json:"fallback_strategy,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -752,7 +752,7 @@ func (x *SimplifiedConfig) GetFallbackStrategy() FallbackStrategy {
 
 type SimplifiedHostMapping struct {
 	state  protoimpl.MessageState `protogen:"open.v1"`
-	Type   DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.dns.DomainMatchingType" json:"type,omitempty"`
+	Type   DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.dns.DomainMatchingType" json:"type,omitempty"`
 	Domain string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
 	Ip     []string               `protobuf:"bytes,3,rep,name=ip,proto3" json:"ip,omitempty"`
 	// ProxiedDomain indicates the mapped domain has the same IP address on this
@@ -833,9 +833,9 @@ type SimplifiedNameServer struct {
 	//
 	// Deprecated: Marked as deprecated in app/dns/config.proto.
 	SkipFallback     bool                    `protobuf:"varint,6,opt,name=skipFallback,proto3" json:"skipFallback,omitempty"`
-	QueryStrategy    *QueryStrategy          `protobuf:"varint,8,opt,name=query_strategy,json=queryStrategy,proto3,enum=v2ray.core.app.dns.QueryStrategy,oneof" json:"query_strategy,omitempty"`
-	CacheStrategy    *CacheStrategy          `protobuf:"varint,9,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=v2ray.core.app.dns.CacheStrategy,oneof" json:"cache_strategy,omitempty"`
-	FallbackStrategy *FallbackStrategy       `protobuf:"varint,10,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=v2ray.core.app.dns.FallbackStrategy,oneof" json:"fallback_strategy,omitempty"`
+	QueryStrategy    *QueryStrategy          `protobuf:"varint,8,opt,name=query_strategy,json=queryStrategy,proto3,enum=exclave.core.app.dns.QueryStrategy,oneof" json:"query_strategy,omitempty"`
+	CacheStrategy    *CacheStrategy          `protobuf:"varint,9,opt,name=cache_strategy,json=cacheStrategy,proto3,enum=exclave.core.app.dns.CacheStrategy,oneof" json:"cache_strategy,omitempty"`
+	FallbackStrategy *FallbackStrategy       `protobuf:"varint,10,opt,name=fallback_strategy,json=fallbackStrategy,proto3,enum=exclave.core.app.dns.FallbackStrategy,oneof" json:"fallback_strategy,omitempty"`
 	GeoDomain        []*routercommon.GeoSite `protobuf:"bytes,68001,rep,name=geo_domain,json=geoDomain,proto3" json:"geo_domain,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
@@ -958,7 +958,7 @@ func (x *SimplifiedNameServer) GetGeoDomain() []*routercommon.GeoSite {
 
 type NameServer_PriorityDomain struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.dns.DomainMatchingType" json:"type,omitempty"`
+	Type          DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.dns.DomainMatchingType" json:"type,omitempty"`
 	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1062,7 +1062,7 @@ func (x *NameServer_OriginalRule) GetSize() uint32 {
 
 type SimplifiedNameServer_PriorityDomain struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.dns.DomainMatchingType" json:"type,omitempty"`
+	Type          DomainMatchingType     `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.dns.DomainMatchingType" json:"type,omitempty"`
 	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1168,94 +1168,94 @@ var File_app_dns_config_proto protoreflect.FileDescriptor
 
 const file_app_dns_config_proto_rawDesc = "" +
 	"\n" +
-	"\x14app/dns/config.proto\x12\x12v2ray.core.app.dns\x1a\x18common/net/address.proto\x1a\x1ccommon/net/destination.proto\x1a$app/router/routercommon/common.proto\x1a\x1dapp/dns/fakedns/fakedns.proto\x1a common/protoext/extensions.proto\"\xaa\a\n" +
+	"\x14app/dns/config.proto\x12\x14exclave.core.app.dns\x1a\x18common/net/address.proto\x1a\x1ccommon/net/destination.proto\x1a$app/router/routercommon/common.proto\x1a\x1dapp/dns/fakedns/fakedns.proto\x1a common/protoext/extensions.proto\"\xbc\a\n" +
 	"\n" +
-	"NameServer\x129\n" +
-	"\aaddress\x18\x01 \x01(\v2\x1f.v2ray.core.common.net.EndpointR\aaddress\x12\x1b\n" +
+	"NameServer\x12;\n" +
+	"\aaddress\x18\x01 \x01(\v2!.exclave.core.common.net.EndpointR\aaddress\x12\x1b\n" +
 	"\tclient_ip\x18\x05 \x01(\fR\bclientIp\x12\x10\n" +
-	"\x03tag\x18\a \x01(\tR\x03tag\x12\\\n" +
-	"\x12prioritized_domain\x18\x02 \x03(\v2-.v2ray.core.app.dns.NameServer.PriorityDomainR\x11prioritizedDomain\x12?\n" +
-	"\x05geoip\x18\x03 \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\x05geoip\x12R\n" +
-	"\x0eoriginal_rules\x18\x04 \x03(\v2+.v2ray.core.app.dns.NameServer.OriginalRuleR\roriginalRules\x12G\n" +
-	"\bfake_dns\x18\v \x01(\v2,.v2ray.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12&\n" +
-	"\fskipFallback\x18\x06 \x01(\bB\x02\x18\x01R\fskipFallback\x12M\n" +
-	"\x0equery_strategy\x18\b \x01(\x0e2!.v2ray.core.app.dns.QueryStrategyH\x00R\rqueryStrategy\x88\x01\x01\x12M\n" +
-	"\x0ecache_strategy\x18\t \x01(\x0e2!.v2ray.core.app.dns.CacheStrategyH\x01R\rcacheStrategy\x88\x01\x01\x12V\n" +
+	"\x03tag\x18\a \x01(\tR\x03tag\x12^\n" +
+	"\x12prioritized_domain\x18\x02 \x03(\v2/.exclave.core.app.dns.NameServer.PriorityDomainR\x11prioritizedDomain\x12A\n" +
+	"\x05geoip\x18\x03 \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12T\n" +
+	"\x0eoriginal_rules\x18\x04 \x03(\v2-.exclave.core.app.dns.NameServer.OriginalRuleR\roriginalRules\x12I\n" +
+	"\bfake_dns\x18\v \x01(\v2..exclave.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12&\n" +
+	"\fskipFallback\x18\x06 \x01(\bB\x02\x18\x01R\fskipFallback\x12O\n" +
+	"\x0equery_strategy\x18\b \x01(\x0e2#.exclave.core.app.dns.QueryStrategyH\x00R\rqueryStrategy\x88\x01\x01\x12O\n" +
+	"\x0ecache_strategy\x18\t \x01(\x0e2#.exclave.core.app.dns.CacheStrategyH\x01R\rcacheStrategy\x88\x01\x01\x12X\n" +
 	"\x11fallback_strategy\x18\n" +
-	" \x01(\x0e2$.v2ray.core.app.dns.FallbackStrategyH\x02R\x10fallbackStrategy\x88\x01\x01\x1ad\n" +
-	"\x0ePriorityDomain\x12:\n" +
-	"\x04type\x18\x01 \x01(\x0e2&.v2ray.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
+	" \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyH\x02R\x10fallbackStrategy\x88\x01\x01\x1af\n" +
+	"\x0ePriorityDomain\x12<\n" +
+	"\x04type\x18\x01 \x01(\x0e2(.exclave.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\x1a6\n" +
 	"\fOriginalRule\x12\x12\n" +
 	"\x04rule\x18\x01 \x01(\tR\x04rule\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\rR\x04sizeB\x11\n" +
 	"\x0f_query_strategyB\x11\n" +
 	"\x0f_cache_strategyB\x14\n" +
-	"\x12_fallback_strategy\"\x98\x01\n" +
-	"\vHostMapping\x12:\n" +
-	"\x04type\x18\x01 \x01(\x0e2&.v2ray.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
+	"\x12_fallback_strategy\"\x9a\x01\n" +
+	"\vHostMapping\x12<\n" +
+	"\x04type\x18\x01 \x01(\x0e2(.exclave.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x0e\n" +
 	"\x02ip\x18\x03 \x03(\fR\x02ip\x12%\n" +
-	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\x90\a\n" +
-	"\x06Config\x12E\n" +
-	"\vNameServers\x18\x01 \x03(\v2\x1f.v2ray.core.common.net.EndpointB\x02\x18\x01R\vNameServers\x12?\n" +
-	"\vname_server\x18\x05 \x03(\v2\x1e.v2ray.core.app.dns.NameServerR\n" +
-	"nameServer\x12?\n" +
-	"\x05Hosts\x18\x02 \x03(\v2%.v2ray.core.app.dns.Config.HostsEntryB\x02\x18\x01R\x05Hosts\x12\x1b\n" +
-	"\tclient_ip\x18\x03 \x01(\fR\bclientIp\x12B\n" +
-	"\fstatic_hosts\x18\x04 \x03(\v2\x1f.v2ray.core.app.dns.HostMappingR\vstaticHosts\x12G\n" +
-	"\bfake_dns\x18\x10 \x01(\v2,.v2ray.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12\x10\n" +
+	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\xa2\a\n" +
+	"\x06Config\x12G\n" +
+	"\vNameServers\x18\x01 \x03(\v2!.exclave.core.common.net.EndpointB\x02\x18\x01R\vNameServers\x12A\n" +
+	"\vname_server\x18\x05 \x03(\v2 .exclave.core.app.dns.NameServerR\n" +
+	"nameServer\x12A\n" +
+	"\x05Hosts\x18\x02 \x03(\v2'.exclave.core.app.dns.Config.HostsEntryB\x02\x18\x01R\x05Hosts\x12\x1b\n" +
+	"\tclient_ip\x18\x03 \x01(\fR\bclientIp\x12D\n" +
+	"\fstatic_hosts\x18\x04 \x03(\v2!.exclave.core.app.dns.HostMappingR\vstaticHosts\x12I\n" +
+	"\bfake_dns\x18\x10 \x01(\v2..exclave.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12\x10\n" +
 	"\x03tag\x18\x06 \x01(\tR\x03tag\x12%\n" +
 	"\x0edomain_matcher\x18\x0f \x01(\tR\rdomainMatcher\x12&\n" +
 	"\fdisableCache\x18\b \x01(\bB\x02\x18\x01R\fdisableCache\x12,\n" +
 	"\x0fdisableFallback\x18\n" +
 	" \x01(\bB\x02\x18\x01R\x0fdisableFallback\x12:\n" +
-	"\x16disableFallbackIfMatch\x18\v \x01(\bB\x02\x18\x01R\x16disableFallbackIfMatch\x12H\n" +
-	"\x0equery_strategy\x18\t \x01(\x0e2!.v2ray.core.app.dns.QueryStrategyR\rqueryStrategy\x12H\n" +
-	"\x0ecache_strategy\x18\f \x01(\x0e2!.v2ray.core.app.dns.CacheStrategyR\rcacheStrategy\x12Q\n" +
-	"\x11fallback_strategy\x18\r \x01(\x0e2$.v2ray.core.app.dns.FallbackStrategyR\x10fallbackStrategy\x1a[\n" +
+	"\x16disableFallbackIfMatch\x18\v \x01(\bB\x02\x18\x01R\x16disableFallbackIfMatch\x12J\n" +
+	"\x0equery_strategy\x18\t \x01(\x0e2#.exclave.core.app.dns.QueryStrategyR\rqueryStrategy\x12J\n" +
+	"\x0ecache_strategy\x18\f \x01(\x0e2#.exclave.core.app.dns.CacheStrategyR\rcacheStrategy\x12S\n" +
+	"\x11fallback_strategy\x18\r \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyR\x10fallbackStrategy\x1a]\n" +
 	"\n" +
 	"HostsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x127\n" +
-	"\x05value\x18\x02 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\x05value:\x028\x01J\x04\b\a\x10\b\"\xe9\x05\n" +
-	"\x10SimplifiedConfig\x12I\n" +
-	"\vname_server\x18\x05 \x03(\v2(.v2ray.core.app.dns.SimplifiedNameServerR\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x129\n" +
+	"\x05value\x18\x02 \x01(\v2#.exclave.core.common.net.IPOrDomainR\x05value:\x028\x01J\x04\b\a\x10\b\"\xf5\x05\n" +
+	"\x10SimplifiedConfig\x12K\n" +
+	"\vname_server\x18\x05 \x03(\v2*.exclave.core.app.dns.SimplifiedNameServerR\n" +
 	"nameServer\x12\x1b\n" +
-	"\tclient_ip\x18\x03 \x01(\tR\bclientIp\x12L\n" +
-	"\fstatic_hosts\x18\x04 \x03(\v2).v2ray.core.app.dns.SimplifiedHostMappingR\vstaticHosts\x12G\n" +
-	"\bfake_dns\x18\x10 \x01(\v2,.v2ray.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12\x10\n" +
+	"\tclient_ip\x18\x03 \x01(\tR\bclientIp\x12N\n" +
+	"\fstatic_hosts\x18\x04 \x03(\v2+.exclave.core.app.dns.SimplifiedHostMappingR\vstaticHosts\x12I\n" +
+	"\bfake_dns\x18\x10 \x01(\v2..exclave.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12\x10\n" +
 	"\x03tag\x18\x06 \x01(\tR\x03tag\x12%\n" +
 	"\x0edomain_matcher\x18\x0f \x01(\tR\rdomainMatcher\x12&\n" +
 	"\fdisableCache\x18\b \x01(\bB\x02\x18\x01R\fdisableCache\x12,\n" +
 	"\x0fdisableFallback\x18\n" +
 	" \x01(\bB\x02\x18\x01R\x0fdisableFallback\x12:\n" +
-	"\x16disableFallbackIfMatch\x18\v \x01(\bB\x02\x18\x01R\x16disableFallbackIfMatch\x12H\n" +
-	"\x0equery_strategy\x18\t \x01(\x0e2!.v2ray.core.app.dns.QueryStrategyR\rqueryStrategy\x12H\n" +
-	"\x0ecache_strategy\x18\f \x01(\x0e2!.v2ray.core.app.dns.CacheStrategyR\rcacheStrategy\x12Q\n" +
-	"\x11fallback_strategy\x18\r \x01(\x0e2$.v2ray.core.app.dns.FallbackStrategyR\x10fallbackStrategy:\x12\x82\xb5\x18\x0e\n" +
-	"\aservice\x12\x03dnsJ\x04\b\x01\x10\x02J\x04\b\x02\x10\x03J\x04\b\a\x10\b\"\xa2\x01\n" +
-	"\x15SimplifiedHostMapping\x12:\n" +
-	"\x04type\x18\x01 \x01(\x0e2&.v2ray.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
+	"\x16disableFallbackIfMatch\x18\v \x01(\bB\x02\x18\x01R\x16disableFallbackIfMatch\x12J\n" +
+	"\x0equery_strategy\x18\t \x01(\x0e2#.exclave.core.app.dns.QueryStrategyR\rqueryStrategy\x12J\n" +
+	"\x0ecache_strategy\x18\f \x01(\x0e2#.exclave.core.app.dns.CacheStrategyR\rcacheStrategy\x12S\n" +
+	"\x11fallback_strategy\x18\r \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyR\x10fallbackStrategy:\x12\x82\xb5\x18\x0e\n" +
+	"\aservice\x12\x03dnsJ\x04\b\x01\x10\x02J\x04\b\x02\x10\x03J\x04\b\a\x10\b\"\xa4\x01\n" +
+	"\x15SimplifiedHostMapping\x12<\n" +
+	"\x04type\x18\x01 \x01(\x0e2(.exclave.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x0e\n" +
 	"\x02ip\x18\x03 \x03(\tR\x02ip\x12%\n" +
-	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\x96\b\n" +
-	"\x14SimplifiedNameServer\x129\n" +
-	"\aaddress\x18\x01 \x01(\v2\x1f.v2ray.core.common.net.EndpointR\aaddress\x12\x1b\n" +
+	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\xaa\b\n" +
+	"\x14SimplifiedNameServer\x12;\n" +
+	"\aaddress\x18\x01 \x01(\v2!.exclave.core.common.net.EndpointR\aaddress\x12\x1b\n" +
 	"\tclient_ip\x18\x05 \x01(\tR\bclientIp\x12\x10\n" +
-	"\x03tag\x18\a \x01(\tR\x03tag\x12f\n" +
-	"\x12prioritized_domain\x18\x02 \x03(\v27.v2ray.core.app.dns.SimplifiedNameServer.PriorityDomainR\x11prioritizedDomain\x12?\n" +
-	"\x05geoip\x18\x03 \x03(\v2).v2ray.core.app.router.routercommon.GeoIPR\x05geoip\x12\\\n" +
-	"\x0eoriginal_rules\x18\x04 \x03(\v25.v2ray.core.app.dns.SimplifiedNameServer.OriginalRuleR\roriginalRules\x12G\n" +
-	"\bfake_dns\x18\v \x01(\v2,.v2ray.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12&\n" +
-	"\fskipFallback\x18\x06 \x01(\bB\x02\x18\x01R\fskipFallback\x12M\n" +
-	"\x0equery_strategy\x18\b \x01(\x0e2!.v2ray.core.app.dns.QueryStrategyH\x00R\rqueryStrategy\x88\x01\x01\x12M\n" +
-	"\x0ecache_strategy\x18\t \x01(\x0e2!.v2ray.core.app.dns.CacheStrategyH\x01R\rcacheStrategy\x88\x01\x01\x12V\n" +
+	"\x03tag\x18\a \x01(\tR\x03tag\x12h\n" +
+	"\x12prioritized_domain\x18\x02 \x03(\v29.exclave.core.app.dns.SimplifiedNameServer.PriorityDomainR\x11prioritizedDomain\x12A\n" +
+	"\x05geoip\x18\x03 \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12^\n" +
+	"\x0eoriginal_rules\x18\x04 \x03(\v27.exclave.core.app.dns.SimplifiedNameServer.OriginalRuleR\roriginalRules\x12I\n" +
+	"\bfake_dns\x18\v \x01(\v2..exclave.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12&\n" +
+	"\fskipFallback\x18\x06 \x01(\bB\x02\x18\x01R\fskipFallback\x12O\n" +
+	"\x0equery_strategy\x18\b \x01(\x0e2#.exclave.core.app.dns.QueryStrategyH\x00R\rqueryStrategy\x88\x01\x01\x12O\n" +
+	"\x0ecache_strategy\x18\t \x01(\x0e2#.exclave.core.app.dns.CacheStrategyH\x01R\rcacheStrategy\x88\x01\x01\x12X\n" +
 	"\x11fallback_strategy\x18\n" +
-	" \x01(\x0e2$.v2ray.core.app.dns.FallbackStrategyH\x02R\x10fallbackStrategy\x88\x01\x01\x12L\n" +
+	" \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyH\x02R\x10fallbackStrategy\x88\x01\x01\x12N\n" +
 	"\n" +
-	"geo_domain\x18\xa1\x93\x04 \x03(\v2+.v2ray.core.app.router.routercommon.GeoSiteR\tgeoDomain\x1ad\n" +
-	"\x0ePriorityDomain\x12:\n" +
-	"\x04type\x18\x01 \x01(\x0e2&.v2ray.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
+	"geo_domain\x18\xa1\x93\x04 \x03(\v2-.exclave.core.app.router.routercommon.GeoSiteR\tgeoDomain\x1af\n" +
+	"\x0ePriorityDomain\x12<\n" +
+	"\x04type\x18\x01 \x01(\x0e2(.exclave.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\x1a6\n" +
 	"\fOriginalRule\x12\x12\n" +
 	"\x04rule\x18\x01 \x01(\tR\x04rule\x12\x12\n" +
@@ -1279,8 +1279,8 @@ const file_app_dns_config_proto_rawDesc = "" +
 	"\x10FallbackStrategy\x12\v\n" +
 	"\aEnabled\x10\x00\x12\f\n" +
 	"\bDisabled\x10\x01\x12\x16\n" +
-	"\x12DisabledIfAnyMatch\x10\x02BW\n" +
-	"\x16com.v2ray.core.app.dnsP\x01Z&github.com/v2fly/v2ray-core/v5/app/dns\xaa\x02\x12V2Ray.Core.App.Dnsb\x06proto3"
+	"\x12DisabledIfAnyMatch\x10\x02B|\n" +
+	".com.github.exclavenetwork.exclave.core.app.dnsP\x01Z1github.com/exclavenetwork/exclave-core/v5/app/dns\xaa\x02\x14Exclave.Core.App.Dnsb\x06proto3"
 
 var (
 	file_app_dns_config_proto_rawDescOnce sync.Once
@@ -1297,64 +1297,64 @@ func file_app_dns_config_proto_rawDescGZIP() []byte {
 var file_app_dns_config_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
 var file_app_dns_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_app_dns_config_proto_goTypes = []any{
-	(DomainMatchingType)(0),                     // 0: v2ray.core.app.dns.DomainMatchingType
-	(QueryStrategy)(0),                          // 1: v2ray.core.app.dns.QueryStrategy
-	(CacheStrategy)(0),                          // 2: v2ray.core.app.dns.CacheStrategy
-	(FallbackStrategy)(0),                       // 3: v2ray.core.app.dns.FallbackStrategy
-	(*NameServer)(nil),                          // 4: v2ray.core.app.dns.NameServer
-	(*HostMapping)(nil),                         // 5: v2ray.core.app.dns.HostMapping
-	(*Config)(nil),                              // 6: v2ray.core.app.dns.Config
-	(*SimplifiedConfig)(nil),                    // 7: v2ray.core.app.dns.SimplifiedConfig
-	(*SimplifiedHostMapping)(nil),               // 8: v2ray.core.app.dns.SimplifiedHostMapping
-	(*SimplifiedNameServer)(nil),                // 9: v2ray.core.app.dns.SimplifiedNameServer
-	(*NameServer_PriorityDomain)(nil),           // 10: v2ray.core.app.dns.NameServer.PriorityDomain
-	(*NameServer_OriginalRule)(nil),             // 11: v2ray.core.app.dns.NameServer.OriginalRule
-	nil,                                         // 12: v2ray.core.app.dns.Config.HostsEntry
-	(*SimplifiedNameServer_PriorityDomain)(nil), // 13: v2ray.core.app.dns.SimplifiedNameServer.PriorityDomain
-	(*SimplifiedNameServer_OriginalRule)(nil),   // 14: v2ray.core.app.dns.SimplifiedNameServer.OriginalRule
-	(*net.Endpoint)(nil),                        // 15: v2ray.core.common.net.Endpoint
-	(*routercommon.GeoIP)(nil),                  // 16: v2ray.core.app.router.routercommon.GeoIP
-	(*fakedns.FakeDnsPoolMulti)(nil),            // 17: v2ray.core.app.dns.fakedns.FakeDnsPoolMulti
-	(*routercommon.GeoSite)(nil),                // 18: v2ray.core.app.router.routercommon.GeoSite
-	(*net.IPOrDomain)(nil),                      // 19: v2ray.core.common.net.IPOrDomain
+	(DomainMatchingType)(0),                     // 0: exclave.core.app.dns.DomainMatchingType
+	(QueryStrategy)(0),                          // 1: exclave.core.app.dns.QueryStrategy
+	(CacheStrategy)(0),                          // 2: exclave.core.app.dns.CacheStrategy
+	(FallbackStrategy)(0),                       // 3: exclave.core.app.dns.FallbackStrategy
+	(*NameServer)(nil),                          // 4: exclave.core.app.dns.NameServer
+	(*HostMapping)(nil),                         // 5: exclave.core.app.dns.HostMapping
+	(*Config)(nil),                              // 6: exclave.core.app.dns.Config
+	(*SimplifiedConfig)(nil),                    // 7: exclave.core.app.dns.SimplifiedConfig
+	(*SimplifiedHostMapping)(nil),               // 8: exclave.core.app.dns.SimplifiedHostMapping
+	(*SimplifiedNameServer)(nil),                // 9: exclave.core.app.dns.SimplifiedNameServer
+	(*NameServer_PriorityDomain)(nil),           // 10: exclave.core.app.dns.NameServer.PriorityDomain
+	(*NameServer_OriginalRule)(nil),             // 11: exclave.core.app.dns.NameServer.OriginalRule
+	nil,                                         // 12: exclave.core.app.dns.Config.HostsEntry
+	(*SimplifiedNameServer_PriorityDomain)(nil), // 13: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
+	(*SimplifiedNameServer_OriginalRule)(nil),   // 14: exclave.core.app.dns.SimplifiedNameServer.OriginalRule
+	(*net.Endpoint)(nil),                        // 15: exclave.core.common.net.Endpoint
+	(*routercommon.GeoIP)(nil),                  // 16: exclave.core.app.router.routercommon.GeoIP
+	(*fakedns.FakeDnsPoolMulti)(nil),            // 17: exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	(*routercommon.GeoSite)(nil),                // 18: exclave.core.app.router.routercommon.GeoSite
+	(*net.IPOrDomain)(nil),                      // 19: exclave.core.common.net.IPOrDomain
 }
 var file_app_dns_config_proto_depIdxs = []int32{
-	15, // 0: v2ray.core.app.dns.NameServer.address:type_name -> v2ray.core.common.net.Endpoint
-	10, // 1: v2ray.core.app.dns.NameServer.prioritized_domain:type_name -> v2ray.core.app.dns.NameServer.PriorityDomain
-	16, // 2: v2ray.core.app.dns.NameServer.geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	11, // 3: v2ray.core.app.dns.NameServer.original_rules:type_name -> v2ray.core.app.dns.NameServer.OriginalRule
-	17, // 4: v2ray.core.app.dns.NameServer.fake_dns:type_name -> v2ray.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 5: v2ray.core.app.dns.NameServer.query_strategy:type_name -> v2ray.core.app.dns.QueryStrategy
-	2,  // 6: v2ray.core.app.dns.NameServer.cache_strategy:type_name -> v2ray.core.app.dns.CacheStrategy
-	3,  // 7: v2ray.core.app.dns.NameServer.fallback_strategy:type_name -> v2ray.core.app.dns.FallbackStrategy
-	0,  // 8: v2ray.core.app.dns.HostMapping.type:type_name -> v2ray.core.app.dns.DomainMatchingType
-	15, // 9: v2ray.core.app.dns.Config.NameServers:type_name -> v2ray.core.common.net.Endpoint
-	4,  // 10: v2ray.core.app.dns.Config.name_server:type_name -> v2ray.core.app.dns.NameServer
-	12, // 11: v2ray.core.app.dns.Config.Hosts:type_name -> v2ray.core.app.dns.Config.HostsEntry
-	5,  // 12: v2ray.core.app.dns.Config.static_hosts:type_name -> v2ray.core.app.dns.HostMapping
-	17, // 13: v2ray.core.app.dns.Config.fake_dns:type_name -> v2ray.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 14: v2ray.core.app.dns.Config.query_strategy:type_name -> v2ray.core.app.dns.QueryStrategy
-	2,  // 15: v2ray.core.app.dns.Config.cache_strategy:type_name -> v2ray.core.app.dns.CacheStrategy
-	3,  // 16: v2ray.core.app.dns.Config.fallback_strategy:type_name -> v2ray.core.app.dns.FallbackStrategy
-	9,  // 17: v2ray.core.app.dns.SimplifiedConfig.name_server:type_name -> v2ray.core.app.dns.SimplifiedNameServer
-	8,  // 18: v2ray.core.app.dns.SimplifiedConfig.static_hosts:type_name -> v2ray.core.app.dns.SimplifiedHostMapping
-	17, // 19: v2ray.core.app.dns.SimplifiedConfig.fake_dns:type_name -> v2ray.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 20: v2ray.core.app.dns.SimplifiedConfig.query_strategy:type_name -> v2ray.core.app.dns.QueryStrategy
-	2,  // 21: v2ray.core.app.dns.SimplifiedConfig.cache_strategy:type_name -> v2ray.core.app.dns.CacheStrategy
-	3,  // 22: v2ray.core.app.dns.SimplifiedConfig.fallback_strategy:type_name -> v2ray.core.app.dns.FallbackStrategy
-	0,  // 23: v2ray.core.app.dns.SimplifiedHostMapping.type:type_name -> v2ray.core.app.dns.DomainMatchingType
-	15, // 24: v2ray.core.app.dns.SimplifiedNameServer.address:type_name -> v2ray.core.common.net.Endpoint
-	13, // 25: v2ray.core.app.dns.SimplifiedNameServer.prioritized_domain:type_name -> v2ray.core.app.dns.SimplifiedNameServer.PriorityDomain
-	16, // 26: v2ray.core.app.dns.SimplifiedNameServer.geoip:type_name -> v2ray.core.app.router.routercommon.GeoIP
-	14, // 27: v2ray.core.app.dns.SimplifiedNameServer.original_rules:type_name -> v2ray.core.app.dns.SimplifiedNameServer.OriginalRule
-	17, // 28: v2ray.core.app.dns.SimplifiedNameServer.fake_dns:type_name -> v2ray.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 29: v2ray.core.app.dns.SimplifiedNameServer.query_strategy:type_name -> v2ray.core.app.dns.QueryStrategy
-	2,  // 30: v2ray.core.app.dns.SimplifiedNameServer.cache_strategy:type_name -> v2ray.core.app.dns.CacheStrategy
-	3,  // 31: v2ray.core.app.dns.SimplifiedNameServer.fallback_strategy:type_name -> v2ray.core.app.dns.FallbackStrategy
-	18, // 32: v2ray.core.app.dns.SimplifiedNameServer.geo_domain:type_name -> v2ray.core.app.router.routercommon.GeoSite
-	0,  // 33: v2ray.core.app.dns.NameServer.PriorityDomain.type:type_name -> v2ray.core.app.dns.DomainMatchingType
-	19, // 34: v2ray.core.app.dns.Config.HostsEntry.value:type_name -> v2ray.core.common.net.IPOrDomain
-	0,  // 35: v2ray.core.app.dns.SimplifiedNameServer.PriorityDomain.type:type_name -> v2ray.core.app.dns.DomainMatchingType
+	15, // 0: exclave.core.app.dns.NameServer.address:type_name -> exclave.core.common.net.Endpoint
+	10, // 1: exclave.core.app.dns.NameServer.prioritized_domain:type_name -> exclave.core.app.dns.NameServer.PriorityDomain
+	16, // 2: exclave.core.app.dns.NameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	11, // 3: exclave.core.app.dns.NameServer.original_rules:type_name -> exclave.core.app.dns.NameServer.OriginalRule
+	17, // 4: exclave.core.app.dns.NameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 5: exclave.core.app.dns.NameServer.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 6: exclave.core.app.dns.NameServer.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 7: exclave.core.app.dns.NameServer.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	0,  // 8: exclave.core.app.dns.HostMapping.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	15, // 9: exclave.core.app.dns.Config.NameServers:type_name -> exclave.core.common.net.Endpoint
+	4,  // 10: exclave.core.app.dns.Config.name_server:type_name -> exclave.core.app.dns.NameServer
+	12, // 11: exclave.core.app.dns.Config.Hosts:type_name -> exclave.core.app.dns.Config.HostsEntry
+	5,  // 12: exclave.core.app.dns.Config.static_hosts:type_name -> exclave.core.app.dns.HostMapping
+	17, // 13: exclave.core.app.dns.Config.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 14: exclave.core.app.dns.Config.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 15: exclave.core.app.dns.Config.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 16: exclave.core.app.dns.Config.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	9,  // 17: exclave.core.app.dns.SimplifiedConfig.name_server:type_name -> exclave.core.app.dns.SimplifiedNameServer
+	8,  // 18: exclave.core.app.dns.SimplifiedConfig.static_hosts:type_name -> exclave.core.app.dns.SimplifiedHostMapping
+	17, // 19: exclave.core.app.dns.SimplifiedConfig.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 20: exclave.core.app.dns.SimplifiedConfig.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 21: exclave.core.app.dns.SimplifiedConfig.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 22: exclave.core.app.dns.SimplifiedConfig.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	0,  // 23: exclave.core.app.dns.SimplifiedHostMapping.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	15, // 24: exclave.core.app.dns.SimplifiedNameServer.address:type_name -> exclave.core.common.net.Endpoint
+	13, // 25: exclave.core.app.dns.SimplifiedNameServer.prioritized_domain:type_name -> exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
+	16, // 26: exclave.core.app.dns.SimplifiedNameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	14, // 27: exclave.core.app.dns.SimplifiedNameServer.original_rules:type_name -> exclave.core.app.dns.SimplifiedNameServer.OriginalRule
+	17, // 28: exclave.core.app.dns.SimplifiedNameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 29: exclave.core.app.dns.SimplifiedNameServer.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 30: exclave.core.app.dns.SimplifiedNameServer.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 31: exclave.core.app.dns.SimplifiedNameServer.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	18, // 32: exclave.core.app.dns.SimplifiedNameServer.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	0,  // 33: exclave.core.app.dns.NameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	19, // 34: exclave.core.app.dns.Config.HostsEntry.value:type_name -> exclave.core.common.net.IPOrDomain
+	0,  // 35: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
 	36, // [36:36] is the sub-list for method output_type
 	36, // [36:36] is the sub-list for method input_type
 	36, // [36:36] is the sub-list for extension type_name

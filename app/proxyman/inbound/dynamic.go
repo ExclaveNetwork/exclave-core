@@ -5,15 +5,15 @@ import (
 	"sync"
 	"time"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common/dice"
-	"github.com/v2fly/v2ray-core/v5/common/mux"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/task"
-	"github.com/v2fly/v2ray-core/v5/features/inbound"
-	"github.com/v2fly/v2ray-core/v5/proxy"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common/dice"
+	"github.com/exclavenetwork/exclave-core/v5/common/mux"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	"github.com/exclavenetwork/exclave-core/v5/features/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
 type DynamicInboundHandler struct {

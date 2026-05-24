@@ -68,13 +68,13 @@ var File_common_net_packetaddr_config_proto protoreflect.FileDescriptor
 
 const file_common_net_packetaddr_config_proto_rawDesc = "" +
 	"\n" +
-	"\"common/net/packetaddr/config.proto\x12\x19v2ray.core.net.packetaddr*0\n" +
+	"\"common/net/packetaddr/config.proto\x12\x1bexclave.core.net.packetaddr*0\n" +
 	"\x0ePacketAddrType\x12\b\n" +
 	"\x04None\x10\x00\x12\n" +
 	"\n" +
 	"\x06Packet\x10\x01\x12\b\n" +
-	"\x04XUDP\x10\x02B\x81\x01\n" +
-	"$com.v2ray.core.common.net.packetaddrP\x01Z4github.com/v2fly/v2ray-core/v5/common/net/packetaddr\xaa\x02 V2Ray.Core.Common.Net.Packetaddrb\x06proto3"
+	"\x04XUDP\x10\x02B\xa6\x01\n" +
+	"<com.github.exclavenetwork.exclave.core.common.net.packetaddrP\x01Z?github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr\xaa\x02\"Exclave.Core.Common.Net.Packetaddrb\x06proto3"
 
 var (
 	file_common_net_packetaddr_config_proto_rawDescOnce sync.Once
@@ -90,7 +90,7 @@ func file_common_net_packetaddr_config_proto_rawDescGZIP() []byte {
 
 var file_common_net_packetaddr_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_common_net_packetaddr_config_proto_goTypes = []any{
-	(PacketAddrType)(0), // 0: v2ray.core.net.packetaddr.PacketAddrType
+	(PacketAddrType)(0), // 0: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_common_net_packetaddr_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

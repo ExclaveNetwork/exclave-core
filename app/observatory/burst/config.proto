@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package v2ray.core.app.observatory.burst;
-option csharp_namespace = "V2Ray.Core.App.Observatory.Burst";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/observatory/burst";
-option java_package = "com.v2ray.core.app.observatory.burst";
+package exclave.core.app.observatory.burst;
+option csharp_namespace = "Exclave.Core.App.Observatory.Burst";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/observatory/burst";
+option java_package = "com.github.exclavenetwork.exclave.core.app.observatory.burst";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "service";
-  option (v2ray.core.common.protoext.message_opt).short_name = "burstObservatory";
+  option (exclave.core.common.protoext.message_opt).type = "service";
+  option (exclave.core.common.protoext.message_opt).short_name = "burstObservatory";
 
   /* @Document The selectors for outbound under observation
   */

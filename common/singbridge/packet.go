@@ -5,9 +5,9 @@ import (
 	"github.com/sagernet/sing/common/metadata"
 	"github.com/sagernet/sing/common/network"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/transport"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/transport"
 )
 
 var _ network.PacketConn = (*packetConnWrapper)(nil)

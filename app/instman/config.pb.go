@@ -1,7 +1,7 @@
 package instman
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -56,10 +56,10 @@ var File_app_instman_config_proto protoreflect.FileDescriptor
 
 const file_app_instman_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18app/instman/config.proto\x12\x16v2ray.core.app.instman\x1a common/protoext/extensions.proto\" \n" +
+	"\x18app/instman/config.proto\x12\x18exclave.core.app.instman\x1a common/protoext/extensions.proto\" \n" +
 	"\x06Config:\x16\x82\xb5\x18\x12\n" +
-	"\aservice\x12\ainstmanBc\n" +
-	"\x1acom.v2ray.core.app.instmanP\x01Z*github.com/v2fly/v2ray-core/v5/app/instman\xaa\x02\x16V2Ray.Core.App.Instmanb\x06proto3"
+	"\aservice\x12\ainstmanB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.app.instmanP\x01Z5github.com/exclavenetwork/exclave-core/v5/app/instman\xaa\x02\x18Exclave.Core.App.Instmanb\x06proto3"
 
 var (
 	file_app_instman_config_proto_rawDescOnce sync.Once
@@ -75,7 +75,7 @@ func file_app_instman_config_proto_rawDescGZIP() []byte {
 
 var file_app_instman_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_app_instman_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.app.instman.Config
+	(*Config)(nil), // 0: exclave.core.app.instman.Config
 }
 var file_app_instman_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

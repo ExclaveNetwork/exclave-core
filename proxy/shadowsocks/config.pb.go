@@ -1,9 +1,9 @@
 package shadowsocks
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -130,7 +130,7 @@ func (CipherType) EnumDescriptor() ([]byte, []int) {
 type Account struct {
 	state                          protoimpl.MessageState `protogen:"open.v1"`
 	Password                       string                 `protobuf:"bytes,1,opt,name=password,proto3" json:"password,omitempty"`
-	CipherType                     CipherType             `protobuf:"varint,2,opt,name=cipher_type,json=cipherType,proto3,enum=v2ray.core.proxy.shadowsocks.CipherType" json:"cipher_type,omitempty"`
+	CipherType                     CipherType             `protobuf:"varint,2,opt,name=cipher_type,json=cipherType,proto3,enum=exclave.core.proxy.shadowsocks.CipherType" json:"cipher_type,omitempty"`
 	IvCheck                        bool                   `protobuf:"varint,3,opt,name=iv_check,json=ivCheck,proto3" json:"iv_check,omitempty"`
 	ExperimentReducedIvHeadEntropy bool                   `protobuf:"varint,90001,opt,name=experiment_reduced_iv_head_entropy,json=experimentReducedIvHeadEntropy,proto3" json:"experiment_reduced_iv_head_entropy,omitempty"`
 	unknownFields                  protoimpl.UnknownFields
@@ -203,8 +203,8 @@ type ServerConfig struct {
 	// Deprecated: Marked as deprecated in proxy/shadowsocks/config.proto.
 	UdpEnabled       bool                      `protobuf:"varint,1,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
 	User             *protocol.User            `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
-	Network          []net.Network             `protobuf:"varint,3,rep,packed,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
-	PacketEncoding   packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	Network          []net.Network             `protobuf:"varint,3,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
+	PacketEncoding   packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	Plugin           string                    `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
 	PluginOpts       string                    `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
 	PluginArgs       []string                  `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
@@ -388,27 +388,27 @@ var File_proxy_shadowsocks_config_proto protoreflect.FileDescriptor
 
 const file_proxy_shadowsocks_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1eproxy/shadowsocks/config.proto\x12\x1cv2ray.core.proxy.shadowsocks\x1a\x18common/net/network.proto\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"\xd9\x01\n" +
+	"\x1eproxy/shadowsocks/config.proto\x12\x1eexclave.core.proxy.shadowsocks\x1a\x18common/net/network.proto\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"\xdb\x01\n" +
 	"\aAccount\x12\x1a\n" +
-	"\bpassword\x18\x01 \x01(\tR\bpassword\x12I\n" +
-	"\vcipher_type\x18\x02 \x01(\x0e2(.v2ray.core.proxy.shadowsocks.CipherTypeR\n" +
+	"\bpassword\x18\x01 \x01(\tR\bpassword\x12K\n" +
+	"\vcipher_type\x18\x02 \x01(\x0e2*.exclave.core.proxy.shadowsocks.CipherTypeR\n" +
 	"cipherType\x12\x19\n" +
 	"\biv_check\x18\x03 \x01(\bR\aivCheck\x12L\n" +
-	"\"experiment_reduced_iv_head_entropy\x18\x91\xbf\x05 \x01(\bR\x1eexperimentReducedIvHeadEntropy\"\xff\x02\n" +
+	"\"experiment_reduced_iv_head_entropy\x18\x91\xbf\x05 \x01(\bR\x1eexperimentReducedIvHeadEntropy\"\x85\x03\n" +
 	"\fServerConfig\x12#\n" +
 	"\vudp_enabled\x18\x01 \x01(\bB\x02\x18\x01R\n" +
-	"udpEnabled\x124\n" +
-	"\x04user\x18\x02 \x01(\v2 .v2ray.core.common.protocol.UserR\x04user\x128\n" +
-	"\anetwork\x18\x03 \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork\x12R\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x16\n" +
+	"udpEnabled\x126\n" +
+	"\x04user\x18\x02 \x01(\v2\".exclave.core.common.protocol.UserR\x04user\x12:\n" +
+	"\anetwork\x18\x03 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12T\n" +
+	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x16\n" +
 	"\x06plugin\x18\x05 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x06 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
 	"\vplugin_args\x18\a \x03(\tR\n" +
 	"pluginArgs\x12,\n" +
-	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir\"\xec\x01\n" +
-	"\fClientConfig\x12B\n" +
-	"\x06server\x18\x01 \x03(\v2*.v2ray.core.common.protocol.ServerEndpointR\x06server\x12\x16\n" +
+	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir\"\xee\x01\n" +
+	"\fClientConfig\x12D\n" +
+	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x12\x16\n" +
 	"\x06plugin\x18\x02 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x03 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
@@ -442,8 +442,8 @@ const file_proxy_shadowsocks_config_proto_rawDesc = "" +
 	"\bCHACHA20\x10\x13\x12\x11\n" +
 	"\rCHACHA20_IETF\x10\x14\x12\r\n" +
 	"\tXCHACHA20\x10\x15\x12\t\n" +
-	"\x05TABLE\x10\x16Bu\n" +
-	" com.v2ray.core.proxy.shadowsocksP\x01Z0github.com/v2fly/v2ray-core/v5/proxy/shadowsocks\xaa\x02\x1cV2Ray.Core.Proxy.Shadowsocksb\x06proto3"
+	"\x05TABLE\x10\x16B\x9a\x01\n" +
+	"8com.github.exclavenetwork.exclave.core.proxy.shadowsocksP\x01Z;github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks\xaa\x02\x1eExclave.Core.Proxy.Shadowsocksb\x06proto3"
 
 var (
 	file_proxy_shadowsocks_config_proto_rawDescOnce sync.Once
@@ -460,21 +460,21 @@ func file_proxy_shadowsocks_config_proto_rawDescGZIP() []byte {
 var file_proxy_shadowsocks_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_proxy_shadowsocks_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_shadowsocks_config_proto_goTypes = []any{
-	(CipherType)(0),                 // 0: v2ray.core.proxy.shadowsocks.CipherType
-	(*Account)(nil),                 // 1: v2ray.core.proxy.shadowsocks.Account
-	(*ServerConfig)(nil),            // 2: v2ray.core.proxy.shadowsocks.ServerConfig
-	(*ClientConfig)(nil),            // 3: v2ray.core.proxy.shadowsocks.ClientConfig
-	(*protocol.User)(nil),           // 4: v2ray.core.common.protocol.User
-	(net.Network)(0),                // 5: v2ray.core.common.net.Network
-	(packetaddr.PacketAddrType)(0),  // 6: v2ray.core.net.packetaddr.PacketAddrType
-	(*protocol.ServerEndpoint)(nil), // 7: v2ray.core.common.protocol.ServerEndpoint
+	(CipherType)(0),                 // 0: exclave.core.proxy.shadowsocks.CipherType
+	(*Account)(nil),                 // 1: exclave.core.proxy.shadowsocks.Account
+	(*ServerConfig)(nil),            // 2: exclave.core.proxy.shadowsocks.ServerConfig
+	(*ClientConfig)(nil),            // 3: exclave.core.proxy.shadowsocks.ClientConfig
+	(*protocol.User)(nil),           // 4: exclave.core.common.protocol.User
+	(net.Network)(0),                // 5: exclave.core.common.net.Network
+	(packetaddr.PacketAddrType)(0),  // 6: exclave.core.net.packetaddr.PacketAddrType
+	(*protocol.ServerEndpoint)(nil), // 7: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_shadowsocks_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.proxy.shadowsocks.Account.cipher_type:type_name -> v2ray.core.proxy.shadowsocks.CipherType
-	4, // 1: v2ray.core.proxy.shadowsocks.ServerConfig.user:type_name -> v2ray.core.common.protocol.User
-	5, // 2: v2ray.core.proxy.shadowsocks.ServerConfig.network:type_name -> v2ray.core.common.net.Network
-	6, // 3: v2ray.core.proxy.shadowsocks.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
-	7, // 4: v2ray.core.proxy.shadowsocks.ClientConfig.server:type_name -> v2ray.core.common.protocol.ServerEndpoint
+	0, // 0: exclave.core.proxy.shadowsocks.Account.cipher_type:type_name -> exclave.core.proxy.shadowsocks.CipherType
+	4, // 1: exclave.core.proxy.shadowsocks.ServerConfig.user:type_name -> exclave.core.common.protocol.User
+	5, // 2: exclave.core.proxy.shadowsocks.ServerConfig.network:type_name -> exclave.core.common.net.Network
+	6, // 3: exclave.core.proxy.shadowsocks.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	7, // 4: exclave.core.proxy.shadowsocks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

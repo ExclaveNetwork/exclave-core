@@ -3,8 +3,8 @@ package splithttp_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	. "github.com/v2fly/v2ray-core/v5/transport/internet/splithttp"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	. "github.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp"
 )
 
 func Test_regression_readzero(t *testing.T) {

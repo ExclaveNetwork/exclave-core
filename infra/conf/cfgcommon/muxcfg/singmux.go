@@ -1,7 +1,7 @@
 package muxcfg
 
 import (
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
 )
 
 type SingMuxConfig struct {

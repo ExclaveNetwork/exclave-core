@@ -6,8 +6,8 @@ import (
 	"github.com/quic-go/quic-go"
 	"golang.org/x/net/ipv4"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/features/stats"
 )
 
 var _ quic.OOBCapablePacketConn = (*oobConn)(nil)

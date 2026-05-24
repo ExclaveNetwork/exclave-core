@@ -1,7 +1,7 @@
 package observatory
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -443,24 +443,24 @@ var File_app_observatory_config_proto protoreflect.FileDescriptor
 
 const file_app_observatory_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1capp/observatory/config.proto\x12\x1av2ray.core.app.observatory\x1a common/protoext/extensions.proto\"W\n" +
-	"\x11ObservationResult\x12B\n" +
-	"\x06status\x18\x01 \x03(\v2*.v2ray.core.app.observatory.OutboundStatusR\x06status\"\x9f\x01\n" +
+	"\x1capp/observatory/config.proto\x12\x1cexclave.core.app.observatory\x1a common/protoext/extensions.proto\"Y\n" +
+	"\x11ObservationResult\x12D\n" +
+	"\x06status\x18\x01 \x03(\v2,.exclave.core.app.observatory.OutboundStatusR\x06status\"\x9f\x01\n" +
 	"\x1bHealthPingMeasurementResult\x12\x10\n" +
 	"\x03all\x18\x01 \x01(\x03R\x03all\x12\x12\n" +
 	"\x04fail\x18\x02 \x01(\x03R\x04fail\x12\x1c\n" +
 	"\tdeviation\x18\x03 \x01(\x03R\tdeviation\x12\x18\n" +
 	"\aaverage\x18\x04 \x01(\x03R\aaverage\x12\x10\n" +
 	"\x03max\x18\x05 \x01(\x03R\x03max\x12\x10\n" +
-	"\x03min\x18\x06 \x01(\x03R\x03min\"\xaf\x02\n" +
+	"\x03min\x18\x06 \x01(\x03R\x03min\"\xb1\x02\n" +
 	"\x0eOutboundStatus\x12\x14\n" +
 	"\x05alive\x18\x01 \x01(\bR\x05alive\x12\x14\n" +
 	"\x05delay\x18\x02 \x01(\x03R\x05delay\x12*\n" +
 	"\x11last_error_reason\x18\x03 \x01(\tR\x0flastErrorReason\x12!\n" +
 	"\foutbound_tag\x18\x04 \x01(\tR\voutboundTag\x12$\n" +
 	"\x0elast_seen_time\x18\x05 \x01(\x03R\flastSeenTime\x12\"\n" +
-	"\rlast_try_time\x18\x06 \x01(\x03R\vlastTryTime\x12X\n" +
-	"\vhealth_ping\x18\a \x01(\v27.v2ray.core.app.observatory.HealthPingMeasurementResultR\n" +
+	"\rlast_try_time\x18\x06 \x01(\x03R\vlastTryTime\x12Z\n" +
+	"\vhealth_ping\x18\a \x01(\v29.exclave.core.app.observatory.HealthPingMeasurementResultR\n" +
 	"healthPing\"e\n" +
 	"\vProbeResult\x12\x14\n" +
 	"\x05alive\x18\x01 \x01(\bR\x05alive\x12\x14\n" +
@@ -474,8 +474,8 @@ const file_app_observatory_config_proto_rawDesc = "" +
 	"\x0eprobe_interval\x18\x04 \x01(\x03R\rprobeInterval\x126\n" +
 	"\x17persistent_probe_result\x18\x05 \x01(\bR\x15persistentProbeResult\x12-\n" +
 	"\x12enable_concurrency\x18\x06 \x01(\bR\x11enableConcurrency:$\x82\xb5\x18 \n" +
-	"\aservice\x12\x15backgroundObservatoryBo\n" +
-	"\x1ecom.v2ray.core.app.observatoryP\x01Z.github.com/v2fly/v2ray-core/v5/app/observatory\xaa\x02\x1aV2Ray.Core.App.Observatoryb\x06proto3"
+	"\aservice\x12\x15backgroundObservatoryB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.app.observatoryP\x01Z9github.com/exclavenetwork/exclave-core/v5/app/observatory\xaa\x02\x1cExclave.Core.App.Observatoryb\x06proto3"
 
 var (
 	file_app_observatory_config_proto_rawDescOnce sync.Once
@@ -491,16 +491,16 @@ func file_app_observatory_config_proto_rawDescGZIP() []byte {
 
 var file_app_observatory_config_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_app_observatory_config_proto_goTypes = []any{
-	(*ObservationResult)(nil),           // 0: v2ray.core.app.observatory.ObservationResult
-	(*HealthPingMeasurementResult)(nil), // 1: v2ray.core.app.observatory.HealthPingMeasurementResult
-	(*OutboundStatus)(nil),              // 2: v2ray.core.app.observatory.OutboundStatus
-	(*ProbeResult)(nil),                 // 3: v2ray.core.app.observatory.ProbeResult
-	(*Intensity)(nil),                   // 4: v2ray.core.app.observatory.Intensity
-	(*Config)(nil),                      // 5: v2ray.core.app.observatory.Config
+	(*ObservationResult)(nil),           // 0: exclave.core.app.observatory.ObservationResult
+	(*HealthPingMeasurementResult)(nil), // 1: exclave.core.app.observatory.HealthPingMeasurementResult
+	(*OutboundStatus)(nil),              // 2: exclave.core.app.observatory.OutboundStatus
+	(*ProbeResult)(nil),                 // 3: exclave.core.app.observatory.ProbeResult
+	(*Intensity)(nil),                   // 4: exclave.core.app.observatory.Intensity
+	(*Config)(nil),                      // 5: exclave.core.app.observatory.Config
 }
 var file_app_observatory_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.app.observatory.ObservationResult.status:type_name -> v2ray.core.app.observatory.OutboundStatus
-	1, // 1: v2ray.core.app.observatory.OutboundStatus.health_ping:type_name -> v2ray.core.app.observatory.HealthPingMeasurementResult
+	2, // 0: exclave.core.app.observatory.ObservationResult.status:type_name -> exclave.core.app.observatory.OutboundStatus
+	1, // 1: exclave.core.app.observatory.OutboundStatus.health_ping:type_name -> exclave.core.app.observatory.HealthPingMeasurementResult
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

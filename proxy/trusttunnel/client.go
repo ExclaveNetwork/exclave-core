@@ -14,23 +14,23 @@ import (
 	"github.com/quic-go/quic-go/http3"
 	"golang.org/x/net/http2"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman/outbound"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/bytespool"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/session"
-	"github.com/v2fly/v2ray-core/v5/common/signal"
-	"github.com/v2fly/v2ray-core/v5/common/task"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
-	"github.com/v2fly/v2ray-core/v5/features/policy"
-	"github.com/v2fly/v2ray-core/v5/features/stats"
-	"github.com/v2fly/v2ray-core/v5/proxy"
-	"github.com/v2fly/v2ray-core/v5/transport"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/security"
-	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/bytespool"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal"
+	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
+	"github.com/exclavenetwork/exclave-core/v5/transport"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/security"
+	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 type Client struct {
@@ -198,11 +198,11 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, target net.Destination, ta
 		return nil, newError("tls not enabled")
 	}
 	if c.config.Http3 {
-		if streamSettings.SecurityType != "v2ray.core.transport.internet.tls.Config" {
+		if streamSettings.SecurityType != "exclave.core.transport.internet.tls.Config" {
 			return nil, newError("tls not enabled")
 		}
 	} else {
-		if streamSettings.SecurityType != "v2ray.core.transport.internet.tls.Config" && streamSettings.SecurityType != "v2ray.core.transport.internet.tls.utls.Config" {
+		if streamSettings.SecurityType != "exclave.core.transport.internet.tls.Config" && streamSettings.SecurityType != "exclave.core.transport.internet.tls.utls.Config" {
 			return nil, newError("tls not enabled")
 		}
 	}

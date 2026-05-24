@@ -3,11 +3,11 @@ package v5cfg
 import (
 	"encoding/json"
 
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/muxcfg"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/proxycfg"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/sniffer"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/socketcfg"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/muxcfg"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/proxycfg"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/sniffer"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/socketcfg"
 )
 
 type RootConfig struct {

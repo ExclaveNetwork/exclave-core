@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror"
 )
 
 func NewTLSRecordStreamReader(reader *bufio.Reader) *TLSRecordStreamReader {

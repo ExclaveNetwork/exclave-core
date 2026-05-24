@@ -9,24 +9,24 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/log"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common"
-	clog "github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/common/uuid"
-	"github.com/v2fly/v2ray-core/v5/proxy/dokodemo"
-	"github.com/v2fly/v2ray-core/v5/proxy/freedom"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess/outbound"
-	"github.com/v2fly/v2ray-core/v5/testing/servers/tcp"
-	"github.com/v2fly/v2ray-core/v5/testing/servers/udp"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/kcp"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/log"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	clog "github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/dokodemo"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/freedom"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/testing/servers/tcp"
+	"github.com/exclavenetwork/exclave-core/v5/testing/servers/udp"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/kcp"
 )
 
 func TestVMessDynamicPort(t *testing.T) {
@@ -381,7 +381,7 @@ func TestVMessGCMReadv(t *testing.T) {
 		},
 	}
 
-	const envName = "V2RAY_BUF_READV"
+	const envName = "EXCLAVE_BUF_READV"
 	common.Must(os.Setenv(envName, "enable"))
 	defer os.Unsetenv(envName)
 

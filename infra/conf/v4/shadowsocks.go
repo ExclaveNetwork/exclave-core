@@ -5,12 +5,12 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/proxy/shadowsocks"
-	"github.com/v2fly/v2ray-core/v5/proxy/shadowsocks_2022"
+	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks_2022"
 )
 
 type ShadowsocksUserConfig struct {

@@ -8,31 +8,31 @@ import (
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/dispatcher"
-	"github.com/v2fly/v2ray-core/v5/app/log"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/app/router"
-	"github.com/v2fly/v2ray-core/v5/app/router/routercommon"
-	"github.com/v2fly/v2ray-core/v5/common"
-	clog "github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/muxcfg"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon/testassist"
-	_ "github.com/v2fly/v2ray-core/v5/infra/conf/geodata/memconservative"
-	_ "github.com/v2fly/v2ray-core/v5/infra/conf/geodata/standard"
-	v4 "github.com/v2fly/v2ray-core/v5/infra/conf/v4"
-	"github.com/v2fly/v2ray-core/v5/proxy/blackhole"
-	dns_proxy "github.com/v2fly/v2ray-core/v5/proxy/dns"
-	"github.com/v2fly/v2ray-core/v5/proxy/freedom"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess/inbound"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/http"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/websocket"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/dispatcher"
+	"github.com/exclavenetwork/exclave-core/v5/app/log"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/app/router"
+	"github.com/exclavenetwork/exclave-core/v5/app/router/routercommon"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	clog "github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/muxcfg"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon/testassist"
+	_ "github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata/memconservative"
+	_ "github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata/standard"
+	v4 "github.com/exclavenetwork/exclave-core/v5/infra/conf/v4"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/blackhole"
+	dns_proxy "github.com/exclavenetwork/exclave-core/v5/proxy/dns"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/freedom"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/http"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 func TestV2RayConfig(t *testing.T) {
@@ -54,9 +54,9 @@ func TestV2RayConfig(t *testing.T) {
 					"settings": {}
 				},
 				"log": {
-					"access": "/var/log/v2ray/access.log",
+					"access": "/var/log/exclave-core/access.log",
 					"loglevel": "error",
-					"error": "/var/log/v2ray/error.log"
+					"error": "/var/log/exclave-core/error.log"
 				},
 				"inbound": {
 					"streamSettings": {
@@ -150,11 +150,11 @@ func TestV2RayConfig(t *testing.T) {
 						Error: &log.LogSpecification{
 							Type:  log.LogType_File,
 							Level: clog.Severity_Error,
-							Path:  "/var/log/v2ray/error.log",
+							Path:  "/var/log/exclave-core/error.log",
 						},
 						Access: &log.LogSpecification{
 							Type: log.LogType_File,
-							Path: "/var/log/v2ray/access.log",
+							Path: "/var/log/exclave-core/access.log",
 						},
 					}),
 					serial.ToTypedMessage(&dispatcher.Config{}),
@@ -265,7 +265,7 @@ func TestV2RayConfig(t *testing.T) {
 										}),
 									},
 								},
-								SecurityType: "v2ray.core.transport.internet.tls.Config",
+								SecurityType: "exclave.core.transport.internet.tls.Config",
 								SecuritySettings: []*anypb.Any{
 									serial.ToTypedMessage(&tls.Config{
 										NextProtocol: []string{"h2"},
@@ -321,7 +321,7 @@ func TestV2RayConfig(t *testing.T) {
 										}),
 									},
 								},
-								SecurityType: "v2ray.core.transport.internet.tls.Config",
+								SecurityType: "exclave.core.transport.internet.tls.Config",
 								SecuritySettings: []*anypb.Any{
 									serial.ToTypedMessage(&tls.Config{
 										NextProtocol: []string{"h2"},

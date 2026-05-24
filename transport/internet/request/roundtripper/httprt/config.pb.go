@@ -1,7 +1,7 @@
 package httprt
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -184,23 +184,23 @@ var File_transport_internet_request_roundtripper_httprt_config_proto protoreflec
 
 const file_transport_internet_request_roundtripper_httprt_config_proto_rawDesc = "" +
 	"\n" +
-	";transport/internet/request/roundtripper/httprt/config.proto\x129v2ray.core.transport.internet.request.roundtripper.httprt\x1a common/protoext/extensions.proto\"\xdf\x01\n" +
-	"\fClientConfig\x12Y\n" +
-	"\x04http\x18\x01 \x01(\v2E.v2ray.core.transport.internet.request.roundtripper.httprt.HTTPConfigR\x04http\x12\x1d\n" +
+	";transport/internet/request/roundtripper/httprt/config.proto\x12;exclave.core.transport.internet.request.roundtripper.httprt\x1a common/protoext/extensions.proto\"\xe1\x01\n" +
+	"\fClientConfig\x12[\n" +
+	"\x04http\x18\x01 \x01(\v2G.exclave.core.transport.internet.request.roundtripper.httprt.HTTPConfigR\x04http\x12\x1d\n" +
 	"\n" +
 	"allow_http\x18\x02 \x01(\bR\tallowHttp\x12 \n" +
 	"\fh2_pool_size\x18\x03 \x01(\x05R\n" +
 	"h2PoolSize:3\x82\xb5\x18/\n" +
-	"%transport.request.roundtripper.client\x12\x06httprt\"\xd5\x01\n" +
-	"\fServerConfig\x12Y\n" +
-	"\x04http\x18\x01 \x01(\v2E.v2ray.core.transport.internet.request.roundtripper.httprt.HTTPConfigR\x04http\x125\n" +
+	"%transport.request.roundtripper.client\x12\x06httprt\"\xd7\x01\n" +
+	"\fServerConfig\x12[\n" +
+	"\x04http\x18\x01 \x01(\v2G.exclave.core.transport.internet.request.roundtripper.httprt.HTTPConfigR\x04http\x125\n" +
 	"\x17no_decoding_session_tag\x18\x02 \x01(\bR\x14noDecodingSessionTag:3\x82\xb5\x18/\n" +
 	"%transport.request.roundtripper.server\x12\x06httprt\">\n" +
 	"\n" +
 	"HTTPConfig\x12\x12\n" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x1c\n" +
-	"\turlPrefix\x18\x02 \x01(\tR\turlPrefixB\xcc\x01\n" +
-	"=com.v2ray.core.transport.internet.request.roundtripper.httprtP\x01ZMgithub.com/v2fly/v2ray-core/v5/transport/internet/request/roundtripper/httprt\xaa\x029V2Ray.Core.Transport.Internet.Request.Roundtripper.httprtb\x06proto3"
+	"\turlPrefix\x18\x02 \x01(\tR\turlPrefixB\xf1\x01\n" +
+	"Ucom.github.exclavenetwork.exclave.core.transport.internet.request.roundtripper.httprtP\x01ZXgithub.com/exclavenetwork/exclave-core/v5/transport/internet/request/roundtripper/httprt\xaa\x02;Exclave.Core.Transport.Internet.Request.Roundtripper.httprtb\x06proto3"
 
 var (
 	file_transport_internet_request_roundtripper_httprt_config_proto_rawDescOnce sync.Once
@@ -216,13 +216,13 @@ func file_transport_internet_request_roundtripper_httprt_config_proto_rawDescGZI
 
 var file_transport_internet_request_roundtripper_httprt_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_transport_internet_request_roundtripper_httprt_config_proto_goTypes = []any{
-	(*ClientConfig)(nil), // 0: v2ray.core.transport.internet.request.roundtripper.httprt.ClientConfig
-	(*ServerConfig)(nil), // 1: v2ray.core.transport.internet.request.roundtripper.httprt.ServerConfig
-	(*HTTPConfig)(nil),   // 2: v2ray.core.transport.internet.request.roundtripper.httprt.HTTPConfig
+	(*ClientConfig)(nil), // 0: exclave.core.transport.internet.request.roundtripper.httprt.ClientConfig
+	(*ServerConfig)(nil), // 1: exclave.core.transport.internet.request.roundtripper.httprt.ServerConfig
+	(*HTTPConfig)(nil),   // 2: exclave.core.transport.internet.request.roundtripper.httprt.HTTPConfig
 }
 var file_transport_internet_request_roundtripper_httprt_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.transport.internet.request.roundtripper.httprt.ClientConfig.http:type_name -> v2ray.core.transport.internet.request.roundtripper.httprt.HTTPConfig
-	2, // 1: v2ray.core.transport.internet.request.roundtripper.httprt.ServerConfig.http:type_name -> v2ray.core.transport.internet.request.roundtripper.httprt.HTTPConfig
+	2, // 0: exclave.core.transport.internet.request.roundtripper.httprt.ClientConfig.http:type_name -> exclave.core.transport.internet.request.roundtripper.httprt.HTTPConfig
+	2, // 1: exclave.core.transport.internet.request.roundtripper.httprt.ServerConfig.http:type_name -> exclave.core.transport.internet.request.roundtripper.httprt.HTTPConfig
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

@@ -1,7 +1,7 @@
 package kcp
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -488,7 +488,7 @@ var File_transport_internet_kcp_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_kcp_config_proto_rawDesc = "" +
 	"\n" +
-	"#transport/internet/kcp/config.proto\x12!v2ray.core.transport.internet.kcp\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"\x1b\n" +
+	"#transport/internet/kcp/config.proto\x12#exclave.core.transport.internet.kcp\x1a\x19google/protobuf/any.proto\x1a common/protoext/extensions.proto\"\x1b\n" +
 	"\x03MTU\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\rR\x05value\"\x1b\n" +
 	"\x03TTI\x12\x14\n" +
@@ -505,24 +505,24 @@ const file_transport_internet_kcp_config_proto_rawDesc = "" +
 	"\x0fConnectionReuse\x12\x16\n" +
 	"\x06enable\x18\x01 \x01(\bR\x06enable\"$\n" +
 	"\x0eEncryptionSeed\x12\x12\n" +
-	"\x04seed\x18\x01 \x01(\tR\x04seed\"\xa3\x05\n" +
-	"\x06Config\x128\n" +
-	"\x03mtu\x18\x01 \x01(\v2&.v2ray.core.transport.internet.kcp.MTUR\x03mtu\x128\n" +
-	"\x03tti\x18\x02 \x01(\v2&.v2ray.core.transport.internet.kcp.TTIR\x03tti\x12Z\n" +
-	"\x0fuplink_capacity\x18\x03 \x01(\v21.v2ray.core.transport.internet.kcp.UplinkCapacityR\x0euplinkCapacity\x12`\n" +
-	"\x11downlink_capacity\x18\x04 \x01(\v23.v2ray.core.transport.internet.kcp.DownlinkCapacityR\x10downlinkCapacity\x12\x1e\n" +
+	"\x04seed\x18\x01 \x01(\tR\x04seed\"\xb1\x05\n" +
+	"\x06Config\x12:\n" +
+	"\x03mtu\x18\x01 \x01(\v2(.exclave.core.transport.internet.kcp.MTUR\x03mtu\x12:\n" +
+	"\x03tti\x18\x02 \x01(\v2(.exclave.core.transport.internet.kcp.TTIR\x03tti\x12\\\n" +
+	"\x0fuplink_capacity\x18\x03 \x01(\v23.exclave.core.transport.internet.kcp.UplinkCapacityR\x0euplinkCapacity\x12b\n" +
+	"\x11downlink_capacity\x18\x04 \x01(\v25.exclave.core.transport.internet.kcp.DownlinkCapacityR\x10downlinkCapacity\x12\x1e\n" +
 	"\n" +
 	"congestion\x18\x05 \x01(\bR\n" +
-	"congestion\x12Q\n" +
-	"\fwrite_buffer\x18\x06 \x01(\v2..v2ray.core.transport.internet.kcp.WriteBufferR\vwriteBuffer\x12N\n" +
-	"\vread_buffer\x18\a \x01(\v2-.v2ray.core.transport.internet.kcp.ReadBufferR\n" +
+	"congestion\x12S\n" +
+	"\fwrite_buffer\x18\x06 \x01(\v20.exclave.core.transport.internet.kcp.WriteBufferR\vwriteBuffer\x12P\n" +
+	"\vread_buffer\x18\a \x01(\v2/.exclave.core.transport.internet.kcp.ReadBufferR\n" +
 	"readBuffer\x129\n" +
-	"\rheader_config\x18\b \x01(\v2\x14.google.protobuf.AnyR\fheaderConfig\x12E\n" +
+	"\rheader_config\x18\b \x01(\v2\x14.google.protobuf.AnyR\fheaderConfig\x12G\n" +
 	"\x04seed\x18\n" +
-	" \x01(\v21.v2ray.core.transport.internet.kcp.EncryptionSeedR\x04seed:\x1c\x82\xb5\x18\x18\n" +
+	" \x01(\v23.exclave.core.transport.internet.kcp.EncryptionSeedR\x04seed:\x1c\x82\xb5\x18\x18\n" +
 	"\ttransport\x12\x03kcp\x8a\xff)\x04mkcpJ\x04\b\t\x10\n" +
-	"B\x84\x01\n" +
-	"%com.v2ray.core.transport.internet.kcpP\x01Z5github.com/v2fly/v2ray-core/v5/transport/internet/kcp\xaa\x02!V2Ray.Core.Transport.Internet.Kcpb\x06proto3"
+	"B\xa9\x01\n" +
+	"=com.github.exclavenetwork.exclave.core.transport.internet.kcpP\x01Z@github.com/exclavenetwork/exclave-core/v5/transport/internet/kcp\xaa\x02#Exclave.Core.Transport.Internet.Kcpb\x06proto3"
 
 var (
 	file_transport_internet_kcp_config_proto_rawDescOnce sync.Once
@@ -538,26 +538,26 @@ func file_transport_internet_kcp_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_kcp_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_transport_internet_kcp_config_proto_goTypes = []any{
-	(*MTU)(nil),              // 0: v2ray.core.transport.internet.kcp.MTU
-	(*TTI)(nil),              // 1: v2ray.core.transport.internet.kcp.TTI
-	(*UplinkCapacity)(nil),   // 2: v2ray.core.transport.internet.kcp.UplinkCapacity
-	(*DownlinkCapacity)(nil), // 3: v2ray.core.transport.internet.kcp.DownlinkCapacity
-	(*WriteBuffer)(nil),      // 4: v2ray.core.transport.internet.kcp.WriteBuffer
-	(*ReadBuffer)(nil),       // 5: v2ray.core.transport.internet.kcp.ReadBuffer
-	(*ConnectionReuse)(nil),  // 6: v2ray.core.transport.internet.kcp.ConnectionReuse
-	(*EncryptionSeed)(nil),   // 7: v2ray.core.transport.internet.kcp.EncryptionSeed
-	(*Config)(nil),           // 8: v2ray.core.transport.internet.kcp.Config
+	(*MTU)(nil),              // 0: exclave.core.transport.internet.kcp.MTU
+	(*TTI)(nil),              // 1: exclave.core.transport.internet.kcp.TTI
+	(*UplinkCapacity)(nil),   // 2: exclave.core.transport.internet.kcp.UplinkCapacity
+	(*DownlinkCapacity)(nil), // 3: exclave.core.transport.internet.kcp.DownlinkCapacity
+	(*WriteBuffer)(nil),      // 4: exclave.core.transport.internet.kcp.WriteBuffer
+	(*ReadBuffer)(nil),       // 5: exclave.core.transport.internet.kcp.ReadBuffer
+	(*ConnectionReuse)(nil),  // 6: exclave.core.transport.internet.kcp.ConnectionReuse
+	(*EncryptionSeed)(nil),   // 7: exclave.core.transport.internet.kcp.EncryptionSeed
+	(*Config)(nil),           // 8: exclave.core.transport.internet.kcp.Config
 	(*anypb.Any)(nil),        // 9: google.protobuf.Any
 }
 var file_transport_internet_kcp_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.transport.internet.kcp.Config.mtu:type_name -> v2ray.core.transport.internet.kcp.MTU
-	1, // 1: v2ray.core.transport.internet.kcp.Config.tti:type_name -> v2ray.core.transport.internet.kcp.TTI
-	2, // 2: v2ray.core.transport.internet.kcp.Config.uplink_capacity:type_name -> v2ray.core.transport.internet.kcp.UplinkCapacity
-	3, // 3: v2ray.core.transport.internet.kcp.Config.downlink_capacity:type_name -> v2ray.core.transport.internet.kcp.DownlinkCapacity
-	4, // 4: v2ray.core.transport.internet.kcp.Config.write_buffer:type_name -> v2ray.core.transport.internet.kcp.WriteBuffer
-	5, // 5: v2ray.core.transport.internet.kcp.Config.read_buffer:type_name -> v2ray.core.transport.internet.kcp.ReadBuffer
-	9, // 6: v2ray.core.transport.internet.kcp.Config.header_config:type_name -> google.protobuf.Any
-	7, // 7: v2ray.core.transport.internet.kcp.Config.seed:type_name -> v2ray.core.transport.internet.kcp.EncryptionSeed
+	0, // 0: exclave.core.transport.internet.kcp.Config.mtu:type_name -> exclave.core.transport.internet.kcp.MTU
+	1, // 1: exclave.core.transport.internet.kcp.Config.tti:type_name -> exclave.core.transport.internet.kcp.TTI
+	2, // 2: exclave.core.transport.internet.kcp.Config.uplink_capacity:type_name -> exclave.core.transport.internet.kcp.UplinkCapacity
+	3, // 3: exclave.core.transport.internet.kcp.Config.downlink_capacity:type_name -> exclave.core.transport.internet.kcp.DownlinkCapacity
+	4, // 4: exclave.core.transport.internet.kcp.Config.write_buffer:type_name -> exclave.core.transport.internet.kcp.WriteBuffer
+	5, // 5: exclave.core.transport.internet.kcp.Config.read_buffer:type_name -> exclave.core.transport.internet.kcp.ReadBuffer
+	9, // 6: exclave.core.transport.internet.kcp.Config.header_config:type_name -> google.protobuf.Any
+	7, // 7: exclave.core.transport.internet.kcp.Config.seed:type_name -> exclave.core.transport.internet.kcp.EncryptionSeed
 	8, // [8:8] is the sub-list for method output_type
 	8, // [8:8] is the sub-list for method input_type
 	8, // [8:8] is the sub-list for extension type_name

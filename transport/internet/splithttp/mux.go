@@ -9,7 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/common/session"
 )
 
 type XmuxConn interface {

@@ -1,7 +1,7 @@
 package ipc
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -64,11 +64,11 @@ var File_proxy_ipc_config_proto protoreflect.FileDescriptor
 
 const file_proxy_ipc_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16proxy/ipc/config.proto\x12\x14v2ray.core.proxy.ipc\x1a common/protoext/extensions.proto\"8\n" +
+	"\x16proxy/ipc/config.proto\x12\x16exclave.core.proxy.ipc\x1a common/protoext/extensions.proto\"8\n" +
 	"\fServerConfig\x12\x14\n" +
 	"\x05level\x18\x01 \x01(\x05R\x05level:\x12\x82\xb5\x18\x0e\n" +
-	"\ainbound\x12\x03ipcB]\n" +
-	"\x18com.v2ray.core.proxy.ipcP\x01Z(github.com/v2fly/v2ray-core/v5/proxy/ipc\xaa\x02\x14V2Ray.Core.Proxy.IPCb\x06proto3"
+	"\ainbound\x12\x03ipcB\x82\x01\n" +
+	"0com.github.exclavenetwork.exclave.core.proxy.ipcP\x01Z3github.com/exclavenetwork/exclave-core/v5/proxy/ipc\xaa\x02\x16Exclave.Core.Proxy.IPCb\x06proto3"
 
 var (
 	file_proxy_ipc_config_proto_rawDescOnce sync.Once
@@ -84,7 +84,7 @@ func file_proxy_ipc_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_ipc_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_ipc_config_proto_goTypes = []any{
-	(*ServerConfig)(nil), // 0: v2ray.core.proxy.ipc.ServerConfig
+	(*ServerConfig)(nil), // 0: exclave.core.proxy.ipc.ServerConfig
 }
 var file_proxy_ipc_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

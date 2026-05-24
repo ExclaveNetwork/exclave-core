@@ -1,8 +1,8 @@
 package multiobservatory
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
-	taggedfeatures "github.com/v2fly/v2ray-core/v5/common/taggedfeatures"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
+	taggedfeatures "github.com/exclavenetwork/exclave-core/v5/common/taggedfeatures"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -65,11 +65,11 @@ var File_app_observatory_multiobservatory_config_proto protoreflect.FileDescript
 
 const file_app_observatory_multiobservatory_config_proto_rawDesc = "" +
 	"\n" +
-	"-app/observatory/multiobservatory/config.proto\x12+v2ray.core.app.observatory.multiobservatory\x1a$common/taggedfeatures/skeleton.proto\x1a common/protoext/extensions.proto\"m\n" +
-	"\x06Config\x12B\n" +
-	"\aholders\x18\x01 \x01(\v2(.v2ray.core.common.taggedfeatures.ConfigR\aholders:\x1f\x82\xb5\x18\x1b\n" +
-	"\aservice\x12\x10multiobservatoryB\xa2\x01\n" +
-	"/com.v2ray.core.app.observatory.multiObservatoryP\x01Z?github.com/v2fly/v2ray-core/v5/app/observatory/multiobservatory\xaa\x02+V2Ray.Core.App.Observatory.MultiObservatoryb\x06proto3"
+	"-app/observatory/multiobservatory/config.proto\x12-exclave.core.app.observatory.multiobservatory\x1a$common/taggedfeatures/skeleton.proto\x1a common/protoext/extensions.proto\"o\n" +
+	"\x06Config\x12D\n" +
+	"\aholders\x18\x01 \x01(\v2*.exclave.core.common.taggedfeatures.ConfigR\aholders:\x1f\x82\xb5\x18\x1b\n" +
+	"\aservice\x12\x10multiobservatoryB\xc7\x01\n" +
+	"Gcom.github.exclavenetwork.exclave.core.app.observatory.multiObservatoryP\x01ZJgithub.com/exclavenetwork/exclave-core/v5/app/observatory/multiobservatory\xaa\x02-Exclave.Core.App.Observatory.MultiObservatoryb\x06proto3"
 
 var (
 	file_app_observatory_multiobservatory_config_proto_rawDescOnce sync.Once
@@ -85,11 +85,11 @@ func file_app_observatory_multiobservatory_config_proto_rawDescGZIP() []byte {
 
 var file_app_observatory_multiobservatory_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_app_observatory_multiobservatory_config_proto_goTypes = []any{
-	(*Config)(nil),                // 0: v2ray.core.app.observatory.multiobservatory.Config
-	(*taggedfeatures.Config)(nil), // 1: v2ray.core.common.taggedfeatures.Config
+	(*Config)(nil),                // 0: exclave.core.app.observatory.multiobservatory.Config
+	(*taggedfeatures.Config)(nil), // 1: exclave.core.common.taggedfeatures.Config
 }
 var file_app_observatory_multiobservatory_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.app.observatory.multiobservatory.Config.holders:type_name -> v2ray.core.common.taggedfeatures.Config
+	1, // 0: exclave.core.app.observatory.multiobservatory.Config.holders:type_name -> exclave.core.common.taggedfeatures.Config
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

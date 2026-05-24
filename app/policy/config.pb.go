@@ -1,7 +1,7 @@
 package policy
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -462,19 +462,19 @@ var File_app_policy_config_proto protoreflect.FileDescriptor
 
 const file_app_policy_config_proto_rawDesc = "" +
 	"\n" +
-	"\x17app/policy/config.proto\x12\x15v2ray.core.app.policy\x1a common/protoext/extensions.proto\"\x1e\n" +
+	"\x17app/policy/config.proto\x12\x17exclave.core.app.policy\x1a common/protoext/extensions.proto\"\x1e\n" +
 	"\x06Second\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\rR\x05value\"\xd0\x04\n" +
-	"\x06Policy\x12?\n" +
-	"\atimeout\x18\x01 \x01(\v2%.v2ray.core.app.policy.Policy.TimeoutR\atimeout\x129\n" +
-	"\x05stats\x18\x02 \x01(\v2#.v2ray.core.app.policy.Policy.StatsR\x05stats\x12<\n" +
-	"\x06buffer\x18\x03 \x01(\v2$.v2ray.core.app.policy.Policy.BufferR\x06buffer\x1a\x92\x02\n" +
-	"\aTimeout\x12;\n" +
-	"\thandshake\x18\x01 \x01(\v2\x1d.v2ray.core.app.policy.SecondR\thandshake\x12F\n" +
-	"\x0fconnection_idle\x18\x02 \x01(\v2\x1d.v2ray.core.app.policy.SecondR\x0econnectionIdle\x12>\n" +
-	"\vuplink_only\x18\x03 \x01(\v2\x1d.v2ray.core.app.policy.SecondR\n" +
-	"uplinkOnly\x12B\n" +
-	"\rdownlink_only\x18\x04 \x01(\v2\x1d.v2ray.core.app.policy.SecondR\fdownlinkOnly\x1aM\n" +
+	"\x05value\x18\x01 \x01(\rR\x05value\"\xde\x04\n" +
+	"\x06Policy\x12A\n" +
+	"\atimeout\x18\x01 \x01(\v2'.exclave.core.app.policy.Policy.TimeoutR\atimeout\x12;\n" +
+	"\x05stats\x18\x02 \x01(\v2%.exclave.core.app.policy.Policy.StatsR\x05stats\x12>\n" +
+	"\x06buffer\x18\x03 \x01(\v2&.exclave.core.app.policy.Policy.BufferR\x06buffer\x1a\x9a\x02\n" +
+	"\aTimeout\x12=\n" +
+	"\thandshake\x18\x01 \x01(\v2\x1f.exclave.core.app.policy.SecondR\thandshake\x12H\n" +
+	"\x0fconnection_idle\x18\x02 \x01(\v2\x1f.exclave.core.app.policy.SecondR\x0econnectionIdle\x12@\n" +
+	"\vuplink_only\x18\x03 \x01(\v2\x1f.exclave.core.app.policy.SecondR\n" +
+	"uplinkOnly\x12D\n" +
+	"\rdownlink_only\x18\x04 \x01(\v2\x1f.exclave.core.app.policy.SecondR\fdownlinkOnly\x1aM\n" +
 	"\x05Stats\x12\x1f\n" +
 	"\vuser_uplink\x18\x01 \x01(\bR\n" +
 	"userUplink\x12#\n" +
@@ -482,24 +482,24 @@ const file_app_policy_config_proto_rawDesc = "" +
 	"\x06Buffer\x12\x1e\n" +
 	"\n" +
 	"connection\x18\x01 \x01(\x05R\n" +
-	"connection\"\xba\x02\n" +
-	"\fSystemPolicy\x12?\n" +
-	"\x05stats\x18\x01 \x01(\v2).v2ray.core.app.policy.SystemPolicy.StatsR\x05stats\x127\n" +
+	"connection\"\xbc\x02\n" +
+	"\fSystemPolicy\x12A\n" +
+	"\x05stats\x18\x01 \x01(\v2+.exclave.core.app.policy.SystemPolicy.StatsR\x05stats\x127\n" +
 	"\x18override_access_log_dest\x18\x02 \x01(\bR\x15overrideAccessLogDest\x1a\xaf\x01\n" +
 	"\x05Stats\x12%\n" +
 	"\x0einbound_uplink\x18\x01 \x01(\bR\rinboundUplink\x12)\n" +
 	"\x10inbound_downlink\x18\x02 \x01(\bR\x0finboundDownlink\x12'\n" +
 	"\x0foutbound_uplink\x18\x03 \x01(\bR\x0eoutboundUplink\x12+\n" +
-	"\x11outbound_downlink\x18\x04 \x01(\bR\x10outboundDownlink\"\xf5\x01\n" +
-	"\x06Config\x12>\n" +
-	"\x05level\x18\x01 \x03(\v2(.v2ray.core.app.policy.Config.LevelEntryR\x05level\x12;\n" +
-	"\x06system\x18\x02 \x01(\v2#.v2ray.core.app.policy.SystemPolicyR\x06system\x1aW\n" +
+	"\x11outbound_downlink\x18\x04 \x01(\bR\x10outboundDownlink\"\xfb\x01\n" +
+	"\x06Config\x12@\n" +
+	"\x05level\x18\x01 \x03(\v2*.exclave.core.app.policy.Config.LevelEntryR\x05level\x12=\n" +
+	"\x06system\x18\x02 \x01(\v2%.exclave.core.app.policy.SystemPolicyR\x06system\x1aY\n" +
 	"\n" +
 	"LevelEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\rR\x03key\x123\n" +
-	"\x05value\x18\x02 \x01(\v2\x1d.v2ray.core.app.policy.PolicyR\x05value:\x028\x01:\x15\x82\xb5\x18\x11\n" +
-	"\aservice\x12\x06policyB`\n" +
-	"\x19com.v2ray.core.app.policyP\x01Z)github.com/v2fly/v2ray-core/v5/app/policy\xaa\x02\x15V2Ray.Core.App.Policyb\x06proto3"
+	"\x03key\x18\x01 \x01(\rR\x03key\x125\n" +
+	"\x05value\x18\x02 \x01(\v2\x1f.exclave.core.app.policy.PolicyR\x05value:\x028\x01:\x15\x82\xb5\x18\x11\n" +
+	"\aservice\x12\x06policyB\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.app.policyP\x01Z4github.com/exclavenetwork/exclave-core/v5/app/policy\xaa\x02\x17Exclave.Core.App.Policyb\x06proto3"
 
 var (
 	file_app_policy_config_proto_rawDescOnce sync.Once
@@ -515,28 +515,28 @@ func file_app_policy_config_proto_rawDescGZIP() []byte {
 
 var file_app_policy_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_app_policy_config_proto_goTypes = []any{
-	(*Second)(nil),             // 0: v2ray.core.app.policy.Second
-	(*Policy)(nil),             // 1: v2ray.core.app.policy.Policy
-	(*SystemPolicy)(nil),       // 2: v2ray.core.app.policy.SystemPolicy
-	(*Config)(nil),             // 3: v2ray.core.app.policy.Config
-	(*Policy_Timeout)(nil),     // 4: v2ray.core.app.policy.Policy.Timeout
-	(*Policy_Stats)(nil),       // 5: v2ray.core.app.policy.Policy.Stats
-	(*Policy_Buffer)(nil),      // 6: v2ray.core.app.policy.Policy.Buffer
-	(*SystemPolicy_Stats)(nil), // 7: v2ray.core.app.policy.SystemPolicy.Stats
-	nil,                        // 8: v2ray.core.app.policy.Config.LevelEntry
+	(*Second)(nil),             // 0: exclave.core.app.policy.Second
+	(*Policy)(nil),             // 1: exclave.core.app.policy.Policy
+	(*SystemPolicy)(nil),       // 2: exclave.core.app.policy.SystemPolicy
+	(*Config)(nil),             // 3: exclave.core.app.policy.Config
+	(*Policy_Timeout)(nil),     // 4: exclave.core.app.policy.Policy.Timeout
+	(*Policy_Stats)(nil),       // 5: exclave.core.app.policy.Policy.Stats
+	(*Policy_Buffer)(nil),      // 6: exclave.core.app.policy.Policy.Buffer
+	(*SystemPolicy_Stats)(nil), // 7: exclave.core.app.policy.SystemPolicy.Stats
+	nil,                        // 8: exclave.core.app.policy.Config.LevelEntry
 }
 var file_app_policy_config_proto_depIdxs = []int32{
-	4,  // 0: v2ray.core.app.policy.Policy.timeout:type_name -> v2ray.core.app.policy.Policy.Timeout
-	5,  // 1: v2ray.core.app.policy.Policy.stats:type_name -> v2ray.core.app.policy.Policy.Stats
-	6,  // 2: v2ray.core.app.policy.Policy.buffer:type_name -> v2ray.core.app.policy.Policy.Buffer
-	7,  // 3: v2ray.core.app.policy.SystemPolicy.stats:type_name -> v2ray.core.app.policy.SystemPolicy.Stats
-	8,  // 4: v2ray.core.app.policy.Config.level:type_name -> v2ray.core.app.policy.Config.LevelEntry
-	2,  // 5: v2ray.core.app.policy.Config.system:type_name -> v2ray.core.app.policy.SystemPolicy
-	0,  // 6: v2ray.core.app.policy.Policy.Timeout.handshake:type_name -> v2ray.core.app.policy.Second
-	0,  // 7: v2ray.core.app.policy.Policy.Timeout.connection_idle:type_name -> v2ray.core.app.policy.Second
-	0,  // 8: v2ray.core.app.policy.Policy.Timeout.uplink_only:type_name -> v2ray.core.app.policy.Second
-	0,  // 9: v2ray.core.app.policy.Policy.Timeout.downlink_only:type_name -> v2ray.core.app.policy.Second
-	1,  // 10: v2ray.core.app.policy.Config.LevelEntry.value:type_name -> v2ray.core.app.policy.Policy
+	4,  // 0: exclave.core.app.policy.Policy.timeout:type_name -> exclave.core.app.policy.Policy.Timeout
+	5,  // 1: exclave.core.app.policy.Policy.stats:type_name -> exclave.core.app.policy.Policy.Stats
+	6,  // 2: exclave.core.app.policy.Policy.buffer:type_name -> exclave.core.app.policy.Policy.Buffer
+	7,  // 3: exclave.core.app.policy.SystemPolicy.stats:type_name -> exclave.core.app.policy.SystemPolicy.Stats
+	8,  // 4: exclave.core.app.policy.Config.level:type_name -> exclave.core.app.policy.Config.LevelEntry
+	2,  // 5: exclave.core.app.policy.Config.system:type_name -> exclave.core.app.policy.SystemPolicy
+	0,  // 6: exclave.core.app.policy.Policy.Timeout.handshake:type_name -> exclave.core.app.policy.Second
+	0,  // 7: exclave.core.app.policy.Policy.Timeout.connection_idle:type_name -> exclave.core.app.policy.Second
+	0,  // 8: exclave.core.app.policy.Policy.Timeout.uplink_only:type_name -> exclave.core.app.policy.Second
+	0,  // 9: exclave.core.app.policy.Policy.Timeout.downlink_only:type_name -> exclave.core.app.policy.Second
+	1,  // 10: exclave.core.app.policy.Config.LevelEntry.value:type_name -> exclave.core.app.policy.Policy
 	11, // [11:11] is the sub-list for method output_type
 	11, // [11:11] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name

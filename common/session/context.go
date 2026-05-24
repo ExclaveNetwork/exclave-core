@@ -3,8 +3,8 @@ package session
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v5/common/track"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/common/track"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
 )
 
 type sessionKey int

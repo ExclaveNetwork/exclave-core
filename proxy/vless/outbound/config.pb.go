@@ -1,10 +1,10 @@
 package outbound
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -22,7 +22,7 @@ const (
 type Config struct {
 	state          protoimpl.MessageState     `protogen:"open.v1"`
 	Vnext          []*protocol.ServerEndpoint `protobuf:"bytes,1,rep,name=vnext,proto3" json:"vnext,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType  `protobuf:"varint,2,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType  `protobuf:"varint,2,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -76,7 +76,7 @@ type SimplifiedConfig struct {
 	Address        *net.IPOrDomain           `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port           uint32                    `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
 	Uuid           string                    `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	Encryption     string                    `protobuf:"bytes,5,opt,name=encryption,proto3" json:"encryption,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -151,20 +151,20 @@ var File_proxy_vless_outbound_config_proto protoreflect.FileDescriptor
 
 const file_proxy_vless_outbound_config_proto_rawDesc = "" +
 	"\n" +
-	"!proxy/vless/outbound/config.proto\x12\x1fv2ray.core.proxy.vless.outbound\x1a!common/protocol/server_spec.proto\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\x1a\"common/net/packetaddr/config.proto\"\x9e\x01\n" +
-	"\x06Config\x12@\n" +
-	"\x05vnext\x18\x01 \x03(\v2*.v2ray.core.common.protocol.ServerEndpointR\x05vnext\x12R\n" +
-	"\x0fpacket_encoding\x18\x02 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\"\x82\x02\n" +
-	"\x10SimplifiedConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"!proxy/vless/outbound/config.proto\x12!exclave.core.proxy.vless.outbound\x1a!common/protocol/server_spec.proto\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\x1a\"common/net/packetaddr/config.proto\"\xa2\x01\n" +
+	"\x06Config\x12B\n" +
+	"\x05vnext\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x05vnext\x12T\n" +
+	"\x0fpacket_encoding\x18\x02 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\"\x86\x02\n" +
+	"\x10SimplifiedConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x12\n" +
-	"\x04uuid\x18\x03 \x01(\tR\x04uuid\x12R\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x1e\n" +
+	"\x04uuid\x18\x03 \x01(\tR\x04uuid\x12T\n" +
+	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x1e\n" +
 	"\n" +
 	"encryption\x18\x05 \x01(\tR\n" +
 	"encryption:\x15\x82\xb5\x18\x11\n" +
-	"\boutbound\x12\x05vlessB~\n" +
-	"#com.v2ray.core.proxy.vless.outboundP\x01Z3github.com/v2fly/v2ray-core/v5/proxy/vless/outbound\xaa\x02\x1fV2Ray.Core.Proxy.Vless.Outboundb\x06proto3"
+	"\boutbound\x12\x05vlessB\xa3\x01\n" +
+	";com.github.exclavenetwork.exclave.core.proxy.vless.outboundP\x01Z>github.com/exclavenetwork/exclave-core/v5/proxy/vless/outbound\xaa\x02!Exclave.Core.Proxy.Vless.Outboundb\x06proto3"
 
 var (
 	file_proxy_vless_outbound_config_proto_rawDescOnce sync.Once
@@ -180,17 +180,17 @@ func file_proxy_vless_outbound_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_vless_outbound_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_vless_outbound_config_proto_goTypes = []any{
-	(*Config)(nil),                  // 0: v2ray.core.proxy.vless.outbound.Config
-	(*SimplifiedConfig)(nil),        // 1: v2ray.core.proxy.vless.outbound.SimplifiedConfig
-	(*protocol.ServerEndpoint)(nil), // 2: v2ray.core.common.protocol.ServerEndpoint
-	(packetaddr.PacketAddrType)(0),  // 3: v2ray.core.net.packetaddr.PacketAddrType
-	(*net.IPOrDomain)(nil),          // 4: v2ray.core.common.net.IPOrDomain
+	(*Config)(nil),                  // 0: exclave.core.proxy.vless.outbound.Config
+	(*SimplifiedConfig)(nil),        // 1: exclave.core.proxy.vless.outbound.SimplifiedConfig
+	(*protocol.ServerEndpoint)(nil), // 2: exclave.core.common.protocol.ServerEndpoint
+	(packetaddr.PacketAddrType)(0),  // 3: exclave.core.net.packetaddr.PacketAddrType
+	(*net.IPOrDomain)(nil),          // 4: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_vless_outbound_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.vless.outbound.Config.vnext:type_name -> v2ray.core.common.protocol.ServerEndpoint
-	3, // 1: v2ray.core.proxy.vless.outbound.Config.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
-	4, // 2: v2ray.core.proxy.vless.outbound.SimplifiedConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	3, // 3: v2ray.core.proxy.vless.outbound.SimplifiedConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
+	2, // 0: exclave.core.proxy.vless.outbound.Config.vnext:type_name -> exclave.core.common.protocol.ServerEndpoint
+	3, // 1: exclave.core.proxy.vless.outbound.Config.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	4, // 2: exclave.core.proxy.vless.outbound.SimplifiedConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	3, // 3: exclave.core.proxy.vless.outbound.SimplifiedConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

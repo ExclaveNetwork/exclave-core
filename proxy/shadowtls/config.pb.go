@@ -1,8 +1,8 @@
 package shadowtls
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -89,14 +89,14 @@ var File_proxy_shadowtls_config_proto protoreflect.FileDescriptor
 
 const file_proxy_shadowtls_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproxy/shadowtls/config.proto\x12\x1av2ray.core.proxy.shadowtls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xb0\x01\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x1cproxy/shadowtls/config.proto\x12\x1cexclave.core.proxy.shadowtls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xb2\x01\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x18\n" +
 	"\aversion\x18\x04 \x01(\rR\aversion:\x19\x82\xb5\x18\x15\n" +
-	"\boutbound\x12\tshadowtlsBo\n" +
-	"\x1ecom.v2ray.core.proxy.shadowtlsP\x01Z.github.com/v2fly/v2ray-core/v5/proxy/shadowtls\xaa\x02\x1aV2Ray.Core.Proxy.ShadowTLSb\x06proto3"
+	"\boutbound\x12\tshadowtlsB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.proxy.shadowtlsP\x01Z9github.com/exclavenetwork/exclave-core/v5/proxy/shadowtls\xaa\x02\x1cExclave.Core.Proxy.ShadowTLSb\x06proto3"
 
 var (
 	file_proxy_shadowtls_config_proto_rawDescOnce sync.Once
@@ -112,11 +112,11 @@ func file_proxy_shadowtls_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_shadowtls_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_shadowtls_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),   // 0: v2ray.core.proxy.shadowtls.ClientConfig
-	(*net.IPOrDomain)(nil), // 1: v2ray.core.common.net.IPOrDomain
+	(*ClientConfig)(nil),   // 0: exclave.core.proxy.shadowtls.ClientConfig
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_shadowtls_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.shadowtls.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	1, // 0: exclave.core.proxy.shadowtls.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

@@ -3,10 +3,10 @@ package mux_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/mux"
-	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/mux"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 func BenchmarkFrameWrite(b *testing.B) {

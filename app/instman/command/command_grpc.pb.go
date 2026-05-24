@@ -13,9 +13,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	InstanceManagementService_ListInstance_FullMethodName  = "/v2ray.core.app.instman.command.InstanceManagementService/ListInstance"
-	InstanceManagementService_AddInstance_FullMethodName   = "/v2ray.core.app.instman.command.InstanceManagementService/AddInstance"
-	InstanceManagementService_StartInstance_FullMethodName = "/v2ray.core.app.instman.command.InstanceManagementService/StartInstance"
+	InstanceManagementService_ListInstance_FullMethodName  = "/exclave.core.app.instman.command.InstanceManagementService/ListInstance"
+	InstanceManagementService_AddInstance_FullMethodName   = "/exclave.core.app.instman.command.InstanceManagementService/AddInstance"
+	InstanceManagementService_StartInstance_FullMethodName = "/exclave.core.app.instman.command.InstanceManagementService/StartInstance"
 )
 
 // InstanceManagementServiceClient is the client API for InstanceManagementService service.
@@ -171,7 +171,7 @@ func _InstanceManagementService_StartInstance_Handler(srv interface{}, ctx conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var InstanceManagementService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.app.instman.command.InstanceManagementService",
+	ServiceName: "exclave.core.app.instman.command.InstanceManagementService",
 	HandlerType: (*InstanceManagementServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

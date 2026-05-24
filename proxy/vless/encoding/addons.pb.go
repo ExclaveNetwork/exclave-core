@@ -71,11 +71,11 @@ var File_proxy_vless_encoding_addons_proto protoreflect.FileDescriptor
 
 const file_proxy_vless_encoding_addons_proto_rawDesc = "" +
 	"\n" +
-	"!proxy/vless/encoding/addons.proto\x12\x1fv2ray.core.proxy.vless.encoding\"0\n" +
+	"!proxy/vless/encoding/addons.proto\x12!exclave.core.proxy.vless.encoding\"0\n" +
 	"\x06Addons\x12\x12\n" +
 	"\x04Flow\x18\x01 \x01(\tR\x04Flow\x12\x12\n" +
-	"\x04Seed\x18\x02 \x01(\fR\x04SeedB~\n" +
-	"#com.v2ray.core.proxy.vless.encodingP\x01Z3github.com/v2fly/v2ray-core/v5/proxy/vless/encoding\xaa\x02\x1fV2Ray.Core.Proxy.Vless.Encodingb\x06proto3"
+	"\x04Seed\x18\x02 \x01(\fR\x04SeedB\xa3\x01\n" +
+	";com.github.exclavenetwork.exclave.core.proxy.vless.encodingP\x01Z>github.com/exclavenetwork/exclave-core/v5/proxy/vless/encoding\xaa\x02!Exclave.Core.Proxy.Vless.Encodingb\x06proto3"
 
 var (
 	file_proxy_vless_encoding_addons_proto_rawDescOnce sync.Once
@@ -91,7 +91,7 @@ func file_proxy_vless_encoding_addons_proto_rawDescGZIP() []byte {
 
 var file_proxy_vless_encoding_addons_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_vless_encoding_addons_proto_goTypes = []any{
-	(*Addons)(nil), // 0: v2ray.core.proxy.vless.encoding.Addons
+	(*Addons)(nil), // 0: exclave.core.proxy.vless.encoding.Addons
 }
 var file_proxy_vless_encoding_addons_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

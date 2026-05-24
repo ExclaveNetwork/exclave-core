@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"github.com/v2fly/v2ray-core/v5/app/persistentstorage/filesystemstorage"
+	"github.com/exclavenetwork/exclave-core/v5/app/persistentstorage/filesystemstorage"
 )
 
 type FileSystemStorageConfig struct {

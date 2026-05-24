@@ -3,10 +3,10 @@ package jsonv4
 import (
 	"fmt"
 
-	handlerService "github.com/v2fly/v2ray-core/v5/app/proxyman/command"
-	"github.com/v2fly/v2ray-core/v5/main/commands/all/api"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
-	"github.com/v2fly/v2ray-core/v5/main/commands/helpers"
+	handlerService "github.com/exclavenetwork/exclave-core/v5/app/proxyman/command"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/all/api"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/helpers"
 )
 
 var cmdAddOutbounds = &base.Command{
@@ -14,7 +14,7 @@ var cmdAddOutbounds = &base.Command{
 	UsageLine:   "{{.Exec}} api ado [--server=127.0.0.1:8080] [c1.json] [dir1]...",
 	Short:       "add outbounds",
 	Long: `
-Add outbounds to V2Ray.
+Add outbounds to Exclave-core.
 
 > Make sure you have "HandlerService" set in "config.api.services" 
 of server config.

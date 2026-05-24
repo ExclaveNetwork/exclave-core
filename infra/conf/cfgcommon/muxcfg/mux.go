@@ -3,8 +3,8 @@ package muxcfg
 import (
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 )
 
 type MuxConfig struct {

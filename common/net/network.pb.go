@@ -74,7 +74,7 @@ func (Network) EnumDescriptor() ([]byte, []int) {
 // NetworkList is a list of Networks.
 type NetworkList struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Network       []Network              `protobuf:"varint,1,rep,packed,name=network,proto3,enum=v2ray.core.common.net.Network" json:"network,omitempty"`
+	Network       []Network              `protobuf:"varint,1,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -120,16 +120,16 @@ var File_common_net_network_proto protoreflect.FileDescriptor
 
 const file_common_net_network_proto_rawDesc = "" +
 	"\n" +
-	"\x18common/net/network.proto\x12\x15v2ray.core.common.net\"G\n" +
-	"\vNetworkList\x128\n" +
-	"\anetwork\x18\x01 \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\anetwork*B\n" +
+	"\x18common/net/network.proto\x12\x17exclave.core.common.net\"I\n" +
+	"\vNetworkList\x12:\n" +
+	"\anetwork\x18\x01 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork*B\n" +
 	"\aNetwork\x12\v\n" +
 	"\aUnknown\x10\x00\x12\x0e\n" +
 	"\x06RawTCP\x10\x01\x1a\x02\b\x01\x12\a\n" +
 	"\x03TCP\x10\x02\x12\a\n" +
 	"\x03UDP\x10\x03\x12\b\n" +
-	"\x04UNIX\x10\x04B`\n" +
-	"\x19com.v2ray.core.common.netP\x01Z)github.com/v2fly/v2ray-core/v5/common/net\xaa\x02\x15V2Ray.Core.Common.Netb\x06proto3"
+	"\x04UNIX\x10\x04B\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.common.netP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/net\xaa\x02\x17Exclave.Core.Common.Netb\x06proto3"
 
 var (
 	file_common_net_network_proto_rawDescOnce sync.Once
@@ -146,11 +146,11 @@ func file_common_net_network_proto_rawDescGZIP() []byte {
 var file_common_net_network_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_common_net_network_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_net_network_proto_goTypes = []any{
-	(Network)(0),        // 0: v2ray.core.common.net.Network
-	(*NetworkList)(nil), // 1: v2ray.core.common.net.NetworkList
+	(Network)(0),        // 0: exclave.core.common.net.Network
+	(*NetworkList)(nil), // 1: exclave.core.common.net.NetworkList
 }
 var file_common_net_network_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.common.net.NetworkList.network:type_name -> v2ray.core.common.net.Network
+	0, // 0: exclave.core.common.net.NetworkList.network:type_name -> exclave.core.common.net.Network
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

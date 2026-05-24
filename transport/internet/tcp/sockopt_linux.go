@@ -5,8 +5,8 @@ package tcp
 import (
 	"syscall"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
 const SO_ORIGINAL_DST = 80 // nolint: revive,stylecheck

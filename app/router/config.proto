@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.app.router;
-option csharp_namespace = "V2Ray.Core.App.Router";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/router";
-option java_package = "com.v2ray.core.app.router";
+package exclave.core.app.router;
+option csharp_namespace = "Exclave.Core.App.Router";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/router";
+option java_package = "com.github.exclavenetwork.exclave.core.app.router";
 option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
@@ -27,40 +27,40 @@ message RoutingRule {
   }
 
   // List of domains for target domain matching.
-  repeated v2ray.core.app.router.routercommon.Domain domain = 2;
+  repeated exclave.core.app.router.routercommon.Domain domain = 2;
 
   // List of CIDRs for target IP address matching.
   // Deprecated. Use geoip below.
-  repeated v2ray.core.app.router.routercommon.CIDR cidr = 3 [deprecated = true];
+  repeated exclave.core.app.router.routercommon.CIDR cidr = 3 [deprecated = true];
 
   // List of GeoIPs for target IP address matching. If this entry exists, the
   // cidr above will have no effect. GeoIP fields with the same country code are
   // supposed to contain exactly same content. They will be merged during
   // runtime. For customized GeoIPs, please leave country code empty.
-  repeated v2ray.core.app.router.routercommon.GeoIP geoip = 10;
+  repeated exclave.core.app.router.routercommon.GeoIP geoip = 10;
 
   // A range of port [from, to]. If the destination port is in this range, this
   // rule takes effect. Deprecated. Use port_list.
-  v2ray.core.common.net.PortRange port_range = 4 [deprecated = true];
+  exclave.core.common.net.PortRange port_range = 4 [deprecated = true];
 
   // List of ports.
-  v2ray.core.common.net.PortList port_list = 14;
+  exclave.core.common.net.PortList port_list = 14;
 
   // List of networks. Deprecated. Use networks.
-  v2ray.core.common.net.NetworkList network_list = 5 [deprecated = true];
+  exclave.core.common.net.NetworkList network_list = 5 [deprecated = true];
 
   // List of networks for matching.
-  repeated v2ray.core.common.net.Network networks = 13;
+  repeated exclave.core.common.net.Network networks = 13;
 
   // List of CIDRs for source IP address matching.
-  repeated v2ray.core.app.router.routercommon.CIDR source_cidr = 6 [deprecated = true];
+  repeated exclave.core.app.router.routercommon.CIDR source_cidr = 6 [deprecated = true];
 
   // List of GeoIPs for source IP address matching. If this entry exists, the
   // source_cidr above will have no effect.
-  repeated v2ray.core.app.router.routercommon.GeoIP source_geoip = 11;
+  repeated exclave.core.app.router.routercommon.GeoIP source_geoip = 11;
 
   // List of ports for source port matching.
-  v2ray.core.common.net.PortList source_port_list = 16;
+  exclave.core.common.net.PortList source_port_list = 16;
 
   repeated string user_email = 7;
   repeated string inbound_tag = 8;
@@ -79,7 +79,7 @@ message RoutingRule {
   bool skip_domain = 22;
 
   // geo_domain instruct simplified config loader to load geo domain rule and fill in domain field.
-  repeated v2ray.core.app.router.routercommon.GeoSite geo_domain = 68001;
+  repeated exclave.core.app.router.routercommon.GeoSite geo_domain = 68001;
 }
 
 message BalancingRule {
@@ -97,16 +97,16 @@ message StrategyWeight {
 }
 
 message StrategyRandomConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "balancer";
-  option (v2ray.core.common.protoext.message_opt).short_name = "random";
+  option (exclave.core.common.protoext.message_opt).type = "balancer";
+  option (exclave.core.common.protoext.message_opt).short_name = "random";
 
   string observer_tag = 7;
   bool alive_only = 8;
 }
 
 message StrategyLeastPingConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "balancer";
-  option (v2ray.core.common.protoext.message_opt).short_name = "leastping";
+  option (exclave.core.common.protoext.message_opt).type = "balancer";
+  option (exclave.core.common.protoext.message_opt).short_name = "leastping";
 
   string observer_tag = 7;
 
@@ -114,15 +114,15 @@ message StrategyLeastPingConfig {
 }
 
 message StrategyFallbackConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "balancer";
-  option (v2ray.core.common.protoext.message_opt).short_name = "fallback";
+  option (exclave.core.common.protoext.message_opt).type = "balancer";
+  option (exclave.core.common.protoext.message_opt).short_name = "fallback";
 
   string observer_tag = 7;
 }
 
 message StrategyLeastLoadConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "balancer";
-  option (v2ray.core.common.protoext.message_opt).short_name = "leastload";
+  option (exclave.core.common.protoext.message_opt).type = "balancer";
+  option (exclave.core.common.protoext.message_opt).short_name = "leastload";
 
   // weight settings
   repeated StrategyWeight costs = 2;
@@ -168,23 +168,23 @@ message SimplifiedRoutingRule {
   }
 
   // List of domains for target domain matching.
-  repeated v2ray.core.app.router.routercommon.Domain domain = 2;
+  repeated exclave.core.app.router.routercommon.Domain domain = 2;
 
   // List of GeoIPs for target IP address matching. If this entry exists, the
   // cidr above will have no effect. GeoIP fields with the same country code are
   // supposed to contain exactly same content. They will be merged during
   // runtime. For customized GeoIPs, please leave country code empty.
-  repeated v2ray.core.app.router.routercommon.GeoIP geoip = 10;
+  repeated exclave.core.app.router.routercommon.GeoIP geoip = 10;
 
   // List of ports.
   string port_list = 14;
 
   // List of networks for matching.
-  v2ray.core.common.net.NetworkList networks = 13;
+  exclave.core.common.net.NetworkList networks = 13;
 
   // List of GeoIPs for source IP address matching. If this entry exists, the
   // source_cidr above will have no effect.
-  repeated v2ray.core.app.router.routercommon.GeoIP source_geoip = 11;
+  repeated exclave.core.app.router.routercommon.GeoIP source_geoip = 11;
 
   // List of ports for source port matching.
   string source_port_list = 16;
@@ -206,12 +206,12 @@ message SimplifiedRoutingRule {
   bool skip_domain = 22;
 
   // geo_domain instruct simplified config loader to load geo domain rule and fill in domain field.
-  repeated v2ray.core.app.router.routercommon.GeoSite geo_domain = 68001;
+  repeated exclave.core.app.router.routercommon.GeoSite geo_domain = 68001;
 }
 
 message SimplifiedConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "service";
-  option (v2ray.core.common.protoext.message_opt).short_name = "router";
+  option (exclave.core.common.protoext.message_opt).type = "service";
+  option (exclave.core.common.protoext.message_opt).short_name = "router";
 
   DomainStrategy domain_strategy = 1;
   repeated SimplifiedRoutingRule rule = 2;

@@ -1,10 +1,10 @@
 package dns
 
 import (
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/strmatcher"
-	"github.com/v2fly/v2ray-core/v5/common/uuid"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/strmatcher"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 )
 
 var typeMap = map[DomainMatchingType]strmatcher.Type{

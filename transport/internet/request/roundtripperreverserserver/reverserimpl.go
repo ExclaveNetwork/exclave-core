@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v5/common/task"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/request"
+	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/request"
 )
 
 func NewReverserImpl() (request.ReverserImpl, error) {

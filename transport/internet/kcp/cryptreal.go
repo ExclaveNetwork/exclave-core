@@ -5,7 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 
-	"github.com/v2fly/v2ray-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common"
 )
 
 func NewAEADAESGCMBasedOnSeed(seed string) cipher.AEAD {

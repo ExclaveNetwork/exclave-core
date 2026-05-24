@@ -1,8 +1,8 @@
 package dns
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -167,9 +167,9 @@ var File_proxy_dns_config_proto protoreflect.FileDescriptor
 
 const file_proxy_dns_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16proxy/dns/config.proto\x12\x14v2ray.core.proxy.dns\x1a\x1ccommon/net/destination.proto\x1a common/protoext/extensions.proto\"\x87\x02\n" +
-	"\x06Config\x127\n" +
-	"\x06server\x18\x01 \x01(\v2\x1f.v2ray.core.common.net.EndpointR\x06server\x12\x1d\n" +
+	"\x16proxy/dns/config.proto\x12\x16exclave.core.proxy.dns\x1a\x1ccommon/net/destination.proto\x1a common/protoext/extensions.proto\"\x89\x02\n" +
+	"\x06Config\x129\n" +
+	"\x06server\x18\x01 \x01(\v2!.exclave.core.common.net.EndpointR\x06server\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x02 \x01(\rR\tuserLevel\x122\n" +
 	"\x15override_response_ttl\x18\x04 \x01(\bR\x13overrideResponseTtl\x12!\n" +
@@ -181,8 +181,8 @@ const file_proxy_dns_config_proto_rawDesc = "" +
 	"\x15override_response_ttl\x18\x04 \x01(\bR\x13overrideResponseTtl\x12!\n" +
 	"\fresponse_ttl\x18\x03 \x01(\rR\vresponseTtl\x12,\n" +
 	"\x12lookup_as_exchange\x18c \x01(\bR\x10lookupAsExchange:\x13\x82\xb5\x18\x0f\n" +
-	"\boutbound\x12\x03dnsB]\n" +
-	"\x18com.v2ray.core.proxy.dnsP\x01Z(github.com/v2fly/v2ray-core/v5/proxy/dns\xaa\x02\x14V2Ray.Core.Proxy.Dnsb\x06proto3"
+	"\boutbound\x12\x03dnsB\x82\x01\n" +
+	"0com.github.exclavenetwork.exclave.core.proxy.dnsP\x01Z3github.com/exclavenetwork/exclave-core/v5/proxy/dns\xaa\x02\x16Exclave.Core.Proxy.Dnsb\x06proto3"
 
 var (
 	file_proxy_dns_config_proto_rawDescOnce sync.Once
@@ -198,12 +198,12 @@ func file_proxy_dns_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_dns_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_dns_config_proto_goTypes = []any{
-	(*Config)(nil),           // 0: v2ray.core.proxy.dns.Config
-	(*SimplifiedConfig)(nil), // 1: v2ray.core.proxy.dns.SimplifiedConfig
-	(*net.Endpoint)(nil),     // 2: v2ray.core.common.net.Endpoint
+	(*Config)(nil),           // 0: exclave.core.proxy.dns.Config
+	(*SimplifiedConfig)(nil), // 1: exclave.core.proxy.dns.SimplifiedConfig
+	(*net.Endpoint)(nil),     // 2: exclave.core.common.net.Endpoint
 }
 var file_proxy_dns_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.dns.Config.server:type_name -> v2ray.core.common.net.Endpoint
+	2, // 0: exclave.core.proxy.dns.Config.server:type_name -> exclave.core.common.net.Endpoint
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

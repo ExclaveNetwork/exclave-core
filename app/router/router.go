@@ -1,21 +1,21 @@
 package router
 
-//go:generate go run github.com/v2fly/v2ray-core/v5/common/errors/errorgen
+//go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
 	"container/list"
 	"context"
 	"sync"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/platform"
-	"github.com/v2fly/v2ray-core/v5/features/dns"
-	"github.com/v2fly/v2ray-core/v5/features/outbound"
-	"github.com/v2fly/v2ray-core/v5/features/routing"
-	routing_dns "github.com/v2fly/v2ray-core/v5/features/routing/dns"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v5/infra/conf/geodata"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/platform"
+	"github.com/exclavenetwork/exclave-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	routing_dns "github.com/exclavenetwork/exclave-core/v5/features/routing/dns"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
+	"github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata"
 )
 
 // Router is an implementation of routing.Router.
@@ -216,7 +216,7 @@ func init() {
 	common.Must(common.RegisterConfig((*SimplifiedConfig)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
 		ctx = cfgcommon.NewConfigureLoadingContext(ctx)
 
-		geoloadername := platform.NewEnvFlag("v2ray.conf.geoloader").GetValue(func() string {
+		geoloadername := platform.NewEnvFlag("exclave.conf.geoloader").GetValue(func() string {
 			return "memconservative"
 		})
 

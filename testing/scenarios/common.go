@@ -16,16 +16,16 @@ import (
 	"golang.org/x/net/proxy"
 	"google.golang.org/protobuf/proto"
 
-	core "github.com/v2fly/v2ray-core/v5"
-	"github.com/v2fly/v2ray-core/v5/app/dispatcher"
-	"github.com/v2fly/v2ray-core/v5/app/proxyman"
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/errors"
-	"github.com/v2fly/v2ray-core/v5/common/log"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/retry"
-	"github.com/v2fly/v2ray-core/v5/common/serial"
-	"github.com/v2fly/v2ray-core/v5/common/units"
+	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/dispatcher"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
+	"github.com/exclavenetwork/exclave-core/v5/common/log"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/retry"
+	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common/units"
 )
 
 func xor(b []byte) []byte {
@@ -104,14 +104,14 @@ func genTestBinaryPath() {
 	testBinaryPathGen.Do(func() {
 		var tempDir string
 		common.Must(retry.Timed(5, 100).On(func() error {
-			dir, err := os.MkdirTemp("", "v2ray")
+			dir, err := os.MkdirTemp("", "exclave-core")
 			if err != nil {
 				return err
 			}
 			tempDir = dir
 			return nil
 		}))
-		file := filepath.Join(tempDir, "v2ray.test")
+		file := filepath.Join(tempDir, "exclave-core.test")
 		if runtime.GOOS == "windows" {
 			file += ".exe"
 		}
@@ -121,7 +121,7 @@ func genTestBinaryPath() {
 }
 
 func GetSourcePath() string {
-	return filepath.Join("github.com", "v2fly", "v2ray-core", "v5", "main")
+	return filepath.Join("github.com", "exclavenetwork", "exclave-core", "v5", "main")
 }
 
 func CloseAllServers(servers []*exec.Cmd) {

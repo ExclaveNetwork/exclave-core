@@ -8,7 +8,7 @@ import (
 	"github.com/dyhkwong/hysteria/core/v2/international/utils"
 	hyServer "github.com/dyhkwong/hysteria/core/v2/server"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 const (

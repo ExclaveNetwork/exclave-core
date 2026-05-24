@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"math/rand"
 
-	"github.com/v2fly/v2ray-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common"
 )
 
 // Roll returns a non-negative number between 0 (inclusive) and n (exclusive).

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.transport.global;
-option csharp_namespace = "V2Ray.Core.Transport.Global";
-option go_package = "github.com/v2fly/v2ray-core/v5/transport/global";
-option java_package = "com.v2ray.core.transport.global";
+package exclave.core.transport.global;
+option csharp_namespace = "Exclave.Core.Transport.Global";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/transport/global";
+option java_package = "com.github.exclavenetwork.exclave.core.transport.global";
 option java_multiple_files = true;
 
 import "transport/internet/config.proto";
@@ -12,5 +12,5 @@ import "transport/internet/config.proto";
 // through V2Ray. Deprecated. Use each settings in StreamConfig.
 message Config {
   option deprecated = true;
-  repeated v2ray.core.transport.internet.TransportConfig transport_settings = 1;
+  repeated exclave.core.transport.internet.TransportConfig transport_settings = 1;
 }

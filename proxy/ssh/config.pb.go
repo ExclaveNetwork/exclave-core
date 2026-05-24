@@ -1,8 +1,8 @@
 package ssh
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -145,9 +145,9 @@ var File_proxy_ssh_config_proto protoreflect.FileDescriptor
 
 const file_proxy_ssh_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16proxy/ssh/config.proto\x12\x14v2ray.core.proxy.ssh\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xeb\x03\n" +
-	"\x06Config\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x16proxy/ssh/config.proto\x12\x16exclave.core.proxy.ssh\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xed\x03\n" +
+	"\x06Config\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x12\n" +
 	"\x04user\x18\x03 \x01(\tR\x04user\x12\x1f\n" +
 	"\bpassword\x18\x04 \x01(\tH\x00R\bpassword\x88\x01\x01\x12\x1f\n" +
@@ -164,8 +164,8 @@ const file_proxy_ssh_config_proto_rawDesc = "" +
 	"\x12keepalive_interval\x18\v \x01(\rR\x11keepaliveInterval:\x13\x82\xb5\x18\x0f\n" +
 	"\boutbound\x12\x03sshB\v\n" +
 	"\t_passwordB\x19\n" +
-	"\x17_private_key_passphraseB]\n" +
-	"\x18com.v2ray.core.proxy.sshP\x01Z(github.com/v2fly/v2ray-core/v5/proxy/ssh\xaa\x02\x14V2Ray.Core.Proxy.SSHb\x06proto3"
+	"\x17_private_key_passphraseB\x82\x01\n" +
+	"0com.github.exclavenetwork.exclave.core.proxy.sshP\x01Z3github.com/exclavenetwork/exclave-core/v5/proxy/ssh\xaa\x02\x16Exclave.Core.Proxy.SSHb\x06proto3"
 
 var (
 	file_proxy_ssh_config_proto_rawDescOnce sync.Once
@@ -181,11 +181,11 @@ func file_proxy_ssh_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_ssh_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_ssh_config_proto_goTypes = []any{
-	(*Config)(nil),         // 0: v2ray.core.proxy.ssh.Config
-	(*net.IPOrDomain)(nil), // 1: v2ray.core.common.net.IPOrDomain
+	(*Config)(nil),         // 0: exclave.core.proxy.ssh.Config
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_ssh_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.ssh.Config.address:type_name -> v2ray.core.common.net.IPOrDomain
+	1, // 0: exclave.core.proxy.ssh.Config.address:type_name -> exclave.core.common.net.IPOrDomain
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

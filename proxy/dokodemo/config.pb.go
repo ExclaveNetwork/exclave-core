@@ -1,8 +1,8 @@
 package dokodemo
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -27,7 +27,7 @@ type Config struct {
 	// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
 	NetworkList *net.NetworkList `protobuf:"bytes,3,opt,name=network_list,json=networkList,proto3" json:"network_list,omitempty"`
 	// List of networks that the Dokodemo accepts.
-	Networks []net.Network `protobuf:"varint,7,rep,packed,name=networks,proto3,enum=v2ray.core.common.net.Network" json:"networks,omitempty"`
+	Networks []net.Network `protobuf:"varint,7,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
 	// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
 	Timeout        uint32 `protobuf:"varint,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
 	FollowRedirect bool   `protobuf:"varint,5,opt,name=follow_redirect,json=followRedirect,proto3" json:"follow_redirect,omitempty"`
@@ -189,23 +189,23 @@ var File_proxy_dokodemo_config_proto protoreflect.FileDescriptor
 
 const file_proxy_dokodemo_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproxy/dokodemo/config.proto\x12\x19v2ray.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xc6\x02\n" +
-	"\x06Config\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\rR\x04port\x12I\n" +
-	"\fnetwork_list\x18\x03 \x01(\v2\".v2ray.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12:\n" +
-	"\bnetworks\x18\a \x03(\x0e2\x1e.v2ray.core.common.net.NetworkR\bnetworks\x12\x1c\n" +
+	"\x1bproxy/dokodemo/config.proto\x12\x1bexclave.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xcc\x02\n" +
+	"\x06Config\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x04port\x18\x02 \x01(\rR\x04port\x12K\n" +
+	"\fnetwork_list\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12<\n" +
+	"\bnetworks\x18\a \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12\x1c\n" +
 	"\atimeout\x18\x04 \x01(\rB\x02\x18\x01R\atimeout\x12'\n" +
 	"\x0ffollow_redirect\x18\x05 \x01(\bR\x0efollowRedirect\x12\x1d\n" +
 	"\n" +
-	"user_level\x18\x06 \x01(\rR\tuserLevel\"\xea\x01\n" +
-	"\x10SimplifiedConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\rR\x04port\x12>\n" +
-	"\bnetworks\x18\x03 \x01(\v2\".v2ray.core.common.net.NetworkListR\bnetworks\x12'\n" +
+	"user_level\x18\x06 \x01(\rR\tuserLevel\"\xee\x01\n" +
+	"\x10SimplifiedConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x04port\x18\x02 \x01(\rR\x04port\x12@\n" +
+	"\bnetworks\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListR\bnetworks\x12'\n" +
 	"\x0ffollow_redirect\x18\x04 \x01(\bR\x0efollowRedirect:\x1c\x82\xb5\x18\x18\n" +
-	"\ainbound\x12\rdokodemo-doorBl\n" +
-	"\x1dcom.v2ray.core.proxy.dokodemoP\x01Z-github.com/v2fly/v2ray-core/v5/proxy/dokodemo\xaa\x02\x19V2Ray.Core.Proxy.Dokodemob\x06proto3"
+	"\ainbound\x12\rdokodemo-doorB\x91\x01\n" +
+	"5com.github.exclavenetwork.exclave.core.proxy.dokodemoP\x01Z8github.com/exclavenetwork/exclave-core/v5/proxy/dokodemo\xaa\x02\x1bExclave.Core.Proxy.Dokodemob\x06proto3"
 
 var (
 	file_proxy_dokodemo_config_proto_rawDescOnce sync.Once
@@ -221,18 +221,18 @@ func file_proxy_dokodemo_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_dokodemo_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_dokodemo_config_proto_goTypes = []any{
-	(*Config)(nil),           // 0: v2ray.core.proxy.dokodemo.Config
-	(*SimplifiedConfig)(nil), // 1: v2ray.core.proxy.dokodemo.SimplifiedConfig
-	(*net.IPOrDomain)(nil),   // 2: v2ray.core.common.net.IPOrDomain
-	(*net.NetworkList)(nil),  // 3: v2ray.core.common.net.NetworkList
-	(net.Network)(0),         // 4: v2ray.core.common.net.Network
+	(*Config)(nil),           // 0: exclave.core.proxy.dokodemo.Config
+	(*SimplifiedConfig)(nil), // 1: exclave.core.proxy.dokodemo.SimplifiedConfig
+	(*net.IPOrDomain)(nil),   // 2: exclave.core.common.net.IPOrDomain
+	(*net.NetworkList)(nil),  // 3: exclave.core.common.net.NetworkList
+	(net.Network)(0),         // 4: exclave.core.common.net.Network
 }
 var file_proxy_dokodemo_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.dokodemo.Config.address:type_name -> v2ray.core.common.net.IPOrDomain
-	3, // 1: v2ray.core.proxy.dokodemo.Config.network_list:type_name -> v2ray.core.common.net.NetworkList
-	4, // 2: v2ray.core.proxy.dokodemo.Config.networks:type_name -> v2ray.core.common.net.Network
-	2, // 3: v2ray.core.proxy.dokodemo.SimplifiedConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	3, // 4: v2ray.core.proxy.dokodemo.SimplifiedConfig.networks:type_name -> v2ray.core.common.net.NetworkList
+	2, // 0: exclave.core.proxy.dokodemo.Config.address:type_name -> exclave.core.common.net.IPOrDomain
+	3, // 1: exclave.core.proxy.dokodemo.Config.network_list:type_name -> exclave.core.common.net.NetworkList
+	4, // 2: exclave.core.proxy.dokodemo.Config.networks:type_name -> exclave.core.common.net.Network
+	2, // 3: exclave.core.proxy.dokodemo.SimplifiedConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	3, // 4: exclave.core.proxy.dokodemo.SimplifiedConfig.networks:type_name -> exclave.core.common.net.NetworkList
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

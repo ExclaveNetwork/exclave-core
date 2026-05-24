@@ -1,7 +1,7 @@
 package browserforwarder
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -73,14 +73,14 @@ var File_app_browserforwarder_config_proto protoreflect.FileDescriptor
 
 const file_app_browserforwarder_config_proto_rawDesc = "" +
 	"\n" +
-	"!app/browserforwarder/config.proto\x12\x1fv2ray.core.app.browserforwarder\x1a common/protoext/extensions.proto\"b\n" +
+	"!app/browserforwarder/config.proto\x12!exclave.core.app.browserforwarder\x1a common/protoext/extensions.proto\"b\n" +
 	"\x06Config\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
 	"listenPort:\x16\x82\xb5\x18\x12\n" +
-	"\aservice\x12\abrowserB~\n" +
-	"#com.v2ray.core.app.browserforwarderP\x01Z3github.com/v2fly/v2ray-core/v5/app/browserforwarder\xaa\x02\x1fV2Ray.Core.App.Browserforwarderb\x06proto3"
+	"\aservice\x12\abrowserB\xa3\x01\n" +
+	";com.github.exclavenetwork.exclave.core.app.browserforwarderP\x01Z>github.com/exclavenetwork/exclave-core/v5/app/browserforwarder\xaa\x02!Exclave.Core.App.Browserforwarderb\x06proto3"
 
 var (
 	file_app_browserforwarder_config_proto_rawDescOnce sync.Once
@@ -96,7 +96,7 @@ func file_app_browserforwarder_config_proto_rawDescGZIP() []byte {
 
 var file_app_browserforwarder_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_app_browserforwarder_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.app.browserforwarder.Config
+	(*Config)(nil), // 0: exclave.core.app.browserforwarder.Config
 }
 var file_app_browserforwarder_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.app.instman.command;
-option csharp_namespace = "V2Ray.Core.App.Instman.Command";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/instman/command";
-option java_package = "com.v2ray.core.app.observatory.instman";
+package exclave.core.app.instman.command;
+option csharp_namespace = "Exclave.Core.App.Instman.Command";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/instman/command";
+option java_package = "com.github.exclavenetwork.exclave.core.app.observatory.instman";
 option java_multiple_files = true;
 
 import "common/protoext/extensions.proto";
@@ -35,6 +35,6 @@ service InstanceManagementService {
 }
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "grpcservice";
-  option (v2ray.core.common.protoext.message_opt).short_name = "instman";
+  option (exclave.core.common.protoext.message_opt).type = "grpcservice";
+  option (exclave.core.common.protoext.message_opt).short_name = "instman";
 }

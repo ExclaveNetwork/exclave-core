@@ -3,7 +3,7 @@ package mirrorcommon
 import (
 	"fmt"
 
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror"
 )
 
 // PeekTLSRecord reads a TLS record from peeker.

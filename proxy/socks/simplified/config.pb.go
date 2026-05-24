@@ -1,9 +1,9 @@
 package simplified
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -22,7 +22,7 @@ type ServerConfig struct {
 	state          protoimpl.MessageState    `protogen:"open.v1"`
 	Address        *net.IPOrDomain           `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 	UdpEnabled     bool                      `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	DeferLastReply bool                      `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -150,20 +150,20 @@ var File_proxy_socks_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_socks_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	"#proxy/socks/simplified/config.proto\x12!v2ray.core.proxy.socks.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\x80\x02\n" +
-	"\fServerConfig\x12;\n" +
-	"\aaddress\x18\x03 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
+	"#proxy/socks/simplified/config.proto\x12#exclave.core.proxy.socks.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\x84\x02\n" +
+	"\fServerConfig\x12=\n" +
+	"\aaddress\x18\x03 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
 	"\vudp_enabled\x18\x04 \x01(\bR\n" +
-	"udpEnabled\x12R\n" +
-	"\x0fpacket_encoding\x18\a \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
+	"udpEnabled\x12T\n" +
+	"\x0fpacket_encoding\x18\a \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
 	"\x10defer_last_reply\x18\b \x01(\bR\x0edeferLastReply:\x14\x82\xb5\x18\x10\n" +
-	"\ainbound\x12\x05socks\"\x88\x01\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\ainbound\x12\x05socks\"\x8a\x01\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x10\n" +
 	"\x03uot\x18\x03 \x01(\bR\x03uot:\x15\x82\xb5\x18\x11\n" +
-	"\boutbound\x12\x05socksB\x84\x01\n" +
-	"%com.v2ray.core.proxy.socks.simplifiedP\x01Z5github.com/v2fly/v2ray-core/v5/proxy/socks/simplified\xaa\x02!V2Ray.Core.Proxy.Socks.Simplifiedb\x06proto3"
+	"\boutbound\x12\x05socksB\xa9\x01\n" +
+	"=com.github.exclavenetwork.exclave.core.proxy.socks.simplifiedP\x01Z@github.com/exclavenetwork/exclave-core/v5/proxy/socks/simplified\xaa\x02#Exclave.Core.Proxy.Socks.Simplifiedb\x06proto3"
 
 var (
 	file_proxy_socks_simplified_config_proto_rawDescOnce sync.Once
@@ -179,15 +179,15 @@ func file_proxy_socks_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_socks_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_socks_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),           // 0: v2ray.core.proxy.socks.simplified.ServerConfig
-	(*ClientConfig)(nil),           // 1: v2ray.core.proxy.socks.simplified.ClientConfig
-	(*net.IPOrDomain)(nil),         // 2: v2ray.core.common.net.IPOrDomain
-	(packetaddr.PacketAddrType)(0), // 3: v2ray.core.net.packetaddr.PacketAddrType
+	(*ServerConfig)(nil),           // 0: exclave.core.proxy.socks.simplified.ServerConfig
+	(*ClientConfig)(nil),           // 1: exclave.core.proxy.socks.simplified.ClientConfig
+	(*net.IPOrDomain)(nil),         // 2: exclave.core.common.net.IPOrDomain
+	(packetaddr.PacketAddrType)(0), // 3: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_proxy_socks_simplified_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.proxy.socks.simplified.ServerConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	3, // 1: v2ray.core.proxy.socks.simplified.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
-	2, // 2: v2ray.core.proxy.socks.simplified.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	2, // 0: exclave.core.proxy.socks.simplified.ServerConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	3, // 1: exclave.core.proxy.socks.simplified.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	2, // 2: exclave.core.proxy.socks.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

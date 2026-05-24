@@ -6,10 +6,10 @@ import (
 
 	"google.golang.org/grpc/credentials"
 
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/transport/internet"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/security"
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tls/utls"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/security"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls"
 )
 
 type securityEngineCreds struct {

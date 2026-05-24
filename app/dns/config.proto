@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.app.dns;
-option csharp_namespace = "V2Ray.Core.App.Dns";
-option go_package = "github.com/v2fly/v2ray-core/v5/app/dns";
-option java_package = "com.v2ray.core.app.dns";
+package exclave.core.app.dns;
+option csharp_namespace = "Exclave.Core.App.Dns";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/app/dns";
+option java_package = "com.github.exclavenetwork.exclave.core.app.dns";
 option java_multiple_files = true;
 
 import "common/net/address.proto";
@@ -14,7 +14,7 @@ import "app/dns/fakedns/fakedns.proto";
 import "common/protoext/extensions.proto";
 
 message NameServer {
-  v2ray.core.common.net.Endpoint address = 1;
+  exclave.core.common.net.Endpoint address = 1;
   bytes client_ip = 5;
   string tag = 7;
 
@@ -29,10 +29,10 @@ message NameServer {
   }
 
   repeated PriorityDomain prioritized_domain = 2;
-  repeated v2ray.core.app.router.routercommon.GeoIP geoip = 3;
+  repeated exclave.core.app.router.routercommon.GeoIP geoip = 3;
   repeated OriginalRule original_rules = 4;
 
-  v2ray.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 11;
+  exclave.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 11;
 
   // Deprecated. Use fallback_strategy.
   bool skipFallback = 6 [deprecated = true];
@@ -81,14 +81,14 @@ message Config {
   // Nameservers used by this DNS. Only traditional UDP servers are support at
   // the moment. A special value 'localhost' as a domain address can be set to
   // use DNS on local system.
-  repeated v2ray.core.common.net.Endpoint NameServers = 1 [deprecated = true];
+  repeated exclave.core.common.net.Endpoint NameServers = 1 [deprecated = true];
 
   // NameServer list used by this DNS client.
   repeated NameServer name_server = 5;
 
   // Static hosts. Domain to IP.
   // Deprecated. Use static_hosts.
-  map<string, v2ray.core.common.net.IPOrDomain> Hosts = 2 [deprecated = true];
+  map<string, exclave.core.common.net.IPOrDomain> Hosts = 2 [deprecated = true];
 
   // Client IP for EDNS client subnet. Must be 4 bytes (IPv4) or 16 bytes
   // (IPv6).
@@ -98,7 +98,7 @@ message Config {
   repeated HostMapping static_hosts = 4;
 
   // Global fakedns object.
-  v2ray.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 16;
+  exclave.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 16;
 
   // Tag is the inbound tag of DNS client.
   string tag = 6;
@@ -130,8 +130,8 @@ message Config {
 
 
 message SimplifiedConfig {
-  option (v2ray.core.common.protoext.message_opt).type = "service";
-  option (v2ray.core.common.protoext.message_opt).short_name = "dns";
+  option (exclave.core.common.protoext.message_opt).type = "service";
+  option (exclave.core.common.protoext.message_opt).short_name = "dns";
 
 
   // Nameservers used by this DNS. Only traditional UDP servers are support at
@@ -154,7 +154,7 @@ message SimplifiedConfig {
   repeated SimplifiedHostMapping static_hosts = 4;
 
   // Global fakedns object.
-  v2ray.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 16;
+  exclave.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 16;
 
   // Tag is the inbound tag of DNS client.
   string tag = 6;
@@ -197,7 +197,7 @@ message SimplifiedHostMapping {
 }
 
 message SimplifiedNameServer {
-  v2ray.core.common.net.Endpoint address = 1;
+  exclave.core.common.net.Endpoint address = 1;
   string client_ip = 5;
   string tag = 7;
 
@@ -212,10 +212,10 @@ message SimplifiedNameServer {
   }
 
   repeated PriorityDomain prioritized_domain = 2;
-  repeated v2ray.core.app.router.routercommon.GeoIP geoip = 3;
+  repeated exclave.core.app.router.routercommon.GeoIP geoip = 3;
   repeated OriginalRule original_rules = 4;
 
-  v2ray.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 11;
+  exclave.core.app.dns.fakedns.FakeDnsPoolMulti fake_dns = 11;
 
   // Deprecated. Use fallback_strategy.
   bool skipFallback = 6 [deprecated = true];
@@ -223,5 +223,5 @@ message SimplifiedNameServer {
   optional QueryStrategy query_strategy = 8;
   optional CacheStrategy cache_strategy = 9;
   optional FallbackStrategy fallback_strategy = 10;
-  repeated v2ray.core.app.router.routercommon.GeoSite geo_domain = 68001;
+  repeated exclave.core.app.router.routercommon.GeoSite geo_domain = 68001;
 }

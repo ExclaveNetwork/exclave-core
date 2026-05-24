@@ -1,9 +1,9 @@
 package proxyman
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	internet "github.com/v2fly/v2ray-core/v5/transport/internet"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	internet "github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -213,7 +213,7 @@ func (*InboundConfig) Descriptor() ([]byte, []int) {
 
 type AllocationStrategy struct {
 	state protoimpl.MessageState  `protogen:"open.v1"`
-	Type  AllocationStrategy_Type `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.app.proxyman.AllocationStrategy_Type" json:"type,omitempty"`
+	Type  AllocationStrategy_Type `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.app.proxyman.AllocationStrategy_Type" json:"type,omitempty"`
 	// Number of handlers (ports) running in parallel.
 	// Default value is 3 if unset.
 	Concurrency *AllocationStrategy_AllocationStrategyConcurrency `protobuf:"bytes,2,opt,name=concurrency,proto3" json:"concurrency,omitempty"`
@@ -361,7 +361,7 @@ type ReceiverConfig struct {
 	// Deprecated. Use sniffing_settings.
 	//
 	// Deprecated: Marked as deprecated in app/proxyman/config.proto.
-	DomainOverride   []KnownProtocols `protobuf:"varint,7,rep,packed,name=domain_override,json=domainOverride,proto3,enum=v2ray.core.app.proxyman.KnownProtocols" json:"domain_override,omitempty"`
+	DomainOverride   []KnownProtocols `protobuf:"varint,7,rep,packed,name=domain_override,json=domainOverride,proto3,enum=exclave.core.app.proxyman.KnownProtocols" json:"domain_override,omitempty"`
 	SniffingSettings *SniffingConfig  `protobuf:"bytes,8,opt,name=sniffing_settings,json=sniffingSettings,proto3" json:"sniffing_settings,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
@@ -550,8 +550,8 @@ type SenderConfig struct {
 	StreamSettings     *internet.StreamConfig      `protobuf:"bytes,2,opt,name=stream_settings,json=streamSettings,proto3" json:"stream_settings,omitempty"`
 	ProxySettings      *internet.ProxyConfig       `protobuf:"bytes,3,opt,name=proxy_settings,json=proxySettings,proto3" json:"proxy_settings,omitempty"`
 	MultiplexSettings  *MultiplexingConfig         `protobuf:"bytes,4,opt,name=multiplex_settings,json=multiplexSettings,proto3" json:"multiplex_settings,omitempty"`
-	DomainStrategy     SenderConfig_DomainStrategy `protobuf:"varint,5,opt,name=domain_strategy,json=domainStrategy,proto3,enum=v2ray.core.app.proxyman.SenderConfig_DomainStrategy" json:"domain_strategy,omitempty"`
-	DialDomainStrategy SenderConfig_DomainStrategy `protobuf:"varint,6,opt,name=dial_domain_strategy,json=dialDomainStrategy,proto3,enum=v2ray.core.app.proxyman.SenderConfig_DomainStrategy" json:"dial_domain_strategy,omitempty"`
+	DomainStrategy     SenderConfig_DomainStrategy `protobuf:"varint,5,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.app.proxyman.SenderConfig_DomainStrategy" json:"domain_strategy,omitempty"`
+	DialDomainStrategy SenderConfig_DomainStrategy `protobuf:"varint,6,opt,name=dial_domain_strategy,json=dialDomainStrategy,proto3,enum=exclave.core.app.proxyman.SenderConfig_DomainStrategy" json:"dial_domain_strategy,omitempty"`
 	Smux               *SingMultiplexConfig        `protobuf:"bytes,7,opt,name=smux,proto3" json:"smux,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
@@ -642,7 +642,7 @@ type MultiplexingConfig struct {
 	Enabled bool `protobuf:"varint,1,opt,name=enabled,proto3" json:"enabled,omitempty"`
 	// Max number of concurrent connections that one Mux connection can handle.
 	Concurrency    uint32                    `protobuf:"varint,2,opt,name=concurrency,proto3" json:"concurrency,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,3,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,3,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -874,12 +874,12 @@ var File_app_proxyman_config_proto protoreflect.FileDescriptor
 
 const file_app_proxyman_config_proto_rawDesc = "" +
 	"\n" +
-	"\x19app/proxyman/config.proto\x12\x17v2ray.core.app.proxyman\x1a\x18common/net/address.proto\x1a\x15common/net/port.proto\x1a\x1ftransport/internet/config.proto\x1a\x19google/protobuf/any.proto\x1a\"common/net/packetaddr/config.proto\"\x0f\n" +
-	"\rInboundConfig\"\xc0\x03\n" +
-	"\x12AllocationStrategy\x12D\n" +
-	"\x04type\x18\x01 \x01(\x0e20.v2ray.core.app.proxyman.AllocationStrategy.TypeR\x04type\x12k\n" +
-	"\vconcurrency\x18\x02 \x01(\v2I.v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrencyR\vconcurrency\x12_\n" +
-	"\arefresh\x18\x03 \x01(\v2E.v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyRefreshR\arefresh\x1a5\n" +
+	"\x19app/proxyman/config.proto\x12\x19exclave.core.app.proxyman\x1a\x18common/net/address.proto\x1a\x15common/net/port.proto\x1a\x1ftransport/internet/config.proto\x1a\x19google/protobuf/any.proto\x1a\"common/net/packetaddr/config.proto\"\x0f\n" +
+	"\rInboundConfig\"\xc6\x03\n" +
+	"\x12AllocationStrategy\x12F\n" +
+	"\x04type\x18\x01 \x01(\x0e22.exclave.core.app.proxyman.AllocationStrategy.TypeR\x04type\x12m\n" +
+	"\vconcurrency\x18\x02 \x01(\v2K.exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrencyR\vconcurrency\x12a\n" +
+	"\arefresh\x18\x03 \x01(\v2G.exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefreshR\arefresh\x1a5\n" +
 	"\x1dAllocationStrategyConcurrency\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\rR\x05value\x1a1\n" +
 	"\x19AllocationStrategyRefresh\x12\x14\n" +
@@ -895,29 +895,29 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"\x14destination_override\x18\x02 \x03(\tR\x13destinationOverride\x12#\n" +
 	"\rmetadata_only\x18\x03 \x01(\bR\fmetadataOnly\x12\x1d\n" +
 	"\n" +
-	"route_only\x18\x04 \x01(\bR\trouteOnly\"\xb4\x04\n" +
-	"\x0eReceiverConfig\x12?\n" +
+	"route_only\x18\x04 \x01(\bR\trouteOnly\"\xc0\x04\n" +
+	"\x0eReceiverConfig\x12A\n" +
 	"\n" +
-	"port_range\x18\x01 \x01(\v2 .v2ray.core.common.net.PortRangeR\tportRange\x129\n" +
-	"\x06listen\x18\x02 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\x06listen\x12\\\n" +
-	"\x13allocation_strategy\x18\x03 \x01(\v2+.v2ray.core.app.proxyman.AllocationStrategyR\x12allocationStrategy\x12T\n" +
-	"\x0fstream_settings\x18\x04 \x01(\v2+.v2ray.core.transport.internet.StreamConfigR\x0estreamSettings\x12@\n" +
-	"\x1creceive_original_destination\x18\x05 \x01(\bR\x1areceiveOriginalDestination\x12T\n" +
-	"\x0fdomain_override\x18\a \x03(\x0e2'.v2ray.core.app.proxyman.KnownProtocolsB\x02\x18\x01R\x0edomainOverride\x12T\n" +
-	"\x11sniffing_settings\x18\b \x01(\v2'.v2ray.core.app.proxyman.SniffingConfigR\x10sniffingSettingsJ\x04\b\x06\x10\a\"\xa8\x01\n" +
+	"port_range\x18\x01 \x01(\v2\".exclave.core.common.net.PortRangeR\tportRange\x12;\n" +
+	"\x06listen\x18\x02 \x01(\v2#.exclave.core.common.net.IPOrDomainR\x06listen\x12^\n" +
+	"\x13allocation_strategy\x18\x03 \x01(\v2-.exclave.core.app.proxyman.AllocationStrategyR\x12allocationStrategy\x12V\n" +
+	"\x0fstream_settings\x18\x04 \x01(\v2-.exclave.core.transport.internet.StreamConfigR\x0estreamSettings\x12@\n" +
+	"\x1creceive_original_destination\x18\x05 \x01(\bR\x1areceiveOriginalDestination\x12V\n" +
+	"\x0fdomain_override\x18\a \x03(\x0e2).exclave.core.app.proxyman.KnownProtocolsB\x02\x18\x01R\x0edomainOverride\x12V\n" +
+	"\x11sniffing_settings\x18\b \x01(\v2).exclave.core.app.proxyman.SniffingConfigR\x10sniffingSettingsJ\x04\b\x06\x10\a\"\xa8\x01\n" +
 	"\x14InboundHandlerConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12A\n" +
 	"\x11receiver_settings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x10receiverSettings\x12;\n" +
 	"\x0eproxy_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\rproxySettings\"\x10\n" +
-	"\x0eOutboundConfig\"\xb4\x05\n" +
-	"\fSenderConfig\x123\n" +
-	"\x03via\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\x03via\x12T\n" +
-	"\x0fstream_settings\x18\x02 \x01(\v2+.v2ray.core.transport.internet.StreamConfigR\x0estreamSettings\x12Q\n" +
-	"\x0eproxy_settings\x18\x03 \x01(\v2*.v2ray.core.transport.internet.ProxyConfigR\rproxySettings\x12Z\n" +
-	"\x12multiplex_settings\x18\x04 \x01(\v2+.v2ray.core.app.proxyman.MultiplexingConfigR\x11multiplexSettings\x12]\n" +
-	"\x0fdomain_strategy\x18\x05 \x01(\x0e24.v2ray.core.app.proxyman.SenderConfig.DomainStrategyR\x0edomainStrategy\x12f\n" +
-	"\x14dial_domain_strategy\x18\x06 \x01(\x0e24.v2ray.core.app.proxyman.SenderConfig.DomainStrategyR\x12dialDomainStrategy\x12@\n" +
-	"\x04smux\x18\a \x01(\v2,.v2ray.core.app.proxyman.SingMultiplexConfigR\x04smux\"a\n" +
+	"\x0eOutboundConfig\"\xc2\x05\n" +
+	"\fSenderConfig\x125\n" +
+	"\x03via\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\x03via\x12V\n" +
+	"\x0fstream_settings\x18\x02 \x01(\v2-.exclave.core.transport.internet.StreamConfigR\x0estreamSettings\x12S\n" +
+	"\x0eproxy_settings\x18\x03 \x01(\v2,.exclave.core.transport.internet.ProxyConfigR\rproxySettings\x12\\\n" +
+	"\x12multiplex_settings\x18\x04 \x01(\v2-.exclave.core.app.proxyman.MultiplexingConfigR\x11multiplexSettings\x12_\n" +
+	"\x0fdomain_strategy\x18\x05 \x01(\x0e26.exclave.core.app.proxyman.SenderConfig.DomainStrategyR\x0edomainStrategy\x12h\n" +
+	"\x14dial_domain_strategy\x18\x06 \x01(\x0e26.exclave.core.app.proxyman.SenderConfig.DomainStrategyR\x12dialDomainStrategy\x12B\n" +
+	"\x04smux\x18\a \x01(\v2..exclave.core.app.proxyman.SingMultiplexConfigR\x04smux\"a\n" +
 	"\x0eDomainStrategy\x12\t\n" +
 	"\x05AS_IS\x10\x00\x12\n" +
 	"\n" +
@@ -927,11 +927,11 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"\n" +
 	"PREFER_IP4\x10\x04\x12\x0e\n" +
 	"\n" +
-	"PREFER_IP6\x10\x05\"\xa4\x01\n" +
+	"PREFER_IP6\x10\x05\"\xa6\x01\n" +
 	"\x12MultiplexingConfig\x12\x18\n" +
 	"\aenabled\x18\x01 \x01(\bR\aenabled\x12 \n" +
-	"\vconcurrency\x18\x02 \x01(\rR\vconcurrency\x12R\n" +
-	"\x0fpacket_encoding\x18\x03 \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\"\xd0\x01\n" +
+	"\vconcurrency\x18\x02 \x01(\rR\vconcurrency\x12T\n" +
+	"\x0fpacket_encoding\x18\x03 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\"\xd0\x01\n" +
 	"\x13SingMultiplexConfig\x12\x18\n" +
 	"\aenabled\x18\x01 \x01(\bR\aenabled\x12\x1a\n" +
 	"\bprotocol\x18\x02 \x01(\tR\bprotocol\x12'\n" +
@@ -943,8 +943,8 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"\apadding\x18\x06 \x01(\bR\apadding*#\n" +
 	"\x0eKnownProtocols\x12\b\n" +
 	"\x04HTTP\x10\x00\x12\a\n" +
-	"\x03TLS\x10\x01Bf\n" +
-	"\x1bcom.v2ray.core.app.proxymanP\x01Z+github.com/v2fly/v2ray-core/v5/app/proxyman\xaa\x02\x17V2Ray.Core.App.Proxymanb\x06proto3"
+	"\x03TLS\x10\x01B\x8b\x01\n" +
+	"3com.github.exclavenetwork.exclave.core.app.proxymanP\x01Z6github.com/exclavenetwork/exclave-core/v5/app/proxyman\xaa\x02\x19Exclave.Core.App.Proxymanb\x06proto3"
 
 var (
 	file_app_proxyman_config_proto_rawDescOnce sync.Once
@@ -961,47 +961,47 @@ func file_app_proxyman_config_proto_rawDescGZIP() []byte {
 var file_app_proxyman_config_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_app_proxyman_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_app_proxyman_config_proto_goTypes = []any{
-	(KnownProtocols)(0),                                      // 0: v2ray.core.app.proxyman.KnownProtocols
-	(AllocationStrategy_Type)(0),                             // 1: v2ray.core.app.proxyman.AllocationStrategy.Type
-	(SenderConfig_DomainStrategy)(0),                         // 2: v2ray.core.app.proxyman.SenderConfig.DomainStrategy
-	(*InboundConfig)(nil),                                    // 3: v2ray.core.app.proxyman.InboundConfig
-	(*AllocationStrategy)(nil),                               // 4: v2ray.core.app.proxyman.AllocationStrategy
-	(*SniffingConfig)(nil),                                   // 5: v2ray.core.app.proxyman.SniffingConfig
-	(*ReceiverConfig)(nil),                                   // 6: v2ray.core.app.proxyman.ReceiverConfig
-	(*InboundHandlerConfig)(nil),                             // 7: v2ray.core.app.proxyman.InboundHandlerConfig
-	(*OutboundConfig)(nil),                                   // 8: v2ray.core.app.proxyman.OutboundConfig
-	(*SenderConfig)(nil),                                     // 9: v2ray.core.app.proxyman.SenderConfig
-	(*MultiplexingConfig)(nil),                               // 10: v2ray.core.app.proxyman.MultiplexingConfig
-	(*SingMultiplexConfig)(nil),                              // 11: v2ray.core.app.proxyman.SingMultiplexConfig
-	(*AllocationStrategy_AllocationStrategyConcurrency)(nil), // 12: v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
-	(*AllocationStrategy_AllocationStrategyRefresh)(nil),     // 13: v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
-	(*net.PortRange)(nil),                                    // 14: v2ray.core.common.net.PortRange
-	(*net.IPOrDomain)(nil),                                   // 15: v2ray.core.common.net.IPOrDomain
-	(*internet.StreamConfig)(nil),                            // 16: v2ray.core.transport.internet.StreamConfig
+	(KnownProtocols)(0),                                      // 0: exclave.core.app.proxyman.KnownProtocols
+	(AllocationStrategy_Type)(0),                             // 1: exclave.core.app.proxyman.AllocationStrategy.Type
+	(SenderConfig_DomainStrategy)(0),                         // 2: exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	(*InboundConfig)(nil),                                    // 3: exclave.core.app.proxyman.InboundConfig
+	(*AllocationStrategy)(nil),                               // 4: exclave.core.app.proxyman.AllocationStrategy
+	(*SniffingConfig)(nil),                                   // 5: exclave.core.app.proxyman.SniffingConfig
+	(*ReceiverConfig)(nil),                                   // 6: exclave.core.app.proxyman.ReceiverConfig
+	(*InboundHandlerConfig)(nil),                             // 7: exclave.core.app.proxyman.InboundHandlerConfig
+	(*OutboundConfig)(nil),                                   // 8: exclave.core.app.proxyman.OutboundConfig
+	(*SenderConfig)(nil),                                     // 9: exclave.core.app.proxyman.SenderConfig
+	(*MultiplexingConfig)(nil),                               // 10: exclave.core.app.proxyman.MultiplexingConfig
+	(*SingMultiplexConfig)(nil),                              // 11: exclave.core.app.proxyman.SingMultiplexConfig
+	(*AllocationStrategy_AllocationStrategyConcurrency)(nil), // 12: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
+	(*AllocationStrategy_AllocationStrategyRefresh)(nil),     // 13: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
+	(*net.PortRange)(nil),                                    // 14: exclave.core.common.net.PortRange
+	(*net.IPOrDomain)(nil),                                   // 15: exclave.core.common.net.IPOrDomain
+	(*internet.StreamConfig)(nil),                            // 16: exclave.core.transport.internet.StreamConfig
 	(*anypb.Any)(nil),                                        // 17: google.protobuf.Any
-	(*internet.ProxyConfig)(nil),                             // 18: v2ray.core.transport.internet.ProxyConfig
-	(packetaddr.PacketAddrType)(0),                           // 19: v2ray.core.net.packetaddr.PacketAddrType
+	(*internet.ProxyConfig)(nil),                             // 18: exclave.core.transport.internet.ProxyConfig
+	(packetaddr.PacketAddrType)(0),                           // 19: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_app_proxyman_config_proto_depIdxs = []int32{
-	1,  // 0: v2ray.core.app.proxyman.AllocationStrategy.type:type_name -> v2ray.core.app.proxyman.AllocationStrategy.Type
-	12, // 1: v2ray.core.app.proxyman.AllocationStrategy.concurrency:type_name -> v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
-	13, // 2: v2ray.core.app.proxyman.AllocationStrategy.refresh:type_name -> v2ray.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
-	14, // 3: v2ray.core.app.proxyman.ReceiverConfig.port_range:type_name -> v2ray.core.common.net.PortRange
-	15, // 4: v2ray.core.app.proxyman.ReceiverConfig.listen:type_name -> v2ray.core.common.net.IPOrDomain
-	4,  // 5: v2ray.core.app.proxyman.ReceiverConfig.allocation_strategy:type_name -> v2ray.core.app.proxyman.AllocationStrategy
-	16, // 6: v2ray.core.app.proxyman.ReceiverConfig.stream_settings:type_name -> v2ray.core.transport.internet.StreamConfig
-	0,  // 7: v2ray.core.app.proxyman.ReceiverConfig.domain_override:type_name -> v2ray.core.app.proxyman.KnownProtocols
-	5,  // 8: v2ray.core.app.proxyman.ReceiverConfig.sniffing_settings:type_name -> v2ray.core.app.proxyman.SniffingConfig
-	17, // 9: v2ray.core.app.proxyman.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
-	17, // 10: v2ray.core.app.proxyman.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
-	15, // 11: v2ray.core.app.proxyman.SenderConfig.via:type_name -> v2ray.core.common.net.IPOrDomain
-	16, // 12: v2ray.core.app.proxyman.SenderConfig.stream_settings:type_name -> v2ray.core.transport.internet.StreamConfig
-	18, // 13: v2ray.core.app.proxyman.SenderConfig.proxy_settings:type_name -> v2ray.core.transport.internet.ProxyConfig
-	10, // 14: v2ray.core.app.proxyman.SenderConfig.multiplex_settings:type_name -> v2ray.core.app.proxyman.MultiplexingConfig
-	2,  // 15: v2ray.core.app.proxyman.SenderConfig.domain_strategy:type_name -> v2ray.core.app.proxyman.SenderConfig.DomainStrategy
-	2,  // 16: v2ray.core.app.proxyman.SenderConfig.dial_domain_strategy:type_name -> v2ray.core.app.proxyman.SenderConfig.DomainStrategy
-	11, // 17: v2ray.core.app.proxyman.SenderConfig.smux:type_name -> v2ray.core.app.proxyman.SingMultiplexConfig
-	19, // 18: v2ray.core.app.proxyman.MultiplexingConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
+	1,  // 0: exclave.core.app.proxyman.AllocationStrategy.type:type_name -> exclave.core.app.proxyman.AllocationStrategy.Type
+	12, // 1: exclave.core.app.proxyman.AllocationStrategy.concurrency:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
+	13, // 2: exclave.core.app.proxyman.AllocationStrategy.refresh:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
+	14, // 3: exclave.core.app.proxyman.ReceiverConfig.port_range:type_name -> exclave.core.common.net.PortRange
+	15, // 4: exclave.core.app.proxyman.ReceiverConfig.listen:type_name -> exclave.core.common.net.IPOrDomain
+	4,  // 5: exclave.core.app.proxyman.ReceiverConfig.allocation_strategy:type_name -> exclave.core.app.proxyman.AllocationStrategy
+	16, // 6: exclave.core.app.proxyman.ReceiverConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
+	0,  // 7: exclave.core.app.proxyman.ReceiverConfig.domain_override:type_name -> exclave.core.app.proxyman.KnownProtocols
+	5,  // 8: exclave.core.app.proxyman.ReceiverConfig.sniffing_settings:type_name -> exclave.core.app.proxyman.SniffingConfig
+	17, // 9: exclave.core.app.proxyman.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
+	17, // 10: exclave.core.app.proxyman.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
+	15, // 11: exclave.core.app.proxyman.SenderConfig.via:type_name -> exclave.core.common.net.IPOrDomain
+	16, // 12: exclave.core.app.proxyman.SenderConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
+	18, // 13: exclave.core.app.proxyman.SenderConfig.proxy_settings:type_name -> exclave.core.transport.internet.ProxyConfig
+	10, // 14: exclave.core.app.proxyman.SenderConfig.multiplex_settings:type_name -> exclave.core.app.proxyman.MultiplexingConfig
+	2,  // 15: exclave.core.app.proxyman.SenderConfig.domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	2,  // 16: exclave.core.app.proxyman.SenderConfig.dial_domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	11, // 17: exclave.core.app.proxyman.SenderConfig.smux:type_name -> exclave.core.app.proxyman.SingMultiplexConfig
+	19, // 18: exclave.core.app.proxyman.MultiplexingConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
 	19, // [19:19] is the sub-list for method output_type
 	19, // [19:19] is the sub-list for method input_type
 	19, // [19:19] is the sub-list for extension type_name

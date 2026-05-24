@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/net/ipv4"
 
-	"github.com/v2fly/v2ray-core/v5/common/track"
+	"github.com/exclavenetwork/exclave-core/v5/common/track"
 )
 
 var (

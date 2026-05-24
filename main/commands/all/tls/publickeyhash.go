@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
-	v2tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
+	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 var cmdPublicKeyHash = &base.Command{

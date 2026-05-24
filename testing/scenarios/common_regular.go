@@ -1,5 +1,3 @@
-//go:build !coverage
-
 package scenarios
 
 import (
@@ -15,7 +13,7 @@ func BuildV2Ray() error {
 		return nil
 	}
 
-	fmt.Printf("Building V2Ray into path (%s)\n", testBinaryPath)
+	fmt.Printf("Building Exclave-core into path (%s)\n", testBinaryPath)
 	cmd := exec.Command("go", "build", "-o="+testBinaryPath, GetSourcePath())
 	return cmd.Run()
 }

@@ -1,8 +1,8 @@
 package juicity
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -89,14 +89,14 @@ var File_proxy_juicity_config_proto protoreflect.FileDescriptor
 
 const file_proxy_juicity_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1aproxy/juicity/config.proto\x12\x18v2ray.core.proxy.juicity\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xa8\x01\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x1aproxy/juicity/config.proto\x12\x1aexclave.core.proxy.juicity\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xaa\x01\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x12\n" +
 	"\x04uuid\x18\x03 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword:\x17\x82\xb5\x18\x13\n" +
-	"\boutbound\x12\ajuicityBi\n" +
-	"\x1ccom.v2ray.core.proxy.juicityP\x01Z,github.com/v2fly/v2ray-core/v5/proxy/juicity\xaa\x02\x18V2Ray.Core.Proxy.Juicityb\x06proto3"
+	"\boutbound\x12\ajuicityB\x8e\x01\n" +
+	"4com.github.exclavenetwork.exclave.core.proxy.juicityP\x01Z7github.com/exclavenetwork/exclave-core/v5/proxy/juicity\xaa\x02\x1aExclave.Core.Proxy.Juicityb\x06proto3"
 
 var (
 	file_proxy_juicity_config_proto_rawDescOnce sync.Once
@@ -112,11 +112,11 @@ func file_proxy_juicity_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_juicity_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_juicity_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),   // 0: v2ray.core.proxy.juicity.ClientConfig
-	(*net.IPOrDomain)(nil), // 1: v2ray.core.common.net.IPOrDomain
+	(*ClientConfig)(nil),   // 0: exclave.core.proxy.juicity.ClientConfig
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_juicity_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.juicity.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
+	1, // 0: exclave.core.proxy.juicity.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

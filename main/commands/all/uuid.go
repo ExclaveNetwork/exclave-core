@@ -3,8 +3,8 @@ package all
 import (
 	"fmt"
 
-	"github.com/v2fly/v2ray-core/v5/common/uuid"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
 )
 
 var cmdUUID = &base.Command{

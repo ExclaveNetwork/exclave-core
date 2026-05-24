@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
 )
 
 var cmdMLKEM768 = &base.Command{

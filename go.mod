@@ -1,4 +1,4 @@
-module github.com/v2fly/v2ray-core/v5
+module github.com/exclavenetwork/exclave-core/v5
 
 go 1.25.0
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net"
 
-	"github.com/v2fly/v2ray-core/v5/app/dns/fakedns"
+	"github.com/exclavenetwork/exclave-core/v5/app/dns/fakedns"
 )
 
 type FakeDNSPoolElementConfig struct {

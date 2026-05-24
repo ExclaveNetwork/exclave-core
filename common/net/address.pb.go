@@ -105,13 +105,13 @@ var File_common_net_address_proto protoreflect.FileDescriptor
 
 const file_common_net_address_proto_rawDesc = "" +
 	"\n" +
-	"\x18common/net/address.proto\x12\x15v2ray.core.common.net\"C\n" +
+	"\x18common/net/address.proto\x12\x17exclave.core.common.net\"C\n" +
 	"\n" +
 	"IPOrDomain\x12\x10\n" +
 	"\x02ip\x18\x01 \x01(\fH\x00R\x02ip\x12\x18\n" +
 	"\x06domain\x18\x02 \x01(\tH\x00R\x06domainB\t\n" +
-	"\aaddressB`\n" +
-	"\x19com.v2ray.core.common.netP\x01Z)github.com/v2fly/v2ray-core/v5/common/net\xaa\x02\x15V2Ray.Core.Common.Netb\x06proto3"
+	"\aaddressB\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.common.netP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/net\xaa\x02\x17Exclave.Core.Common.Netb\x06proto3"
 
 var (
 	file_common_net_address_proto_rawDescOnce sync.Once
@@ -127,7 +127,7 @@ func file_common_net_address_proto_rawDescGZIP() []byte {
 
 var file_common_net_address_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_net_address_proto_goTypes = []any{
-	(*IPOrDomain)(nil), // 0: v2ray.core.common.net.IPOrDomain
+	(*IPOrDomain)(nil), // 0: exclave.core.common.net.IPOrDomain
 }
 var file_common_net_address_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

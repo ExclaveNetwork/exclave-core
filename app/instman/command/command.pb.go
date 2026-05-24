@@ -1,7 +1,7 @@
 package command
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -312,7 +312,7 @@ var File_app_instman_command_command_proto protoreflect.FileDescriptor
 
 const file_app_instman_command_command_proto_rawDesc = "" +
 	"\n" +
-	"!app/instman/command/command.proto\x12\x1ev2ray.core.app.instman.command\x1a common/protoext/extensions.proto\"\x11\n" +
+	"!app/instman/command/command.proto\x12 exclave.core.app.instman.command\x1a common/protoext/extensions.proto\"\x11\n" +
 	"\x0fListInstanceReq\"&\n" +
 	"\x10ListInstanceResp\x12\x12\n" +
 	"\x04name\x18\x01 \x03(\tR\x04name\"p\n" +
@@ -327,12 +327,12 @@ const file_app_instman_command_command_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"\x13\n" +
 	"\x11StartInstanceResp\"$\n" +
 	"\x06Config:\x1a\x82\xb5\x18\x16\n" +
-	"\vgrpcservice\x12\ainstman2\xf4\x02\n" +
-	"\x19InstanceManagementService\x12q\n" +
-	"\fListInstance\x12/.v2ray.core.app.instman.command.ListInstanceReq\x1a0.v2ray.core.app.instman.command.ListInstanceResp\x12n\n" +
-	"\vAddInstance\x12..v2ray.core.app.instman.command.AddInstanceReq\x1a/.v2ray.core.app.instman.command.AddInstanceResp\x12t\n" +
-	"\rStartInstance\x120.v2ray.core.app.instman.command.StartInstanceReq\x1a1.v2ray.core.app.instman.command.StartInstanceRespB\x7f\n" +
-	"&com.v2ray.core.app.observatory.instmanP\x01Z2github.com/v2fly/v2ray-core/v5/app/instman/command\xaa\x02\x1eV2Ray.Core.App.Instman.Commandb\x06proto3"
+	"\vgrpcservice\x12\ainstman2\x80\x03\n" +
+	"\x19InstanceManagementService\x12u\n" +
+	"\fListInstance\x121.exclave.core.app.instman.command.ListInstanceReq\x1a2.exclave.core.app.instman.command.ListInstanceResp\x12r\n" +
+	"\vAddInstance\x120.exclave.core.app.instman.command.AddInstanceReq\x1a1.exclave.core.app.instman.command.AddInstanceResp\x12x\n" +
+	"\rStartInstance\x122.exclave.core.app.instman.command.StartInstanceReq\x1a3.exclave.core.app.instman.command.StartInstanceRespB\xa4\x01\n" +
+	">com.github.exclavenetwork.exclave.core.app.observatory.instmanP\x01Z=github.com/exclavenetwork/exclave-core/v5/app/instman/command\xaa\x02 Exclave.Core.App.Instman.Commandb\x06proto3"
 
 var (
 	file_app_instman_command_command_proto_rawDescOnce sync.Once
@@ -348,21 +348,21 @@ func file_app_instman_command_command_proto_rawDescGZIP() []byte {
 
 var file_app_instman_command_command_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_app_instman_command_command_proto_goTypes = []any{
-	(*ListInstanceReq)(nil),   // 0: v2ray.core.app.instman.command.ListInstanceReq
-	(*ListInstanceResp)(nil),  // 1: v2ray.core.app.instman.command.ListInstanceResp
-	(*AddInstanceReq)(nil),    // 2: v2ray.core.app.instman.command.AddInstanceReq
-	(*AddInstanceResp)(nil),   // 3: v2ray.core.app.instman.command.AddInstanceResp
-	(*StartInstanceReq)(nil),  // 4: v2ray.core.app.instman.command.StartInstanceReq
-	(*StartInstanceResp)(nil), // 5: v2ray.core.app.instman.command.StartInstanceResp
-	(*Config)(nil),            // 6: v2ray.core.app.instman.command.Config
+	(*ListInstanceReq)(nil),   // 0: exclave.core.app.instman.command.ListInstanceReq
+	(*ListInstanceResp)(nil),  // 1: exclave.core.app.instman.command.ListInstanceResp
+	(*AddInstanceReq)(nil),    // 2: exclave.core.app.instman.command.AddInstanceReq
+	(*AddInstanceResp)(nil),   // 3: exclave.core.app.instman.command.AddInstanceResp
+	(*StartInstanceReq)(nil),  // 4: exclave.core.app.instman.command.StartInstanceReq
+	(*StartInstanceResp)(nil), // 5: exclave.core.app.instman.command.StartInstanceResp
+	(*Config)(nil),            // 6: exclave.core.app.instman.command.Config
 }
 var file_app_instman_command_command_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.instman.command.InstanceManagementService.ListInstance:input_type -> v2ray.core.app.instman.command.ListInstanceReq
-	2, // 1: v2ray.core.app.instman.command.InstanceManagementService.AddInstance:input_type -> v2ray.core.app.instman.command.AddInstanceReq
-	4, // 2: v2ray.core.app.instman.command.InstanceManagementService.StartInstance:input_type -> v2ray.core.app.instman.command.StartInstanceReq
-	1, // 3: v2ray.core.app.instman.command.InstanceManagementService.ListInstance:output_type -> v2ray.core.app.instman.command.ListInstanceResp
-	3, // 4: v2ray.core.app.instman.command.InstanceManagementService.AddInstance:output_type -> v2ray.core.app.instman.command.AddInstanceResp
-	5, // 5: v2ray.core.app.instman.command.InstanceManagementService.StartInstance:output_type -> v2ray.core.app.instman.command.StartInstanceResp
+	0, // 0: exclave.core.app.instman.command.InstanceManagementService.ListInstance:input_type -> exclave.core.app.instman.command.ListInstanceReq
+	2, // 1: exclave.core.app.instman.command.InstanceManagementService.AddInstance:input_type -> exclave.core.app.instman.command.AddInstanceReq
+	4, // 2: exclave.core.app.instman.command.InstanceManagementService.StartInstance:input_type -> exclave.core.app.instman.command.StartInstanceReq
+	1, // 3: exclave.core.app.instman.command.InstanceManagementService.ListInstance:output_type -> exclave.core.app.instman.command.ListInstanceResp
+	3, // 4: exclave.core.app.instman.command.InstanceManagementService.AddInstance:output_type -> exclave.core.app.instman.command.AddInstanceResp
+	5, // 5: exclave.core.app.instman.command.InstanceManagementService.StartInstance:output_type -> exclave.core.app.instman.command.StartInstanceResp
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

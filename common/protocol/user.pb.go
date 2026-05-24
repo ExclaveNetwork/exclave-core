@@ -83,12 +83,12 @@ var File_common_protocol_user_proto protoreflect.FileDescriptor
 
 const file_common_protocol_user_proto_rawDesc = "" +
 	"\n" +
-	"\x1acommon/protocol/user.proto\x12\x1av2ray.core.common.protocol\x1a\x19google/protobuf/any.proto\"b\n" +
+	"\x1acommon/protocol/user.proto\x12\x1cexclave.core.common.protocol\x1a\x19google/protobuf/any.proto\"b\n" +
 	"\x04User\x12\x14\n" +
 	"\x05level\x18\x01 \x01(\rR\x05level\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12.\n" +
-	"\aaccount\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\aaccountBo\n" +
-	"\x1ecom.v2ray.core.common.protocolP\x01Z.github.com/v2fly/v2ray-core/v5/common/protocol\xaa\x02\x1aV2Ray.Core.Common.Protocolb\x06proto3"
+	"\aaccount\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\aaccountB\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.common.protocolP\x01Z9github.com/exclavenetwork/exclave-core/v5/common/protocol\xaa\x02\x1cExclave.Core.Common.Protocolb\x06proto3"
 
 var (
 	file_common_protocol_user_proto_rawDescOnce sync.Once
@@ -104,11 +104,11 @@ func file_common_protocol_user_proto_rawDescGZIP() []byte {
 
 var file_common_protocol_user_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_protocol_user_proto_goTypes = []any{
-	(*User)(nil),      // 0: v2ray.core.common.protocol.User
+	(*User)(nil),      // 0: exclave.core.common.protocol.User
 	(*anypb.Any)(nil), // 1: google.protobuf.Any
 }
 var file_common_protocol_user_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.common.protocol.User.account:type_name -> google.protobuf.Any
+	1, // 0: exclave.core.common.protocol.User.account:type_name -> google.protobuf.Any
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

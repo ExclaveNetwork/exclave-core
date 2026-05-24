@@ -7,7 +7,7 @@
 package core
 
 import (
-	global "github.com/v2fly/v2ray-core/v5/transport/global"
+	global "github.com/exclavenetwork/exclave-core/v5/transport/global"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -276,13 +276,12 @@ var File_config_proto protoreflect.FileDescriptor
 
 const file_config_proto_rawDesc = "" +
 	"\n" +
-	"\fconfig.proto\x12\n" +
-	"v2ray.core\x1a\x19google/protobuf/any.proto\x1a\x1dtransport/global/config.proto\"\xac\x02\n" +
-	"\x06Config\x12:\n" +
-	"\ainbound\x18\x01 \x03(\v2 .v2ray.core.InboundHandlerConfigR\ainbound\x12=\n" +
-	"\boutbound\x18\x02 \x03(\v2!.v2ray.core.OutboundHandlerConfigR\boutbound\x12&\n" +
-	"\x03app\x18\x04 \x03(\v2\x14.google.protobuf.AnyR\x03app\x12E\n" +
-	"\ttransport\x18\x05 \x01(\v2#.v2ray.core.transport.global.ConfigB\x02\x18\x01R\ttransport\x122\n" +
+	"\fconfig.proto\x12\fexclave.core\x1a\x19google/protobuf/any.proto\x1a\x1dtransport/global/config.proto\"\xb2\x02\n" +
+	"\x06Config\x12<\n" +
+	"\ainbound\x18\x01 \x03(\v2\".exclave.core.InboundHandlerConfigR\ainbound\x12?\n" +
+	"\boutbound\x18\x02 \x03(\v2#.exclave.core.OutboundHandlerConfigR\boutbound\x12&\n" +
+	"\x03app\x18\x04 \x03(\v2\x14.google.protobuf.AnyR\x03app\x12G\n" +
+	"\ttransport\x18\x05 \x01(\v2%.exclave.core.transport.global.ConfigB\x02\x18\x01R\ttransport\x122\n" +
 	"\textension\x18\x06 \x03(\v2\x14.google.protobuf.AnyR\textensionJ\x04\b\x03\x10\x04\"\xc3\x01\n" +
 	"\x14InboundHandlerConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12A\n" +
@@ -294,9 +293,8 @@ const file_config_proto_rawDesc = "" +
 	"\x0fsender_settings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x0esenderSettings\x12;\n" +
 	"\x0eproxy_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\rproxySettings\x12\x16\n" +
 	"\x06expire\x18\x04 \x01(\x03R\x06expire\x12\x18\n" +
-	"\acomment\x18\x05 \x01(\tR\acommentBD\n" +
-	"\x0ecom.v2ray.coreP\x01Z#github.com/v2fly/v2ray-core/v5;core\xaa\x02\n" +
-	"V2Ray.Coreb\x06proto3"
+	"\acomment\x18\x05 \x01(\tR\acommentBi\n" +
+	"&com.github.exclavenetwork.exclave.coreP\x01Z.github.com/exclavenetwork/exclave-core/v5;core\xaa\x02\fExclave.Coreb\x06proto3"
 
 var (
 	file_config_proto_rawDescOnce sync.Once
@@ -312,22 +310,22 @@ func file_config_proto_rawDescGZIP() []byte {
 
 var file_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_config_proto_goTypes = []any{
-	(*Config)(nil),                // 0: v2ray.core.Config
-	(*InboundHandlerConfig)(nil),  // 1: v2ray.core.InboundHandlerConfig
-	(*OutboundHandlerConfig)(nil), // 2: v2ray.core.OutboundHandlerConfig
+	(*Config)(nil),                // 0: exclave.core.Config
+	(*InboundHandlerConfig)(nil),  // 1: exclave.core.InboundHandlerConfig
+	(*OutboundHandlerConfig)(nil), // 2: exclave.core.OutboundHandlerConfig
 	(*anypb.Any)(nil),             // 3: google.protobuf.Any
-	(*global.Config)(nil),         // 4: v2ray.core.transport.global.Config
+	(*global.Config)(nil),         // 4: exclave.core.transport.global.Config
 }
 var file_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.Config.inbound:type_name -> v2ray.core.InboundHandlerConfig
-	2, // 1: v2ray.core.Config.outbound:type_name -> v2ray.core.OutboundHandlerConfig
-	3, // 2: v2ray.core.Config.app:type_name -> google.protobuf.Any
-	4, // 3: v2ray.core.Config.transport:type_name -> v2ray.core.transport.global.Config
-	3, // 4: v2ray.core.Config.extension:type_name -> google.protobuf.Any
-	3, // 5: v2ray.core.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
-	3, // 6: v2ray.core.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
-	3, // 7: v2ray.core.OutboundHandlerConfig.sender_settings:type_name -> google.protobuf.Any
-	3, // 8: v2ray.core.OutboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
+	1, // 0: exclave.core.Config.inbound:type_name -> exclave.core.InboundHandlerConfig
+	2, // 1: exclave.core.Config.outbound:type_name -> exclave.core.OutboundHandlerConfig
+	3, // 2: exclave.core.Config.app:type_name -> google.protobuf.Any
+	4, // 3: exclave.core.Config.transport:type_name -> exclave.core.transport.global.Config
+	3, // 4: exclave.core.Config.extension:type_name -> google.protobuf.Any
+	3, // 5: exclave.core.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
+	3, // 6: exclave.core.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
+	3, // 7: exclave.core.OutboundHandlerConfig.sender_settings:type_name -> google.protobuf.Any
+	3, // 8: exclave.core.OutboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
 	9, // [9:9] is the sub-list for method output_type
 	9, // [9:9] is the sub-list for method input_type
 	9, // [9:9] is the sub-list for extension type_name

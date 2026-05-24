@@ -1,7 +1,7 @@
 package pipe
 
 import (
-	"github.com/v2fly/v2ray-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 )
 
 // Writer is a buf.Writer that writes data into a pipe.

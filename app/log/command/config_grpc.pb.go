@@ -13,8 +13,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoggerService_RestartLogger_FullMethodName = "/v2ray.core.app.log.command.LoggerService/RestartLogger"
-	LoggerService_FollowLog_FullMethodName     = "/v2ray.core.app.log.command.LoggerService/FollowLog"
+	LoggerService_RestartLogger_FullMethodName = "/exclave.core.app.log.command.LoggerService/RestartLogger"
+	LoggerService_FollowLog_FullMethodName     = "/exclave.core.app.log.command.LoggerService/FollowLog"
 )
 
 // LoggerServiceClient is the client API for LoggerService service.
@@ -140,7 +140,7 @@ type LoggerService_FollowLogServer = grpc.ServerStreamingServer[FollowLogRespons
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var LoggerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.app.log.command.LoggerService",
+	ServiceName: "exclave.core.app.log.command.LoggerService",
 	HandlerType: (*LoggerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

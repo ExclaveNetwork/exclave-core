@@ -1,7 +1,7 @@
 package mirrorenrollment
 
 import (
-	"github.com/v2fly/v2ray-core/v5/transport/internet/tlsmirror/mirrorcrypto"
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsmirror/mirrorcrypto"
 )
 
 type EnrollmentKey struct {

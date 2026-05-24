@@ -64,13 +64,13 @@ var File_common_taggedfeatures_skeleton_proto protoreflect.FileDescriptor
 
 const file_common_taggedfeatures_skeleton_proto_rawDesc = "" +
 	"\n" +
-	"$common/taggedfeatures/skeleton.proto\x12 v2ray.core.common.taggedfeatures\x1a\x19google/protobuf/any.proto\"\xaf\x01\n" +
-	"\x06Config\x12R\n" +
-	"\bfeatures\x18\x01 \x03(\v26.v2ray.core.common.taggedfeatures.Config.FeaturesEntryR\bfeatures\x1aQ\n" +
+	"$common/taggedfeatures/skeleton.proto\x12\"exclave.core.common.taggedfeatures\x1a\x19google/protobuf/any.proto\"\xb1\x01\n" +
+	"\x06Config\x12T\n" +
+	"\bfeatures\x18\x01 \x03(\v28.exclave.core.common.taggedfeatures.Config.FeaturesEntryR\bfeatures\x1aQ\n" +
 	"\rFeaturesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12*\n" +
-	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01B\x81\x01\n" +
-	"$com.v2ray.core.common.taggedfeaturesP\x01Z4github.com/v2fly/v2ray-core/v5/common/taggedfeatures\xaa\x02 V2Ray.Core.Common.Taggedfeaturesb\x06proto3"
+	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01B\xa6\x01\n" +
+	"<com.github.exclavenetwork.exclave.core.common.taggedfeaturesP\x01Z?github.com/exclavenetwork/exclave-core/v5/common/taggedfeatures\xaa\x02\"Exclave.Core.Common.Taggedfeaturesb\x06proto3"
 
 var (
 	file_common_taggedfeatures_skeleton_proto_rawDescOnce sync.Once
@@ -86,13 +86,13 @@ func file_common_taggedfeatures_skeleton_proto_rawDescGZIP() []byte {
 
 var file_common_taggedfeatures_skeleton_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_common_taggedfeatures_skeleton_proto_goTypes = []any{
-	(*Config)(nil),    // 0: v2ray.core.common.taggedfeatures.Config
-	nil,               // 1: v2ray.core.common.taggedfeatures.Config.FeaturesEntry
+	(*Config)(nil),    // 0: exclave.core.common.taggedfeatures.Config
+	nil,               // 1: exclave.core.common.taggedfeatures.Config.FeaturesEntry
 	(*anypb.Any)(nil), // 2: google.protobuf.Any
 }
 var file_common_taggedfeatures_skeleton_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.common.taggedfeatures.Config.features:type_name -> v2ray.core.common.taggedfeatures.Config.FeaturesEntry
-	2, // 1: v2ray.core.common.taggedfeatures.Config.FeaturesEntry.value:type_name -> google.protobuf.Any
+	1, // 0: exclave.core.common.taggedfeatures.Config.features:type_name -> exclave.core.common.taggedfeatures.Config.FeaturesEntry
+	2, // 1: exclave.core.common.taggedfeatures.Config.FeaturesEntry.value:type_name -> google.protobuf.Any
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

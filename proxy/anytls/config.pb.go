@@ -1,8 +1,8 @@
 package anytls
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -217,9 +217,9 @@ var File_proxy_anytls_config_proto protoreflect.FileDescriptor
 
 const file_proxy_anytls_config_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/anytls/config.proto\x12\x17v2ray.core.proxy.anytls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xae\x02\n" +
-	"\fClientConfig\x12;\n" +
-	"\aaddress\x18\x01 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
+	"\x19proxy/anytls/config.proto\x12\x19exclave.core.proxy.anytls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xb0\x02\n" +
+	"\fClientConfig\x12=\n" +
+	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12=\n" +
 	"\x1bidle_session_check_interval\x18\x04 \x01(\x03R\x18idleSessionCheckInterval\x120\n" +
@@ -229,12 +229,12 @@ const file_proxy_anytls_config_proto_rawDesc = "" +
 	"\x04User\x12\x1a\n" +
 	"\bpassword\x18\x01 \x01(\tR\bpassword\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x14\n" +
-	"\x05level\x18\x03 \x01(\x05R\x05level\"\x81\x01\n" +
-	"\fServerConfig\x123\n" +
-	"\x05users\x18\x01 \x03(\v2\x1d.v2ray.core.proxy.anytls.UserR\x05users\x12%\n" +
+	"\x05level\x18\x03 \x01(\x05R\x05level\"\x83\x01\n" +
+	"\fServerConfig\x125\n" +
+	"\x05users\x18\x01 \x03(\v2\x1f.exclave.core.proxy.anytls.UserR\x05users\x12%\n" +
 	"\x0epadding_scheme\x18\x02 \x03(\tR\rpaddingScheme:\x15\x82\xb5\x18\x11\n" +
-	"\ainbound\x12\x06anytlsBf\n" +
-	"\x1bcom.v2ray.core.proxy.anytlsP\x01Z+github.com/v2fly/v2ray-core/v5/proxy/anytls\xaa\x02\x17V2Ray.Core.Proxy.Anytlsb\x06proto3"
+	"\ainbound\x12\x06anytlsB\x8b\x01\n" +
+	"3com.github.exclavenetwork.exclave.core.proxy.anytlsP\x01Z6github.com/exclavenetwork/exclave-core/v5/proxy/anytls\xaa\x02\x19Exclave.Core.Proxy.Anytlsb\x06proto3"
 
 var (
 	file_proxy_anytls_config_proto_rawDescOnce sync.Once
@@ -250,14 +250,14 @@ func file_proxy_anytls_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_anytls_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_anytls_config_proto_goTypes = []any{
-	(*ClientConfig)(nil),   // 0: v2ray.core.proxy.anytls.ClientConfig
-	(*User)(nil),           // 1: v2ray.core.proxy.anytls.User
-	(*ServerConfig)(nil),   // 2: v2ray.core.proxy.anytls.ServerConfig
-	(*net.IPOrDomain)(nil), // 3: v2ray.core.common.net.IPOrDomain
+	(*ClientConfig)(nil),   // 0: exclave.core.proxy.anytls.ClientConfig
+	(*User)(nil),           // 1: exclave.core.proxy.anytls.User
+	(*ServerConfig)(nil),   // 2: exclave.core.proxy.anytls.ServerConfig
+	(*net.IPOrDomain)(nil), // 3: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_anytls_config_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.proxy.anytls.ClientConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	1, // 1: v2ray.core.proxy.anytls.ServerConfig.users:type_name -> v2ray.core.proxy.anytls.User
+	3, // 0: exclave.core.proxy.anytls.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	1, // 1: exclave.core.proxy.anytls.ServerConfig.users:type_name -> exclave.core.proxy.anytls.User
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

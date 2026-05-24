@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/v2fly/v2ray-core/v5/common/exec"
+	"github.com/exclavenetwork/exclave-core/v5/common/exec"
 )
 
 var _ Cmd = (*CmdWrapper)(nil)

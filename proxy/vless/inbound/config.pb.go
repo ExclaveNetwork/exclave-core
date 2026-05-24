@@ -1,8 +1,8 @@
 package inbound
 
 import (
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -218,27 +218,27 @@ var File_proxy_vless_inbound_config_proto protoreflect.FileDescriptor
 
 const file_proxy_vless_inbound_config_proto_rawDesc = "" +
 	"\n" +
-	" proxy/vless/inbound/config.proto\x12\x1ev2ray.core.proxy.vless.inbound\x1a\x1acommon/protocol/user.proto\x1a common/protoext/extensions.proto\"\x82\x01\n" +
+	" proxy/vless/inbound/config.proto\x12 exclave.core.proxy.vless.inbound\x1a\x1acommon/protocol/user.proto\x1a common/protoext/extensions.proto\"\x82\x01\n" +
 	"\bFallback\x12\x12\n" +
 	"\x04alpn\x18\x01 \x01(\tR\x04alpn\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x12\n" +
 	"\x04type\x18\x03 \x01(\tR\x04type\x12\x12\n" +
 	"\x04dest\x18\x04 \x01(\tR\x04dest\x12\x12\n" +
 	"\x04xver\x18\x05 \x01(\x04R\x04xver\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name\"\xac\x01\n" +
-	"\x06Config\x12:\n" +
-	"\aclients\x18\x01 \x03(\v2 .v2ray.core.common.protocol.UserR\aclients\x12\x1e\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\"\xb0\x01\n" +
+	"\x06Config\x12<\n" +
+	"\aclients\x18\x01 \x03(\v2\".exclave.core.common.protocol.UserR\aclients\x12\x1e\n" +
 	"\n" +
 	"decryption\x18\x02 \x01(\tR\n" +
-	"decryption\x12F\n" +
-	"\tfallbacks\x18\x03 \x03(\v2(.v2ray.core.proxy.vless.inbound.FallbackR\tfallbacks\"^\n" +
+	"decryption\x12H\n" +
+	"\tfallbacks\x18\x03 \x03(\v2*.exclave.core.proxy.vless.inbound.FallbackR\tfallbacks\"^\n" +
 	"\x10SimplifiedConfig\x12\x14\n" +
 	"\x05users\x18\x01 \x03(\tR\x05users\x12\x1e\n" +
 	"\n" +
 	"decryption\x18\x02 \x01(\tR\n" +
 	"decryption:\x14\x82\xb5\x18\x10\n" +
-	"\ainbound\x12\x05vlessB{\n" +
-	"\"com.v2ray.core.proxy.vless.inboundP\x01Z2github.com/v2fly/v2ray-core/v5/proxy/vless/inbound\xaa\x02\x1eV2Ray.Core.Proxy.Vless.Inboundb\x06proto3"
+	"\ainbound\x12\x05vlessB\xa0\x01\n" +
+	":com.github.exclavenetwork.exclave.core.proxy.vless.inboundP\x01Z=github.com/exclavenetwork/exclave-core/v5/proxy/vless/inbound\xaa\x02 Exclave.Core.Proxy.Vless.Inboundb\x06proto3"
 
 var (
 	file_proxy_vless_inbound_config_proto_rawDescOnce sync.Once
@@ -254,14 +254,14 @@ func file_proxy_vless_inbound_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_vless_inbound_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_vless_inbound_config_proto_goTypes = []any{
-	(*Fallback)(nil),         // 0: v2ray.core.proxy.vless.inbound.Fallback
-	(*Config)(nil),           // 1: v2ray.core.proxy.vless.inbound.Config
-	(*SimplifiedConfig)(nil), // 2: v2ray.core.proxy.vless.inbound.SimplifiedConfig
-	(*protocol.User)(nil),    // 3: v2ray.core.common.protocol.User
+	(*Fallback)(nil),         // 0: exclave.core.proxy.vless.inbound.Fallback
+	(*Config)(nil),           // 1: exclave.core.proxy.vless.inbound.Config
+	(*SimplifiedConfig)(nil), // 2: exclave.core.proxy.vless.inbound.SimplifiedConfig
+	(*protocol.User)(nil),    // 3: exclave.core.common.protocol.User
 }
 var file_proxy_vless_inbound_config_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.proxy.vless.inbound.Config.clients:type_name -> v2ray.core.common.protocol.User
-	0, // 1: v2ray.core.proxy.vless.inbound.Config.fallbacks:type_name -> v2ray.core.proxy.vless.inbound.Fallback
+	3, // 0: exclave.core.proxy.vless.inbound.Config.clients:type_name -> exclave.core.common.protocol.User
+	0, // 1: exclave.core.proxy.vless.inbound.Config.fallbacks:type_name -> exclave.core.proxy.vless.inbound.Fallback
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.transport.internet.splithttp;
-option csharp_namespace = "V2Ray.Transport.Internet.SplitHttp";
-option go_package = "github.com/v2fly/v2ray-core/v5/transport/internet/splithttp";
-option java_package = "com.v2ray.transport.internet.splithttp";
+package exclave.core.transport.internet.splithttp;
+option csharp_namespace = "Exclave.Core.Transport.Internet.SplitHttp";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp";
+option java_package = "com.github.exclavenetwork.exclave.core.transport.internet.splithttp";
 option java_multiple_files = true;
 
 import "common/net/address.proto";
@@ -20,17 +20,17 @@ message XmuxConfig {
 }
 
 message DownloadConfig {
-  v2ray.core.common.net.IPOrDomain address = 1;
+  exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   google.protobuf.Any transport_settings = 3;
   string security_type = 4;
   google.protobuf.Any security_settings = 5;
-  v2ray.core.transport.internet.SocketConfig socket_settings = 6;
+  exclave.core.transport.internet.SocketConfig socket_settings = 6;
 }
 
 message Config {
-  option (v2ray.core.common.protoext.message_opt).type = "transport";
-  option (v2ray.core.common.protoext.message_opt).short_name = "splithttp";
+  option (exclave.core.common.protoext.message_opt).type = "transport";
+  option (exclave.core.common.protoext.message_opt).short_name = "splithttp";
 
   string host = 1;
   string path = 2;

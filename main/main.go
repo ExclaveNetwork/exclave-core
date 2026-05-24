@@ -4,15 +4,15 @@ import (
 	"flag"
 	"os"
 
-	"github.com/v2fly/v2ray-core/v5/main/commands"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
-	_ "github.com/v2fly/v2ray-core/v5/main/distro/all"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
+	_ "github.com/exclavenetwork/exclave-core/v5/main/distro/all"
 )
 
 func main() {
 	os.Args = getArgsV4Compatible()
 
-	base.RootCommand.Long = "A unified platform for anti-censorship."
+	base.RootCommand.Long = "Exclave-core"
 	base.RegisterCommand(commands.CmdRun)
 	base.RegisterCommand(commands.CmdVersion)
 	base.RegisterCommand(commands.CmdTest)

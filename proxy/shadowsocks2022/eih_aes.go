@@ -7,7 +7,7 @@ import (
 	"github.com/v2fly/struc"
 	"lukechampine.com/blake3"
 
-	"github.com/v2fly/v2ray-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 )
 
 func newAESEIH(size int) *aesEIH {

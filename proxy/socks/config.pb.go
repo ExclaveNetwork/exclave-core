@@ -1,9 +1,9 @@
 package socks
 
 import (
-	net "github.com/v2fly/v2ray-core/v5/common/net"
-	packetaddr "github.com/v2fly/v2ray-core/v5/common/net/packetaddr"
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
+	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -172,14 +172,14 @@ func (x *Account) GetPassword() string {
 // ServerConfig is the protobuf config for Socks server.
 type ServerConfig struct {
 	state      protoimpl.MessageState `protogen:"open.v1"`
-	AuthType   AuthType               `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=v2ray.core.proxy.socks.AuthType" json:"auth_type,omitempty"`
+	AuthType   AuthType               `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.socks.AuthType" json:"auth_type,omitempty"`
 	Accounts   map[string]string      `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	Address    *net.IPOrDomain        `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 	UdpEnabled bool                   `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
 	// Deprecated: Marked as deprecated in proxy/socks/config.proto.
 	Timeout        uint32                    `protobuf:"varint,5,opt,name=timeout,proto3" json:"timeout,omitempty"`
 	UserLevel      uint32                    `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=v2ray.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
+	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
 	DeferLastReply bool                      `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -277,7 +277,7 @@ type ClientConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Sever is a list of Socks server addresses.
 	Server         []*protocol.ServerEndpoint `protobuf:"bytes,1,rep,name=server,proto3" json:"server,omitempty"`
-	Version        Version                    `protobuf:"varint,2,opt,name=version,proto3,enum=v2ray.core.proxy.socks.Version" json:"version,omitempty"`
+	Version        Version                    `protobuf:"varint,2,opt,name=version,proto3,enum=exclave.core.proxy.socks.Version" json:"version,omitempty"`
 	DelayAuthWrite bool                       `protobuf:"varint,3,opt,name=delay_auth_write,json=delayAuthWrite,proto3" json:"delay_auth_write,omitempty"`
 	Uot            bool                       `protobuf:"varint,4,opt,name=uot,proto3" json:"uot,omitempty"`
 	unknownFields  protoimpl.UnknownFields
@@ -346,27 +346,27 @@ var File_proxy_socks_config_proto protoreflect.FileDescriptor
 
 const file_proxy_socks_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/socks/config.proto\x12\x16v2ray.core.proxy.socks\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\x1a!common/protocol/server_spec.proto\"A\n" +
+	"\x18proxy/socks/config.proto\x12\x18exclave.core.proxy.socks\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\x1a!common/protocol/server_spec.proto\"A\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xf3\x03\n" +
-	"\fServerConfig\x12=\n" +
-	"\tauth_type\x18\x01 \x01(\x0e2 .v2ray.core.proxy.socks.AuthTypeR\bauthType\x12N\n" +
-	"\baccounts\x18\x02 \x03(\v22.v2ray.core.proxy.socks.ServerConfig.AccountsEntryR\baccounts\x12;\n" +
-	"\aaddress\x18\x03 \x01(\v2!.v2ray.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xfb\x03\n" +
+	"\fServerConfig\x12?\n" +
+	"\tauth_type\x18\x01 \x01(\x0e2\".exclave.core.proxy.socks.AuthTypeR\bauthType\x12P\n" +
+	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.socks.ServerConfig.AccountsEntryR\baccounts\x12=\n" +
+	"\aaddress\x18\x03 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
 	"\vudp_enabled\x18\x04 \x01(\bR\n" +
 	"udpEnabled\x12\x1c\n" +
 	"\atimeout\x18\x05 \x01(\rB\x02\x18\x01R\atimeout\x12\x1d\n" +
 	"\n" +
-	"user_level\x18\x06 \x01(\rR\tuserLevel\x12R\n" +
-	"\x0fpacket_encoding\x18\a \x01(\x0e2).v2ray.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
+	"user_level\x18\x06 \x01(\rR\tuserLevel\x12T\n" +
+	"\x0fpacket_encoding\x18\a \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
 	"\x10defer_last_reply\x18\b \x01(\bR\x0edeferLastReply\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xc9\x01\n" +
-	"\fClientConfig\x12B\n" +
-	"\x06server\x18\x01 \x03(\v2*.v2ray.core.common.protocol.ServerEndpointR\x06server\x129\n" +
-	"\aversion\x18\x02 \x01(\x0e2\x1f.v2ray.core.proxy.socks.VersionR\aversion\x12(\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xcd\x01\n" +
+	"\fClientConfig\x12D\n" +
+	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x12;\n" +
+	"\aversion\x18\x02 \x01(\x0e2!.exclave.core.proxy.socks.VersionR\aversion\x12(\n" +
 	"\x10delay_auth_write\x18\x03 \x01(\bR\x0edelayAuthWrite\x12\x10\n" +
 	"\x03uot\x18\x04 \x01(\bR\x03uot*%\n" +
 	"\bAuthType\x12\v\n" +
@@ -377,8 +377,8 @@ const file_proxy_socks_config_proto_rawDesc = "" +
 	"\x06SOCKS5\x10\x00\x12\n" +
 	"\n" +
 	"\x06SOCKS4\x10\x01\x12\v\n" +
-	"\aSOCKS4A\x10\x02Bc\n" +
-	"\x1acom.v2ray.core.proxy.socksP\x01Z*github.com/v2fly/v2ray-core/v5/proxy/socks\xaa\x02\x16V2Ray.Core.Proxy.Socksb\x06proto3"
+	"\aSOCKS4A\x10\x02B\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.socksP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/socks\xaa\x02\x18Exclave.Core.Proxy.Socksb\x06proto3"
 
 var (
 	file_proxy_socks_config_proto_rawDescOnce sync.Once
@@ -395,23 +395,23 @@ func file_proxy_socks_config_proto_rawDescGZIP() []byte {
 var file_proxy_socks_config_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_proxy_socks_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proxy_socks_config_proto_goTypes = []any{
-	(AuthType)(0),                   // 0: v2ray.core.proxy.socks.AuthType
-	(Version)(0),                    // 1: v2ray.core.proxy.socks.Version
-	(*Account)(nil),                 // 2: v2ray.core.proxy.socks.Account
-	(*ServerConfig)(nil),            // 3: v2ray.core.proxy.socks.ServerConfig
-	(*ClientConfig)(nil),            // 4: v2ray.core.proxy.socks.ClientConfig
-	nil,                             // 5: v2ray.core.proxy.socks.ServerConfig.AccountsEntry
-	(*net.IPOrDomain)(nil),          // 6: v2ray.core.common.net.IPOrDomain
-	(packetaddr.PacketAddrType)(0),  // 7: v2ray.core.net.packetaddr.PacketAddrType
-	(*protocol.ServerEndpoint)(nil), // 8: v2ray.core.common.protocol.ServerEndpoint
+	(AuthType)(0),                   // 0: exclave.core.proxy.socks.AuthType
+	(Version)(0),                    // 1: exclave.core.proxy.socks.Version
+	(*Account)(nil),                 // 2: exclave.core.proxy.socks.Account
+	(*ServerConfig)(nil),            // 3: exclave.core.proxy.socks.ServerConfig
+	(*ClientConfig)(nil),            // 4: exclave.core.proxy.socks.ClientConfig
+	nil,                             // 5: exclave.core.proxy.socks.ServerConfig.AccountsEntry
+	(*net.IPOrDomain)(nil),          // 6: exclave.core.common.net.IPOrDomain
+	(packetaddr.PacketAddrType)(0),  // 7: exclave.core.net.packetaddr.PacketAddrType
+	(*protocol.ServerEndpoint)(nil), // 8: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_socks_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.proxy.socks.ServerConfig.auth_type:type_name -> v2ray.core.proxy.socks.AuthType
-	5, // 1: v2ray.core.proxy.socks.ServerConfig.accounts:type_name -> v2ray.core.proxy.socks.ServerConfig.AccountsEntry
-	6, // 2: v2ray.core.proxy.socks.ServerConfig.address:type_name -> v2ray.core.common.net.IPOrDomain
-	7, // 3: v2ray.core.proxy.socks.ServerConfig.packet_encoding:type_name -> v2ray.core.net.packetaddr.PacketAddrType
-	8, // 4: v2ray.core.proxy.socks.ClientConfig.server:type_name -> v2ray.core.common.protocol.ServerEndpoint
-	1, // 5: v2ray.core.proxy.socks.ClientConfig.version:type_name -> v2ray.core.proxy.socks.Version
+	0, // 0: exclave.core.proxy.socks.ServerConfig.auth_type:type_name -> exclave.core.proxy.socks.AuthType
+	5, // 1: exclave.core.proxy.socks.ServerConfig.accounts:type_name -> exclave.core.proxy.socks.ServerConfig.AccountsEntry
+	6, // 2: exclave.core.proxy.socks.ServerConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	7, // 3: exclave.core.proxy.socks.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	8, // 4: exclave.core.proxy.socks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
+	1, // 5: exclave.core.proxy.socks.ClientConfig.version:type_name -> exclave.core.proxy.socks.Version
 	6, // [6:6] is the sub-list for method output_type
 	6, // [6:6] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name

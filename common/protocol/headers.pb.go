@@ -78,7 +78,7 @@ func (SecurityType) EnumDescriptor() ([]byte, []int) {
 
 type SecurityConfig struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          SecurityType           `protobuf:"varint,1,opt,name=type,proto3,enum=v2ray.core.common.protocol.SecurityType" json:"type,omitempty"`
+	Type          SecurityType           `protobuf:"varint,1,opt,name=type,proto3,enum=exclave.core.common.protocol.SecurityType" json:"type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -124,9 +124,9 @@ var File_common_protocol_headers_proto protoreflect.FileDescriptor
 
 const file_common_protocol_headers_proto_rawDesc = "" +
 	"\n" +
-	"\x1dcommon/protocol/headers.proto\x12\x1av2ray.core.common.protocol\"N\n" +
-	"\x0eSecurityConfig\x12<\n" +
-	"\x04type\x18\x01 \x01(\x0e2(.v2ray.core.common.protocol.SecurityTypeR\x04type*l\n" +
+	"\x1dcommon/protocol/headers.proto\x12\x1cexclave.core.common.protocol\"P\n" +
+	"\x0eSecurityConfig\x12>\n" +
+	"\x04type\x18\x01 \x01(\x0e2*.exclave.core.common.protocol.SecurityTypeR\x04type*l\n" +
 	"\fSecurityType\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\n" +
 	"\n" +
@@ -136,8 +136,8 @@ const file_common_protocol_headers_proto_rawDesc = "" +
 	"AES128_GCM\x10\x03\x12\x15\n" +
 	"\x11CHACHA20_POLY1305\x10\x04\x12\b\n" +
 	"\x04NONE\x10\x05\x12\b\n" +
-	"\x04ZERO\x10\x06Bo\n" +
-	"\x1ecom.v2ray.core.common.protocolP\x01Z.github.com/v2fly/v2ray-core/v5/common/protocol\xaa\x02\x1aV2Ray.Core.Common.Protocolb\x06proto3"
+	"\x04ZERO\x10\x06B\x94\x01\n" +
+	"6com.github.exclavenetwork.exclave.core.common.protocolP\x01Z9github.com/exclavenetwork/exclave-core/v5/common/protocol\xaa\x02\x1cExclave.Core.Common.Protocolb\x06proto3"
 
 var (
 	file_common_protocol_headers_proto_rawDescOnce sync.Once
@@ -154,11 +154,11 @@ func file_common_protocol_headers_proto_rawDescGZIP() []byte {
 var file_common_protocol_headers_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_common_protocol_headers_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_protocol_headers_proto_goTypes = []any{
-	(SecurityType)(0),      // 0: v2ray.core.common.protocol.SecurityType
-	(*SecurityConfig)(nil), // 1: v2ray.core.common.protocol.SecurityConfig
+	(SecurityType)(0),      // 0: exclave.core.common.protocol.SecurityType
+	(*SecurityConfig)(nil), // 1: exclave.core.common.protocol.SecurityConfig
 }
 var file_common_protocol_headers_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.common.protocol.SecurityConfig.type:type_name -> v2ray.core.common.protocol.SecurityType
+	0, // 0: exclave.core.common.protocol.SecurityConfig.type:type_name -> exclave.core.common.protocol.SecurityType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

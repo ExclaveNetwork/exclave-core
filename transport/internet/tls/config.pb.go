@@ -1,7 +1,7 @@
 package tls
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -129,7 +129,7 @@ type Certificate struct {
 	Certificate []byte `protobuf:"bytes,1,opt,name=Certificate,proto3" json:"Certificate,omitempty"`
 	// TLS key in x509 format.
 	Key             []byte            `protobuf:"bytes,2,opt,name=Key,proto3" json:"Key,omitempty"`
-	Usage           Certificate_Usage `protobuf:"varint,3,opt,name=usage,proto3,enum=v2ray.core.transport.internet.tls.Certificate_Usage" json:"usage,omitempty"`
+	Usage           Certificate_Usage `protobuf:"varint,3,opt,name=usage,proto3,enum=exclave.core.transport.internet.tls.Certificate_Usage" json:"usage,omitempty"`
 	CertificateFile string            `protobuf:"bytes,96001,opt,name=certificate_file,json=certificateFile,proto3" json:"certificate_file,omitempty"`
 	KeyFile         string            `protobuf:"bytes,96002,opt,name=key_file,json=keyFile,proto3" json:"key_file,omitempty"`
 	unknownFields   protoimpl.UnknownFields
@@ -222,9 +222,9 @@ type Config struct {
 	// If true, the client is required to present a certificate.
 	VerifyClientCertificate bool `protobuf:"varint,8,opt,name=verify_client_certificate,json=verifyClientCertificate,proto3" json:"verify_client_certificate,omitempty"`
 	// Minimum TLS version to support.
-	MinVersion Config_TLSVersion `protobuf:"varint,9,opt,name=min_version,json=minVersion,proto3,enum=v2ray.core.transport.internet.tls.Config_TLSVersion" json:"min_version,omitempty"`
+	MinVersion Config_TLSVersion `protobuf:"varint,9,opt,name=min_version,json=minVersion,proto3,enum=exclave.core.transport.internet.tls.Config_TLSVersion" json:"min_version,omitempty"`
 	// Maximum TLS version to support.
-	MaxVersion Config_TLSVersion `protobuf:"varint,10,opt,name=max_version,json=maxVersion,proto3,enum=v2ray.core.transport.internet.tls.Config_TLSVersion" json:"max_version,omitempty"`
+	MaxVersion Config_TLSVersion `protobuf:"varint,10,opt,name=max_version,json=maxVersion,proto3,enum=exclave.core.transport.internet.tls.Config_TLSVersion" json:"max_version,omitempty"`
 	// Whether or not to allow self-signed certificates when pinned_peer_certificate_chain_sha256 is present.
 	AllowInsecureIfPinnedPeerCertificate bool `protobuf:"varint,11,opt,name=allow_insecure_if_pinned_peer_certificate,json=allowInsecureIfPinnedPeerCertificate,proto3" json:"allow_insecure_if_pinned_peer_certificate,omitempty"`
 	// cipher suites to to be offered or accepted.
@@ -437,37 +437,37 @@ var File_transport_internet_tls_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_tls_config_proto_rawDesc = "" +
 	"\n" +
-	"#transport/internet/tls/config.proto\x12!v2ray.core.transport.internet.tls\x1a common/protoext/extensions.proto\"\xd8\x02\n" +
+	"#transport/internet/tls/config.proto\x12#exclave.core.transport.internet.tls\x1a common/protoext/extensions.proto\"\xda\x02\n" +
 	"\vCertificate\x12 \n" +
 	"\vCertificate\x18\x01 \x01(\fR\vCertificate\x12\x10\n" +
-	"\x03Key\x18\x02 \x01(\fR\x03Key\x12J\n" +
-	"\x05usage\x18\x03 \x01(\x0e24.v2ray.core.transport.internet.tls.Certificate.UsageR\x05usage\x12>\n" +
+	"\x03Key\x18\x02 \x01(\fR\x03Key\x12L\n" +
+	"\x05usage\x18\x03 \x01(\x0e26.exclave.core.transport.internet.tls.Certificate.UsageR\x05usage\x12>\n" +
 	"\x10certificate_file\x18\x81\xee\x05 \x01(\tB\x11\x82\xb5\x18\r\"\vCertificateR\x0fcertificateFile\x12&\n" +
 	"\bkey_file\x18\x82\xee\x05 \x01(\tB\t\x82\xb5\x18\x05\"\x03KeyR\akeyFile\"a\n" +
 	"\x05Usage\x12\x10\n" +
 	"\fENCIPHERMENT\x10\x00\x12\x14\n" +
 	"\x10AUTHORITY_VERIFY\x10\x01\x12\x13\n" +
 	"\x0fAUTHORITY_ISSUE\x10\x02\x12\x1b\n" +
-	"\x17AUTHORITY_VERIFY_CLIENT\x10\x03\"\xfe\b\n" +
+	"\x17AUTHORITY_VERIFY_CLIENT\x10\x03\"\x86\t\n" +
 	"\x06Config\x12-\n" +
-	"\x0eallow_insecure\x18\x01 \x01(\bB\x06\x82\xb5\x18\x02(\x01R\rallowInsecure\x12P\n" +
-	"\vcertificate\x18\x02 \x03(\v2..v2ray.core.transport.internet.tls.CertificateR\vcertificate\x12\x1f\n" +
+	"\x0eallow_insecure\x18\x01 \x01(\bB\x06\x82\xb5\x18\x02(\x01R\rallowInsecure\x12R\n" +
+	"\vcertificate\x18\x02 \x03(\v20.exclave.core.transport.internet.tls.CertificateR\vcertificate\x12\x1f\n" +
 	"\vserver_name\x18\x03 \x01(\tR\n" +
 	"serverName\x12#\n" +
 	"\rnext_protocol\x18\x04 \x03(\tR\fnextProtocol\x12.\n" +
 	"\x13disable_system_root\x18\x06 \x01(\bR\x11disableSystemRoot\x12N\n" +
 	"$pinned_peer_certificate_chain_sha256\x18\a \x03(\fR pinnedPeerCertificateChainSha256\x12:\n" +
-	"\x19verify_client_certificate\x18\b \x01(\bR\x17verifyClientCertificate\x12U\n" +
-	"\vmin_version\x18\t \x01(\x0e24.v2ray.core.transport.internet.tls.Config.TLSVersionR\n" +
-	"minVersion\x12U\n" +
+	"\x19verify_client_certificate\x18\b \x01(\bR\x17verifyClientCertificate\x12W\n" +
+	"\vmin_version\x18\t \x01(\x0e26.exclave.core.transport.internet.tls.Config.TLSVersionR\n" +
+	"minVersion\x12W\n" +
 	"\vmax_version\x18\n" +
-	" \x01(\x0e24.v2ray.core.transport.internet.tls.Config.TLSVersionR\n" +
+	" \x01(\x0e26.exclave.core.transport.internet.tls.Config.TLSVersionR\n" +
 	"maxVersion\x12W\n" +
 	")allow_insecure_if_pinned_peer_certificate\x18\v \x01(\bR$allowInsecureIfPinnedPeerCertificate\x12\"\n" +
 	"\fciphersuites\x18\x13 \x03(\rR\fciphersuites\x12X\n" +
 	")pinned_peer_certificate_public_key_sha256\x18\x84\a \x03(\fR$pinnedPeerCertificatePublicKeySha256\x12D\n" +
-	"\x1epinned_peer_certificate_sha256\x18\x85\a \x03(\tR\x1bpinnedPeerCertificateSha256\x12@\n" +
-	"\x03ech\x18\x86\a \x01(\v2-.v2ray.core.transport.internet.tls.Config.ECHR\x03ech\x1al\n" +
+	"\x1epinned_peer_certificate_sha256\x18\x85\a \x03(\tR\x1bpinnedPeerCertificateSha256\x12B\n" +
+	"\x03ech\x18\x86\a \x01(\v2/.exclave.core.transport.internet.tls.Config.ECHR\x03ech\x1al\n" +
 	"\x03ECH\x12\x18\n" +
 	"\aenabled\x18\x01 \x01(\bR\aenabled\x12\x16\n" +
 	"\x06config\x18\x02 \x01(\fR\x06config\x12!\n" +
@@ -484,8 +484,8 @@ const file_transport_internet_tls_config_proto_rawDesc = "" +
 	"\x06TLS1_2\x10\x03\x12\n" +
 	"\n" +
 	"\x06TLS1_3\x10\x04:\x13\x82\xb5\x18\x0f\n" +
-	"\bsecurity\x12\x03tlsJ\x04\b\x05\x10\x06J\x04\b\x10\x10\x11J\x04\b\x11\x10\x12J\x04\b\x12\x10\x13B\x84\x01\n" +
-	"%com.v2ray.core.transport.internet.tlsP\x01Z5github.com/v2fly/v2ray-core/v5/transport/internet/tls\xaa\x02!V2Ray.Core.Transport.Internet.Tlsb\x06proto3"
+	"\bsecurity\x12\x03tlsJ\x04\b\x05\x10\x06J\x04\b\x10\x10\x11J\x04\b\x11\x10\x12J\x04\b\x12\x10\x13B\xa9\x01\n" +
+	"=com.github.exclavenetwork.exclave.core.transport.internet.tlsP\x01Z@github.com/exclavenetwork/exclave-core/v5/transport/internet/tls\xaa\x02#Exclave.Core.Transport.Internet.Tlsb\x06proto3"
 
 var (
 	file_transport_internet_tls_config_proto_rawDescOnce sync.Once
@@ -502,18 +502,18 @@ func file_transport_internet_tls_config_proto_rawDescGZIP() []byte {
 var file_transport_internet_tls_config_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_transport_internet_tls_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_transport_internet_tls_config_proto_goTypes = []any{
-	(Certificate_Usage)(0), // 0: v2ray.core.transport.internet.tls.Certificate.Usage
-	(Config_TLSVersion)(0), // 1: v2ray.core.transport.internet.tls.Config.TLSVersion
-	(*Certificate)(nil),    // 2: v2ray.core.transport.internet.tls.Certificate
-	(*Config)(nil),         // 3: v2ray.core.transport.internet.tls.Config
-	(*Config_ECH)(nil),     // 4: v2ray.core.transport.internet.tls.Config.ECH
+	(Certificate_Usage)(0), // 0: exclave.core.transport.internet.tls.Certificate.Usage
+	(Config_TLSVersion)(0), // 1: exclave.core.transport.internet.tls.Config.TLSVersion
+	(*Certificate)(nil),    // 2: exclave.core.transport.internet.tls.Certificate
+	(*Config)(nil),         // 3: exclave.core.transport.internet.tls.Config
+	(*Config_ECH)(nil),     // 4: exclave.core.transport.internet.tls.Config.ECH
 }
 var file_transport_internet_tls_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.transport.internet.tls.Certificate.usage:type_name -> v2ray.core.transport.internet.tls.Certificate.Usage
-	2, // 1: v2ray.core.transport.internet.tls.Config.certificate:type_name -> v2ray.core.transport.internet.tls.Certificate
-	1, // 2: v2ray.core.transport.internet.tls.Config.min_version:type_name -> v2ray.core.transport.internet.tls.Config.TLSVersion
-	1, // 3: v2ray.core.transport.internet.tls.Config.max_version:type_name -> v2ray.core.transport.internet.tls.Config.TLSVersion
-	4, // 4: v2ray.core.transport.internet.tls.Config.ech:type_name -> v2ray.core.transport.internet.tls.Config.ECH
+	0, // 0: exclave.core.transport.internet.tls.Certificate.usage:type_name -> exclave.core.transport.internet.tls.Certificate.Usage
+	2, // 1: exclave.core.transport.internet.tls.Config.certificate:type_name -> exclave.core.transport.internet.tls.Certificate
+	1, // 2: exclave.core.transport.internet.tls.Config.min_version:type_name -> exclave.core.transport.internet.tls.Config.TLSVersion
+	1, // 3: exclave.core.transport.internet.tls.Config.max_version:type_name -> exclave.core.transport.internet.tls.Config.TLSVersion
+	4, // 4: exclave.core.transport.internet.tls.Config.ech:type_name -> exclave.core.transport.internet.tls.Config.ECH
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

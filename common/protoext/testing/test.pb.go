@@ -1,7 +1,7 @@
 package testing
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -64,13 +64,13 @@ var File_common_protoext_testing_test_proto protoreflect.FileDescriptor
 
 const file_common_protoext_testing_test_proto_rawDesc = "" +
 	"\n" +
-	"\"common/protoext/testing/test.proto\x12\"v2ray.core.common.protoext.testing\x1a common/protoext/extensions.proto\"U\n" +
+	"\"common/protoext/testing/test.proto\x12$exclave.core.common.protoext.testing\x1a common/protoext/extensions.proto\"U\n" +
 	"\x0eTestingMessage\x120\n" +
 	"\n" +
 	"test_field\x18\x01 \x01(\tB\x11\x82\xb5\x18\r\x12\x04test\x12\x05test2R\ttestField:\x11\x82\xb5\x18\r\n" +
 	"\x04demo\n" +
-	"\x05demo2B\x84\x01\n" +
-	"&com.v2ray.core.common.protoext.testingP\x01Z3github.com/v2fly/v2ray-core/common/protoext/testing\xaa\x02\"V2Ray.Core.Common.ProtoExt.Testingb\x06proto3"
+	"\x05demo2B\xa9\x01\n" +
+	">com.github.exclavenetwork.exclave.core.common.protoext.testingP\x01Z>github.com/exclavenetwork/exclave-core/common/protoext/testing\xaa\x02$Exclave.Core.Common.ProtoExt.Testingb\x06proto3"
 
 var (
 	file_common_protoext_testing_test_proto_rawDescOnce sync.Once
@@ -86,7 +86,7 @@ func file_common_protoext_testing_test_proto_rawDescGZIP() []byte {
 
 var file_common_protoext_testing_test_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_common_protoext_testing_test_proto_goTypes = []any{
-	(*TestingMessage)(nil), // 0: v2ray.core.common.protoext.testing.TestingMessage
+	(*TestingMessage)(nil), // 0: exclave.core.common.protoext.testing.TestingMessage
 }
 var file_common_protoext_testing_test_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

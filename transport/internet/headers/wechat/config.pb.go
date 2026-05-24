@@ -55,9 +55,9 @@ var File_transport_internet_headers_wechat_config_proto protoreflect.FileDescrip
 
 const file_transport_internet_headers_wechat_config_proto_rawDesc = "" +
 	"\n" +
-	".transport/internet/headers/wechat/config.proto\x12,v2ray.core.transport.internet.headers.wechat\"\r\n" +
-	"\vVideoConfigB\xa5\x01\n" +
-	"0com.v2ray.core.transport.internet.headers.wechatP\x01Z@github.com/v2fly/v2ray-core/v5/transport/internet/headers/wechat\xaa\x02,V2Ray.Core.Transport.Internet.Headers.Wechatb\x06proto3"
+	".transport/internet/headers/wechat/config.proto\x12.exclave.core.transport.internet.headers.wechat\"\r\n" +
+	"\vVideoConfigB\xca\x01\n" +
+	"Hcom.github.exclavenetwork.exclave.core.transport.internet.headers.wechatP\x01ZKgithub.com/exclavenetwork/exclave-core/v5/transport/internet/headers/wechat\xaa\x02.Exclave.Core.Transport.Internet.Headers.Wechatb\x06proto3"
 
 var (
 	file_transport_internet_headers_wechat_config_proto_rawDescOnce sync.Once
@@ -73,7 +73,7 @@ func file_transport_internet_headers_wechat_config_proto_rawDescGZIP() []byte {
 
 var file_transport_internet_headers_wechat_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_headers_wechat_config_proto_goTypes = []any{
-	(*VideoConfig)(nil), // 0: v2ray.core.transport.internet.headers.wechat.VideoConfig
+	(*VideoConfig)(nil), // 0: exclave.core.transport.internet.headers.wechat.VideoConfig
 }
 var file_transport_internet_headers_wechat_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

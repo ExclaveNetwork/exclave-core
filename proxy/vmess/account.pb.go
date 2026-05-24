@@ -1,7 +1,7 @@
 package vmess
 
 import (
-	protocol "github.com/v2fly/v2ray-core/v5/common/protocol"
+	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -93,13 +93,13 @@ var File_proxy_vmess_account_proto protoreflect.FileDescriptor
 
 const file_proxy_vmess_account_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/vmess/account.proto\x12\x16v2ray.core.proxy.vmess\x1a\x1dcommon/protocol/headers.proto\"\xb2\x01\n" +
+	"\x19proxy/vmess/account.proto\x12\x18exclave.core.proxy.vmess\x1a\x1dcommon/protocol/headers.proto\"\xb4\x01\n" +
 	"\aAccount\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
-	"\balter_id\x18\x02 \x01(\rR\aalterId\x12W\n" +
-	"\x11security_settings\x18\x03 \x01(\v2*.v2ray.core.common.protocol.SecurityConfigR\x10securitySettings\x12#\n" +
-	"\rtests_enabled\x18\x04 \x01(\tR\ftestsEnabledBc\n" +
-	"\x1acom.v2ray.core.proxy.vmessP\x01Z*github.com/v2fly/v2ray-core/v5/proxy/vmess\xaa\x02\x16V2Ray.Core.Proxy.Vmessb\x06proto3"
+	"\balter_id\x18\x02 \x01(\rR\aalterId\x12Y\n" +
+	"\x11security_settings\x18\x03 \x01(\v2,.exclave.core.common.protocol.SecurityConfigR\x10securitySettings\x12#\n" +
+	"\rtests_enabled\x18\x04 \x01(\tR\ftestsEnabledB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.proxy.vmessP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/vmess\xaa\x02\x18Exclave.Core.Proxy.Vmessb\x06proto3"
 
 var (
 	file_proxy_vmess_account_proto_rawDescOnce sync.Once
@@ -115,11 +115,11 @@ func file_proxy_vmess_account_proto_rawDescGZIP() []byte {
 
 var file_proxy_vmess_account_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_vmess_account_proto_goTypes = []any{
-	(*Account)(nil),                 // 0: v2ray.core.proxy.vmess.Account
-	(*protocol.SecurityConfig)(nil), // 1: v2ray.core.common.protocol.SecurityConfig
+	(*Account)(nil),                 // 0: exclave.core.proxy.vmess.Account
+	(*protocol.SecurityConfig)(nil), // 1: exclave.core.common.protocol.SecurityConfig
 }
 var file_proxy_vmess_account_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.proxy.vmess.Account.security_settings:type_name -> v2ray.core.common.protocol.SecurityConfig
+	1, // 0: exclave.core.proxy.vmess.Account.security_settings:type_name -> exclave.core.common.protocol.SecurityConfig
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

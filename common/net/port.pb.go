@@ -119,13 +119,13 @@ var File_common_net_port_proto protoreflect.FileDescriptor
 
 const file_common_net_port_proto_rawDesc = "" +
 	"\n" +
-	"\x15common/net/port.proto\x12\x15v2ray.core.common.net\"/\n" +
+	"\x15common/net/port.proto\x12\x17exclave.core.common.net\"/\n" +
 	"\tPortRange\x12\x12\n" +
 	"\x04From\x18\x01 \x01(\rR\x04From\x12\x0e\n" +
-	"\x02To\x18\x02 \x01(\rR\x02To\"B\n" +
-	"\bPortList\x126\n" +
-	"\x05range\x18\x01 \x03(\v2 .v2ray.core.common.net.PortRangeR\x05rangeB`\n" +
-	"\x19com.v2ray.core.common.netP\x01Z)github.com/v2fly/v2ray-core/v5/common/net\xaa\x02\x15V2Ray.Core.Common.Netb\x06proto3"
+	"\x02To\x18\x02 \x01(\rR\x02To\"D\n" +
+	"\bPortList\x128\n" +
+	"\x05range\x18\x01 \x03(\v2\".exclave.core.common.net.PortRangeR\x05rangeB\x85\x01\n" +
+	"1com.github.exclavenetwork.exclave.core.common.netP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/net\xaa\x02\x17Exclave.Core.Common.Netb\x06proto3"
 
 var (
 	file_common_net_port_proto_rawDescOnce sync.Once
@@ -141,11 +141,11 @@ func file_common_net_port_proto_rawDescGZIP() []byte {
 
 var file_common_net_port_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_common_net_port_proto_goTypes = []any{
-	(*PortRange)(nil), // 0: v2ray.core.common.net.PortRange
-	(*PortList)(nil),  // 1: v2ray.core.common.net.PortList
+	(*PortRange)(nil), // 0: exclave.core.common.net.PortRange
+	(*PortList)(nil),  // 1: exclave.core.common.net.PortList
 }
 var file_common_net_port_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.common.net.PortList.range:type_name -> v2ray.core.common.net.PortRange
+	0, // 0: exclave.core.common.net.PortList.range:type_name -> exclave.core.common.net.PortRange
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

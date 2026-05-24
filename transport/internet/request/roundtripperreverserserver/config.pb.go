@@ -1,7 +1,7 @@
 package roundtripperreverserserver
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -81,13 +81,13 @@ var File_transport_internet_request_roundtripperreverserserver_config_proto prot
 
 const file_transport_internet_request_roundtripperreverserserver_config_proto_rawDesc = "" +
 	"\n" +
-	"Btransport/internet/request/roundtripperreverserserver/config.proto\x12@v2ray.core.transport.internet.request.roundtripperreverserserver\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\"\xc9\x01\n" +
+	"Btransport/internet/request/roundtripperreverserserver/config.proto\x12Bexclave.core.transport.internet.request.roundtripperreverserserver\x1a common/protoext/extensions.proto\x1a\x19google/protobuf/any.proto\"\xc9\x01\n" +
 	"\x06Config\x12F\n" +
 	"\x14round_tripper_server\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x12roundTripperServer\x12\x16\n" +
 	"\x06listen\x18\x03 \x01(\tR\x06listen\x12+\n" +
 	"\x11access_passphrase\x18\x04 \x01(\tR\x10accessPassphrase:2\x82\xb5\x18.\n" +
-	",transport.request.roundtripperreverserserverB\xe0\x01\n" +
-	"Dcom.v2ray.core.transport.internet.request.roundtripperreverserserverP\x01ZTgithub.com/v2fly/v2ray-core/v5/transport/internet/request/roundtripperreverserserver\xaa\x02?V2Ray.Core.Transport.Internet.Request.RoundtripperReverseServerb\x06proto3"
+	",transport.request.roundtripperreverserserverB\x85\x02\n" +
+	"\\com.github.exclavenetwork.exclave.core.transport.internet.request.roundtripperreverserserverP\x01Z_github.com/exclavenetwork/exclave-core/v5/transport/internet/request/roundtripperreverserserver\xaa\x02AExclave.Core.Transport.Internet.Request.RoundtripperReverseServerb\x06proto3"
 
 var (
 	file_transport_internet_request_roundtripperreverserserver_config_proto_rawDescOnce sync.Once
@@ -103,11 +103,11 @@ func file_transport_internet_request_roundtripperreverserserver_config_proto_raw
 
 var file_transport_internet_request_roundtripperreverserserver_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_request_roundtripperreverserserver_config_proto_goTypes = []any{
-	(*Config)(nil),    // 0: v2ray.core.transport.internet.request.roundtripperreverserserver.Config
+	(*Config)(nil),    // 0: exclave.core.transport.internet.request.roundtripperreverserserver.Config
 	(*anypb.Any)(nil), // 1: google.protobuf.Any
 }
 var file_transport_internet_request_roundtripperreverserserver_config_proto_depIdxs = []int32{
-	1, // 0: v2ray.core.transport.internet.request.roundtripperreverserserver.Config.round_tripper_server:type_name -> google.protobuf.Any
+	1, // 0: exclave.core.transport.internet.request.roundtripperreverserserver.Config.round_tripper_server:type_name -> google.protobuf.Any
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

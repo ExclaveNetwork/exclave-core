@@ -1,8 +1,8 @@
 package command
 
 import (
-	observatory "github.com/v2fly/v2ray-core/v5/app/observatory"
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	observatory "github.com/exclavenetwork/exclave-core/v5/app/observatory"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -145,16 +145,16 @@ var File_app_observatory_command_command_proto protoreflect.FileDescriptor
 
 const file_app_observatory_command_command_proto_rawDesc = "" +
 	"\n" +
-	"%app/observatory/command/command.proto\x12\"v2ray.core.app.observatory.command\x1a common/protoext/extensions.proto\x1a\x1capp/observatory/config.proto\",\n" +
+	"%app/observatory/command/command.proto\x12$exclave.core.app.observatory.command\x1a common/protoext/extensions.proto\x1a\x1capp/observatory/config.proto\",\n" +
 	"\x18GetOutboundStatusRequest\x12\x10\n" +
-	"\x03Tag\x18\x01 \x01(\tR\x03Tag\"b\n" +
-	"\x19GetOutboundStatusResponse\x12E\n" +
-	"\x06status\x18\x01 \x01(\v2-.v2ray.core.app.observatory.ObservationResultR\x06status\"(\n" +
+	"\x03Tag\x18\x01 \x01(\tR\x03Tag\"d\n" +
+	"\x19GetOutboundStatusResponse\x12G\n" +
+	"\x06status\x18\x01 \x01(\v2/.exclave.core.app.observatory.ObservationResultR\x06status\"(\n" +
 	"\x06Config:\x1e\x82\xb5\x18\x1a\n" +
-	"\vgrpcservice\x12\vobservatory2\xa9\x01\n" +
-	"\x12ObservatoryService\x12\x92\x01\n" +
-	"\x11GetOutboundStatus\x12<.v2ray.core.app.observatory.command.GetOutboundStatusRequest\x1a=.v2ray.core.app.observatory.command.GetOutboundStatusResponse\"\x00B\x87\x01\n" +
-	"&com.v2ray.core.app.observatory.commandP\x01Z6github.com/v2fly/v2ray-core/v5/app/observatory/command\xaa\x02\"V2Ray.Core.App.Observatory.Commandb\x06proto3"
+	"\vgrpcservice\x12\vobservatory2\xad\x01\n" +
+	"\x12ObservatoryService\x12\x96\x01\n" +
+	"\x11GetOutboundStatus\x12>.exclave.core.app.observatory.command.GetOutboundStatusRequest\x1a?.exclave.core.app.observatory.command.GetOutboundStatusResponse\"\x00B\xac\x01\n" +
+	">com.github.exclavenetwork.exclave.core.app.observatory.commandP\x01ZAgithub.com/exclavenetwork/exclave-core/v5/app/observatory/command\xaa\x02$Exclave.Core.App.Observatory.Commandb\x06proto3"
 
 var (
 	file_app_observatory_command_command_proto_rawDescOnce sync.Once
@@ -170,15 +170,15 @@ func file_app_observatory_command_command_proto_rawDescGZIP() []byte {
 
 var file_app_observatory_command_command_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_app_observatory_command_command_proto_goTypes = []any{
-	(*GetOutboundStatusRequest)(nil),      // 0: v2ray.core.app.observatory.command.GetOutboundStatusRequest
-	(*GetOutboundStatusResponse)(nil),     // 1: v2ray.core.app.observatory.command.GetOutboundStatusResponse
-	(*Config)(nil),                        // 2: v2ray.core.app.observatory.command.Config
-	(*observatory.ObservationResult)(nil), // 3: v2ray.core.app.observatory.ObservationResult
+	(*GetOutboundStatusRequest)(nil),      // 0: exclave.core.app.observatory.command.GetOutboundStatusRequest
+	(*GetOutboundStatusResponse)(nil),     // 1: exclave.core.app.observatory.command.GetOutboundStatusResponse
+	(*Config)(nil),                        // 2: exclave.core.app.observatory.command.Config
+	(*observatory.ObservationResult)(nil), // 3: exclave.core.app.observatory.ObservationResult
 }
 var file_app_observatory_command_command_proto_depIdxs = []int32{
-	3, // 0: v2ray.core.app.observatory.command.GetOutboundStatusResponse.status:type_name -> v2ray.core.app.observatory.ObservationResult
-	0, // 1: v2ray.core.app.observatory.command.ObservatoryService.GetOutboundStatus:input_type -> v2ray.core.app.observatory.command.GetOutboundStatusRequest
-	1, // 2: v2ray.core.app.observatory.command.ObservatoryService.GetOutboundStatus:output_type -> v2ray.core.app.observatory.command.GetOutboundStatusResponse
+	3, // 0: exclave.core.app.observatory.command.GetOutboundStatusResponse.status:type_name -> exclave.core.app.observatory.ObservationResult
+	0, // 1: exclave.core.app.observatory.command.ObservatoryService.GetOutboundStatus:input_type -> exclave.core.app.observatory.command.GetOutboundStatusRequest
+	1, // 2: exclave.core.app.observatory.command.ObservatoryService.GetOutboundStatus:output_type -> exclave.core.app.observatory.command.GetOutboundStatusResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

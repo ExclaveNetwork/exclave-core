@@ -1,7 +1,7 @@
 package simple
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -156,7 +156,7 @@ var File_transport_internet_request_assembler_simple_config_proto protoreflect.F
 
 const file_transport_internet_request_assembler_simple_config_proto_rawDesc = "" +
 	"\n" +
-	"8transport/internet/request/assembler/simple/config.proto\x126v2ray.core.transport.internet.request.assembler.simple\x1a common/protoext/extensions.proto\"\xac\x03\n" +
+	"8transport/internet/request/assembler/simple/config.proto\x128exclave.core.transport.internet.request.assembler.simple\x1a common/protoext/extensions.proto\"\xac\x03\n" +
 	"\fClientConfig\x12$\n" +
 	"\x0emax_write_size\x18\x01 \x01(\x05R\fmaxWriteSize\x127\n" +
 	"\x18wait_subsequent_write_ms\x18\x02 \x01(\x05R\x15waitSubsequentWriteMs\x12=\n" +
@@ -168,8 +168,8 @@ const file_transport_internet_request_assembler_simple_config_proto_rawDesc = ""
 	"\"transport.request.assembler.client\x12\x06simple\"f\n" +
 	"\fServerConfig\x12$\n" +
 	"\x0emax_write_size\x18\x01 \x01(\x05R\fmaxWriteSize:0\x82\xb5\x18,\n" +
-	"\"transport.request.assembler.server\x12\x06simpleB\xc3\x01\n" +
-	":com.v2ray.core.transport.internet.request.assembler.simpleP\x01ZJgithub.com/v2fly/v2ray-core/v5/transport/internet/request/assembler/simple\xaa\x026V2Ray.Core.Transport.Internet.Request.Assembler.Simpleb\x06proto3"
+	"\"transport.request.assembler.server\x12\x06simpleB\xe8\x01\n" +
+	"Rcom.github.exclavenetwork.exclave.core.transport.internet.request.assembler.simpleP\x01ZUgithub.com/exclavenetwork/exclave-core/v5/transport/internet/request/assembler/simple\xaa\x028Exclave.Core.Transport.Internet.Request.Assembler.Simpleb\x06proto3"
 
 var (
 	file_transport_internet_request_assembler_simple_config_proto_rawDescOnce sync.Once
@@ -185,8 +185,8 @@ func file_transport_internet_request_assembler_simple_config_proto_rawDescGZIP()
 
 var file_transport_internet_request_assembler_simple_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_transport_internet_request_assembler_simple_config_proto_goTypes = []any{
-	(*ClientConfig)(nil), // 0: v2ray.core.transport.internet.request.assembler.simple.ClientConfig
-	(*ServerConfig)(nil), // 1: v2ray.core.transport.internet.request.assembler.simple.ServerConfig
+	(*ClientConfig)(nil), // 0: exclave.core.transport.internet.request.assembler.simple.ClientConfig
+	(*ServerConfig)(nil), // 1: exclave.core.transport.internet.request.assembler.simple.ServerConfig
 }
 var file_transport_internet_request_assembler_simple_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -14,16 +14,16 @@ import (
 
 	"golang.org/x/crypto/chacha20poly1305"
 
-	"github.com/v2fly/v2ray-core/v5/common"
-	"github.com/v2fly/v2ray-core/v5/common/bitmask"
-	"github.com/v2fly/v2ray-core/v5/common/buf"
-	"github.com/v2fly/v2ray-core/v5/common/crypto"
-	"github.com/v2fly/v2ray-core/v5/common/drain"
-	"github.com/v2fly/v2ray-core/v5/common/net"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/task"
-	"github.com/v2fly/v2ray-core/v5/proxy/vmess"
-	vmessaead "github.com/v2fly/v2ray-core/v5/proxy/vmess/aead"
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/bitmask"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
+	"github.com/exclavenetwork/exclave-core/v5/common/crypto"
+	"github.com/exclavenetwork/exclave-core/v5/common/drain"
+	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
+	vmessaead "github.com/exclavenetwork/exclave-core/v5/proxy/vmess/aead"
 )
 
 type sessionID struct {
@@ -188,7 +188,7 @@ func (s *ServerSession) DecodeRequestHeader(reader io.Reader) (*protocol.Request
 			return nil, drainConnection(newError("invalid user").Base(userValidationError))
 		}
 		if s.isAEADForced {
-			return nil, drainConnection(newError("invalid user: VMessAEAD is enforced and a non VMessAEAD connection is received. You can still disable this security feature with environment variable v2ray.vmess.aead.forced = false . You will not be able to enable legacy header workaround in the future."))
+			return nil, drainConnection(newError("invalid user: VMessAEAD is enforced and a non VMessAEAD connection is received. You can still disable this security feature with environment variable exclave.vmess.aead.forced = false . You will not be able to enable legacy header workaround in the future."))
 		}
 		if s.userValidator.ShouldShowLegacyWarn() {
 			newError("Critical Warning: potentially invalid user: a non VMessAEAD connection is received. From 2022 Jan 1st, this kind of connection will be rejected by default. You should update or replace your client software now. This message will not be shown for further violation on this inbound.").AtWarning().WriteToLog()
@@ -287,7 +287,7 @@ func (s *ServerSession) DecodeRequestHeader(reader io.Reader) (*protocol.Request
 			if burnErr != nil {
 				Autherr = newError("invalid auth, can't taint legacy userHash").Base(burnErr)
 			}
-			// It is possible that we are under attack described in https://github.com/v2ray/v2ray-core/issues/2523
+			// It is possible that we are under attack described in https://github.com/v2ray-core/issues/2523
 			return nil, drainConnection(Autherr)
 		}
 		return nil, newError("invalid auth, but this is a AEAD request")

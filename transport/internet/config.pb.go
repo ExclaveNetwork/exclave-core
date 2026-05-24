@@ -238,7 +238,7 @@ type TransportConfig struct {
 	// Deprecated. Use the string form below.
 	//
 	// Deprecated: Marked as deprecated in transport/internet/config.proto.
-	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=v2ray.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
+	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=exclave.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
 	// Type of network that this settings supports.
 	ProtocolName string `protobuf:"bytes,3,opt,name=protocol_name,json=protocolName,proto3" json:"protocol_name,omitempty"`
 	// Specific settings. Must be of the transports.
@@ -304,7 +304,7 @@ type StreamConfig struct {
 	// Effective network. Deprecated. Use the string form below.
 	//
 	// Deprecated: Marked as deprecated in transport/internet/config.proto.
-	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=v2ray.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
+	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=exclave.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
 	// Effective network.
 	ProtocolName      string             `protobuf:"bytes,5,opt,name=protocol_name,json=protocolName,proto3" json:"protocol_name,omitempty"`
 	TransportSettings []*TransportConfig `protobuf:"bytes,2,rep,name=transport_settings,json=transportSettings,proto3" json:"transport_settings,omitempty"`
@@ -448,9 +448,9 @@ type SocketConfig struct {
 	// Mark of the connection. If non-zero, the value will be set to SO_MARK.
 	Mark uint32 `protobuf:"varint,1,opt,name=mark,proto3" json:"mark,omitempty"`
 	// TFO is the state of TFO settings.
-	Tfo SocketConfig_TCPFastOpenState `protobuf:"varint,2,opt,name=tfo,proto3,enum=v2ray.core.transport.internet.SocketConfig_TCPFastOpenState" json:"tfo,omitempty"`
+	Tfo SocketConfig_TCPFastOpenState `protobuf:"varint,2,opt,name=tfo,proto3,enum=exclave.core.transport.internet.SocketConfig_TCPFastOpenState" json:"tfo,omitempty"`
 	// TProxy is for enabling TProxy socket option.
-	Tproxy SocketConfig_TProxyMode `protobuf:"varint,3,opt,name=tproxy,proto3,enum=v2ray.core.transport.internet.SocketConfig_TProxyMode" json:"tproxy,omitempty"`
+	Tproxy SocketConfig_TProxyMode `protobuf:"varint,3,opt,name=tproxy,proto3,enum=exclave.core.transport.internet.SocketConfig_TProxyMode" json:"tproxy,omitempty"`
 	// ReceiveOriginalDestAddress is for enabling IP_RECVORIGDSTADDR socket
 	// option. This option is for UDP only.
 	ReceiveOriginalDestAddress bool              `protobuf:"varint,4,opt,name=receive_original_dest_address,json=receiveOriginalDestAddress,proto3" json:"receive_original_dest_address,omitempty"`
@@ -464,7 +464,7 @@ type SocketConfig struct {
 	RxBufSize                  int64             `protobuf:"varint,12,opt,name=rx_buf_size,json=rxBufSize,proto3" json:"rx_buf_size,omitempty"`
 	TxBufSize                  int64             `protobuf:"varint,13,opt,name=tx_buf_size,json=txBufSize,proto3" json:"tx_buf_size,omitempty"`
 	ForceBufSize               bool              `protobuf:"varint,14,opt,name=force_buf_size,json=forceBufSize,proto3" json:"force_buf_size,omitempty"`
-	Mptcp                      MPTCPState        `protobuf:"varint,15,opt,name=mptcp,proto3,enum=v2ray.core.transport.internet.MPTCPState" json:"mptcp,omitempty"`
+	Mptcp                      MPTCPState        `protobuf:"varint,15,opt,name=mptcp,proto3,enum=exclave.core.transport.internet.MPTCPState" json:"mptcp,omitempty"`
 	TlsFragmentation           *TLSFragmentation `protobuf:"bytes,99,opt,name=tlsFragmentation,proto3" json:"tlsFragmentation,omitempty"`
 	unknownFields              protoimpl.UnknownFields
 	sizeCache                  protoimpl.SizeCache
@@ -668,25 +668,25 @@ var File_transport_internet_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1ftransport/internet/config.proto\x12\x1dv2ray.core.transport.internet\x1a\x19google/protobuf/any.proto\"\xba\x01\n" +
-	"\x0fTransportConfig\x12P\n" +
-	"\bprotocol\x18\x01 \x01(\x0e20.v2ray.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
+	"\x1ftransport/internet/config.proto\x12\x1fexclave.core.transport.internet\x1a\x19google/protobuf/any.proto\"\xbc\x01\n" +
+	"\x0fTransportConfig\x12R\n" +
+	"\bprotocol\x18\x01 \x01(\x0e22.exclave.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
 	"\rprotocol_name\x18\x03 \x01(\tR\fprotocolName\x120\n" +
-	"\bsettings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\bsettings\"\xa2\x03\n" +
-	"\fStreamConfig\x12P\n" +
-	"\bprotocol\x18\x01 \x01(\x0e20.v2ray.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
-	"\rprotocol_name\x18\x05 \x01(\tR\fprotocolName\x12]\n" +
-	"\x12transport_settings\x18\x02 \x03(\v2..v2ray.core.transport.internet.TransportConfigR\x11transportSettings\x12#\n" +
+	"\bsettings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\bsettings\"\xa8\x03\n" +
+	"\fStreamConfig\x12R\n" +
+	"\bprotocol\x18\x01 \x01(\x0e22.exclave.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
+	"\rprotocol_name\x18\x05 \x01(\tR\fprotocolName\x12_\n" +
+	"\x12transport_settings\x18\x02 \x03(\v20.exclave.core.transport.internet.TransportConfigR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x03 \x01(\tR\fsecurityType\x12A\n" +
-	"\x11security_settings\x18\x04 \x03(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12T\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2+.v2ray.core.transport.internet.SocketConfigR\x0esocketSettings\"Q\n" +
+	"\x11security_settings\x18\x04 \x03(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"Q\n" +
 	"\vProxyConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x120\n" +
-	"\x13transportLayerProxy\x18\x02 \x01(\bR\x13transportLayerProxy\"\x9b\a\n" +
+	"\x13transportLayerProxy\x18\x02 \x01(\bR\x13transportLayerProxy\"\xa3\a\n" +
 	"\fSocketConfig\x12\x12\n" +
-	"\x04mark\x18\x01 \x01(\rR\x04mark\x12N\n" +
-	"\x03tfo\x18\x02 \x01(\x0e2<.v2ray.core.transport.internet.SocketConfig.TCPFastOpenStateR\x03tfo\x12N\n" +
-	"\x06tproxy\x18\x03 \x01(\x0e26.v2ray.core.transport.internet.SocketConfig.TProxyModeR\x06tproxy\x12A\n" +
+	"\x04mark\x18\x01 \x01(\rR\x04mark\x12P\n" +
+	"\x03tfo\x18\x02 \x01(\x0e2>.exclave.core.transport.internet.SocketConfig.TCPFastOpenStateR\x03tfo\x12P\n" +
+	"\x06tproxy\x18\x03 \x01(\x0e28.exclave.core.transport.internet.SocketConfig.TProxyModeR\x06tproxy\x12A\n" +
 	"\x1dreceive_original_dest_address\x18\x04 \x01(\bR\x1areceiveOriginalDestAddress\x12!\n" +
 	"\fbind_address\x18\x05 \x01(\fR\vbindAddress\x12\x1b\n" +
 	"\tbind_port\x18\x06 \x01(\rR\bbindPort\x122\n" +
@@ -698,9 +698,9 @@ const file_transport_internet_config_proto_rawDesc = "" +
 	"\x0ebind_to_device\x18\v \x01(\tR\fbindToDevice\x12\x1e\n" +
 	"\vrx_buf_size\x18\f \x01(\x03R\trxBufSize\x12\x1e\n" +
 	"\vtx_buf_size\x18\r \x01(\x03R\ttxBufSize\x12$\n" +
-	"\x0eforce_buf_size\x18\x0e \x01(\bR\fforceBufSize\x12?\n" +
-	"\x05mptcp\x18\x0f \x01(\x0e2).v2ray.core.transport.internet.MPTCPStateR\x05mptcp\x12[\n" +
-	"\x10tlsFragmentation\x18c \x01(\v2/.v2ray.core.transport.internet.TLSFragmentationR\x10tlsFragmentation\"5\n" +
+	"\x0eforce_buf_size\x18\x0e \x01(\bR\fforceBufSize\x12A\n" +
+	"\x05mptcp\x18\x0f \x01(\x0e2+.exclave.core.transport.internet.MPTCPStateR\x05mptcp\x12]\n" +
+	"\x10tlsFragmentation\x18c \x01(\v21.exclave.core.transport.internet.TLSFragmentationR\x10tlsFragmentation\"5\n" +
 	"\x10TCPFastOpenState\x12\b\n" +
 	"\x04AsIs\x10\x00\x12\n" +
 	"\n" +
@@ -727,8 +727,8 @@ const file_transport_internet_config_proto_rawDesc = "" +
 	"\x04AsIs\x10\x00\x12\n" +
 	"\n" +
 	"\x06Enable\x10\x01\x12\v\n" +
-	"\aDisable\x10\x02Bx\n" +
-	"!com.v2ray.core.transport.internetP\x01Z1github.com/v2fly/v2ray-core/v5/transport/internet\xaa\x02\x1dV2Ray.Core.Transport.Internetb\x06proto3"
+	"\aDisable\x10\x02B\x9d\x01\n" +
+	"9com.github.exclavenetwork.exclave.core.transport.internetP\x01Z<github.com/exclavenetwork/exclave-core/v5/transport/internet\xaa\x02\x1fExclave.Core.Transport.Internetb\x06proto3"
 
 var (
 	file_transport_internet_config_proto_rawDescOnce sync.Once
@@ -745,28 +745,28 @@ func file_transport_internet_config_proto_rawDescGZIP() []byte {
 var file_transport_internet_config_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
 var file_transport_internet_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_transport_internet_config_proto_goTypes = []any{
-	(TransportProtocol)(0),             // 0: v2ray.core.transport.internet.TransportProtocol
-	(MPTCPState)(0),                    // 1: v2ray.core.transport.internet.MPTCPState
-	(SocketConfig_TCPFastOpenState)(0), // 2: v2ray.core.transport.internet.SocketConfig.TCPFastOpenState
-	(SocketConfig_TProxyMode)(0),       // 3: v2ray.core.transport.internet.SocketConfig.TProxyMode
-	(*TransportConfig)(nil),            // 4: v2ray.core.transport.internet.TransportConfig
-	(*StreamConfig)(nil),               // 5: v2ray.core.transport.internet.StreamConfig
-	(*ProxyConfig)(nil),                // 6: v2ray.core.transport.internet.ProxyConfig
-	(*SocketConfig)(nil),               // 7: v2ray.core.transport.internet.SocketConfig
-	(*TLSFragmentation)(nil),           // 8: v2ray.core.transport.internet.TLSFragmentation
+	(TransportProtocol)(0),             // 0: exclave.core.transport.internet.TransportProtocol
+	(MPTCPState)(0),                    // 1: exclave.core.transport.internet.MPTCPState
+	(SocketConfig_TCPFastOpenState)(0), // 2: exclave.core.transport.internet.SocketConfig.TCPFastOpenState
+	(SocketConfig_TProxyMode)(0),       // 3: exclave.core.transport.internet.SocketConfig.TProxyMode
+	(*TransportConfig)(nil),            // 4: exclave.core.transport.internet.TransportConfig
+	(*StreamConfig)(nil),               // 5: exclave.core.transport.internet.StreamConfig
+	(*ProxyConfig)(nil),                // 6: exclave.core.transport.internet.ProxyConfig
+	(*SocketConfig)(nil),               // 7: exclave.core.transport.internet.SocketConfig
+	(*TLSFragmentation)(nil),           // 8: exclave.core.transport.internet.TLSFragmentation
 	(*anypb.Any)(nil),                  // 9: google.protobuf.Any
 }
 var file_transport_internet_config_proto_depIdxs = []int32{
-	0,  // 0: v2ray.core.transport.internet.TransportConfig.protocol:type_name -> v2ray.core.transport.internet.TransportProtocol
-	9,  // 1: v2ray.core.transport.internet.TransportConfig.settings:type_name -> google.protobuf.Any
-	0,  // 2: v2ray.core.transport.internet.StreamConfig.protocol:type_name -> v2ray.core.transport.internet.TransportProtocol
-	4,  // 3: v2ray.core.transport.internet.StreamConfig.transport_settings:type_name -> v2ray.core.transport.internet.TransportConfig
-	9,  // 4: v2ray.core.transport.internet.StreamConfig.security_settings:type_name -> google.protobuf.Any
-	7,  // 5: v2ray.core.transport.internet.StreamConfig.socket_settings:type_name -> v2ray.core.transport.internet.SocketConfig
-	2,  // 6: v2ray.core.transport.internet.SocketConfig.tfo:type_name -> v2ray.core.transport.internet.SocketConfig.TCPFastOpenState
-	3,  // 7: v2ray.core.transport.internet.SocketConfig.tproxy:type_name -> v2ray.core.transport.internet.SocketConfig.TProxyMode
-	1,  // 8: v2ray.core.transport.internet.SocketConfig.mptcp:type_name -> v2ray.core.transport.internet.MPTCPState
-	8,  // 9: v2ray.core.transport.internet.SocketConfig.tlsFragmentation:type_name -> v2ray.core.transport.internet.TLSFragmentation
+	0,  // 0: exclave.core.transport.internet.TransportConfig.protocol:type_name -> exclave.core.transport.internet.TransportProtocol
+	9,  // 1: exclave.core.transport.internet.TransportConfig.settings:type_name -> google.protobuf.Any
+	0,  // 2: exclave.core.transport.internet.StreamConfig.protocol:type_name -> exclave.core.transport.internet.TransportProtocol
+	4,  // 3: exclave.core.transport.internet.StreamConfig.transport_settings:type_name -> exclave.core.transport.internet.TransportConfig
+	9,  // 4: exclave.core.transport.internet.StreamConfig.security_settings:type_name -> google.protobuf.Any
+	7,  // 5: exclave.core.transport.internet.StreamConfig.socket_settings:type_name -> exclave.core.transport.internet.SocketConfig
+	2,  // 6: exclave.core.transport.internet.SocketConfig.tfo:type_name -> exclave.core.transport.internet.SocketConfig.TCPFastOpenState
+	3,  // 7: exclave.core.transport.internet.SocketConfig.tproxy:type_name -> exclave.core.transport.internet.SocketConfig.TProxyMode
+	1,  // 8: exclave.core.transport.internet.SocketConfig.mptcp:type_name -> exclave.core.transport.internet.MPTCPState
+	8,  // 9: exclave.core.transport.internet.SocketConfig.tlsFragmentation:type_name -> exclave.core.transport.internet.TLSFragmentation
 	10, // [10:10] is the sub-list for method output_type
 	10, // [10:10] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package v2ray.core.proxy.trojan;
-option csharp_namespace = "V2Ray.Core.Proxy.Trojan";
-option go_package = "github.com/v2fly/v2ray-core/v5/proxy/trojan";
-option java_package = "com.v2ray.core.proxy.trojan";
+package exclave.core.proxy.trojan;
+option csharp_namespace = "Exclave.Core.Proxy.Trojan";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/trojan";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.trojan";
 option java_multiple_files = true;
 
 import "common/protocol/user.proto";
@@ -24,11 +24,11 @@ message Fallback {
 }
 
 message ClientConfig {
-  repeated v2ray.core.common.protocol.ServerEndpoint server = 1;
+  repeated exclave.core.common.protocol.ServerEndpoint server = 1;
 }
 
 message ServerConfig {
-  repeated v2ray.core.common.protocol.User users = 1;
+  repeated exclave.core.common.protocol.User users = 1;
   repeated Fallback fallbacks = 3;
-  v2ray.core.net.packetaddr.PacketAddrType packet_encoding = 4;
+  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 4;
 }

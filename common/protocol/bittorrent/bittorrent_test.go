@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	. "github.com/v2fly/v2ray-core/v5/common/protocol/bittorrent"
+	. "github.com/exclavenetwork/exclave-core/v5/common/protocol/bittorrent"
 )
 
 func TestSniffBittorrent(t *testing.T) {

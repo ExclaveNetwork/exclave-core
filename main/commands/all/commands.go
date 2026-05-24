@@ -1,9 +1,9 @@
 package all
 
 import (
-	"github.com/v2fly/v2ray-core/v5/main/commands/all/api"
-	"github.com/v2fly/v2ray-core/v5/main/commands/all/tls"
-	"github.com/v2fly/v2ray-core/v5/main/commands/base"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/all/api"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/all/tls"
+	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
 )
 
 func init() {

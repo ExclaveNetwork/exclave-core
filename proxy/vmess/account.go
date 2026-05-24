@@ -4,9 +4,9 @@ import (
 	"crypto/sha1"
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v5/common/dice"
-	"github.com/v2fly/v2ray-core/v5/common/protocol"
-	"github.com/v2fly/v2ray-core/v5/common/uuid"
+	"github.com/exclavenetwork/exclave-core/v5/common/dice"
+	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
 )
 
 // MemoryAccount is an in-memory form of VMess account.

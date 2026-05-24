@@ -1,7 +1,7 @@
 package browserdialer
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -72,14 +72,14 @@ var File_app_browserdialer_config_proto protoreflect.FileDescriptor
 
 const file_app_browserdialer_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1eapp/browserdialer/config.proto\x12\x1cv2ray.core.app.browserdialer\x1a common/protoext/extensions.proto\"h\n" +
+	"\x1eapp/browserdialer/config.proto\x12\x1eexclave.core.app.browserdialer\x1a common/protoext/extensions.proto\"h\n" +
 	"\x06Config\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
 	"listenPort:\x1c\x82\xb5\x18\x18\n" +
-	"\aservice\x12\rbrowserdialerBu\n" +
-	" com.v2ray.core.app.browserdialerP\x01Z0github.com/v2fly/v2ray-core/v5/app/browserdialer\xaa\x02\x1cV2Ray.Core.App.Browserdialerb\x06proto3"
+	"\aservice\x12\rbrowserdialerB\x9a\x01\n" +
+	"8com.github.exclavenetwork.exclave.core.app.browserdialerP\x01Z;github.com/exclavenetwork/exclave-core/v5/app/browserdialer\xaa\x02\x1eExclave.Core.App.Browserdialerb\x06proto3"
 
 var (
 	file_app_browserdialer_config_proto_rawDescOnce sync.Once
@@ -95,7 +95,7 @@ func file_app_browserdialer_config_proto_rawDescGZIP() []byte {
 
 var file_app_browserdialer_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_app_browserdialer_config_proto_goTypes = []any{
-	(*Config)(nil), // 0: v2ray.core.app.browserdialer.Config
+	(*Config)(nil), // 0: exclave.core.app.browserdialer.Config
 }
 var file_app_browserdialer_config_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

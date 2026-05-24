@@ -13,10 +13,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RoutingService_SubscribeRoutingStats_FullMethodName  = "/v2ray.core.app.router.command.RoutingService/SubscribeRoutingStats"
-	RoutingService_TestRoute_FullMethodName              = "/v2ray.core.app.router.command.RoutingService/TestRoute"
-	RoutingService_GetBalancerInfo_FullMethodName        = "/v2ray.core.app.router.command.RoutingService/GetBalancerInfo"
-	RoutingService_OverrideBalancerTarget_FullMethodName = "/v2ray.core.app.router.command.RoutingService/OverrideBalancerTarget"
+	RoutingService_SubscribeRoutingStats_FullMethodName  = "/exclave.core.app.router.command.RoutingService/SubscribeRoutingStats"
+	RoutingService_TestRoute_FullMethodName              = "/exclave.core.app.router.command.RoutingService/TestRoute"
+	RoutingService_GetBalancerInfo_FullMethodName        = "/exclave.core.app.router.command.RoutingService/GetBalancerInfo"
+	RoutingService_OverrideBalancerTarget_FullMethodName = "/exclave.core.app.router.command.RoutingService/OverrideBalancerTarget"
 )
 
 // RoutingServiceClient is the client API for RoutingService service.
@@ -206,7 +206,7 @@ func _RoutingService_OverrideBalancerTarget_Handler(srv interface{}, ctx context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RoutingService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.app.router.command.RoutingService",
+	ServiceName: "exclave.core.app.router.command.RoutingService",
 	HandlerType: (*RoutingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	v2net "github.com/v2fly/v2ray-core/v5/common/net"
+	v2net "github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
 const (

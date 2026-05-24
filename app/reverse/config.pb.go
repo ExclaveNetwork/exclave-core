@@ -1,7 +1,7 @@
 package reverse
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -64,7 +64,7 @@ func (Control_State) EnumDescriptor() ([]byte, []int) {
 
 type Control struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	State         Control_State          `protobuf:"varint,1,opt,name=state,proto3,enum=v2ray.core.app.reverse.Control_State" json:"state,omitempty"`
+	State         Control_State          `protobuf:"varint,1,opt,name=state,proto3,enum=exclave.core.app.reverse.Control_State" json:"state,omitempty"`
 	Random        []byte                 `protobuf:"bytes,99,opt,name=random,proto3" json:"random,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -274,9 +274,9 @@ var File_app_reverse_config_proto protoreflect.FileDescriptor
 
 const file_app_reverse_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18app/reverse/config.proto\x12\x16v2ray.core.app.reverse\x1a common/protoext/extensions.proto\"~\n" +
-	"\aControl\x12;\n" +
-	"\x05state\x18\x01 \x01(\x0e2%.v2ray.core.app.reverse.Control.StateR\x05state\x12\x16\n" +
+	"\x18app/reverse/config.proto\x12\x18exclave.core.app.reverse\x1a common/protoext/extensions.proto\"\x80\x01\n" +
+	"\aControl\x12=\n" +
+	"\x05state\x18\x01 \x01(\x0e2'.exclave.core.app.reverse.Control.StateR\x05state\x12\x16\n" +
 	"\x06random\x18c \x01(\fR\x06random\"\x1e\n" +
 	"\x05State\x12\n" +
 	"\n" +
@@ -287,12 +287,12 @@ const file_app_reverse_config_proto_rawDesc = "" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\"8\n" +
 	"\fPortalConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\"\xb6\x01\n" +
-	"\x06Config\x12I\n" +
-	"\rbridge_config\x18\x01 \x03(\v2$.v2ray.core.app.reverse.BridgeConfigR\fbridgeConfig\x12I\n" +
-	"\rportal_config\x18\x02 \x03(\v2$.v2ray.core.app.reverse.PortalConfigR\fportalConfig:\x16\x82\xb5\x18\x12\n" +
-	"\aservice\x12\areverseBc\n" +
-	"\x1acom.v2ray.core.app.reverseP\x01Z*github.com/v2fly/v2ray-core/v5/app/reverse\xaa\x02\x16V2Ray.Core.App.Reverseb\x06proto3"
+	"\x06domain\x18\x02 \x01(\tR\x06domain\"\xba\x01\n" +
+	"\x06Config\x12K\n" +
+	"\rbridge_config\x18\x01 \x03(\v2&.exclave.core.app.reverse.BridgeConfigR\fbridgeConfig\x12K\n" +
+	"\rportal_config\x18\x02 \x03(\v2&.exclave.core.app.reverse.PortalConfigR\fportalConfig:\x16\x82\xb5\x18\x12\n" +
+	"\aservice\x12\areverseB\x88\x01\n" +
+	"2com.github.exclavenetwork.exclave.core.app.reverseP\x01Z5github.com/exclavenetwork/exclave-core/v5/app/reverse\xaa\x02\x18Exclave.Core.App.Reverseb\x06proto3"
 
 var (
 	file_app_reverse_config_proto_rawDescOnce sync.Once
@@ -309,16 +309,16 @@ func file_app_reverse_config_proto_rawDescGZIP() []byte {
 var file_app_reverse_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_app_reverse_config_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_app_reverse_config_proto_goTypes = []any{
-	(Control_State)(0),   // 0: v2ray.core.app.reverse.Control.State
-	(*Control)(nil),      // 1: v2ray.core.app.reverse.Control
-	(*BridgeConfig)(nil), // 2: v2ray.core.app.reverse.BridgeConfig
-	(*PortalConfig)(nil), // 3: v2ray.core.app.reverse.PortalConfig
-	(*Config)(nil),       // 4: v2ray.core.app.reverse.Config
+	(Control_State)(0),   // 0: exclave.core.app.reverse.Control.State
+	(*Control)(nil),      // 1: exclave.core.app.reverse.Control
+	(*BridgeConfig)(nil), // 2: exclave.core.app.reverse.BridgeConfig
+	(*PortalConfig)(nil), // 3: exclave.core.app.reverse.PortalConfig
+	(*Config)(nil),       // 4: exclave.core.app.reverse.Config
 }
 var file_app_reverse_config_proto_depIdxs = []int32{
-	0, // 0: v2ray.core.app.reverse.Control.state:type_name -> v2ray.core.app.reverse.Control.State
-	2, // 1: v2ray.core.app.reverse.Config.bridge_config:type_name -> v2ray.core.app.reverse.BridgeConfig
-	3, // 2: v2ray.core.app.reverse.Config.portal_config:type_name -> v2ray.core.app.reverse.PortalConfig
+	0, // 0: exclave.core.app.reverse.Control.state:type_name -> exclave.core.app.reverse.Control.State
+	2, // 1: exclave.core.app.reverse.Config.bridge_config:type_name -> exclave.core.app.reverse.BridgeConfig
+	3, // 2: exclave.core.app.reverse.Config.portal_config:type_name -> exclave.core.app.reverse.PortalConfig
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

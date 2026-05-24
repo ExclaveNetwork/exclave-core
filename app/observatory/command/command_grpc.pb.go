@@ -13,7 +13,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ObservatoryService_GetOutboundStatus_FullMethodName = "/v2ray.core.app.observatory.command.ObservatoryService/GetOutboundStatus"
+	ObservatoryService_GetOutboundStatus_FullMethodName = "/exclave.core.app.observatory.command.ObservatoryService/GetOutboundStatus"
 )
 
 // ObservatoryServiceClient is the client API for ObservatoryService service.
@@ -102,7 +102,7 @@ func _ObservatoryService_GetOutboundStatus_Handler(srv interface{}, ctx context.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ObservatoryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v2ray.core.app.observatory.command.ObservatoryService",
+	ServiceName: "exclave.core.app.observatory.command.ObservatoryService",
 	HandlerType: (*ObservatoryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

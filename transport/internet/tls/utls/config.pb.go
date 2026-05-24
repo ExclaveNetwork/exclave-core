@@ -1,8 +1,8 @@
 package utls
 
 import (
-	_ "github.com/v2fly/v2ray-core/v5/common/protoext"
-	tls "github.com/v2fly/v2ray-core/v5/transport/internet/tls"
+	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
+	tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -71,7 +71,7 @@ type Config struct {
 	TlsConfig     *tls.Config            `protobuf:"bytes,1,opt,name=tls_config,json=tlsConfig,proto3" json:"tls_config,omitempty"`
 	Imitate       string                 `protobuf:"bytes,2,opt,name=imitate,proto3" json:"imitate,omitempty"`
 	NoSNI         bool                   `protobuf:"varint,3,opt,name=noSNI,proto3" json:"noSNI,omitempty"`
-	ForceAlpn     ForcedALPN             `protobuf:"varint,4,opt,name=force_alpn,json=forceAlpn,proto3,enum=v2ray.core.transport.internet.tls.utls.ForcedALPN" json:"force_alpn,omitempty"`
+	ForceAlpn     ForcedALPN             `protobuf:"varint,4,opt,name=force_alpn,json=forceAlpn,proto3,enum=exclave.core.transport.internet.tls.utls.ForcedALPN" json:"force_alpn,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -138,21 +138,21 @@ var File_transport_internet_tls_utls_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_tls_utls_config_proto_rawDesc = "" +
 	"\n" +
-	"(transport/internet/tls/utls/config.proto\x12&v2ray.core.transport.internet.tls.utls\x1a common/protoext/extensions.proto\x1a#transport/internet/tls/config.proto\"\xeb\x01\n" +
-	"\x06Config\x12H\n" +
+	"(transport/internet/tls/utls/config.proto\x12(exclave.core.transport.internet.tls.utls\x1a common/protoext/extensions.proto\x1a#transport/internet/tls/config.proto\"\xef\x01\n" +
+	"\x06Config\x12J\n" +
 	"\n" +
-	"tls_config\x18\x01 \x01(\v2).v2ray.core.transport.internet.tls.ConfigR\ttlsConfig\x12\x18\n" +
+	"tls_config\x18\x01 \x01(\v2+.exclave.core.transport.internet.tls.ConfigR\ttlsConfig\x12\x18\n" +
 	"\aimitate\x18\x02 \x01(\tR\aimitate\x12\x14\n" +
-	"\x05noSNI\x18\x03 \x01(\bR\x05noSNI\x12Q\n" +
+	"\x05noSNI\x18\x03 \x01(\bR\x05noSNI\x12S\n" +
 	"\n" +
-	"force_alpn\x18\x04 \x01(\x0e22.v2ray.core.transport.internet.tls.utls.ForcedALPNR\tforceAlpn:\x14\x82\xb5\x18\x10\n" +
+	"force_alpn\x18\x04 \x01(\x0e24.exclave.core.transport.internet.tls.utls.ForcedALPNR\tforceAlpn:\x14\x82\xb5\x18\x10\n" +
 	"\bsecurity\x12\x04utls*R\n" +
 	"\n" +
 	"ForcedALPN\x12&\n" +
 	"\"TRANSPORT_PREFERENCE_TAKE_PRIORITY\x10\x00\x12\v\n" +
 	"\aNO_ALPN\x10\x01\x12\x0f\n" +
-	"\vUTLS_PRESET\x10\x02B\x93\x01\n" +
-	"*com.v2ray.core.transport.internet.tls.utlsP\x01Z:github.com/v2fly/v2ray-core/v5/transport/internet/tls/utls\xaa\x02&V2Ray.Core.Transport.Internet.Tls.UTlsb\x06proto3"
+	"\vUTLS_PRESET\x10\x02B\xb8\x01\n" +
+	"Bcom.github.exclavenetwork.exclave.core.transport.internet.tls.utlsP\x01ZEgithub.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls\xaa\x02(Exclave.Core.Transport.Internet.Tls.UTlsb\x06proto3"
 
 var (
 	file_transport_internet_tls_utls_config_proto_rawDescOnce sync.Once
@@ -169,13 +169,13 @@ func file_transport_internet_tls_utls_config_proto_rawDescGZIP() []byte {
 var file_transport_internet_tls_utls_config_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_transport_internet_tls_utls_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_transport_internet_tls_utls_config_proto_goTypes = []any{
-	(ForcedALPN)(0),    // 0: v2ray.core.transport.internet.tls.utls.ForcedALPN
-	(*Config)(nil),     // 1: v2ray.core.transport.internet.tls.utls.Config
-	(*tls.Config)(nil), // 2: v2ray.core.transport.internet.tls.Config
+	(ForcedALPN)(0),    // 0: exclave.core.transport.internet.tls.utls.ForcedALPN
+	(*Config)(nil),     // 1: exclave.core.transport.internet.tls.utls.Config
+	(*tls.Config)(nil), // 2: exclave.core.transport.internet.tls.Config
 }
 var file_transport_internet_tls_utls_config_proto_depIdxs = []int32{
-	2, // 0: v2ray.core.transport.internet.tls.utls.Config.tls_config:type_name -> v2ray.core.transport.internet.tls.Config
-	0, // 1: v2ray.core.transport.internet.tls.utls.Config.force_alpn:type_name -> v2ray.core.transport.internet.tls.utls.ForcedALPN
+	2, // 0: exclave.core.transport.internet.tls.utls.Config.tls_config:type_name -> exclave.core.transport.internet.tls.Config
+	0, // 1: exclave.core.transport.internet.tls.utls.Config.force_alpn:type_name -> exclave.core.transport.internet.tls.utls.ForcedALPN
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
