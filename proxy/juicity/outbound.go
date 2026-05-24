@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	juicity "github.com/dyhkwong/sing-juicity"
+	juicity "github.com/exclavenetwork/sing-juicity"
 	"github.com/sagernet/sing/common/bufio"
 	"github.com/sagernet/sing/common/network"
 

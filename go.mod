@@ -9,10 +9,10 @@ require (
 	github.com/anytls/sing-anytls v0.0.11
 	github.com/apernet/quic-go v0.59.1-0.20260425001925-6c6cc9bcb716
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
-	github.com/dyhkwong/sing-juicity v0.1.2
 	github.com/enfein/mieru/v3 v3.32.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.8.2-5
 	github.com/exclavenetwork/hysteria/extras/v2 v2.8.2-5
+	github.com/exclavenetwork/sing-juicity v0.1.4
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
@@ -52,7 +52,7 @@ require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-metro v0.0.0-20200812162917-85c65e2d0165 // indirect
-	github.com/gofrs/uuid/v5 v5.4.0 // indirect
+	github.com/gofrs/uuid/v5 v5.3.2 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
