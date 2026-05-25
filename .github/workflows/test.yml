@@ -3,9 +3,7 @@ name: Test
 on:
   push:
     branches:
-      - master
-      - v*
-      - dev*
+      - main
     paths:
       - "**/*.go"
       - "go.mod"

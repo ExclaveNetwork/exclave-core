@@ -7,9 +7,7 @@ on:
       - released
   push:
     branches:
-      - master
-      - v*
-      - dev*
+      - main
     paths:
       - "**/*.go"
       - "go.mod"
