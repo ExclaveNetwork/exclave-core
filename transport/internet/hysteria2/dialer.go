@@ -177,9 +177,9 @@ func ResolveAddress(ctx context.Context, dest net.Destination, resolver func(ctx
 
 type connFactory struct {
 	hyClient.ConnFactory
-
-	NewFunc    func(addr net.Addr) (net.PacketConn, error)
-	Obfuscator obfs.Obfuscator
+	NewFunc            func(addr net.Addr) (net.PacketConn, error)
+	salamanderPassword []byte
+	geckoOpts          *obfs.GeckoOptions
 }
 
 func (f *connFactory) New(addr net.Addr) (net.PacketConn, error) {
@@ -187,10 +187,14 @@ func (f *connFactory) New(addr net.Addr) (net.PacketConn, error) {
 	if err != nil {
 		return nil, err
 	}
-	if f.Obfuscator == nil {
+	switch {
+	case f.salamanderPassword != nil:
+		return obfs.WrapPacketConnSalamander(conn, f.salamanderPassword)
+	case f.geckoOpts != nil:
+		return obfs.WrapPacketConnGecko(conn, *f.geckoOpts)
+	default:
 		return conn, nil
 	}
-	return obfs.WrapPacketConn(conn, f.Obfuscator), nil
 }
 
 func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *internet.MemoryStreamConfig, resolver func(ctx context.Context, domain string) net.Address) (hyClient.Client, error) {
@@ -301,12 +305,20 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		}
 	}
 
-	if config.Obfs != nil && config.Obfs.Type == "salamander" {
-		ob, err := obfs.NewSalamanderObfuscator([]byte(config.Obfs.Password))
-		if err != nil {
-			return nil, err
+	if config.Obfs != nil {
+		switch config.Obfs.Type {
+		case "salamander":
+			connFactory.salamanderPassword = []byte(config.Obfs.Password)
+		case "gecko":
+			connFactory.geckoOpts = &obfs.GeckoOptions{
+				Password:      []byte(config.Obfs.Password),
+				MinPacketSize: int(config.Obfs.MinPacketSize),
+				MaxPacketSize: int(config.Obfs.MaxPacketSize),
+			}
+		case "":
+		default:
+			return nil, newError("unknown obfs type: ", config.Obfs.Type)
 		}
-		connFactory.Obfuscator = ob
 	}
 	hyConfig.ConnFactory = connFactory
 

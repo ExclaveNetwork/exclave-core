@@ -20,6 +20,8 @@ message Congestion{
 message OBFS {
   string type = 1;
   string password = 2;
+  int32 min_packet_size = 3;
+  int32 max_packet_size = 4;
 }
 
 message Config {

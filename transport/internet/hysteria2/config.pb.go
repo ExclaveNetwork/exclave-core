@@ -88,6 +88,8 @@ type OBFS struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	MinPacketSize int32                  `protobuf:"varint,3,opt,name=min_packet_size,json=minPacketSize,proto3" json:"min_packet_size,omitempty"`
+	MaxPacketSize int32                  `protobuf:"varint,4,opt,name=max_packet_size,json=maxPacketSize,proto3" json:"max_packet_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -134,6 +136,20 @@ func (x *OBFS) GetPassword() string {
 		return x.Password
 	}
 	return ""
+}
+
+func (x *OBFS) GetMinPacketSize() int32 {
+	if x != nil {
+		return x.MinPacketSize
+	}
+	return 0
+}
+
+func (x *OBFS) GetMaxPacketSize() int32 {
+	if x != nil {
+		return x.MaxPacketSize
+	}
+	return 0
 }
 
 type Config struct {
@@ -272,10 +288,12 @@ const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
 	"\tdown_mbps\x18\x03 \x01(\x04R\bdownMbps\x12\x1e\n" +
 	"\n" +
 	"bbrProfile\x18\x04 \x01(\tR\n" +
-	"bbrProfile\"6\n" +
+	"bbrProfile\"\x86\x01\n" +
 	"\x04OBFS\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xb3\x04\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12&\n" +
+	"\x0fmin_packet_size\x18\x03 \x01(\x05R\rminPacketSize\x12&\n" +
+	"\x0fmax_packet_size\x18\x04 \x01(\x05R\rmaxPacketSize\"\xb3\x04\n" +
 	"\x06Config\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12U\n" +
 	"\n" +

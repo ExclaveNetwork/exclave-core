@@ -135,13 +135,27 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 	}
 	hyConfig.CongestionConfig = congestionConfig
 
-	if config.Obfs != nil && config.Obfs.Type == "salamander" {
-		ob, err := obfs.NewSalamanderObfuscator([]byte(config.Obfs.Password))
+	if config.Obfs != nil {
+		switch config.Obfs.Type {
+		case "salamander":
+			hyConfig.Conn, err = obfs.WrapPacketConnSalamander(rawConn, []byte(config.Obfs.Password))
+		case "gecko":
+			hyConfig.Conn, err = obfs.WrapPacketConnGecko(rawConn, obfs.GeckoOptions{
+				Password:      []byte(config.Obfs.Password),
+				MinPacketSize: int(config.Obfs.MinPacketSize),
+				MaxPacketSize: int(config.Obfs.MaxPacketSize),
+			})
+		case "":
+		default:
+			return nil, newError("unknown obfs type: ", config.Obfs.Type)
+		}
 		if err != nil {
 			return nil, err
 		}
-		hyConfig.Conn = obfs.WrapPacketConn(rawConn, ob)
+	} else {
+		hyConfig.Conn = rawConn
 	}
+
 	hyServer, err := hyServer.NewServer(hyConfig)
 	if err != nil {
 		return nil, err

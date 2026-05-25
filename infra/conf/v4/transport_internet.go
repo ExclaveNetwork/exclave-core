@@ -150,8 +150,10 @@ type Hy2ConfigCongestion struct {
 }
 
 type Hyteria2ConfigOBFS struct {
-	Type     string `json:"type"`
-	Password string `json:"password"`
+	Type          string `json:"type"`
+	Password      string `json:"password"`
+	MinPacketSize int32  `json:"minPacketSize"`
+	MaxPacketSize int32  `json:"maxPacketSize"`
 }
 
 type Hy2Config struct {
@@ -182,8 +184,10 @@ func (c *Hy2Config) Build() (proto.Message, error) {
 		UseUdpExtension:       c.UseUDPExtension,
 		IgnoreClientBandwidth: c.IgnoreClientBandwidth,
 		Obfs: &hysteria2.OBFS{
-			Type:     c.OBFS.Type,
-			Password: c.OBFS.Password,
+			Type:          c.OBFS.Type,
+			Password:      c.OBFS.Password,
+			MinPacketSize: c.OBFS.MinPacketSize,
+			MaxPacketSize: c.OBFS.MaxPacketSize,
 		},
 		HopPorts:                 c.HopPorts,
 		HopInterval:              c.HopInterval,
