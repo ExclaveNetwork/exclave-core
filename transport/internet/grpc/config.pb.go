@@ -24,6 +24,7 @@ type Config struct {
 	HealthCheckTimeout  int32                  `protobuf:"varint,4,opt,name=health_check_timeout,json=healthCheckTimeout,proto3" json:"health_check_timeout,omitempty"`
 	PermitWithoutStream bool                   `protobuf:"varint,5,opt,name=permit_without_stream,json=permitWithoutStream,proto3" json:"permit_without_stream,omitempty"`
 	InitialWindowsSize  int32                  `protobuf:"varint,6,opt,name=initial_windows_size,json=initialWindowsSize,proto3" json:"initial_windows_size,omitempty"`
+	ParseXForwardedFor  bool                   `protobuf:"varint,7,opt,name=parse_x_forwarded_for,json=parseXForwardedFor,proto3" json:"parse_x_forwarded_for,omitempty"`
 	MultiMode           bool                   `protobuf:"varint,98,opt,name=multi_mode,json=multiMode,proto3" json:"multi_mode,omitempty"`
 	ServiceNameCompat   bool                   `protobuf:"varint,99,opt,name=service_name_compat,json=serviceNameCompat,proto3" json:"service_name_compat,omitempty"`
 	unknownFields       protoimpl.UnknownFields
@@ -102,6 +103,13 @@ func (x *Config) GetInitialWindowsSize() int32 {
 	return 0
 }
 
+func (x *Config) GetParseXForwardedFor() bool {
+	if x != nil {
+		return x.ParseXForwardedFor
+	}
+	return false
+}
+
 func (x *Config) GetMultiMode() bool {
 	if x != nil {
 		return x.MultiMode
@@ -120,14 +128,15 @@ var File_transport_internet_grpc_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_grpc_config_proto_rawDesc = "" +
 	"\n" +
-	"$transport/internet/grpc/config.proto\x12-exclave.core.transport.internet.grpc.encoding\x1a common/protoext/extensions.proto\"\xe7\x02\n" +
+	"$transport/internet/grpc/config.proto\x12-exclave.core.transport.internet.grpc.encoding\x1a common/protoext/extensions.proto\"\x9a\x03\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12!\n" +
 	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x12!\n" +
 	"\fidle_timeout\x18\x03 \x01(\x05R\vidleTimeout\x120\n" +
 	"\x14health_check_timeout\x18\x04 \x01(\x05R\x12healthCheckTimeout\x122\n" +
 	"\x15permit_without_stream\x18\x05 \x01(\bR\x13permitWithoutStream\x120\n" +
-	"\x14initial_windows_size\x18\x06 \x01(\x05R\x12initialWindowsSize\x12\x1d\n" +
+	"\x14initial_windows_size\x18\x06 \x01(\x05R\x12initialWindowsSize\x121\n" +
+	"\x15parse_x_forwarded_for\x18\a \x01(\bR\x12parseXForwardedFor\x12\x1d\n" +
 	"\n" +
 	"multi_mode\x18b \x01(\bR\tmultiMode\x12.\n" +
 	"\x13service_name_compat\x18c \x01(\bR\x11serviceNameCompat:\x1c\x82\xb5\x18\x18\n" +
