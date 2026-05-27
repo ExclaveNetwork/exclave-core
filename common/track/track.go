@@ -3,8 +3,8 @@ package track
 import (
 	"container/list"
 	"sync"
-
-	"github.com/exclavenetwork/exclave-core/v5/common"
+	"time"
+	// "github.com/exclavenetwork/exclave-core/v5/common"
 )
 
 type ConnectionPool struct {
@@ -17,9 +17,16 @@ func NewConnectionPool() *ConnectionPool {
 }
 
 func (p *ConnectionPool) ResetConnections() {
+	now := time.Now()
 	p.Lock()
 	for elem := p.Front(); elem != nil; elem = elem.Next() {
-		common.Close(elem.Value)
+		// common.Close(elem.Value)
+		// Use `SetDeadline` instead of `Close` to avoid double close
+		if setDeadlineFn, ok := elem.Value.(interface {
+			SetDeadline(time.Time) error
+		}); ok {
+			setDeadlineFn.SetDeadline(now)
+		}
 	}
 	p.Init()
 	p.Unlock()
