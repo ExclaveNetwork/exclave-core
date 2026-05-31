@@ -97,7 +97,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 		utlsConfig.ServerName = dest.Address.String()
 	}
 	uConn.ServerName = utlsConfig.ServerName
-	fingerprint := GetFingerprint(config.Fingerprint)
+	fingerprint := getFingerprint(config.Fingerprint)
 	if fingerprint == nil {
 		return nil, newError("REALITY: failed to get fingerprint").AtError()
 	}
