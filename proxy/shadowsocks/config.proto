@@ -9,7 +9,6 @@ option java_multiple_files = true;
 import "common/net/network.proto";
 import "common/protocol/user.proto";
 import "common/protocol/server_spec.proto";
-import "common/net/packetaddr/config.proto";
 
 message Account {
   string password = 1;
@@ -52,7 +51,7 @@ message ServerConfig {
   bool udp_enabled = 1 [deprecated = true];
   exclave.core.common.protocol.User user = 2;
   repeated exclave.core.common.net.Network network = 3;
-  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 4;
+  reserved 4;
   string plugin = 5;
   string plugin_opts = 6;
   repeated string plugin_args = 7;

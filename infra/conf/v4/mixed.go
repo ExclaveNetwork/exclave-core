@@ -1,11 +1,8 @@
 package v4
 
 import (
-	"strings"
-
 	"github.com/golang/protobuf/proto"
 
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/mixed"
 )
@@ -30,7 +27,6 @@ type MixedServerConfig struct {
 	Timeout        uint32             `json:"timeout"`
 	UserLevel      uint32             `json:"userLevel"`
 	Transparent    bool               `json:"allowTransparent"`
-	PacketEncoding string             `json:"packetEncoding"`
 	DeferLastReply bool               `json:"deferLastReply"`
 }
 
@@ -59,13 +55,6 @@ func (v *MixedServerConfig) Build() (proto.Message, error) {
 	config.Timeout = v.Timeout
 	config.UserLevel = v.UserLevel
 	config.AllowTransparent = v.Transparent
-
-	switch strings.ToLower(v.PacketEncoding) {
-	case "packet":
-		config.PacketEncoding = packetaddr.PacketAddrType_Packet
-	case "", "none":
-		config.PacketEncoding = packetaddr.PacketAddrType_None
-	}
 
 	config.DeferLastReply = v.DeferLastReply
 

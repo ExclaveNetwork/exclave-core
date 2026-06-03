@@ -5,7 +5,6 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
@@ -29,7 +28,6 @@ type ShadowsocksServerConfig struct {
 	Email            string                   `json:"email"`
 	NetworkList      *cfgcommon.NetworkList   `json:"network"`
 	IVCheck          bool                     `json:"ivCheck"`
-	PacketEncoding   string                   `json:"packetEncoding"`
 	Plugin           string                   `json:"plugin"`
 	PluginOpts       string                   `json:"pluginOpts"`
 	PluginArgs       []string                 `json:"pluginArgs"`
@@ -115,13 +113,6 @@ func (v *ShadowsocksServerConfig) Build() (proto.Message, error) {
 		Email:   v.Email,
 		Level:   uint32(v.Level),
 		Account: serial.ToTypedMessage(account),
-	}
-
-	switch strings.ToLower(v.PacketEncoding) {
-	case "packet":
-		config.PacketEncoding = packetaddr.PacketAddrType_Packet
-	case "", "none":
-		config.PacketEncoding = packetaddr.PacketAddrType_None
 	}
 
 	config.Plugin = v.Plugin

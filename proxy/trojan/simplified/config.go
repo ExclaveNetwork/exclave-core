@@ -22,7 +22,6 @@ func init() {
 				}
 				return users
 			}(),
-			PacketEncoding: simplifiedServer.PacketEncoding,
 		}
 		return common.CreateObject(ctx, fullServer)
 	}))

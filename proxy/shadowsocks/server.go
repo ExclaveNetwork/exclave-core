@@ -13,7 +13,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/log"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	udp_proto "github.com/exclavenetwork/exclave-core/v5/common/protocol/udp"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
@@ -141,16 +140,7 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 }
 
 func (s *Server) handlerUDPPayload(ctx context.Context, conn internet.Connection, dispatcher routing.Dispatcher) error {
-	udpDispatcherConstructor := udp.NewSplitDispatcher
-	switch s.config.PacketEncoding {
-	case packetaddr.PacketAddrType_None:
-		break
-	case packetaddr.PacketAddrType_Packet:
-		packetAddrDispatcherFactory := udp.NewPacketAddrDispatcherCreator(ctx)
-		udpDispatcherConstructor = packetAddrDispatcherFactory.NewPacketAddrDispatcher
-	}
-
-	udpServer := udpDispatcherConstructor(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
+	udpServer := udp.NewSplitDispatcher(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
 		var request *protocol.RequestHeader
 		request = protocol.RequestHeaderFromContext(ctx)
 		if request == nil {

@@ -53,7 +53,6 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 			UdpEnabled:     config.UdpEnabled,
 			Timeout:        config.Timeout,
 			UserLevel:      config.UserLevel,
-			PacketEncoding: config.PacketEncoding,
 			DeferLastReply: config.DeferLastReply,
 		})
 	if err != nil {

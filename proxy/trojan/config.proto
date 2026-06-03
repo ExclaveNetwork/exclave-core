@@ -8,7 +8,6 @@ option java_multiple_files = true;
 
 import "common/protocol/user.proto";
 import "common/protocol/server_spec.proto";
-import "common/net/packetaddr/config.proto";
 
 message Account {
   string password = 1;
@@ -30,5 +29,5 @@ message ClientConfig {
 message ServerConfig {
   repeated exclave.core.common.protocol.User users = 1;
   repeated Fallback fallbacks = 3;
-  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 4;
+  reserved 4;
 }

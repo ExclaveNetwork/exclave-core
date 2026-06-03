@@ -11,7 +11,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/environment"
 	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/net/uot"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal"
@@ -98,24 +97,6 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 
 	ctx, cancel := context.WithCancel(ctx)
 	timer := signal.CancelAfterInactivity(ctx, cancel, time.Minute)
-
-	if packetConn, err := packetaddr.ToPacketAddrConn(link, destination); err == nil {
-		udpSession, err := c.getUDPSession(c.ctx, network, dialer, method, keyDerivation)
-		if err != nil {
-			return newError("failed to get UDP udpSession").Base(err)
-		}
-		requestDone := func() error {
-			return udp.CopyPacketConn(udpSession, packetConn, udp.UpdateActivity(timer))
-		}
-		responseDone := func() error {
-			return udp.CopyPacketConn(packetConn, udpSession, udp.UpdateActivity(timer))
-		}
-		responseDoneAndCloseWriter := task.OnSuccess(responseDone, task.Close(link.Writer))
-		if err := task.Run(ctx, requestDone, responseDoneAndCloseWriter); err != nil {
-			return newError("connection ends").Base(err)
-		}
-		return nil
-	}
 
 	if network == net.Network_TCP {
 		var dest net.Destination

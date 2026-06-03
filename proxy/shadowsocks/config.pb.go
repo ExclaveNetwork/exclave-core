@@ -2,7 +2,6 @@ package shadowsocks
 
 import (
 	net "github.com/exclavenetwork/exclave-core/v5/common/net"
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -201,14 +200,13 @@ type ServerConfig struct {
 	// Deprecated. Use 'network' field.
 	//
 	// Deprecated: Marked as deprecated in proxy/shadowsocks/config.proto.
-	UdpEnabled       bool                      `protobuf:"varint,1,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
-	User             *protocol.User            `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
-	Network          []net.Network             `protobuf:"varint,3,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
-	PacketEncoding   packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	Plugin           string                    `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
-	PluginOpts       string                    `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
-	PluginArgs       []string                  `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
-	PluginWorkingDir string                    `protobuf:"bytes,8,opt,name=plugin_working_dir,json=pluginWorkingDir,proto3" json:"plugin_working_dir,omitempty"`
+	UdpEnabled       bool           `protobuf:"varint,1,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
+	User             *protocol.User `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	Network          []net.Network  `protobuf:"varint,3,rep,packed,name=network,proto3,enum=exclave.core.common.net.Network" json:"network,omitempty"`
+	Plugin           string         `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
+	PluginOpts       string         `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
+	PluginArgs       []string       `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
+	PluginWorkingDir string         `protobuf:"bytes,8,opt,name=plugin_working_dir,json=pluginWorkingDir,proto3" json:"plugin_working_dir,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -263,13 +261,6 @@ func (x *ServerConfig) GetNetwork() []net.Network {
 		return x.Network
 	}
 	return nil
-}
-
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
 }
 
 func (x *ServerConfig) GetPlugin() string {
@@ -388,25 +379,24 @@ var File_proxy_shadowsocks_config_proto protoreflect.FileDescriptor
 
 const file_proxy_shadowsocks_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1eproxy/shadowsocks/config.proto\x12\x1eexclave.core.proxy.shadowsocks\x1a\x18common/net/network.proto\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"\xdb\x01\n" +
+	"\x1eproxy/shadowsocks/config.proto\x12\x1eexclave.core.proxy.shadowsocks\x1a\x18common/net/network.proto\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\"\xdb\x01\n" +
 	"\aAccount\x12\x1a\n" +
 	"\bpassword\x18\x01 \x01(\tR\bpassword\x12K\n" +
 	"\vcipher_type\x18\x02 \x01(\x0e2*.exclave.core.proxy.shadowsocks.CipherTypeR\n" +
 	"cipherType\x12\x19\n" +
 	"\biv_check\x18\x03 \x01(\bR\aivCheck\x12L\n" +
-	"\"experiment_reduced_iv_head_entropy\x18\x91\xbf\x05 \x01(\bR\x1eexperimentReducedIvHeadEntropy\"\x85\x03\n" +
+	"\"experiment_reduced_iv_head_entropy\x18\x91\xbf\x05 \x01(\bR\x1eexperimentReducedIvHeadEntropy\"\xb5\x02\n" +
 	"\fServerConfig\x12#\n" +
 	"\vudp_enabled\x18\x01 \x01(\bB\x02\x18\x01R\n" +
 	"udpEnabled\x126\n" +
 	"\x04user\x18\x02 \x01(\v2\".exclave.core.common.protocol.UserR\x04user\x12:\n" +
-	"\anetwork\x18\x03 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12T\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x16\n" +
+	"\anetwork\x18\x03 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork\x12\x16\n" +
 	"\x06plugin\x18\x05 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x06 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
 	"\vplugin_args\x18\a \x03(\tR\n" +
 	"pluginArgs\x12,\n" +
-	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir\"\xee\x01\n" +
+	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDirJ\x04\b\x04\x10\x05\"\xee\x01\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x12\x16\n" +
 	"\x06plugin\x18\x02 \x01(\tR\x06plugin\x12\x1f\n" +
@@ -466,20 +456,18 @@ var file_proxy_shadowsocks_config_proto_goTypes = []any{
 	(*ClientConfig)(nil),            // 3: exclave.core.proxy.shadowsocks.ClientConfig
 	(*protocol.User)(nil),           // 4: exclave.core.common.protocol.User
 	(net.Network)(0),                // 5: exclave.core.common.net.Network
-	(packetaddr.PacketAddrType)(0),  // 6: exclave.core.net.packetaddr.PacketAddrType
-	(*protocol.ServerEndpoint)(nil), // 7: exclave.core.common.protocol.ServerEndpoint
+	(*protocol.ServerEndpoint)(nil), // 6: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_shadowsocks_config_proto_depIdxs = []int32{
 	0, // 0: exclave.core.proxy.shadowsocks.Account.cipher_type:type_name -> exclave.core.proxy.shadowsocks.CipherType
 	4, // 1: exclave.core.proxy.shadowsocks.ServerConfig.user:type_name -> exclave.core.common.protocol.User
 	5, // 2: exclave.core.proxy.shadowsocks.ServerConfig.network:type_name -> exclave.core.common.net.Network
-	6, // 3: exclave.core.proxy.shadowsocks.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	7, // 4: exclave.core.proxy.shadowsocks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	6, // 3: exclave.core.proxy.shadowsocks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proxy_shadowsocks_config_proto_init() }

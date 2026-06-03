@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
@@ -46,9 +45,8 @@ func TestSocksInboundConfig(t *testing.T) {
 						Ip: []byte{127, 0, 0, 1},
 					},
 				},
-				Timeout:        5,
-				UserLevel:      1,
-				PacketEncoding: packetaddr.PacketAddrType_Packet,
+				Timeout:   5,
+				UserLevel: 1,
 			},
 		},
 	})

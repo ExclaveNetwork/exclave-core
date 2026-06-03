@@ -14,8 +14,6 @@ type DispatcherI interface {
 	Dispatch(ctx context.Context, destination net.Destination, payload *buf.Buffer)
 }
 
-var DispatcherConnectionTerminationSignalReceiverMark = "DispatcherConnectionTerminationSignalReceiverMark"
-
 type DispatcherConnectionTerminationSignalReceiver interface {
 	io.Closer
 }

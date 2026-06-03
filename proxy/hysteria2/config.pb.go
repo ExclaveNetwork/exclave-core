@@ -1,7 +1,6 @@
 package hysteria2
 
 import (
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -99,10 +98,9 @@ func (x *ClientConfig) GetServer() []*protocol.ServerEndpoint {
 }
 
 type ServerConfig struct {
-	state          protoimpl.MessageState    `protogen:"open.v1"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,1,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServerConfig) Reset() {
@@ -135,25 +133,17 @@ func (*ServerConfig) Descriptor() ([]byte, []int) {
 	return file_proxy_hysteria2_config_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
-}
-
 var File_proxy_hysteria2_config_proto protoreflect.FileDescriptor
 
 const file_proxy_hysteria2_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproxy/hysteria2/config.proto\x12\x1cexclave.core.proxy.hysteria2\x1a\"common/net/packetaddr/config.proto\x1a!common/protocol/server_spec.proto\x1a common/protoext/extensions.proto\"\t\n" +
+	"\x1cproxy/hysteria2/config.proto\x12\x1cexclave.core.proxy.hysteria2\x1a!common/protocol/server_spec.proto\x1a common/protoext/extensions.proto\"\t\n" +
 	"\aAccount\"o\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server:\x19\x82\xb5\x18\x15\n" +
-	"\boutbound\x12\thysteria2\"~\n" +
-	"\fServerConfig\x12T\n" +
-	"\x0fpacket_encoding\x18\x01 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding:\x18\x82\xb5\x18\x14\n" +
-	"\ainbound\x12\thysteria2B\x94\x01\n" +
+	"\boutbound\x12\thysteria2\".\n" +
+	"\fServerConfig:\x18\x82\xb5\x18\x14\n" +
+	"\ainbound\x12\thysteria2J\x04\b\x01\x10\x02B\x94\x01\n" +
 	"6com.github.exclavenetwork.exclave.core.proxy.hysteria2P\x01Z9github.com/exclavenetwork/exclave-core/v5/proxy/hysteria2\xaa\x02\x1cExclave.Core.Proxy.Hysteria2b\x06proto3"
 
 var (
@@ -174,16 +164,14 @@ var file_proxy_hysteria2_config_proto_goTypes = []any{
 	(*ClientConfig)(nil),            // 1: exclave.core.proxy.hysteria2.ClientConfig
 	(*ServerConfig)(nil),            // 2: exclave.core.proxy.hysteria2.ServerConfig
 	(*protocol.ServerEndpoint)(nil), // 3: exclave.core.common.protocol.ServerEndpoint
-	(packetaddr.PacketAddrType)(0),  // 4: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_proxy_hysteria2_config_proto_depIdxs = []int32{
 	3, // 0: exclave.core.proxy.hysteria2.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
-	4, // 1: exclave.core.proxy.hysteria2.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proxy_hysteria2_config_proto_init() }

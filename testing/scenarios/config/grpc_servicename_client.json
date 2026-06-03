@@ -36,8 +36,7 @@
       "protocol": "socks",
       "settings": {
         "udpEnabled": false,
-        "address": "127.0.0.1",
-        "packetEncoding": "Packet"
+        "address": "127.0.0.1"
       },
       "port": 17794,
       "listen": "127.0.0.1"

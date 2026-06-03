@@ -2,7 +2,6 @@ package simplified
 
 import (
 	net "github.com/exclavenetwork/exclave-core/v5/common/net"
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -19,12 +18,11 @@ const (
 )
 
 type ServerConfig struct {
-	state          protoimpl.MessageState    `protogen:"open.v1"`
-	Address        *net.IPOrDomain           `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
-	UdpEnabled     bool                      `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Address       *net.IPOrDomain        `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	UdpEnabled    bool                   `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServerConfig) Reset() {
@@ -71,24 +69,16 @@ func (x *ServerConfig) GetUdpEnabled() bool {
 	return false
 }
 
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
-}
-
 var File_proxy_mixed_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_mixed_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	"#proxy/mixed/simplified/config.proto\x12#exclave.core.proxy.mixed.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\xda\x01\n" +
+	"#proxy/mixed/simplified/config.proto\x12#exclave.core.proxy.mixed.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\x8a\x01\n" +
 	"\fServerConfig\x12=\n" +
 	"\aaddress\x18\x03 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
 	"\vudp_enabled\x18\x04 \x01(\bR\n" +
-	"udpEnabled\x12T\n" +
-	"\x0fpacket_encoding\x18\a \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding:\x14\x82\xb5\x18\x10\n" +
-	"\ainbound\x12\x05mixedB\xa9\x01\n" +
+	"udpEnabled:\x14\x82\xb5\x18\x10\n" +
+	"\ainbound\x12\x05mixedJ\x04\b\a\x10\bB\xa9\x01\n" +
 	"=com.github.exclavenetwork.exclave.core.proxy.mixed.simplifiedP\x01Z@github.com/exclavenetwork/exclave-core/v5/proxy/mixed/simplified\xaa\x02#Exclave.Core.Proxy.Mixed.Simplifiedb\x06proto3"
 
 var (
@@ -105,18 +95,16 @@ func file_proxy_mixed_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_mixed_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_proxy_mixed_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),           // 0: exclave.core.proxy.mixed.simplified.ServerConfig
-	(*net.IPOrDomain)(nil),         // 1: exclave.core.common.net.IPOrDomain
-	(packetaddr.PacketAddrType)(0), // 2: exclave.core.net.packetaddr.PacketAddrType
+	(*ServerConfig)(nil),   // 0: exclave.core.proxy.mixed.simplified.ServerConfig
+	(*net.IPOrDomain)(nil), // 1: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_mixed_simplified_config_proto_depIdxs = []int32{
 	1, // 0: exclave.core.proxy.mixed.simplified.ServerConfig.address:type_name -> exclave.core.common.net.IPOrDomain
-	2, // 1: exclave.core.proxy.mixed.simplified.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proxy_mixed_simplified_config_proto_init() }

@@ -14,7 +14,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/errors"
 	"github.com/exclavenetwork/exclave-core/v5/common/log"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	udp_proto "github.com/exclavenetwork/exclave-core/v5/common/protocol/udp"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
@@ -36,10 +35,9 @@ func init() {
 
 // Server is an inbound connection handler that handles messages in trojan protocol.
 type Server struct {
-	policyManager  policy.Manager
-	validator      *Validator
-	fallbacks      map[string]map[string]map[string]*Fallback // or nil
-	packetEncoding packetaddr.PacketAddrType
+	policyManager policy.Manager
+	validator     *Validator
+	fallbacks     map[string]map[string]map[string]*Fallback // or nil
 }
 
 // NewServer creates a new trojan inbound handler.
@@ -58,9 +56,8 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 
 	v := core.MustFromContext(ctx)
 	server := &Server{
-		policyManager:  v.GetFeature(policy.ManagerType()).(policy.Manager),
-		validator:      validator,
-		packetEncoding: config.PacketEncoding,
+		policyManager: v.GetFeature(policy.ManagerType()).(policy.Manager),
+		validator:     validator,
 	}
 
 	if config.Fallbacks != nil {
@@ -238,15 +235,7 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 }
 
 func (s *Server) handleUDPPayload(ctx context.Context, clientReader *PacketReader, clientWriter *PacketWriter, dispatcher routing.Dispatcher) error {
-	udpDispatcherConstructor := udp.NewSplitDispatcher
-	switch s.packetEncoding {
-	case packetaddr.PacketAddrType_None:
-	case packetaddr.PacketAddrType_Packet:
-		packetAddrDispatcherFactory := udp.NewPacketAddrDispatcherCreator(ctx)
-		udpDispatcherConstructor = packetAddrDispatcherFactory.NewPacketAddrDispatcher
-	}
-
-	udpServer := udpDispatcherConstructor(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
+	udpServer := udp.NewSplitDispatcher(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
 		if err := clientWriter.WriteMultiBufferWithMetadata(buf.MultiBuffer{packet.Payload}, packet.Source); err != nil {
 			newError("failed to write response").Base(err).AtWarning().WriteToLog(session.ExportIDToError(ctx))
 		}

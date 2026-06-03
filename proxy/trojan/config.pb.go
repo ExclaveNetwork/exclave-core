@@ -1,7 +1,6 @@
 package trojan
 
 import (
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -190,12 +189,11 @@ func (x *ClientConfig) GetServer() []*protocol.ServerEndpoint {
 }
 
 type ServerConfig struct {
-	state          protoimpl.MessageState    `protogen:"open.v1"`
-	Users          []*protocol.User          `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
-	Fallbacks      []*Fallback               `protobuf:"bytes,3,rep,name=fallbacks,proto3" json:"fallbacks,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Users         []*protocol.User       `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Fallbacks     []*Fallback            `protobuf:"bytes,3,rep,name=fallbacks,proto3" json:"fallbacks,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServerConfig) Reset() {
@@ -242,18 +240,11 @@ func (x *ServerConfig) GetFallbacks() []*Fallback {
 	return nil
 }
 
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
-}
-
 var File_proxy_trojan_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trojan_config_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/trojan/config.proto\x12\x19exclave.core.proxy.trojan\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\x1a\"common/net/packetaddr/config.proto\"%\n" +
+	"\x19proxy/trojan/config.proto\x12\x19exclave.core.proxy.trojan\x1a\x1acommon/protocol/user.proto\x1a!common/protocol/server_spec.proto\"%\n" +
 	"\aAccount\x12\x1a\n" +
 	"\bpassword\x18\x01 \x01(\tR\bpassword\"\x82\x01\n" +
 	"\bFallback\x12\x12\n" +
@@ -264,11 +255,10 @@ const file_proxy_trojan_config_proto_rawDesc = "" +
 	"\x04xver\x18\x05 \x01(\x04R\x04xver\x12\x12\n" +
 	"\x04name\x18\x06 \x01(\tR\x04name\"T\n" +
 	"\fClientConfig\x12D\n" +
-	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\xe1\x01\n" +
+	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\x91\x01\n" +
 	"\fServerConfig\x128\n" +
 	"\x05users\x18\x01 \x03(\v2\".exclave.core.common.protocol.UserR\x05users\x12A\n" +
-	"\tfallbacks\x18\x03 \x03(\v2#.exclave.core.proxy.trojan.FallbackR\tfallbacks\x12T\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncodingB\x8b\x01\n" +
+	"\tfallbacks\x18\x03 \x03(\v2#.exclave.core.proxy.trojan.FallbackR\tfallbacksJ\x04\b\x04\x10\x05B\x8b\x01\n" +
 	"3com.github.exclavenetwork.exclave.core.proxy.trojanP\x01Z6github.com/exclavenetwork/exclave-core/v5/proxy/trojan\xaa\x02\x19Exclave.Core.Proxy.Trojanb\x06proto3"
 
 var (
@@ -291,18 +281,16 @@ var file_proxy_trojan_config_proto_goTypes = []any{
 	(*ServerConfig)(nil),            // 3: exclave.core.proxy.trojan.ServerConfig
 	(*protocol.ServerEndpoint)(nil), // 4: exclave.core.common.protocol.ServerEndpoint
 	(*protocol.User)(nil),           // 5: exclave.core.common.protocol.User
-	(packetaddr.PacketAddrType)(0),  // 6: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_proxy_trojan_config_proto_depIdxs = []int32{
 	4, // 0: exclave.core.proxy.trojan.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
 	5, // 1: exclave.core.proxy.trojan.ServerConfig.users:type_name -> exclave.core.common.protocol.User
 	1, // 2: exclave.core.proxy.trojan.ServerConfig.fallbacks:type_name -> exclave.core.proxy.trojan.Fallback
-	6, // 3: exclave.core.proxy.trojan.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_proxy_trojan_config_proto_init() }

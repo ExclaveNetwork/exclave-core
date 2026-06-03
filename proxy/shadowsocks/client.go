@@ -9,7 +9,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/net/uot"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
@@ -20,7 +19,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/proxy/sip003"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/udp"
 )
 
 // Client is a inbound handler for Shadowsocks protocol
@@ -195,30 +193,6 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 	if c.protocolPlugin != nil {
 		protocolConn = &sip003.ProtocolConn{}
 		c.protocolPlugin.ProtocolConn(protocolConn, iv)
-	}
-
-	if packetConn, err := packetaddr.ToPacketAddrConn(link, destination); err == nil {
-		requestDone := func() error {
-			protocolWriter := &UDPWriter{
-				Writer:  conn,
-				Request: request,
-				Plugin:  c.protocolPlugin,
-			}
-			return udp.CopyPacketConn(protocolWriter, packetConn, udp.UpdateActivity(timer))
-		}
-		responseDone := func() error {
-			protocolReader := &UDPReader{
-				Reader: conn,
-				User:   user,
-				Plugin: c.protocolPlugin,
-			}
-			return udp.CopyPacketConn(packetConn, protocolReader, udp.UpdateActivity(timer))
-		}
-		responseDoneAndCloseWriter := task.OnSuccess(responseDone, task.Close(link.Writer))
-		if err := task.Run(ctx, requestDone, responseDoneAndCloseWriter); err != nil {
-			return newError("connection ends").Base(err)
-		}
-		return nil
 	}
 
 	if request.Command == protocol.RequestCommandTCP {

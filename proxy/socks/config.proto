@@ -7,7 +7,6 @@ option java_package = "com.github.exclavenetwork.exclave.core.proxy.socks";
 option java_multiple_files = true;
 
 import "common/net/address.proto";
-import "common/net/packetaddr/config.proto";
 import "common/protocol/server_spec.proto";
 
 // Account represents a Socks account.
@@ -40,7 +39,7 @@ message ServerConfig {
   uint32 timeout = 5 [deprecated = true];
   uint32 user_level = 6;
 
-  exclave.core.net.packetaddr.PacketAddrType packet_encoding = 7;
+  reserved 7;
   bool defer_last_reply = 8;
 }
 

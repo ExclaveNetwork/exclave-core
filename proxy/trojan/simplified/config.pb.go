@@ -2,7 +2,6 @@ package simplified
 
 import (
 	net "github.com/exclavenetwork/exclave-core/v5/common/net"
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -19,11 +18,10 @@ const (
 )
 
 type ServerConfig struct {
-	state          protoimpl.MessageState    `protogen:"open.v1"`
-	Users          []string                  `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,2,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Users         []string               `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServerConfig) Reset() {
@@ -61,13 +59,6 @@ func (x *ServerConfig) GetUsers() []string {
 		return x.Users
 	}
 	return nil
-}
-
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
 }
 
 type ClientConfig struct {
@@ -134,11 +125,10 @@ var File_proxy_trojan_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trojan_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	"$proxy/trojan/simplified/config.proto\x12$exclave.core.proxy.trojan.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\"\x91\x01\n" +
+	"$proxy/trojan/simplified/config.proto\x12$exclave.core.proxy.trojan.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"A\n" +
 	"\fServerConfig\x12\x14\n" +
-	"\x05users\x18\x01 \x03(\tR\x05users\x12T\n" +
-	"\x0fpacket_encoding\x18\x02 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding:\x15\x82\xb5\x18\x11\n" +
-	"\ainbound\x12\x06trojan\"\x95\x01\n" +
+	"\x05users\x18\x01 \x03(\tR\x05users:\x15\x82\xb5\x18\x11\n" +
+	"\ainbound\x12\x06trojanJ\x04\b\x02\x10\x03\"\x95\x01\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1a\n" +
@@ -160,19 +150,17 @@ func file_proxy_trojan_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_trojan_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proxy_trojan_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),           // 0: exclave.core.proxy.trojan.simplified.ServerConfig
-	(*ClientConfig)(nil),           // 1: exclave.core.proxy.trojan.simplified.ClientConfig
-	(packetaddr.PacketAddrType)(0), // 2: exclave.core.net.packetaddr.PacketAddrType
-	(*net.IPOrDomain)(nil),         // 3: exclave.core.common.net.IPOrDomain
+	(*ServerConfig)(nil),   // 0: exclave.core.proxy.trojan.simplified.ServerConfig
+	(*ClientConfig)(nil),   // 1: exclave.core.proxy.trojan.simplified.ClientConfig
+	(*net.IPOrDomain)(nil), // 2: exclave.core.common.net.IPOrDomain
 }
 var file_proxy_trojan_simplified_config_proto_depIdxs = []int32{
-	2, // 0: exclave.core.proxy.trojan.simplified.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	3, // 1: exclave.core.proxy.trojan.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: exclave.core.proxy.trojan.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proxy_trojan_simplified_config_proto_init() }

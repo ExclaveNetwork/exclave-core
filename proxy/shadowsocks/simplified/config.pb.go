@@ -2,7 +2,6 @@ package simplified
 
 import (
 	net "github.com/exclavenetwork/exclave-core/v5/common/net"
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	_ "github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	shadowsocks "github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -20,15 +19,14 @@ const (
 )
 
 type ServerConfig struct {
-	state            protoimpl.MessageState    `protogen:"open.v1"`
-	Method           *CipherTypeWrapper        `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
-	Password         string                    `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Networks         *net.NetworkList          `protobuf:"bytes,3,opt,name=networks,proto3" json:"networks,omitempty"`
-	PacketEncoding   packetaddr.PacketAddrType `protobuf:"varint,4,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	Plugin           string                    `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
-	PluginOpts       string                    `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
-	PluginArgs       []string                  `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
-	PluginWorkingDir string                    `protobuf:"bytes,8,opt,name=plugin_working_dir,json=pluginWorkingDir,proto3" json:"plugin_working_dir,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Method           *CipherTypeWrapper     `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
+	Password         string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Networks         *net.NetworkList       `protobuf:"bytes,3,opt,name=networks,proto3" json:"networks,omitempty"`
+	Plugin           string                 `protobuf:"bytes,5,opt,name=plugin,proto3" json:"plugin,omitempty"`
+	PluginOpts       string                 `protobuf:"bytes,6,opt,name=plugin_opts,json=pluginOpts,proto3" json:"plugin_opts,omitempty"`
+	PluginArgs       []string               `protobuf:"bytes,7,rep,name=plugin_args,json=pluginArgs,proto3" json:"plugin_args,omitempty"`
+	PluginWorkingDir string                 `protobuf:"bytes,8,opt,name=plugin_working_dir,json=pluginWorkingDir,proto3" json:"plugin_working_dir,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -82,13 +80,6 @@ func (x *ServerConfig) GetNetworks() *net.NetworkList {
 		return x.Networks
 	}
 	return nil
-}
-
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
 }
 
 func (x *ServerConfig) GetPlugin() string {
@@ -283,19 +274,18 @@ var File_proxy_shadowsocks_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_shadowsocks_simplified_config_proto_rawDesc = "" +
 	"\n" +
-	")proxy/shadowsocks/simplified/config.proto\x12)exclave.core.proxy.shadowsocks.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a\"common/net/packetaddr/config.proto\x1a\x1eproxy/shadowsocks/config.proto\"\xbc\x03\n" +
+	")proxy/shadowsocks/simplified/config.proto\x12)exclave.core.proxy.shadowsocks.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a\x1eproxy/shadowsocks/config.proto\"\xec\x02\n" +
 	"\fServerConfig\x12T\n" +
 	"\x06method\x18\x01 \x01(\v2<.exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapperR\x06method\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12@\n" +
-	"\bnetworks\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListR\bnetworks\x12T\n" +
-	"\x0fpacket_encoding\x18\x04 \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12\x16\n" +
+	"\bnetworks\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListR\bnetworks\x12\x16\n" +
 	"\x06plugin\x18\x05 \x01(\tR\x06plugin\x12\x1f\n" +
 	"\vplugin_opts\x18\x06 \x01(\tR\n" +
 	"pluginOpts\x12\x1f\n" +
 	"\vplugin_args\x18\a \x03(\tR\n" +
 	"pluginArgs\x12,\n" +
 	"\x12plugin_working_dir\x18\b \x01(\tR\x10pluginWorkingDir:\x1a\x82\xb5\x18\x16\n" +
-	"\ainbound\x12\vshadowsocks\"\xd8\x03\n" +
+	"\ainbound\x12\vshadowsocksJ\x04\b\x04\x10\x05\"\xd8\x03\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12T\n" +
@@ -328,26 +318,24 @@ func file_proxy_shadowsocks_simplified_config_proto_rawDescGZIP() []byte {
 
 var file_proxy_shadowsocks_simplified_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proxy_shadowsocks_simplified_config_proto_goTypes = []any{
-	(*ServerConfig)(nil),           // 0: exclave.core.proxy.shadowsocks.simplified.ServerConfig
-	(*ClientConfig)(nil),           // 1: exclave.core.proxy.shadowsocks.simplified.ClientConfig
-	(*CipherTypeWrapper)(nil),      // 2: exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper
-	(*net.NetworkList)(nil),        // 3: exclave.core.common.net.NetworkList
-	(packetaddr.PacketAddrType)(0), // 4: exclave.core.net.packetaddr.PacketAddrType
-	(*net.IPOrDomain)(nil),         // 5: exclave.core.common.net.IPOrDomain
-	(shadowsocks.CipherType)(0),    // 6: exclave.core.proxy.shadowsocks.CipherType
+	(*ServerConfig)(nil),        // 0: exclave.core.proxy.shadowsocks.simplified.ServerConfig
+	(*ClientConfig)(nil),        // 1: exclave.core.proxy.shadowsocks.simplified.ClientConfig
+	(*CipherTypeWrapper)(nil),   // 2: exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper
+	(*net.NetworkList)(nil),     // 3: exclave.core.common.net.NetworkList
+	(*net.IPOrDomain)(nil),      // 4: exclave.core.common.net.IPOrDomain
+	(shadowsocks.CipherType)(0), // 5: exclave.core.proxy.shadowsocks.CipherType
 }
 var file_proxy_shadowsocks_simplified_config_proto_depIdxs = []int32{
 	2, // 0: exclave.core.proxy.shadowsocks.simplified.ServerConfig.method:type_name -> exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper
 	3, // 1: exclave.core.proxy.shadowsocks.simplified.ServerConfig.networks:type_name -> exclave.core.common.net.NetworkList
-	4, // 2: exclave.core.proxy.shadowsocks.simplified.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	5, // 3: exclave.core.proxy.shadowsocks.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
-	2, // 4: exclave.core.proxy.shadowsocks.simplified.ClientConfig.method:type_name -> exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper
-	6, // 5: exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper.value:type_name -> exclave.core.proxy.shadowsocks.CipherType
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	4, // 2: exclave.core.proxy.shadowsocks.simplified.ClientConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	2, // 3: exclave.core.proxy.shadowsocks.simplified.ClientConfig.method:type_name -> exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper
+	5, // 4: exclave.core.proxy.shadowsocks.simplified.CipherTypeWrapper.value:type_name -> exclave.core.proxy.shadowsocks.CipherType
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_proxy_shadowsocks_simplified_config_proto_init() }

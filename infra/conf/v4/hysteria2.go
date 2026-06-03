@@ -3,7 +3,6 @@ package v4
 import (
 	"github.com/golang/protobuf/proto"
 
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
@@ -62,17 +61,10 @@ func (c *Hysteria2ClientConfig) Build() (proto.Message, error) {
 
 // Hysteria2ServerConfig is Inbound configuration
 type Hysteria2ServerConfig struct {
-	PacketEncoding string `json:"packetEncoding"`
 }
 
 // Build implements Buildable
 func (c *Hysteria2ServerConfig) Build() (proto.Message, error) {
 	config := new(hysteria2.ServerConfig)
-	switch c.PacketEncoding {
-	case "Packet":
-		config.PacketEncoding = packetaddr.PacketAddrType_Packet
-	case "", "None":
-		config.PacketEncoding = packetaddr.PacketAddrType_None
-	}
 	return config, nil
 }

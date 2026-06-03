@@ -2,7 +2,6 @@ package socks
 
 import (
 	net "github.com/exclavenetwork/exclave-core/v5/common/net"
-	packetaddr "github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	protocol "github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -177,10 +176,9 @@ type ServerConfig struct {
 	Address    *net.IPOrDomain        `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 	UdpEnabled bool                   `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
 	// Deprecated: Marked as deprecated in proxy/socks/config.proto.
-	Timeout        uint32                    `protobuf:"varint,5,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	UserLevel      uint32                    `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
-	PacketEncoding packetaddr.PacketAddrType `protobuf:"varint,7,opt,name=packet_encoding,json=packetEncoding,proto3,enum=exclave.core.net.packetaddr.PacketAddrType" json:"packet_encoding,omitempty"`
-	DeferLastReply bool                      `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
+	Timeout        uint32 `protobuf:"varint,5,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	UserLevel      uint32 `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	DeferLastReply bool   `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -256,13 +254,6 @@ func (x *ServerConfig) GetUserLevel() uint32 {
 		return x.UserLevel
 	}
 	return 0
-}
-
-func (x *ServerConfig) GetPacketEncoding() packetaddr.PacketAddrType {
-	if x != nil {
-		return x.PacketEncoding
-	}
-	return packetaddr.PacketAddrType(0)
 }
 
 func (x *ServerConfig) GetDeferLastReply() bool {
@@ -346,10 +337,10 @@ var File_proxy_socks_config_proto protoreflect.FileDescriptor
 
 const file_proxy_socks_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/socks/config.proto\x12\x18exclave.core.proxy.socks\x1a\x18common/net/address.proto\x1a\"common/net/packetaddr/config.proto\x1a!common/protocol/server_spec.proto\"A\n" +
+	"\x18proxy/socks/config.proto\x12\x18exclave.core.proxy.socks\x1a\x18common/net/address.proto\x1a!common/protocol/server_spec.proto\"A\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xfb\x03\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xab\x03\n" +
 	"\fServerConfig\x12?\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\".exclave.core.proxy.socks.AuthTypeR\bauthType\x12P\n" +
 	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.socks.ServerConfig.AccountsEntryR\baccounts\x12=\n" +
@@ -358,12 +349,11 @@ const file_proxy_socks_config_proto_rawDesc = "" +
 	"udpEnabled\x12\x1c\n" +
 	"\atimeout\x18\x05 \x01(\rB\x02\x18\x01R\atimeout\x12\x1d\n" +
 	"\n" +
-	"user_level\x18\x06 \x01(\rR\tuserLevel\x12T\n" +
-	"\x0fpacket_encoding\x18\a \x01(\x0e2+.exclave.core.net.packetaddr.PacketAddrTypeR\x0epacketEncoding\x12(\n" +
+	"user_level\x18\x06 \x01(\rR\tuserLevel\x12(\n" +
 	"\x10defer_last_reply\x18\b \x01(\bR\x0edeferLastReply\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xcd\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\a\x10\b\"\xcd\x01\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x12;\n" +
 	"\aversion\x18\x02 \x01(\x0e2!.exclave.core.proxy.socks.VersionR\aversion\x12(\n" +
@@ -402,21 +392,19 @@ var file_proxy_socks_config_proto_goTypes = []any{
 	(*ClientConfig)(nil),            // 4: exclave.core.proxy.socks.ClientConfig
 	nil,                             // 5: exclave.core.proxy.socks.ServerConfig.AccountsEntry
 	(*net.IPOrDomain)(nil),          // 6: exclave.core.common.net.IPOrDomain
-	(packetaddr.PacketAddrType)(0),  // 7: exclave.core.net.packetaddr.PacketAddrType
-	(*protocol.ServerEndpoint)(nil), // 8: exclave.core.common.protocol.ServerEndpoint
+	(*protocol.ServerEndpoint)(nil), // 7: exclave.core.common.protocol.ServerEndpoint
 }
 var file_proxy_socks_config_proto_depIdxs = []int32{
 	0, // 0: exclave.core.proxy.socks.ServerConfig.auth_type:type_name -> exclave.core.proxy.socks.AuthType
 	5, // 1: exclave.core.proxy.socks.ServerConfig.accounts:type_name -> exclave.core.proxy.socks.ServerConfig.AccountsEntry
 	6, // 2: exclave.core.proxy.socks.ServerConfig.address:type_name -> exclave.core.common.net.IPOrDomain
-	7, // 3: exclave.core.proxy.socks.ServerConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	8, // 4: exclave.core.proxy.socks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
-	1, // 5: exclave.core.proxy.socks.ClientConfig.version:type_name -> exclave.core.proxy.socks.Version
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	7, // 3: exclave.core.proxy.socks.ClientConfig.server:type_name -> exclave.core.common.protocol.ServerEndpoint
+	1, // 4: exclave.core.proxy.socks.ClientConfig.version:type_name -> exclave.core.proxy.socks.Version
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_proxy_socks_config_proto_init() }

@@ -11,7 +11,6 @@ import (
 	"github.com/golang/protobuf/proto"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
-	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
@@ -90,10 +89,9 @@ type TrojanUserConfig struct {
 
 // TrojanServerConfig is Inbound configuration
 type TrojanServerConfig struct {
-	Clients        []*TrojanUserConfig      `json:"clients"`
-	Fallback       json.RawMessage          `json:"fallback"`
-	Fallbacks      []*TrojanInboundFallback `json:"fallbacks"`
-	PacketEncoding string                   `json:"packetEncoding"`
+	Clients   []*TrojanUserConfig      `json:"clients"`
+	Fallback  json.RawMessage          `json:"fallback"`
+	Fallbacks []*TrojanInboundFallback `json:"fallbacks"`
 }
 
 // Build implements Buildable
@@ -166,13 +164,6 @@ func (c *TrojanServerConfig) Build() (proto.Message, error) {
 		if fb.Xver > 2 {
 			return nil, newError(`Trojan fallbacks: invalid PROXY protocol version, "xver" only accepts 0, 1, 2`)
 		}
-	}
-
-	switch strings.ToLower(c.PacketEncoding) {
-	case "packet":
-		config.PacketEncoding = packetaddr.PacketAddrType_Packet
-	case "", "none":
-		config.PacketEncoding = packetaddr.PacketAddrType_None
 	}
 
 	return config, nil

@@ -43,7 +43,6 @@ func init() {
 				}),
 			},
 			Network:          simplifiedServer.Networks.GetNetwork(),
-			PacketEncoding:   simplifiedServer.PacketEncoding,
 			Plugin:           simplifiedServer.Plugin,
 			PluginOpts:       simplifiedServer.PluginOpts,
 			PluginArgs:       simplifiedServer.PluginArgs,
