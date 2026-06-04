@@ -65,7 +65,6 @@ import (
 	_ "github.com/exclavenetwork/exclave-core/v5/proxy/hysteria2"
 	_ "github.com/exclavenetwork/exclave-core/v5/proxy/juicity"
 	_ "github.com/exclavenetwork/exclave-core/v5/proxy/mieru"
-	_ "github.com/exclavenetwork/exclave-core/v5/proxy/shadowsocks2022"
 	_ "github.com/exclavenetwork/exclave-core/v5/proxy/tuic"
 	_ "github.com/exclavenetwork/exclave-core/v5/proxy/wireguard"
 

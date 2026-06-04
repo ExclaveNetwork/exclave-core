@@ -19,7 +19,6 @@ require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/metacubex/utls v1.8.4
 	github.com/miekg/dns v1.1.72
-	github.com/pion/transport/v4 v4.0.2
 	github.com/pires/go-proxyproto v0.12.0
 	github.com/quic-go/quic-go v0.59.1
 	github.com/refraction-networking/utls v1.8.3-0.20260301010127-aa6edf4b11af
@@ -67,7 +66,7 @@ require (
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
 	golang.org/x/mod v0.35.0 // indirect
 	golang.org/x/text v0.37.0 // indirect
-	golang.org/x/time v0.14.0 // indirect
+	golang.org/x/time v0.7.0 // indirect
 	golang.org/x/tools v0.44.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260226221140-a57be14db171 // indirect
