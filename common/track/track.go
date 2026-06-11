@@ -4,7 +4,6 @@ import (
 	"container/list"
 	"sync"
 	"time"
-	// "github.com/exclavenetwork/exclave-core/v5/common"
 )
 
 type ConnectionPool struct {
