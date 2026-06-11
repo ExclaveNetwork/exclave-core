@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package exclave.core.app.stats.command;
+package v2ray.core.app.stats.command;
 option csharp_namespace = "Exclave.Core.App.Stats.Command";
 option go_package = "github.com/exclavenetwork/exclave-core/v5/app/stats/command";
 option java_package = "com.github.exclavenetwork.exclave.core.app.stats.command";
