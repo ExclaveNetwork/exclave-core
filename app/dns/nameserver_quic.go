@@ -44,7 +44,9 @@ type QUICNameServer struct {
 	name        string
 	destination net.Destination
 	connection  *quic.Conn
+	connCreate  sync.Mutex
 	dispatcher  routing.Dispatcher
+	closed      bool
 
 	connectionPool          *track.ConnectionPool
 	interfaceUpdateCallback *list.Element
@@ -123,6 +125,7 @@ func (s *QUICNameServer) interfaceUpdate() {
 
 func (s *QUICNameServer) Close() error {
 	s.Lock()
+	s.closed = true
 	s.cleanup.Close()
 	s.pub.Close()
 	if s.connection != nil {
@@ -488,36 +491,32 @@ func isActive(s *quic.Conn) bool {
 }
 
 func (s *QUICNameServer) getConnection(ctx context.Context) (*quic.Conn, error) {
-	var conn *quic.Conn
-	s.RLock()
-	conn = s.connection
-	if conn != nil && isActive(conn) {
-		s.RUnlock()
-		return conn, nil
-	}
-	if conn != nil {
-		// we're recreating the connection, let's create a new one
-		_ = conn.CloseWithError(0, "")
-	}
-	s.RUnlock()
+	s.connCreate.Lock()
+	defer s.connCreate.Unlock()
 
 	s.Lock()
-	defer s.Unlock()
-
-	var err error
-	conn, err = s.openConnection(ctx)
-	if err != nil {
-		// This does not look too nice, but QUIC (or maybe quic-go)
-		// doesn't seem stable enough.
-		// Maybe retransmissions aren't fully implemented in quic-go?
-		// Anyways, the simple solution is to make a second try when
-		// it fails to open the QUIC connection.
-		conn, err = s.openConnection(ctx)
-		if err != nil {
-			return nil, err
+	if s.connection != nil {
+		if isActive(s.connection) && !s.closed {
+			defer s.Unlock()
+			return s.connection, nil
 		}
+		_ = s.connection.CloseWithError(0, "")
+		s.connection = nil
+	}
+	s.Unlock()
+
+	conn, err := s.openConnection(ctx)
+	if err != nil {
+		return nil, err
+	}
+	s.Lock()
+	if s.closed {
+		_ = conn.CloseWithError(0, "")
+		s.Unlock()
+		return nil, err
 	}
 	s.connection = conn
+	s.Unlock()
 	return conn, nil
 }
 
