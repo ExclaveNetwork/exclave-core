@@ -33,8 +33,6 @@ type Outbound struct {
 	minIdleSession           int64
 	client                   *anytls.Client
 	clientAccess             sync.Mutex
-	create                   sync.Mutex
-	closed                   bool
 }
 
 func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
@@ -53,11 +51,6 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 }
 
 func (o *Outbound) getClient(dialer internet.Dialer) (*anytls.Client, error) {
-	o.create.Lock()
-	defer o.create.Unlock()
-	if o.closed {
-		return nil, newError("closed")
-	}
 	o.clientAccess.Lock()
 	if o.client != nil {
 		defer o.clientAccess.Unlock()
@@ -128,16 +121,10 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 }
 
 func (o *Outbound) InterfaceUpdate() {
-	o.clientAccess.Lock()
-	if o.client != nil {
-		o.client.Close()
-		o.client = nil
-	}
-	o.clientAccess.Unlock()
+	_ = o.Close()
 }
 
 func (o *Outbound) Close() error {
-	o.closed = true
 	o.clientAccess.Lock()
 	if o.client != nil {
 		o.client.Close()

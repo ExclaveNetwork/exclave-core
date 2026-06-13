@@ -35,8 +35,6 @@ type Outbound struct {
 	options      juicity.ClientOptions
 	client       *juicity.Client
 	clientAccess sync.Mutex
-	create       sync.Mutex
-	closed       bool
 }
 
 func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
@@ -63,11 +61,6 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 }
 
 func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*juicity.Client, error) {
-	o.create.Lock()
-	defer o.create.Unlock()
-	if o.closed {
-		return nil, newError("closed")
-	}
 	o.clientAccess.Lock()
 	if o.client != nil {
 		defer o.clientAccess.Unlock()
@@ -156,16 +149,10 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 }
 
 func (o *Outbound) InterfaceUpdate() {
-	o.clientAccess.Lock()
-	client := o.client
-	o.clientAccess.Unlock()
-	if client != nil {
-		_ = client.CloseWithError(newError("network changed"))
-	}
+	_ = o.Close()
 }
 
 func (o *Outbound) Close() error {
-	o.closed = true
 	o.clientAccess.Lock()
 	client := o.client
 	o.clientAccess.Unlock()
