@@ -58,7 +58,6 @@ var (
 		"loopback":         func() interface{} { return new(LoopbackConfig) },
 		"shadowsocks-2022": func() interface{} { return new(Shadowsocks2022ClientConfig) },
 		"wireguard":        func() interface{} { return new(WireGuardClientConfig) },
-		"shadowtls":        func() interface{} { return new(ShadowTLSClientConfig) },
 		"anytls":           func() interface{} { return new(AnyTLSClientConfig) },
 		"tuic":             func() interface{} { return new(TuicClientConfig) },
 		"juicity":          func() interface{} { return new(JuicityClientConfig) },
