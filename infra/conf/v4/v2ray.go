@@ -316,7 +316,6 @@ type Config struct {
 	Policy            *PolicyConfig            `json:"policy"`
 	API               *APIConfig               `json:"api"`
 	Stats             *StatsConfig             `json:"stats"`
-	Reverse           *ReverseConfig           `json:"reverse"`
 	FakeDNS           *dns.FakeDNSConfig       `json:"fakeDns"`
 	BrowserForwarder  *BrowserForwarderConfig  `json:"browserForwarder"`
 	BrowserDialer     *BrowserDialerConfig     `json:"browserDialer"`
@@ -401,14 +400,6 @@ func (c *Config) Build() (*core.Config, error) {
 			return nil, err
 		}
 		config.App = append(config.App, serial.ToTypedMessage(pc))
-	}
-
-	if c.Reverse != nil {
-		r, err := c.Reverse.Build()
-		if err != nil {
-			return nil, err
-		}
-		config.App = append(config.App, serial.ToTypedMessage(r))
 	}
 
 	if c.BrowserForwarder != nil {
