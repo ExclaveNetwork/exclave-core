@@ -357,7 +357,6 @@ type Config struct {
 	DNSConfig         *dns.DNSConfig           `json:"dns"`
 	InboundConfigs    []InboundDetourConfig    `json:"inbounds"`
 	OutboundConfigs   []OutboundDetourConfig   `json:"outbounds"`
-	Transport         *TransportConfig         `json:"transport"`
 	Policy            *PolicyConfig            `json:"policy"`
 	API               *APIConfig               `json:"api"`
 	Stats             *StatsConfig             `json:"stats"`
@@ -393,24 +392,6 @@ func (c *Config) findOutboundTag(tag string) int {
 		}
 	}
 	return found
-}
-
-func applyTransportConfig(s *StreamConfig, t *TransportConfig) {
-	if s.TCPSettings == nil {
-		s.TCPSettings = t.TCPConfig
-	}
-	if s.KCPSettings == nil {
-		s.KCPSettings = t.KCPConfig
-	}
-	if s.WSSettings == nil {
-		s.WSSettings = t.WSConfig
-	}
-	if s.HTTPSettings == nil {
-		s.HTTPSettings = t.HTTPConfig
-	}
-	if s.DSSettings == nil {
-		s.DSSettings = t.DSConfig
-	}
 }
 
 // Build implements Buildable.
@@ -567,12 +548,6 @@ func (c *Config) Build() (*core.Config, error) {
 	}
 
 	for _, rawInboundConfig := range inbounds {
-		if c.Transport != nil {
-			if rawInboundConfig.StreamSetting == nil {
-				rawInboundConfig.StreamSetting = &StreamConfig{}
-			}
-			applyTransportConfig(rawInboundConfig.StreamSetting, c.Transport)
-		}
 		ic, err := rawInboundConfig.Build()
 		if err != nil {
 			return nil, err
@@ -595,12 +570,6 @@ func (c *Config) Build() (*core.Config, error) {
 	}
 
 	for _, rawOutboundConfig := range outbounds {
-		if c.Transport != nil {
-			if rawOutboundConfig.StreamSetting == nil {
-				rawOutboundConfig.StreamSetting = &StreamConfig{}
-			}
-			applyTransportConfig(rawOutboundConfig.StreamSetting, c.Transport)
-		}
 		oc, err := rawOutboundConfig.Build()
 		if err != nil {
 			return nil, err

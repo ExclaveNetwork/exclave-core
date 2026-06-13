@@ -7,7 +7,6 @@ option java_package = "com.github.exclavenetwork.exclave.core";
 option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
-import "transport/global/config.proto";
 
 // Config is the master config of V2Ray. V2Ray takes this config as input and
 // functions accordingly.
@@ -26,10 +25,7 @@ message Config {
   // through common.RegisterConfig.
   repeated google.protobuf.Any app = 4;
 
-  // Transport settings.
-  // Deprecated. Each inbound and outbound should choose their own transport
-  // config. Date to remove: 2020-01-13
-  exclave.core.transport.global.Config transport = 5 [deprecated = true];
+  reserved 5;
 
   // Configuration for extensions. The config may not work if corresponding
   // extension is not loaded into V2Ray. V2Ray will ignore such config during

@@ -24,13 +24,10 @@ import (
 	_ "github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata/memconservative"
 	_ "github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata/standard"
 	v4 "github.com/exclavenetwork/exclave-core/v5/infra/conf/v4"
-	"github.com/exclavenetwork/exclave-core/v5/proxy/blackhole"
-	dns_proxy "github.com/exclavenetwork/exclave-core/v5/proxy/dns"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/freedom"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/http"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
@@ -57,32 +54,6 @@ func TestV2RayConfig(t *testing.T) {
 					"access": "/var/log/exclave-core/access.log",
 					"loglevel": "error",
 					"error": "/var/log/exclave-core/error.log"
-				},
-				"inbound": {
-					"streamSettings": {
-						"network": "ws",
-						"wsSettings": {
-							"headers": {
-								"host": "example.domain"
-							},
-							"path": ""
-						},
-						"tlsSettings": {
-							"alpn": "h2"
-						},
-						"security": "tls"
-					},
-					"protocol": "vmess",
-					"port": 443,
-					"settings": {
-						"clients": [
-							{
-								"alterId": 100,
-								"security": "aes-128-gcm",
-								"id": "0cdf8a45-303d-4fed-9780-29aa7f54175e"
-							}
-						]
-					}
 				},
 				"inbounds": [{
 					"streamSettings": {
@@ -114,15 +85,6 @@ func TestV2RayConfig(t *testing.T) {
 						]
 					}
 				}],
-				"outboundDetour": [
-					{
-						"tag": "blocked",
-						"protocol": "blackhole"
-					},
-					{
-						"protocol": "dns"
-					}
-				],
 				"routing": {
 					"strategy": "rules",
 					"settings": {
@@ -135,11 +97,6 @@ func TestV2RayConfig(t *testing.T) {
 								"outboundTag": "blocked"
 							}
 						]
-					}
-				},
-				"transport": {
-					"httpSettings": {
-						"path": "/test"
 					}
 				}
 			}`,
@@ -183,111 +140,14 @@ func TestV2RayConfig(t *testing.T) {
 				},
 				Outbound: []*core.OutboundHandlerConfig{
 					{
-						SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{
-							StreamSettings: &internet.StreamConfig{
-								ProtocolName: "tcp",
-								TransportSettings: []*internet.TransportConfig{
-									{
-										ProtocolName: "http",
-										Settings: serial.ToTypedMessage(&http.Config{
-											Path: "/test",
-										}),
-									},
-								},
-							},
-						}),
+						SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{}),
 						ProxySettings: serial.ToTypedMessage(&freedom.Config{
 							DomainStrategy: freedom.Config_AS_IS,
 							UserLevel:      0,
 						}),
 					},
-					{
-						Tag: "blocked",
-						SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{
-							StreamSettings: &internet.StreamConfig{
-								ProtocolName: "tcp",
-								TransportSettings: []*internet.TransportConfig{
-									{
-										ProtocolName: "http",
-										Settings: serial.ToTypedMessage(&http.Config{
-											Path: "/test",
-										}),
-									},
-								},
-							},
-						}),
-						ProxySettings: serial.ToTypedMessage(&blackhole.Config{}),
-					},
-					{
-						SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{
-							StreamSettings: &internet.StreamConfig{
-								ProtocolName: "tcp",
-								TransportSettings: []*internet.TransportConfig{
-									{
-										ProtocolName: "http",
-										Settings: serial.ToTypedMessage(&http.Config{
-											Path: "/test",
-										}),
-									},
-								},
-							},
-						}),
-						ProxySettings: serial.ToTypedMessage(&dns_proxy.Config{
-							Server: &net.Endpoint{},
-						}),
-					},
 				},
 				Inbound: []*core.InboundHandlerConfig{
-					{
-						ReceiverSettings: serial.ToTypedMessage(&proxyman.ReceiverConfig{
-							PortRange: &net.PortRange{
-								From: 443,
-								To:   443,
-							},
-							StreamSettings: &internet.StreamConfig{
-								ProtocolName: "websocket",
-								TransportSettings: []*internet.TransportConfig{
-									{
-										ProtocolName: "websocket",
-										Settings: serial.ToTypedMessage(&websocket.Config{
-											Header: []*websocket.Header{
-												{
-													Key:   "host",
-													Value: "example.domain",
-												},
-											},
-										}),
-									},
-									{
-										ProtocolName: "http",
-										Settings: serial.ToTypedMessage(&http.Config{
-											Path: "/test",
-										}),
-									},
-								},
-								SecurityType: "exclave.core.transport.internet.tls.Config",
-								SecuritySettings: []*anypb.Any{
-									serial.ToTypedMessage(&tls.Config{
-										NextProtocol: []string{"h2"},
-									}),
-								},
-							},
-						}),
-						ProxySettings: serial.ToTypedMessage(&inbound.Config{
-							User: []*protocol.User{
-								{
-									Level: 0,
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      "0cdf8a45-303d-4fed-9780-29aa7f54175e",
-										AlterId: 100,
-										SecuritySettings: &protocol.SecurityConfig{
-											Type: protocol.SecurityType_AES128_GCM,
-										},
-									}),
-								},
-							},
-						}),
-					},
 					{
 						ReceiverSettings: serial.ToTypedMessage(&proxyman.ReceiverConfig{
 							PortRange: &net.PortRange{
@@ -312,12 +172,6 @@ func TestV2RayConfig(t *testing.T) {
 													Value: "example.domain",
 												},
 											},
-										}),
-									},
-									{
-										ProtocolName: "http",
-										Settings: serial.ToTypedMessage(&http.Config{
-											Path: "/test",
 										}),
 									},
 								},

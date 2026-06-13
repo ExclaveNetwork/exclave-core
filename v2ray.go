@@ -207,13 +207,6 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 		debug.FreeOSMemory()
 	}()
 
-	if config.Transport != nil {
-		features.PrintDeprecatedFeatureWarning("global transport settings")
-	}
-	if err := config.Transport.Apply(); err != nil {
-		return true, err
-	}
-
 	defaultNetworkImpl := systemnetworkimpl.NewSystemNetworkDefault()
 	defaultFilesystemImpl := filesystemimpl.NewDefaultFileSystemDefaultImpl()
 	deferredPersistentStorageImpl := deferredpersistentstorage.NewDeferredPersistentStorage(server.ctx)
