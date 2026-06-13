@@ -3,10 +3,8 @@ package dns
 import (
 	"strings"
 
-	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/strmatcher"
-	"github.com/exclavenetwork/exclave-core/v5/features"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 )
 
@@ -17,28 +15,11 @@ type StaticHosts struct {
 }
 
 // NewStaticHosts creates a new StaticHosts instance.
-func NewStaticHosts(hosts []*HostMapping, legacy map[string]*net.IPOrDomain) (*StaticHosts, error) {
+func NewStaticHosts(hosts []*HostMapping) (*StaticHosts, error) {
 	g := new(strmatcher.LinearIndexMatcher)
 	sh := &StaticHosts{
-		ips:      make([][]net.Address, len(hosts)+len(legacy)+16),
+		ips:      make([][]net.Address, len(hosts)+16),
 		matchers: g,
-	}
-
-	if legacy != nil {
-		features.PrintDeprecatedFeatureWarning("simple host mapping")
-
-		for domain, ip := range legacy {
-			matcher, err := strmatcher.Full.New(domain)
-			common.Must(err)
-			id := g.Add(matcher)
-
-			address := ip.AsAddress()
-			if address.Family().IsDomain() {
-				return nil, newError("invalid domain address in static hosts: ", address.Domain()).AtWarning()
-			}
-
-			sh.ips[id] = []net.Address{address}
-		}
 	}
 
 	for _, mapping := range hosts {

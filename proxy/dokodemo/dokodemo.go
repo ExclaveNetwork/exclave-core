@@ -5,7 +5,6 @@ package dokodemo
 import (
 	"context"
 	"sync/atomic"
-	"time"
 
 	core "github.com/exclavenetwork/exclave-core/v5"
 	"github.com/exclavenetwork/exclave-core/v5/common"
@@ -53,7 +52,7 @@ type Door struct {
 
 // Init initializes the Door instance with necessary parameters.
 func (d *Door) Init(config *Config, pm policy.Manager, sockopt *session.Sockopt) error {
-	if (config.NetworkList == nil || len(config.NetworkList.Network) == 0) && len(config.Networks) == 0 {
+	if len(config.Networks) == 0 {
 		return newError("no network specified")
 	}
 	d.config = config
@@ -67,20 +66,11 @@ func (d *Door) Init(config *Config, pm policy.Manager, sockopt *session.Sockopt)
 
 // Network implements proxy.Inbound.
 func (d *Door) Network() []net.Network {
-	if len(d.config.Networks) > 0 {
-		return d.config.Networks
-	}
-
-	return d.config.NetworkList.GetNetwork()
+	return d.config.Networks
 }
 
 func (d *Door) policy() policy.Session {
-	config := d.config
-	p := d.policyManager.ForLevel(config.UserLevel)
-	if config.Timeout > 0 && config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(config.Timeout) * time.Second
-	}
-	return p
+	return d.policyManager.ForLevel(d.config.UserLevel)
 }
 
 type hasHandshakeAddress interface {

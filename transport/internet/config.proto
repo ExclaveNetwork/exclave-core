@@ -8,19 +8,8 @@ option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
 
-enum TransportProtocol {
-  TCP = 0;
-  UDP = 1;
-  MKCP = 2;
-  WebSocket = 3;
-  HTTP = 4;
-  DomainSocket = 5;
-}
-
 message TransportConfig {
-  // Type of network that this settings supports.
-  // Deprecated. Use the string form below.
-  TransportProtocol protocol = 1 [ deprecated = true ];
+  reserved 1;
 
   // Type of network that this settings supports.
   string protocol_name = 3;
@@ -30,8 +19,7 @@ message TransportConfig {
 }
 
 message StreamConfig {
-  // Effective network. Deprecated. Use the string form below.
-  TransportProtocol protocol = 1 [ deprecated = true ];
+  reserved 1;
 
   // Effective network.
   string protocol_name = 5;

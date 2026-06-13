@@ -136,33 +136,15 @@ type RoutingRule struct {
 	TargetTag isRoutingRule_TargetTag `protobuf_oneof:"target_tag"`
 	// List of domains for target domain matching.
 	Domain []*routercommon.Domain `protobuf:"bytes,2,rep,name=domain,proto3" json:"domain,omitempty"`
-	// List of CIDRs for target IP address matching.
-	// Deprecated. Use geoip below.
-	//
-	// Deprecated: Marked as deprecated in app/router/config.proto.
-	Cidr []*routercommon.CIDR `protobuf:"bytes,3,rep,name=cidr,proto3" json:"cidr,omitempty"`
 	// List of GeoIPs for target IP address matching. If this entry exists, the
 	// cidr above will have no effect. GeoIP fields with the same country code are
 	// supposed to contain exactly same content. They will be merged during
 	// runtime. For customized GeoIPs, please leave country code empty.
 	Geoip []*routercommon.GeoIP `protobuf:"bytes,10,rep,name=geoip,proto3" json:"geoip,omitempty"`
-	// A range of port [from, to]. If the destination port is in this range, this
-	// rule takes effect. Deprecated. Use port_list.
-	//
-	// Deprecated: Marked as deprecated in app/router/config.proto.
-	PortRange *net.PortRange `protobuf:"bytes,4,opt,name=port_range,json=portRange,proto3" json:"port_range,omitempty"`
 	// List of ports.
 	PortList *net.PortList `protobuf:"bytes,14,opt,name=port_list,json=portList,proto3" json:"port_list,omitempty"`
-	// List of networks. Deprecated. Use networks.
-	//
-	// Deprecated: Marked as deprecated in app/router/config.proto.
-	NetworkList *net.NetworkList `protobuf:"bytes,5,opt,name=network_list,json=networkList,proto3" json:"network_list,omitempty"`
 	// List of networks for matching.
 	Networks []net.Network `protobuf:"varint,13,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
-	// List of CIDRs for source IP address matching.
-	//
-	// Deprecated: Marked as deprecated in app/router/config.proto.
-	SourceCidr []*routercommon.CIDR `protobuf:"bytes,6,rep,name=source_cidr,json=sourceCidr,proto3" json:"source_cidr,omitempty"`
 	// List of GeoIPs for source IP address matching. If this entry exists, the
 	// source_cidr above will have no effect.
 	SourceGeoip []*routercommon.GeoIP `protobuf:"bytes,11,rep,name=source_geoip,json=sourceGeoip,proto3" json:"source_geoip,omitempty"`
@@ -246,25 +228,9 @@ func (x *RoutingRule) GetDomain() []*routercommon.Domain {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in app/router/config.proto.
-func (x *RoutingRule) GetCidr() []*routercommon.CIDR {
-	if x != nil {
-		return x.Cidr
-	}
-	return nil
-}
-
 func (x *RoutingRule) GetGeoip() []*routercommon.GeoIP {
 	if x != nil {
 		return x.Geoip
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in app/router/config.proto.
-func (x *RoutingRule) GetPortRange() *net.PortRange {
-	if x != nil {
-		return x.PortRange
 	}
 	return nil
 }
@@ -276,25 +242,9 @@ func (x *RoutingRule) GetPortList() *net.PortList {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in app/router/config.proto.
-func (x *RoutingRule) GetNetworkList() *net.NetworkList {
-	if x != nil {
-		return x.NetworkList
-	}
-	return nil
-}
-
 func (x *RoutingRule) GetNetworks() []net.Network {
 	if x != nil {
 		return x.Networks
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in app/router/config.proto.
-func (x *RoutingRule) GetSourceCidr() []*routercommon.CIDR {
-	if x != nil {
-		return x.SourceCidr
 	}
 	return nil
 }
@@ -1139,21 +1089,15 @@ const file_app_router_config_proto_rawDesc = "" +
 	"\x17app/router/config.proto\x12\x17exclave.core.app.router\x1a\x19google/protobuf/any.proto\x1a\x15common/net/port.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\x1a$app/router/routercommon/common.proto\"6\n" +
 	"\fSetAttribute\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\"\xcc\t\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"\xbb\a\n" +
 	"\vRoutingRule\x12\x12\n" +
 	"\x03tag\x18\x01 \x01(\tH\x00R\x03tag\x12%\n" +
 	"\rbalancing_tag\x18\f \x01(\tH\x00R\fbalancingTag\x12D\n" +
-	"\x06domain\x18\x02 \x03(\v2,.exclave.core.app.router.routercommon.DomainR\x06domain\x12B\n" +
-	"\x04cidr\x18\x03 \x03(\v2*.exclave.core.app.router.routercommon.CIDRB\x02\x18\x01R\x04cidr\x12A\n" +
+	"\x06domain\x18\x02 \x03(\v2,.exclave.core.app.router.routercommon.DomainR\x06domain\x12A\n" +
 	"\x05geoip\x18\n" +
-	" \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12E\n" +
-	"\n" +
-	"port_range\x18\x04 \x01(\v2\".exclave.core.common.net.PortRangeB\x02\x18\x01R\tportRange\x12>\n" +
-	"\tport_list\x18\x0e \x01(\v2!.exclave.core.common.net.PortListR\bportList\x12K\n" +
-	"\fnetwork_list\x18\x05 \x01(\v2$.exclave.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12<\n" +
-	"\bnetworks\x18\r \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12O\n" +
-	"\vsource_cidr\x18\x06 \x03(\v2*.exclave.core.app.router.routercommon.CIDRB\x02\x18\x01R\n" +
-	"sourceCidr\x12N\n" +
+	" \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\x05geoip\x12>\n" +
+	"\tport_list\x18\x0e \x01(\v2!.exclave.core.common.net.PortListR\bportList\x12<\n" +
+	"\bnetworks\x18\r \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12N\n" +
 	"\fsource_geoip\x18\v \x03(\v2+.exclave.core.app.router.routercommon.GeoIPR\vsourceGeoip\x12K\n" +
 	"\x10source_port_list\x18\x10 \x01(\v2!.exclave.core.common.net.PortListR\x0esourcePortList\x12\x1d\n" +
 	"\n" +
@@ -1174,7 +1118,7 @@ const file_app_router_config_proto_rawDesc = "" +
 	"\n" +
 	"geo_domain\x18\xa1\x93\x04 \x03(\v2-.exclave.core.app.router.routercommon.GeoSiteR\tgeoDomainB\f\n" +
 	"\n" +
-	"target_tag\"\xd0\x01\n" +
+	"target_tagJ\x04\b\x03\x10\x04J\x04\b\x04\x10\x05J\x04\b\x05\x10\x06J\x04\b\x06\x10\a\"\xd0\x01\n" +
 	"\rBalancingRule\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12+\n" +
 	"\x11outbound_selector\x18\x02 \x03(\tR\x10outboundSelector\x12\x1a\n" +
@@ -1279,47 +1223,41 @@ var file_app_router_config_proto_goTypes = []any{
 	(*SimplifiedRoutingRule)(nil),   // 10: exclave.core.app.router.SimplifiedRoutingRule
 	(*SimplifiedConfig)(nil),        // 11: exclave.core.app.router.SimplifiedConfig
 	(*routercommon.Domain)(nil),     // 12: exclave.core.app.router.routercommon.Domain
-	(*routercommon.CIDR)(nil),       // 13: exclave.core.app.router.routercommon.CIDR
-	(*routercommon.GeoIP)(nil),      // 14: exclave.core.app.router.routercommon.GeoIP
-	(*net.PortRange)(nil),           // 15: exclave.core.common.net.PortRange
-	(*net.PortList)(nil),            // 16: exclave.core.common.net.PortList
-	(*net.NetworkList)(nil),         // 17: exclave.core.common.net.NetworkList
-	(net.Network)(0),                // 18: exclave.core.common.net.Network
-	(*routercommon.GeoSite)(nil),    // 19: exclave.core.app.router.routercommon.GeoSite
-	(*anypb.Any)(nil),               // 20: google.protobuf.Any
+	(*routercommon.GeoIP)(nil),      // 13: exclave.core.app.router.routercommon.GeoIP
+	(*net.PortList)(nil),            // 14: exclave.core.common.net.PortList
+	(net.Network)(0),                // 15: exclave.core.common.net.Network
+	(*routercommon.GeoSite)(nil),    // 16: exclave.core.app.router.routercommon.GeoSite
+	(*anypb.Any)(nil),               // 17: google.protobuf.Any
+	(*net.NetworkList)(nil),         // 18: exclave.core.common.net.NetworkList
 }
 var file_app_router_config_proto_depIdxs = []int32{
 	12, // 0: exclave.core.app.router.RoutingRule.domain:type_name -> exclave.core.app.router.routercommon.Domain
-	13, // 1: exclave.core.app.router.RoutingRule.cidr:type_name -> exclave.core.app.router.routercommon.CIDR
-	14, // 2: exclave.core.app.router.RoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
-	15, // 3: exclave.core.app.router.RoutingRule.port_range:type_name -> exclave.core.common.net.PortRange
-	16, // 4: exclave.core.app.router.RoutingRule.port_list:type_name -> exclave.core.common.net.PortList
-	17, // 5: exclave.core.app.router.RoutingRule.network_list:type_name -> exclave.core.common.net.NetworkList
-	18, // 6: exclave.core.app.router.RoutingRule.networks:type_name -> exclave.core.common.net.Network
-	13, // 7: exclave.core.app.router.RoutingRule.source_cidr:type_name -> exclave.core.app.router.routercommon.CIDR
-	14, // 8: exclave.core.app.router.RoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
-	16, // 9: exclave.core.app.router.RoutingRule.source_port_list:type_name -> exclave.core.common.net.PortList
-	1,  // 10: exclave.core.app.router.RoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
-	19, // 11: exclave.core.app.router.RoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
-	20, // 12: exclave.core.app.router.BalancingRule.strategy_settings:type_name -> google.protobuf.Any
-	4,  // 13: exclave.core.app.router.StrategyLeastLoadConfig.costs:type_name -> exclave.core.app.router.StrategyWeight
-	0,  // 14: exclave.core.app.router.Config.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
-	2,  // 15: exclave.core.app.router.Config.rule:type_name -> exclave.core.app.router.RoutingRule
-	3,  // 16: exclave.core.app.router.Config.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
-	12, // 17: exclave.core.app.router.SimplifiedRoutingRule.domain:type_name -> exclave.core.app.router.routercommon.Domain
-	14, // 18: exclave.core.app.router.SimplifiedRoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
-	17, // 19: exclave.core.app.router.SimplifiedRoutingRule.networks:type_name -> exclave.core.common.net.NetworkList
-	14, // 20: exclave.core.app.router.SimplifiedRoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
-	1,  // 21: exclave.core.app.router.SimplifiedRoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
-	19, // 22: exclave.core.app.router.SimplifiedRoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
-	0,  // 23: exclave.core.app.router.SimplifiedConfig.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
-	10, // 24: exclave.core.app.router.SimplifiedConfig.rule:type_name -> exclave.core.app.router.SimplifiedRoutingRule
-	3,  // 25: exclave.core.app.router.SimplifiedConfig.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
-	26, // [26:26] is the sub-list for method output_type
-	26, // [26:26] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	13, // 1: exclave.core.app.router.RoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	14, // 2: exclave.core.app.router.RoutingRule.port_list:type_name -> exclave.core.common.net.PortList
+	15, // 3: exclave.core.app.router.RoutingRule.networks:type_name -> exclave.core.common.net.Network
+	13, // 4: exclave.core.app.router.RoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	14, // 5: exclave.core.app.router.RoutingRule.source_port_list:type_name -> exclave.core.common.net.PortList
+	1,  // 6: exclave.core.app.router.RoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
+	16, // 7: exclave.core.app.router.RoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	17, // 8: exclave.core.app.router.BalancingRule.strategy_settings:type_name -> google.protobuf.Any
+	4,  // 9: exclave.core.app.router.StrategyLeastLoadConfig.costs:type_name -> exclave.core.app.router.StrategyWeight
+	0,  // 10: exclave.core.app.router.Config.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
+	2,  // 11: exclave.core.app.router.Config.rule:type_name -> exclave.core.app.router.RoutingRule
+	3,  // 12: exclave.core.app.router.Config.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
+	12, // 13: exclave.core.app.router.SimplifiedRoutingRule.domain:type_name -> exclave.core.app.router.routercommon.Domain
+	13, // 14: exclave.core.app.router.SimplifiedRoutingRule.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	18, // 15: exclave.core.app.router.SimplifiedRoutingRule.networks:type_name -> exclave.core.common.net.NetworkList
+	13, // 16: exclave.core.app.router.SimplifiedRoutingRule.source_geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	1,  // 17: exclave.core.app.router.SimplifiedRoutingRule.set_attribute:type_name -> exclave.core.app.router.SetAttribute
+	16, // 18: exclave.core.app.router.SimplifiedRoutingRule.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	0,  // 19: exclave.core.app.router.SimplifiedConfig.domain_strategy:type_name -> exclave.core.app.router.DomainStrategy
+	10, // 20: exclave.core.app.router.SimplifiedConfig.rule:type_name -> exclave.core.app.router.SimplifiedRoutingRule
+	3,  // 21: exclave.core.app.router.SimplifiedConfig.balancing_rule:type_name -> exclave.core.app.router.BalancingRule
+	22, // [22:22] is the sub-list for method output_type
+	22, // [22:22] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_app_router_config_proto_init() }

@@ -46,9 +46,7 @@ enum CipherType {
 }
 
 message ServerConfig {
-  // UdpEnabled specified whether or not to enable UDP for Shadowsocks.
-  // Deprecated. Use 'network' field.
-  bool udp_enabled = 1 [deprecated = true];
+  reserved 1;
   exclave.core.common.protocol.User user = 2;
   repeated exclave.core.common.net.Network network = 3;
   reserved 4;

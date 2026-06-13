@@ -34,7 +34,6 @@ type SocksServerConfig struct {
 	Accounts       []*SocksAccount    `json:"accounts"`
 	UDP            bool               `json:"udp"`
 	Host           *cfgcommon.Address `json:"ip"`
-	Timeout        uint32             `json:"timeout"`
 	UserLevel      uint32             `json:"userLevel"`
 	DeferLastReply bool               `json:"deferLastReply"`
 }
@@ -63,7 +62,6 @@ func (v *SocksServerConfig) Build() (proto.Message, error) {
 		config.Address = v.Host.Build()
 	}
 
-	config.Timeout = v.Timeout
 	config.UserLevel = v.UserLevel
 
 	config.DeferLastReply = v.DeferLastReply

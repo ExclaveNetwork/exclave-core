@@ -44,12 +44,7 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 }
 
 func (s *Server) policy() policy.Session {
-	config := s.config
-	p := s.policyManager.ForLevel(config.UserLevel)
-	if config.Timeout > 0 && config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(config.Timeout) * time.Second
-	}
-	return p
+	return s.policyManager.ForLevel(s.config.UserLevel)
 }
 
 // Network implements proxy.Inbound.

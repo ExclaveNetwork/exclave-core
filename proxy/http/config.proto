@@ -16,7 +16,7 @@ message Account {
 
 // Config for HTTP proxy server.
 message ServerConfig {
-  uint32 timeout = 1 [deprecated = true];
+  reserved 1;
   map<string, string> accounts = 2;
   bool allow_transparent = 3;
   uint32 user_level = 4;

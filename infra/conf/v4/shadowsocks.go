@@ -23,7 +23,6 @@ type ShadowsocksUserConfig struct {
 type ShadowsocksServerConfig struct {
 	Cipher           string                   `json:"method"`
 	Password         string                   `json:"password"`
-	UDP              bool                     `json:"udp"`
 	Level            byte                     `json:"level"`
 	Email            string                   `json:"email"`
 	NetworkList      *cfgcommon.NetworkList   `json:"network"`
@@ -97,7 +96,6 @@ func (v *ShadowsocksServerConfig) Build() (proto.Message, error) {
 	}
 
 	config := new(shadowsocks.ServerConfig)
-	config.UdpEnabled = v.UDP
 	config.Network = v.NetworkList.Build()
 
 	account := &shadowsocks.Account{

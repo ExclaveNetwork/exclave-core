@@ -31,7 +31,6 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 	httpServer, err := http.NewServer(
 		ctx,
 		&http.ServerConfig{
-			Timeout:          config.Timeout,
 			Accounts:         config.Accounts,
 			AllowTransparent: config.AllowTransparent,
 			UserLevel:        config.UserLevel,
@@ -51,7 +50,6 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 			Accounts:       config.Accounts,
 			Address:        config.Address,
 			UdpEnabled:     config.UdpEnabled,
-			Timeout:        config.Timeout,
 			UserLevel:      config.UserLevel,
 			DeferLastReply: config.DeferLastReply,
 		})

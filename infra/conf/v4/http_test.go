@@ -34,7 +34,6 @@ func TestHTTPServerConfig(t *testing.T) {
 				},
 				AllowTransparent: true,
 				UserLevel:        1,
-				Timeout:          10,
 			},
 		},
 	})

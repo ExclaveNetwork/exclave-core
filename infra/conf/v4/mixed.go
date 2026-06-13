@@ -24,7 +24,6 @@ type MixedServerConfig struct {
 	Accounts       []*MixedAccount    `json:"accounts"`
 	UDP            bool               `json:"udp"`
 	Host           *cfgcommon.Address `json:"ip"`
-	Timeout        uint32             `json:"timeout"`
 	UserLevel      uint32             `json:"userLevel"`
 	Transparent    bool               `json:"allowTransparent"`
 	DeferLastReply bool               `json:"deferLastReply"`
@@ -52,7 +51,6 @@ func (v *MixedServerConfig) Build() (proto.Message, error) {
 	if v.Host != nil {
 		config.Address = v.Host.Build()
 	}
-	config.Timeout = v.Timeout
 	config.UserLevel = v.UserLevel
 	config.AllowTransparent = v.Transparent
 

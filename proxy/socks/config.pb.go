@@ -170,15 +170,13 @@ func (x *Account) GetPassword() string {
 
 // ServerConfig is the protobuf config for Socks server.
 type ServerConfig struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	AuthType   AuthType               `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.socks.AuthType" json:"auth_type,omitempty"`
-	Accounts   map[string]string      `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Address    *net.IPOrDomain        `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
-	UdpEnabled bool                   `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
-	// Deprecated: Marked as deprecated in proxy/socks/config.proto.
-	Timeout        uint32 `protobuf:"varint,5,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	UserLevel      uint32 `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
-	DeferLastReply bool   `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	AuthType       AuthType               `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.socks.AuthType" json:"auth_type,omitempty"`
+	Accounts       map[string]string      `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Address        *net.IPOrDomain        `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	UdpEnabled     bool                   `protobuf:"varint,4,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
+	UserLevel      uint32                 `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	DeferLastReply bool                   `protobuf:"varint,8,opt,name=defer_last_reply,json=deferLastReply,proto3" json:"defer_last_reply,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -239,14 +237,6 @@ func (x *ServerConfig) GetUdpEnabled() bool {
 		return x.UdpEnabled
 	}
 	return false
-}
-
-// Deprecated: Marked as deprecated in proxy/socks/config.proto.
-func (x *ServerConfig) GetTimeout() uint32 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
 }
 
 func (x *ServerConfig) GetUserLevel() uint32 {
@@ -340,20 +330,19 @@ const file_proxy_socks_config_proto_rawDesc = "" +
 	"\x18proxy/socks/config.proto\x12\x18exclave.core.proxy.socks\x1a\x18common/net/address.proto\x1a!common/protocol/server_spec.proto\"A\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xab\x03\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\x93\x03\n" +
 	"\fServerConfig\x12?\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\".exclave.core.proxy.socks.AuthTypeR\bauthType\x12P\n" +
 	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.socks.ServerConfig.AccountsEntryR\baccounts\x12=\n" +
 	"\aaddress\x18\x03 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x1f\n" +
 	"\vudp_enabled\x18\x04 \x01(\bR\n" +
-	"udpEnabled\x12\x1c\n" +
-	"\atimeout\x18\x05 \x01(\rB\x02\x18\x01R\atimeout\x12\x1d\n" +
+	"udpEnabled\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x06 \x01(\rR\tuserLevel\x12(\n" +
 	"\x10defer_last_reply\x18\b \x01(\bR\x0edeferLastReply\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\a\x10\b\"\xcd\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\x05\x10\x06J\x04\b\a\x10\b\"\xcd\x01\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x12;\n" +
 	"\aversion\x18\x02 \x01(\x0e2!.exclave.core.proxy.socks.VersionR\aversion\x12(\n" +

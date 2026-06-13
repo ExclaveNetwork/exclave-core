@@ -5,7 +5,6 @@ package freedom
 import (
 	"context"
 	"sync"
-	"time"
 
 	core "github.com/exclavenetwork/exclave-core/v5"
 	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
@@ -64,11 +63,7 @@ func (h *Handler) Init(config *Config, pm policy.Manager, d dns.Client) error {
 }
 
 func (h *Handler) policy() policy.Session {
-	p := h.policyManager.ForLevel(h.config.UserLevel)
-	if h.config.Timeout > 0 && h.config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(h.config.Timeout) * time.Second
-	}
-	return p
+	return h.policyManager.ForLevel(h.config.UserLevel)
 }
 
 func (h *Handler) resolveIP(ctx context.Context, domain string, localAddr net.Address) net.Address {

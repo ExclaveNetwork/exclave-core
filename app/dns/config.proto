@@ -6,7 +6,6 @@ option go_package = "github.com/exclavenetwork/exclave-core/v5/app/dns";
 option java_package = "com.github.exclavenetwork.exclave.core.app.dns";
 option java_multiple_files = true;
 
-import "common/net/address.proto";
 import "common/net/destination.proto";
 import "app/router/routercommon/common.proto";
 import "app/dns/fakedns/fakedns.proto";
@@ -78,17 +77,12 @@ message HostMapping {
 }
 
 message Config {
-  // Nameservers used by this DNS. Only traditional UDP servers are support at
-  // the moment. A special value 'localhost' as a domain address can be set to
-  // use DNS on local system.
-  repeated exclave.core.common.net.Endpoint NameServers = 1 [deprecated = true];
+  reserved 1;
 
   // NameServer list used by this DNS client.
   repeated NameServer name_server = 5;
 
-  // Static hosts. Domain to IP.
-  // Deprecated. Use static_hosts.
-  map<string, exclave.core.common.net.IPOrDomain> Hosts = 2 [deprecated = true];
+  reserved 2;
 
   // Client IP for EDNS client subnet. Must be 4 bytes (IPv4) or 16 bytes
   // (IPv6).

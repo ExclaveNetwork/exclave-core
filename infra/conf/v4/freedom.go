@@ -12,10 +12,9 @@ import (
 )
 
 type FreedomConfig struct {
-	DomainStrategy string  `json:"domainStrategy"`
-	Timeout        *uint32 `json:"timeout"`
-	Redirect       string  `json:"redirect"`
-	UserLevel      uint32  `json:"userLevel"`
+	DomainStrategy string `json:"domainStrategy"`
+	Redirect       string `json:"redirect"`
+	UserLevel      uint32 `json:"userLevel"`
 	// SagerNet private
 	InterruptConnections bool `json:"interruptConnections"`
 }
@@ -37,9 +36,6 @@ func (c *FreedomConfig) Build() (proto.Message, error) {
 		config.DomainStrategy = freedom.Config_PREFER_IP6
 	}
 
-	if c.Timeout != nil {
-		config.Timeout = *c.Timeout
-	}
 	config.UserLevel = c.UserLevel
 	if len(c.Redirect) > 0 {
 		host, portStr, err := net.SplitHostPort(c.Redirect)

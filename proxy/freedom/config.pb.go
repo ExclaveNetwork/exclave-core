@@ -120,12 +120,10 @@ func (x *DestinationOverride) GetServer() *protocol.ServerEndpoint {
 }
 
 type Config struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	DomainStrategy Config_DomainStrategy  `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.freedom.Config_DomainStrategy" json:"domain_strategy,omitempty"`
-	// Deprecated: Marked as deprecated in proxy/freedom/config.proto.
-	Timeout             uint32               `protobuf:"varint,2,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	DestinationOverride *DestinationOverride `protobuf:"bytes,3,opt,name=destination_override,json=destinationOverride,proto3" json:"destination_override,omitempty"`
-	UserLevel           uint32               `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	DomainStrategy      Config_DomainStrategy  `protobuf:"varint,1,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.freedom.Config_DomainStrategy" json:"domain_strategy,omitempty"`
+	DestinationOverride *DestinationOverride   `protobuf:"bytes,3,opt,name=destination_override,json=destinationOverride,proto3" json:"destination_override,omitempty"`
+	UserLevel           uint32                 `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
 	// SagerNet private
 	InterruptConnections bool `protobuf:"varint,1000,opt,name=interrupt_connections,json=interruptConnections,proto3" json:"interrupt_connections,omitempty"`
 	unknownFields        protoimpl.UnknownFields
@@ -167,14 +165,6 @@ func (x *Config) GetDomainStrategy() Config_DomainStrategy {
 		return x.DomainStrategy
 	}
 	return Config_AS_IS
-}
-
-// Deprecated: Marked as deprecated in proxy/freedom/config.proto.
-func (x *Config) GetTimeout() uint32 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
 }
 
 func (x *Config) GetDestinationOverride() *DestinationOverride {
@@ -257,10 +247,9 @@ const file_proxy_freedom_config_proto_rawDesc = "" +
 	"\n" +
 	"\x1aproxy/freedom/config.proto\x12\x1aexclave.core.proxy.freedom\x1a!common/protocol/server_spec.proto\x1a common/protoext/extensions.proto\"[\n" +
 	"\x13DestinationOverride\x12D\n" +
-	"\x06server\x18\x01 \x01(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\x9e\x03\n" +
+	"\x06server\x18\x01 \x01(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\"\x86\x03\n" +
 	"\x06Config\x12Z\n" +
-	"\x0fdomain_strategy\x18\x01 \x01(\x0e21.exclave.core.proxy.freedom.Config.DomainStrategyR\x0edomainStrategy\x12\x1c\n" +
-	"\atimeout\x18\x02 \x01(\rB\x02\x18\x01R\atimeout\x12b\n" +
+	"\x0fdomain_strategy\x18\x01 \x01(\x0e21.exclave.core.proxy.freedom.Config.DomainStrategyR\x0edomainStrategy\x12b\n" +
 	"\x14destination_override\x18\x03 \x01(\v2/.exclave.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x124\n" +
@@ -274,7 +263,7 @@ const file_proxy_freedom_config_proto_rawDesc = "" +
 	"\n" +
 	"PREFER_IP4\x10\x04\x12\x0e\n" +
 	"\n" +
-	"PREFER_IP6\x10\x05\"\xc5\x01\n" +
+	"PREFER_IP6\x10\x05J\x04\b\x02\x10\x03\"\xc5\x01\n" +
 	"\x10SimplifiedConfig\x12b\n" +
 	"\x14destination_override\x18\x03 \x01(\v2/.exclave.core.proxy.freedom.DestinationOverrideR\x13destinationOverride\x124\n" +
 	"\x15interrupt_connections\x18\xe8\a \x01(\bR\x14interruptConnections:\x17\x82\xb5\x18\x13\n" +

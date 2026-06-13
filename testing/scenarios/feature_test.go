@@ -2,9 +2,6 @@ package scenarios
 
 import (
 	"context"
-	"io"
-	"net/http"
-	"net/url"
 	"testing"
 	"time"
 
@@ -27,7 +24,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/proxy/blackhole"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/dokodemo"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/freedom"
-	v2http "github.com/exclavenetwork/exclave-core/v5/proxy/http"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/socks"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vmess/inbound"
@@ -55,11 +51,9 @@ func TestPassiveConnection(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -165,11 +159,9 @@ func TestProxy(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -243,7 +235,7 @@ func TestProxyOverKCP(t *testing.T) {
 					PortRange: net.SinglePortRange(serverPort),
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 					StreamSettings: &internet.StreamConfig{
-						Protocol: internet.TransportProtocol_MKCP,
+						ProtocolName: "mkcp",
 					},
 				}),
 				ProxySettings: serial.ToTypedMessage(&inbound.Config{
@@ -289,7 +281,7 @@ func TestProxyOverKCP(t *testing.T) {
 				ProxySettings: serial.ToTypedMessage(&freedom.Config{}),
 				SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{
 					StreamSettings: &internet.StreamConfig{
-						Protocol: internet.TransportProtocol_MKCP,
+						ProtocolName: "mkcp",
 					},
 				}),
 			},
@@ -305,11 +297,9 @@ func TestProxyOverKCP(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -335,7 +325,7 @@ func TestProxyOverKCP(t *testing.T) {
 						Tag: "proxy",
 					},
 					StreamSettings: &internet.StreamConfig{
-						Protocol: internet.TransportProtocol_MKCP,
+						ProtocolName: "mkcp",
 					},
 				}),
 			},
@@ -394,11 +384,9 @@ func TestBlackhole(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 			{
@@ -407,11 +395,9 @@ func TestBlackhole(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest2.Address),
-					Port:    uint32(dest2.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest2.Address),
+					Port:     uint32(dest2.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -432,7 +418,9 @@ func TestBlackhole(t *testing.T) {
 						TargetTag: &router.RoutingRule_Tag{
 							Tag: "blocked",
 						},
-						PortRange: net.SinglePortRange(dest2.Port),
+						PortList: &net.PortList{
+							Range: []*net.PortRange{net.SinglePortRange(dest2.Port)},
+						},
 					},
 				},
 			}),
@@ -522,11 +510,9 @@ func TestUDPConnection(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_UDP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_UDP},
 				}),
 			},
 		},
@@ -549,101 +535,6 @@ func TestUDPConnection(t *testing.T) {
 
 	if err := testUDPConn(clientPort, 1024, time.Second*5)(); err != nil {
 		t.Error(err)
-	}
-}
-
-func TestDomainSniffing(t *testing.T) {
-	sniffingPort := tcp.PickPort()
-	httpPort := tcp.PickPort()
-	serverConfig := &core.Config{
-		Inbound: []*core.InboundHandlerConfig{
-			{
-				Tag: "snif",
-				ReceiverSettings: serial.ToTypedMessage(&proxyman.ReceiverConfig{
-					PortRange: net.SinglePortRange(sniffingPort),
-					Listen:    net.NewIPOrDomain(net.LocalHostIP),
-					DomainOverride: []proxyman.KnownProtocols{
-						proxyman.KnownProtocols_TLS,
-					},
-				}),
-				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(net.LocalHostIP),
-					Port:    443,
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
-				}),
-			},
-			{
-				Tag: "http",
-				ReceiverSettings: serial.ToTypedMessage(&proxyman.ReceiverConfig{
-					PortRange: net.SinglePortRange(httpPort),
-					Listen:    net.NewIPOrDomain(net.LocalHostIP),
-				}),
-				ProxySettings: serial.ToTypedMessage(&v2http.ServerConfig{}),
-			},
-		},
-		Outbound: []*core.OutboundHandlerConfig{
-			{
-				Tag: "redir",
-				ProxySettings: serial.ToTypedMessage(&freedom.Config{
-					DestinationOverride: &freedom.DestinationOverride{
-						Server: &protocol.ServerEndpoint{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(sniffingPort),
-						},
-					},
-				}),
-			},
-			{
-				Tag:           "direct",
-				ProxySettings: serial.ToTypedMessage(&freedom.Config{}),
-			},
-		},
-		App: []*anypb.Any{
-			serial.ToTypedMessage(&router.Config{
-				Rule: []*router.RoutingRule{
-					{
-						TargetTag: &router.RoutingRule_Tag{
-							Tag: "direct",
-						},
-						InboundTag: []string{"snif"},
-					}, {
-						TargetTag: &router.RoutingRule_Tag{
-							Tag: "redir",
-						},
-						InboundTag: []string{"http"},
-					},
-				},
-			}),
-			serial.ToTypedMessage(&log.Config{
-				Error: &log.LogSpecification{Level: clog.Severity_Debug, Type: log.LogType_Console},
-			}),
-		},
-	}
-
-	servers, err := InitializeServerConfigs(serverConfig)
-	common.Must(err)
-	defer CloseAllServers(servers)
-
-	{
-		transport := &http.Transport{
-			Proxy: func(req *http.Request) (*url.URL, error) {
-				return url.Parse("http://127.0.0.1:" + httpPort.String())
-			},
-		}
-
-		client := &http.Client{
-			Transport: transport,
-		}
-
-		resp, err := client.Get("https://www.github.com/")
-		common.Must(err)
-		defer resp.Body.Close()
-		if resp.StatusCode != 200 {
-			t.Error("unexpected status code: ", resp.StatusCode)
-		}
-		common.Must(resp.Write(io.Discard))
 	}
 }
 

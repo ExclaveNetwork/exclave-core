@@ -19,52 +19,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type KnownProtocols int32
-
-const (
-	KnownProtocols_HTTP KnownProtocols = 0
-	KnownProtocols_TLS  KnownProtocols = 1
-)
-
-// Enum value maps for KnownProtocols.
-var (
-	KnownProtocols_name = map[int32]string{
-		0: "HTTP",
-		1: "TLS",
-	}
-	KnownProtocols_value = map[string]int32{
-		"HTTP": 0,
-		"TLS":  1,
-	}
-)
-
-func (x KnownProtocols) Enum() *KnownProtocols {
-	p := new(KnownProtocols)
-	*p = x
-	return p
-}
-
-func (x KnownProtocols) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (KnownProtocols) Descriptor() protoreflect.EnumDescriptor {
-	return file_app_proxyman_config_proto_enumTypes[0].Descriptor()
-}
-
-func (KnownProtocols) Type() protoreflect.EnumType {
-	return &file_app_proxyman_config_proto_enumTypes[0]
-}
-
-func (x KnownProtocols) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use KnownProtocols.Descriptor instead.
-func (KnownProtocols) EnumDescriptor() ([]byte, []int) {
-	return file_app_proxyman_config_proto_rawDescGZIP(), []int{0}
-}
-
 type AllocationStrategy_Type int32
 
 const (
@@ -101,11 +55,11 @@ func (x AllocationStrategy_Type) String() string {
 }
 
 func (AllocationStrategy_Type) Descriptor() protoreflect.EnumDescriptor {
-	return file_app_proxyman_config_proto_enumTypes[1].Descriptor()
+	return file_app_proxyman_config_proto_enumTypes[0].Descriptor()
 }
 
 func (AllocationStrategy_Type) Type() protoreflect.EnumType {
-	return &file_app_proxyman_config_proto_enumTypes[1]
+	return &file_app_proxyman_config_proto_enumTypes[0]
 }
 
 func (x AllocationStrategy_Type) Number() protoreflect.EnumNumber {
@@ -159,11 +113,11 @@ func (x SenderConfig_DomainStrategy) String() string {
 }
 
 func (SenderConfig_DomainStrategy) Descriptor() protoreflect.EnumDescriptor {
-	return file_app_proxyman_config_proto_enumTypes[2].Descriptor()
+	return file_app_proxyman_config_proto_enumTypes[1].Descriptor()
 }
 
 func (SenderConfig_DomainStrategy) Type() protoreflect.EnumType {
-	return &file_app_proxyman_config_proto_enumTypes[2]
+	return &file_app_proxyman_config_proto_enumTypes[1]
 }
 
 func (x SenderConfig_DomainStrategy) Number() protoreflect.EnumNumber {
@@ -357,14 +311,9 @@ type ReceiverConfig struct {
 	AllocationStrategy         *AllocationStrategy    `protobuf:"bytes,3,opt,name=allocation_strategy,json=allocationStrategy,proto3" json:"allocation_strategy,omitempty"`
 	StreamSettings             *internet.StreamConfig `protobuf:"bytes,4,opt,name=stream_settings,json=streamSettings,proto3" json:"stream_settings,omitempty"`
 	ReceiveOriginalDestination bool                   `protobuf:"varint,5,opt,name=receive_original_destination,json=receiveOriginalDestination,proto3" json:"receive_original_destination,omitempty"`
-	// Override domains for the given protocol.
-	// Deprecated. Use sniffing_settings.
-	//
-	// Deprecated: Marked as deprecated in app/proxyman/config.proto.
-	DomainOverride   []KnownProtocols `protobuf:"varint,7,rep,packed,name=domain_override,json=domainOverride,proto3,enum=exclave.core.app.proxyman.KnownProtocols" json:"domain_override,omitempty"`
-	SniffingSettings *SniffingConfig  `protobuf:"bytes,8,opt,name=sniffing_settings,json=sniffingSettings,proto3" json:"sniffing_settings,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	SniffingSettings           *SniffingConfig        `protobuf:"bytes,8,opt,name=sniffing_settings,json=sniffingSettings,proto3" json:"sniffing_settings,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *ReceiverConfig) Reset() {
@@ -430,14 +379,6 @@ func (x *ReceiverConfig) GetReceiveOriginalDestination() bool {
 		return x.ReceiveOriginalDestination
 	}
 	return false
-}
-
-// Deprecated: Marked as deprecated in app/proxyman/config.proto.
-func (x *ReceiverConfig) GetDomainOverride() []KnownProtocols {
-	if x != nil {
-		return x.DomainOverride
-	}
-	return nil
 }
 
 func (x *ReceiverConfig) GetSniffingSettings() *SniffingConfig {
@@ -895,7 +836,7 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"\x14destination_override\x18\x02 \x03(\tR\x13destinationOverride\x12#\n" +
 	"\rmetadata_only\x18\x03 \x01(\bR\fmetadataOnly\x12\x1d\n" +
 	"\n" +
-	"route_only\x18\x04 \x01(\bR\trouteOnly\"\xc0\x04\n" +
+	"route_only\x18\x04 \x01(\bR\trouteOnly\"\xee\x03\n" +
 	"\x0eReceiverConfig\x12A\n" +
 	"\n" +
 	"port_range\x18\x01 \x01(\v2\".exclave.core.common.net.PortRangeR\tportRange\x12;\n" +
@@ -903,8 +844,7 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"\x13allocation_strategy\x18\x03 \x01(\v2-.exclave.core.app.proxyman.AllocationStrategyR\x12allocationStrategy\x12V\n" +
 	"\x0fstream_settings\x18\x04 \x01(\v2-.exclave.core.transport.internet.StreamConfigR\x0estreamSettings\x12@\n" +
 	"\x1creceive_original_destination\x18\x05 \x01(\bR\x1areceiveOriginalDestination\x12V\n" +
-	"\x0fdomain_override\x18\a \x03(\x0e2).exclave.core.app.proxyman.KnownProtocolsB\x02\x18\x01R\x0edomainOverride\x12V\n" +
-	"\x11sniffing_settings\x18\b \x01(\v2).exclave.core.app.proxyman.SniffingConfigR\x10sniffingSettingsJ\x04\b\x06\x10\a\"\xa8\x01\n" +
+	"\x11sniffing_settings\x18\b \x01(\v2).exclave.core.app.proxyman.SniffingConfigR\x10sniffingSettingsJ\x04\b\x06\x10\aJ\x04\b\a\x10\b\"\xa8\x01\n" +
 	"\x14InboundHandlerConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x12A\n" +
 	"\x11receiver_settings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x10receiverSettings\x12;\n" +
@@ -940,10 +880,7 @@ const file_app_proxyman_config_proto_rawDesc = "" +
 	"minStreams\x12\x1f\n" +
 	"\vmax_streams\x18\x05 \x01(\rR\n" +
 	"maxStreams\x12\x18\n" +
-	"\apadding\x18\x06 \x01(\bR\apadding*#\n" +
-	"\x0eKnownProtocols\x12\b\n" +
-	"\x04HTTP\x10\x00\x12\a\n" +
-	"\x03TLS\x10\x01B\x8b\x01\n" +
+	"\apadding\x18\x06 \x01(\bR\apaddingB\x8b\x01\n" +
 	"3com.github.exclavenetwork.exclave.core.app.proxymanP\x01Z6github.com/exclavenetwork/exclave-core/v5/app/proxyman\xaa\x02\x19Exclave.Core.App.Proxymanb\x06proto3"
 
 var (
@@ -958,55 +895,53 @@ func file_app_proxyman_config_proto_rawDescGZIP() []byte {
 	return file_app_proxyman_config_proto_rawDescData
 }
 
-var file_app_proxyman_config_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_app_proxyman_config_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_app_proxyman_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_app_proxyman_config_proto_goTypes = []any{
-	(KnownProtocols)(0),                                      // 0: exclave.core.app.proxyman.KnownProtocols
-	(AllocationStrategy_Type)(0),                             // 1: exclave.core.app.proxyman.AllocationStrategy.Type
-	(SenderConfig_DomainStrategy)(0),                         // 2: exclave.core.app.proxyman.SenderConfig.DomainStrategy
-	(*InboundConfig)(nil),                                    // 3: exclave.core.app.proxyman.InboundConfig
-	(*AllocationStrategy)(nil),                               // 4: exclave.core.app.proxyman.AllocationStrategy
-	(*SniffingConfig)(nil),                                   // 5: exclave.core.app.proxyman.SniffingConfig
-	(*ReceiverConfig)(nil),                                   // 6: exclave.core.app.proxyman.ReceiverConfig
-	(*InboundHandlerConfig)(nil),                             // 7: exclave.core.app.proxyman.InboundHandlerConfig
-	(*OutboundConfig)(nil),                                   // 8: exclave.core.app.proxyman.OutboundConfig
-	(*SenderConfig)(nil),                                     // 9: exclave.core.app.proxyman.SenderConfig
-	(*MultiplexingConfig)(nil),                               // 10: exclave.core.app.proxyman.MultiplexingConfig
-	(*SingMultiplexConfig)(nil),                              // 11: exclave.core.app.proxyman.SingMultiplexConfig
-	(*AllocationStrategy_AllocationStrategyConcurrency)(nil), // 12: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
-	(*AllocationStrategy_AllocationStrategyRefresh)(nil),     // 13: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
-	(*net.PortRange)(nil),                                    // 14: exclave.core.common.net.PortRange
-	(*net.IPOrDomain)(nil),                                   // 15: exclave.core.common.net.IPOrDomain
-	(*internet.StreamConfig)(nil),                            // 16: exclave.core.transport.internet.StreamConfig
-	(*anypb.Any)(nil),                                        // 17: google.protobuf.Any
-	(*internet.ProxyConfig)(nil),                             // 18: exclave.core.transport.internet.ProxyConfig
-	(packetaddr.PacketAddrType)(0),                           // 19: exclave.core.net.packetaddr.PacketAddrType
+	(AllocationStrategy_Type)(0),                             // 0: exclave.core.app.proxyman.AllocationStrategy.Type
+	(SenderConfig_DomainStrategy)(0),                         // 1: exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	(*InboundConfig)(nil),                                    // 2: exclave.core.app.proxyman.InboundConfig
+	(*AllocationStrategy)(nil),                               // 3: exclave.core.app.proxyman.AllocationStrategy
+	(*SniffingConfig)(nil),                                   // 4: exclave.core.app.proxyman.SniffingConfig
+	(*ReceiverConfig)(nil),                                   // 5: exclave.core.app.proxyman.ReceiverConfig
+	(*InboundHandlerConfig)(nil),                             // 6: exclave.core.app.proxyman.InboundHandlerConfig
+	(*OutboundConfig)(nil),                                   // 7: exclave.core.app.proxyman.OutboundConfig
+	(*SenderConfig)(nil),                                     // 8: exclave.core.app.proxyman.SenderConfig
+	(*MultiplexingConfig)(nil),                               // 9: exclave.core.app.proxyman.MultiplexingConfig
+	(*SingMultiplexConfig)(nil),                              // 10: exclave.core.app.proxyman.SingMultiplexConfig
+	(*AllocationStrategy_AllocationStrategyConcurrency)(nil), // 11: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
+	(*AllocationStrategy_AllocationStrategyRefresh)(nil),     // 12: exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
+	(*net.PortRange)(nil),                                    // 13: exclave.core.common.net.PortRange
+	(*net.IPOrDomain)(nil),                                   // 14: exclave.core.common.net.IPOrDomain
+	(*internet.StreamConfig)(nil),                            // 15: exclave.core.transport.internet.StreamConfig
+	(*anypb.Any)(nil),                                        // 16: google.protobuf.Any
+	(*internet.ProxyConfig)(nil),                             // 17: exclave.core.transport.internet.ProxyConfig
+	(packetaddr.PacketAddrType)(0),                           // 18: exclave.core.net.packetaddr.PacketAddrType
 }
 var file_app_proxyman_config_proto_depIdxs = []int32{
-	1,  // 0: exclave.core.app.proxyman.AllocationStrategy.type:type_name -> exclave.core.app.proxyman.AllocationStrategy.Type
-	12, // 1: exclave.core.app.proxyman.AllocationStrategy.concurrency:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
-	13, // 2: exclave.core.app.proxyman.AllocationStrategy.refresh:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
-	14, // 3: exclave.core.app.proxyman.ReceiverConfig.port_range:type_name -> exclave.core.common.net.PortRange
-	15, // 4: exclave.core.app.proxyman.ReceiverConfig.listen:type_name -> exclave.core.common.net.IPOrDomain
-	4,  // 5: exclave.core.app.proxyman.ReceiverConfig.allocation_strategy:type_name -> exclave.core.app.proxyman.AllocationStrategy
-	16, // 6: exclave.core.app.proxyman.ReceiverConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
-	0,  // 7: exclave.core.app.proxyman.ReceiverConfig.domain_override:type_name -> exclave.core.app.proxyman.KnownProtocols
-	5,  // 8: exclave.core.app.proxyman.ReceiverConfig.sniffing_settings:type_name -> exclave.core.app.proxyman.SniffingConfig
-	17, // 9: exclave.core.app.proxyman.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
-	17, // 10: exclave.core.app.proxyman.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
-	15, // 11: exclave.core.app.proxyman.SenderConfig.via:type_name -> exclave.core.common.net.IPOrDomain
-	16, // 12: exclave.core.app.proxyman.SenderConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
-	18, // 13: exclave.core.app.proxyman.SenderConfig.proxy_settings:type_name -> exclave.core.transport.internet.ProxyConfig
-	10, // 14: exclave.core.app.proxyman.SenderConfig.multiplex_settings:type_name -> exclave.core.app.proxyman.MultiplexingConfig
-	2,  // 15: exclave.core.app.proxyman.SenderConfig.domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
-	2,  // 16: exclave.core.app.proxyman.SenderConfig.dial_domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
-	11, // 17: exclave.core.app.proxyman.SenderConfig.smux:type_name -> exclave.core.app.proxyman.SingMultiplexConfig
-	19, // 18: exclave.core.app.proxyman.MultiplexingConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
-	19, // [19:19] is the sub-list for method output_type
-	19, // [19:19] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	0,  // 0: exclave.core.app.proxyman.AllocationStrategy.type:type_name -> exclave.core.app.proxyman.AllocationStrategy.Type
+	11, // 1: exclave.core.app.proxyman.AllocationStrategy.concurrency:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyConcurrency
+	12, // 2: exclave.core.app.proxyman.AllocationStrategy.refresh:type_name -> exclave.core.app.proxyman.AllocationStrategy.AllocationStrategyRefresh
+	13, // 3: exclave.core.app.proxyman.ReceiverConfig.port_range:type_name -> exclave.core.common.net.PortRange
+	14, // 4: exclave.core.app.proxyman.ReceiverConfig.listen:type_name -> exclave.core.common.net.IPOrDomain
+	3,  // 5: exclave.core.app.proxyman.ReceiverConfig.allocation_strategy:type_name -> exclave.core.app.proxyman.AllocationStrategy
+	15, // 6: exclave.core.app.proxyman.ReceiverConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
+	4,  // 7: exclave.core.app.proxyman.ReceiverConfig.sniffing_settings:type_name -> exclave.core.app.proxyman.SniffingConfig
+	16, // 8: exclave.core.app.proxyman.InboundHandlerConfig.receiver_settings:type_name -> google.protobuf.Any
+	16, // 9: exclave.core.app.proxyman.InboundHandlerConfig.proxy_settings:type_name -> google.protobuf.Any
+	14, // 10: exclave.core.app.proxyman.SenderConfig.via:type_name -> exclave.core.common.net.IPOrDomain
+	15, // 11: exclave.core.app.proxyman.SenderConfig.stream_settings:type_name -> exclave.core.transport.internet.StreamConfig
+	17, // 12: exclave.core.app.proxyman.SenderConfig.proxy_settings:type_name -> exclave.core.transport.internet.ProxyConfig
+	9,  // 13: exclave.core.app.proxyman.SenderConfig.multiplex_settings:type_name -> exclave.core.app.proxyman.MultiplexingConfig
+	1,  // 14: exclave.core.app.proxyman.SenderConfig.domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	1,  // 15: exclave.core.app.proxyman.SenderConfig.dial_domain_strategy:type_name -> exclave.core.app.proxyman.SenderConfig.DomainStrategy
+	10, // 16: exclave.core.app.proxyman.SenderConfig.smux:type_name -> exclave.core.app.proxyman.SingMultiplexConfig
+	18, // 17: exclave.core.app.proxyman.MultiplexingConfig.packet_encoding:type_name -> exclave.core.net.packetaddr.PacketAddrType
+	18, // [18:18] is the sub-list for method output_type
+	18, // [18:18] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_app_proxyman_config_proto_init() }
@@ -1019,7 +954,7 @@ func file_app_proxyman_config_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_proxyman_config_proto_rawDesc), len(file_app_proxyman_config_proto_rawDesc)),
-			NumEnums:      3,
+			NumEnums:      2,
 			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,

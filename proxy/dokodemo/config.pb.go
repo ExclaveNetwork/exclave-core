@@ -22,16 +22,9 @@ type Config struct {
 	Address *net.IPOrDomain        `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port    uint32                 `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
 	// List of networks that the Dokodemo accepts.
-	// Deprecated. Use networks.
-	//
-	// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
-	NetworkList *net.NetworkList `protobuf:"bytes,3,opt,name=network_list,json=networkList,proto3" json:"network_list,omitempty"`
-	// List of networks that the Dokodemo accepts.
-	Networks []net.Network `protobuf:"varint,7,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
-	// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
-	Timeout        uint32 `protobuf:"varint,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	FollowRedirect bool   `protobuf:"varint,5,opt,name=follow_redirect,json=followRedirect,proto3" json:"follow_redirect,omitempty"`
-	UserLevel      uint32 `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	Networks       []net.Network `protobuf:"varint,7,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
+	FollowRedirect bool          `protobuf:"varint,5,opt,name=follow_redirect,json=followRedirect,proto3" json:"follow_redirect,omitempty"`
+	UserLevel      uint32        `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -80,27 +73,11 @@ func (x *Config) GetPort() uint32 {
 	return 0
 }
 
-// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
-func (x *Config) GetNetworkList() *net.NetworkList {
-	if x != nil {
-		return x.NetworkList
-	}
-	return nil
-}
-
 func (x *Config) GetNetworks() []net.Network {
 	if x != nil {
 		return x.Networks
 	}
 	return nil
-}
-
-// Deprecated: Marked as deprecated in proxy/dokodemo/config.proto.
-func (x *Config) GetTimeout() uint32 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
 }
 
 func (x *Config) GetFollowRedirect() bool {
@@ -189,16 +166,14 @@ var File_proxy_dokodemo_config_proto protoreflect.FileDescriptor
 
 const file_proxy_dokodemo_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproxy/dokodemo/config.proto\x12\x1bexclave.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xcc\x02\n" +
+	"\x1bproxy/dokodemo/config.proto\x12\x1bexclave.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xed\x01\n" +
 	"\x06Config\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\rR\x04port\x12K\n" +
-	"\fnetwork_list\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListB\x02\x18\x01R\vnetworkList\x12<\n" +
-	"\bnetworks\x18\a \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12\x1c\n" +
-	"\atimeout\x18\x04 \x01(\rB\x02\x18\x01R\atimeout\x12'\n" +
+	"\x04port\x18\x02 \x01(\rR\x04port\x12<\n" +
+	"\bnetworks\x18\a \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12'\n" +
 	"\x0ffollow_redirect\x18\x05 \x01(\bR\x0efollowRedirect\x12\x1d\n" +
 	"\n" +
-	"user_level\x18\x06 \x01(\rR\tuserLevel\"\xee\x01\n" +
+	"user_level\x18\x06 \x01(\rR\tuserLevelJ\x04\b\x03\x10\x04J\x04\b\x04\x10\x05\"\xee\x01\n" +
 	"\x10SimplifiedConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12@\n" +
@@ -224,20 +199,19 @@ var file_proxy_dokodemo_config_proto_goTypes = []any{
 	(*Config)(nil),           // 0: exclave.core.proxy.dokodemo.Config
 	(*SimplifiedConfig)(nil), // 1: exclave.core.proxy.dokodemo.SimplifiedConfig
 	(*net.IPOrDomain)(nil),   // 2: exclave.core.common.net.IPOrDomain
-	(*net.NetworkList)(nil),  // 3: exclave.core.common.net.NetworkList
-	(net.Network)(0),         // 4: exclave.core.common.net.Network
+	(net.Network)(0),         // 3: exclave.core.common.net.Network
+	(*net.NetworkList)(nil),  // 4: exclave.core.common.net.NetworkList
 }
 var file_proxy_dokodemo_config_proto_depIdxs = []int32{
 	2, // 0: exclave.core.proxy.dokodemo.Config.address:type_name -> exclave.core.common.net.IPOrDomain
-	3, // 1: exclave.core.proxy.dokodemo.Config.network_list:type_name -> exclave.core.common.net.NetworkList
-	4, // 2: exclave.core.proxy.dokodemo.Config.networks:type_name -> exclave.core.common.net.Network
-	2, // 3: exclave.core.proxy.dokodemo.SimplifiedConfig.address:type_name -> exclave.core.common.net.IPOrDomain
-	3, // 4: exclave.core.proxy.dokodemo.SimplifiedConfig.networks:type_name -> exclave.core.common.net.NetworkList
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	3, // 1: exclave.core.proxy.dokodemo.Config.networks:type_name -> exclave.core.common.net.Network
+	2, // 2: exclave.core.proxy.dokodemo.SimplifiedConfig.address:type_name -> exclave.core.common.net.IPOrDomain
+	4, // 3: exclave.core.proxy.dokodemo.SimplifiedConfig.networks:type_name -> exclave.core.common.net.NetworkList
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proxy_dokodemo_config_proto_init() }

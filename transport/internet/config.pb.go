@@ -16,64 +16,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type TransportProtocol int32
-
-const (
-	TransportProtocol_TCP          TransportProtocol = 0
-	TransportProtocol_UDP          TransportProtocol = 1
-	TransportProtocol_MKCP         TransportProtocol = 2
-	TransportProtocol_WebSocket    TransportProtocol = 3
-	TransportProtocol_HTTP         TransportProtocol = 4
-	TransportProtocol_DomainSocket TransportProtocol = 5
-)
-
-// Enum value maps for TransportProtocol.
-var (
-	TransportProtocol_name = map[int32]string{
-		0: "TCP",
-		1: "UDP",
-		2: "MKCP",
-		3: "WebSocket",
-		4: "HTTP",
-		5: "DomainSocket",
-	}
-	TransportProtocol_value = map[string]int32{
-		"TCP":          0,
-		"UDP":          1,
-		"MKCP":         2,
-		"WebSocket":    3,
-		"HTTP":         4,
-		"DomainSocket": 5,
-	}
-)
-
-func (x TransportProtocol) Enum() *TransportProtocol {
-	p := new(TransportProtocol)
-	*p = x
-	return p
-}
-
-func (x TransportProtocol) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (TransportProtocol) Descriptor() protoreflect.EnumDescriptor {
-	return file_transport_internet_config_proto_enumTypes[0].Descriptor()
-}
-
-func (TransportProtocol) Type() protoreflect.EnumType {
-	return &file_transport_internet_config_proto_enumTypes[0]
-}
-
-func (x TransportProtocol) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use TransportProtocol.Descriptor instead.
-func (TransportProtocol) EnumDescriptor() ([]byte, []int) {
-	return file_transport_internet_config_proto_rawDescGZIP(), []int{0}
-}
-
 // MPTCP is the state of MPTCP settings.
 // Define it here to avoid conflict with TCPFastOpenState.
 type MPTCPState int32
@@ -112,11 +54,11 @@ func (x MPTCPState) String() string {
 }
 
 func (MPTCPState) Descriptor() protoreflect.EnumDescriptor {
-	return file_transport_internet_config_proto_enumTypes[1].Descriptor()
+	return file_transport_internet_config_proto_enumTypes[0].Descriptor()
 }
 
 func (MPTCPState) Type() protoreflect.EnumType {
-	return &file_transport_internet_config_proto_enumTypes[1]
+	return &file_transport_internet_config_proto_enumTypes[0]
 }
 
 func (x MPTCPState) Number() protoreflect.EnumNumber {
@@ -125,7 +67,7 @@ func (x MPTCPState) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use MPTCPState.Descriptor instead.
 func (MPTCPState) EnumDescriptor() ([]byte, []int) {
-	return file_transport_internet_config_proto_rawDescGZIP(), []int{1}
+	return file_transport_internet_config_proto_rawDescGZIP(), []int{0}
 }
 
 type SocketConfig_TCPFastOpenState int32
@@ -164,11 +106,11 @@ func (x SocketConfig_TCPFastOpenState) String() string {
 }
 
 func (SocketConfig_TCPFastOpenState) Descriptor() protoreflect.EnumDescriptor {
-	return file_transport_internet_config_proto_enumTypes[2].Descriptor()
+	return file_transport_internet_config_proto_enumTypes[1].Descriptor()
 }
 
 func (SocketConfig_TCPFastOpenState) Type() protoreflect.EnumType {
-	return &file_transport_internet_config_proto_enumTypes[2]
+	return &file_transport_internet_config_proto_enumTypes[1]
 }
 
 func (x SocketConfig_TCPFastOpenState) Number() protoreflect.EnumNumber {
@@ -216,11 +158,11 @@ func (x SocketConfig_TProxyMode) String() string {
 }
 
 func (SocketConfig_TProxyMode) Descriptor() protoreflect.EnumDescriptor {
-	return file_transport_internet_config_proto_enumTypes[3].Descriptor()
+	return file_transport_internet_config_proto_enumTypes[2].Descriptor()
 }
 
 func (SocketConfig_TProxyMode) Type() protoreflect.EnumType {
-	return &file_transport_internet_config_proto_enumTypes[3]
+	return &file_transport_internet_config_proto_enumTypes[2]
 }
 
 func (x SocketConfig_TProxyMode) Number() protoreflect.EnumNumber {
@@ -234,11 +176,6 @@ func (SocketConfig_TProxyMode) EnumDescriptor() ([]byte, []int) {
 
 type TransportConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Type of network that this settings supports.
-	// Deprecated. Use the string form below.
-	//
-	// Deprecated: Marked as deprecated in transport/internet/config.proto.
-	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=exclave.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
 	// Type of network that this settings supports.
 	ProtocolName string `protobuf:"bytes,3,opt,name=protocol_name,json=protocolName,proto3" json:"protocol_name,omitempty"`
 	// Specific settings. Must be of the transports.
@@ -277,14 +214,6 @@ func (*TransportConfig) Descriptor() ([]byte, []int) {
 	return file_transport_internet_config_proto_rawDescGZIP(), []int{0}
 }
 
-// Deprecated: Marked as deprecated in transport/internet/config.proto.
-func (x *TransportConfig) GetProtocol() TransportProtocol {
-	if x != nil {
-		return x.Protocol
-	}
-	return TransportProtocol_TCP
-}
-
 func (x *TransportConfig) GetProtocolName() string {
 	if x != nil {
 		return x.ProtocolName
@@ -301,10 +230,6 @@ func (x *TransportConfig) GetSettings() *anypb.Any {
 
 type StreamConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Effective network. Deprecated. Use the string form below.
-	//
-	// Deprecated: Marked as deprecated in transport/internet/config.proto.
-	Protocol TransportProtocol `protobuf:"varint,1,opt,name=protocol,proto3,enum=exclave.core.transport.internet.TransportProtocol" json:"protocol,omitempty"`
 	// Effective network.
 	ProtocolName      string             `protobuf:"bytes,5,opt,name=protocol_name,json=protocolName,proto3" json:"protocol_name,omitempty"`
 	TransportSettings []*TransportConfig `protobuf:"bytes,2,rep,name=transport_settings,json=transportSettings,proto3" json:"transport_settings,omitempty"`
@@ -345,14 +270,6 @@ func (x *StreamConfig) ProtoReflect() protoreflect.Message {
 // Deprecated: Use StreamConfig.ProtoReflect.Descriptor instead.
 func (*StreamConfig) Descriptor() ([]byte, []int) {
 	return file_transport_internet_config_proto_rawDescGZIP(), []int{1}
-}
-
-// Deprecated: Marked as deprecated in transport/internet/config.proto.
-func (x *StreamConfig) GetProtocol() TransportProtocol {
-	if x != nil {
-		return x.Protocol
-	}
-	return TransportProtocol_TCP
 }
 
 func (x *StreamConfig) GetProtocolName() string {
@@ -668,18 +585,16 @@ var File_transport_internet_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1ftransport/internet/config.proto\x12\x1fexclave.core.transport.internet\x1a\x19google/protobuf/any.proto\"\xbc\x01\n" +
-	"\x0fTransportConfig\x12R\n" +
-	"\bprotocol\x18\x01 \x01(\x0e22.exclave.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
+	"\x1ftransport/internet/config.proto\x12\x1fexclave.core.transport.internet\x1a\x19google/protobuf/any.proto\"n\n" +
+	"\x0fTransportConfig\x12#\n" +
 	"\rprotocol_name\x18\x03 \x01(\tR\fprotocolName\x120\n" +
-	"\bsettings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\bsettings\"\xa8\x03\n" +
-	"\fStreamConfig\x12R\n" +
-	"\bprotocol\x18\x01 \x01(\x0e22.exclave.core.transport.internet.TransportProtocolB\x02\x18\x01R\bprotocol\x12#\n" +
+	"\bsettings\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\bsettingsJ\x04\b\x01\x10\x02\"\xda\x02\n" +
+	"\fStreamConfig\x12#\n" +
 	"\rprotocol_name\x18\x05 \x01(\tR\fprotocolName\x12_\n" +
 	"\x12transport_settings\x18\x02 \x03(\v20.exclave.core.transport.internet.TransportConfigR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x03 \x01(\tR\fsecurityType\x12A\n" +
 	"\x11security_settings\x18\x04 \x03(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"Q\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettingsJ\x04\b\x01\x10\x02\"Q\n" +
 	"\vProxyConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x120\n" +
 	"\x13transportLayerProxy\x18\x02 \x01(\bR\x13transportLayerProxy\"\xa3\a\n" +
@@ -714,14 +629,7 @@ const file_transport_internet_config_proto_rawDesc = "" +
 	"\bRedirect\x10\x02\"w\n" +
 	"\x10TLSFragmentation\x128\n" +
 	"\x18tls_record_fragmentation\x18\x01 \x01(\bR\x16tlsRecordFragmentation\x12)\n" +
-	"\x10tcp_segmentation\x18\x02 \x01(\bR\x0ftcpSegmentation*Z\n" +
-	"\x11TransportProtocol\x12\a\n" +
-	"\x03TCP\x10\x00\x12\a\n" +
-	"\x03UDP\x10\x01\x12\b\n" +
-	"\x04MKCP\x10\x02\x12\r\n" +
-	"\tWebSocket\x10\x03\x12\b\n" +
-	"\x04HTTP\x10\x04\x12\x10\n" +
-	"\fDomainSocket\x10\x05*/\n" +
+	"\x10tcp_segmentation\x18\x02 \x01(\bR\x0ftcpSegmentation*/\n" +
 	"\n" +
 	"MPTCPState\x12\b\n" +
 	"\x04AsIs\x10\x00\x12\n" +
@@ -742,36 +650,33 @@ func file_transport_internet_config_proto_rawDescGZIP() []byte {
 	return file_transport_internet_config_proto_rawDescData
 }
 
-var file_transport_internet_config_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_transport_internet_config_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_transport_internet_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_transport_internet_config_proto_goTypes = []any{
-	(TransportProtocol)(0),             // 0: exclave.core.transport.internet.TransportProtocol
-	(MPTCPState)(0),                    // 1: exclave.core.transport.internet.MPTCPState
-	(SocketConfig_TCPFastOpenState)(0), // 2: exclave.core.transport.internet.SocketConfig.TCPFastOpenState
-	(SocketConfig_TProxyMode)(0),       // 3: exclave.core.transport.internet.SocketConfig.TProxyMode
-	(*TransportConfig)(nil),            // 4: exclave.core.transport.internet.TransportConfig
-	(*StreamConfig)(nil),               // 5: exclave.core.transport.internet.StreamConfig
-	(*ProxyConfig)(nil),                // 6: exclave.core.transport.internet.ProxyConfig
-	(*SocketConfig)(nil),               // 7: exclave.core.transport.internet.SocketConfig
-	(*TLSFragmentation)(nil),           // 8: exclave.core.transport.internet.TLSFragmentation
-	(*anypb.Any)(nil),                  // 9: google.protobuf.Any
+	(MPTCPState)(0),                    // 0: exclave.core.transport.internet.MPTCPState
+	(SocketConfig_TCPFastOpenState)(0), // 1: exclave.core.transport.internet.SocketConfig.TCPFastOpenState
+	(SocketConfig_TProxyMode)(0),       // 2: exclave.core.transport.internet.SocketConfig.TProxyMode
+	(*TransportConfig)(nil),            // 3: exclave.core.transport.internet.TransportConfig
+	(*StreamConfig)(nil),               // 4: exclave.core.transport.internet.StreamConfig
+	(*ProxyConfig)(nil),                // 5: exclave.core.transport.internet.ProxyConfig
+	(*SocketConfig)(nil),               // 6: exclave.core.transport.internet.SocketConfig
+	(*TLSFragmentation)(nil),           // 7: exclave.core.transport.internet.TLSFragmentation
+	(*anypb.Any)(nil),                  // 8: google.protobuf.Any
 }
 var file_transport_internet_config_proto_depIdxs = []int32{
-	0,  // 0: exclave.core.transport.internet.TransportConfig.protocol:type_name -> exclave.core.transport.internet.TransportProtocol
-	9,  // 1: exclave.core.transport.internet.TransportConfig.settings:type_name -> google.protobuf.Any
-	0,  // 2: exclave.core.transport.internet.StreamConfig.protocol:type_name -> exclave.core.transport.internet.TransportProtocol
-	4,  // 3: exclave.core.transport.internet.StreamConfig.transport_settings:type_name -> exclave.core.transport.internet.TransportConfig
-	9,  // 4: exclave.core.transport.internet.StreamConfig.security_settings:type_name -> google.protobuf.Any
-	7,  // 5: exclave.core.transport.internet.StreamConfig.socket_settings:type_name -> exclave.core.transport.internet.SocketConfig
-	2,  // 6: exclave.core.transport.internet.SocketConfig.tfo:type_name -> exclave.core.transport.internet.SocketConfig.TCPFastOpenState
-	3,  // 7: exclave.core.transport.internet.SocketConfig.tproxy:type_name -> exclave.core.transport.internet.SocketConfig.TProxyMode
-	1,  // 8: exclave.core.transport.internet.SocketConfig.mptcp:type_name -> exclave.core.transport.internet.MPTCPState
-	8,  // 9: exclave.core.transport.internet.SocketConfig.tlsFragmentation:type_name -> exclave.core.transport.internet.TLSFragmentation
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	8, // 0: exclave.core.transport.internet.TransportConfig.settings:type_name -> google.protobuf.Any
+	3, // 1: exclave.core.transport.internet.StreamConfig.transport_settings:type_name -> exclave.core.transport.internet.TransportConfig
+	8, // 2: exclave.core.transport.internet.StreamConfig.security_settings:type_name -> google.protobuf.Any
+	6, // 3: exclave.core.transport.internet.StreamConfig.socket_settings:type_name -> exclave.core.transport.internet.SocketConfig
+	1, // 4: exclave.core.transport.internet.SocketConfig.tfo:type_name -> exclave.core.transport.internet.SocketConfig.TCPFastOpenState
+	2, // 5: exclave.core.transport.internet.SocketConfig.tproxy:type_name -> exclave.core.transport.internet.SocketConfig.TProxyMode
+	0, // 6: exclave.core.transport.internet.SocketConfig.mptcp:type_name -> exclave.core.transport.internet.MPTCPState
+	7, // 7: exclave.core.transport.internet.SocketConfig.tlsFragmentation:type_name -> exclave.core.transport.internet.TLSFragmentation
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_transport_internet_config_proto_init() }
@@ -784,7 +689,7 @@ func file_transport_internet_config_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_transport_internet_config_proto_rawDesc), len(file_transport_internet_config_proto_rawDesc)),
-			NumEnums:      4,
+			NumEnums:      3,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,

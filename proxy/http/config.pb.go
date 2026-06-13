@@ -78,12 +78,10 @@ func (x *Account) GetHeaders() map[string]string {
 
 // Config for HTTP proxy server.
 type ServerConfig struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proxy/http/config.proto.
-	Timeout          uint32            `protobuf:"varint,1,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	Accounts         map[string]string `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	AllowTransparent bool              `protobuf:"varint,3,opt,name=allow_transparent,json=allowTransparent,proto3" json:"allow_transparent,omitempty"`
-	UserLevel        uint32            `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Accounts         map[string]string      `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	AllowTransparent bool                   `protobuf:"varint,3,opt,name=allow_transparent,json=allowTransparent,proto3" json:"allow_transparent,omitempty"`
+	UserLevel        uint32                 `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -116,14 +114,6 @@ func (x *ServerConfig) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ServerConfig.ProtoReflect.Descriptor instead.
 func (*ServerConfig) Descriptor() ([]byte, []int) {
 	return file_proxy_http_config_proto_rawDescGZIP(), []int{1}
-}
-
-// Deprecated: Marked as deprecated in proxy/http/config.proto.
-func (x *ServerConfig) GetTimeout() uint32 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
 }
 
 func (x *ServerConfig) GetAccounts() map[string]string {
@@ -212,16 +202,15 @@ const file_proxy_http_config_proto_rawDesc = "" +
 	"\aheaders\x18\x03 \x03(\v2-.exclave.core.proxy.http.Account.HeadersEntryR\aheaders\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x86\x02\n" +
-	"\fServerConfig\x12\x1c\n" +
-	"\atimeout\x18\x01 \x01(\rB\x02\x18\x01R\atimeout\x12O\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xee\x01\n" +
+	"\fServerConfig\x12O\n" +
 	"\baccounts\x18\x02 \x03(\v23.exclave.core.proxy.http.ServerConfig.AccountsEntryR\baccounts\x12+\n" +
 	"\x11allow_transparent\x18\x03 \x01(\bR\x10allowTransparent\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x88\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\x01\x10\x02\"\x88\x01\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x122\n" +
 	"\x16h1_skip_wait_for_reply\x18\x02 \x01(\bR\x12h1SkipWaitForReplyB\x85\x01\n" +

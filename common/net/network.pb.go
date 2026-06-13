@@ -19,25 +19,21 @@ type Network int32
 
 const (
 	Network_Unknown Network = 0
-	// Deprecated: Marked as deprecated in common/net/network.proto.
-	Network_RawTCP Network = 1
-	Network_TCP    Network = 2
-	Network_UDP    Network = 3
-	Network_UNIX   Network = 4
+	Network_TCP     Network = 2
+	Network_UDP     Network = 3
+	Network_UNIX    Network = 4
 )
 
 // Enum value maps for Network.
 var (
 	Network_name = map[int32]string{
 		0: "Unknown",
-		1: "RawTCP",
 		2: "TCP",
 		3: "UDP",
 		4: "UNIX",
 	}
 	Network_value = map[string]int32{
 		"Unknown": 0,
-		"RawTCP":  1,
 		"TCP":     2,
 		"UDP":     3,
 		"UNIX":    4,
@@ -122,13 +118,12 @@ const file_common_net_network_proto_rawDesc = "" +
 	"\n" +
 	"\x18common/net/network.proto\x12\x17exclave.core.common.net\"I\n" +
 	"\vNetworkList\x12:\n" +
-	"\anetwork\x18\x01 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork*B\n" +
+	"\anetwork\x18\x01 \x03(\x0e2 .exclave.core.common.net.NetworkR\anetwork*8\n" +
 	"\aNetwork\x12\v\n" +
-	"\aUnknown\x10\x00\x12\x0e\n" +
-	"\x06RawTCP\x10\x01\x1a\x02\b\x01\x12\a\n" +
+	"\aUnknown\x10\x00\x12\a\n" +
 	"\x03TCP\x10\x02\x12\a\n" +
 	"\x03UDP\x10\x03\x12\b\n" +
-	"\x04UNIX\x10\x04B\x85\x01\n" +
+	"\x04UNIX\x10\x04\"\x04\b\x01\x10\x01B\x85\x01\n" +
 	"1com.github.exclavenetwork.exclave.core.common.netP\x01Z4github.com/exclavenetwork/exclave-core/v5/common/net\xaa\x02\x17Exclave.Core.Common.Netb\x06proto3"
 
 var (

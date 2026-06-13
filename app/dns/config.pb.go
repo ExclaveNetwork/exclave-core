@@ -415,19 +415,8 @@ func (x *HostMapping) GetProxiedDomain() string {
 
 type Config struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Nameservers used by this DNS. Only traditional UDP servers are support at
-	// the moment. A special value 'localhost' as a domain address can be set to
-	// use DNS on local system.
-	//
-	// Deprecated: Marked as deprecated in app/dns/config.proto.
-	NameServers []*net.Endpoint `protobuf:"bytes,1,rep,name=NameServers,proto3" json:"NameServers,omitempty"`
 	// NameServer list used by this DNS client.
 	NameServer []*NameServer `protobuf:"bytes,5,rep,name=name_server,json=nameServer,proto3" json:"name_server,omitempty"`
-	// Static hosts. Domain to IP.
-	// Deprecated. Use static_hosts.
-	//
-	// Deprecated: Marked as deprecated in app/dns/config.proto.
-	Hosts map[string]*net.IPOrDomain `protobuf:"bytes,2,rep,name=Hosts,proto3" json:"Hosts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// Client IP for EDNS client subnet. Must be 4 bytes (IPv4) or 16 bytes
 	// (IPv6).
 	ClientIp []byte `protobuf:"bytes,3,opt,name=client_ip,json=clientIp,proto3" json:"client_ip,omitempty"`
@@ -492,25 +481,9 @@ func (*Config) Descriptor() ([]byte, []int) {
 	return file_app_dns_config_proto_rawDescGZIP(), []int{2}
 }
 
-// Deprecated: Marked as deprecated in app/dns/config.proto.
-func (x *Config) GetNameServers() []*net.Endpoint {
-	if x != nil {
-		return x.NameServers
-	}
-	return nil
-}
-
 func (x *Config) GetNameServer() []*NameServer {
 	if x != nil {
 		return x.NameServer
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in app/dns/config.proto.
-func (x *Config) GetHosts() map[string]*net.IPOrDomain {
-	if x != nil {
-		return x.Hosts
 	}
 	return nil
 }
@@ -1070,7 +1043,7 @@ type SimplifiedNameServer_PriorityDomain struct {
 
 func (x *SimplifiedNameServer_PriorityDomain) Reset() {
 	*x = SimplifiedNameServer_PriorityDomain{}
-	mi := &file_app_dns_config_proto_msgTypes[9]
+	mi := &file_app_dns_config_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1082,7 +1055,7 @@ func (x *SimplifiedNameServer_PriorityDomain) String() string {
 func (*SimplifiedNameServer_PriorityDomain) ProtoMessage() {}
 
 func (x *SimplifiedNameServer_PriorityDomain) ProtoReflect() protoreflect.Message {
-	mi := &file_app_dns_config_proto_msgTypes[9]
+	mi := &file_app_dns_config_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1122,7 +1095,7 @@ type SimplifiedNameServer_OriginalRule struct {
 
 func (x *SimplifiedNameServer_OriginalRule) Reset() {
 	*x = SimplifiedNameServer_OriginalRule{}
-	mi := &file_app_dns_config_proto_msgTypes[10]
+	mi := &file_app_dns_config_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1134,7 +1107,7 @@ func (x *SimplifiedNameServer_OriginalRule) String() string {
 func (*SimplifiedNameServer_OriginalRule) ProtoMessage() {}
 
 func (x *SimplifiedNameServer_OriginalRule) ProtoReflect() protoreflect.Message {
-	mi := &file_app_dns_config_proto_msgTypes[10]
+	mi := &file_app_dns_config_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1168,7 +1141,7 @@ var File_app_dns_config_proto protoreflect.FileDescriptor
 
 const file_app_dns_config_proto_rawDesc = "" +
 	"\n" +
-	"\x14app/dns/config.proto\x12\x14exclave.core.app.dns\x1a\x18common/net/address.proto\x1a\x1ccommon/net/destination.proto\x1a$app/router/routercommon/common.proto\x1a\x1dapp/dns/fakedns/fakedns.proto\x1a common/protoext/extensions.proto\"\xbc\a\n" +
+	"\x14app/dns/config.proto\x12\x14exclave.core.app.dns\x1a\x1ccommon/net/destination.proto\x1a$app/router/routercommon/common.proto\x1a\x1dapp/dns/fakedns/fakedns.proto\x1a common/protoext/extensions.proto\"\xbc\a\n" +
 	"\n" +
 	"NameServer\x12;\n" +
 	"\aaddress\x18\x01 \x01(\v2!.exclave.core.common.net.EndpointR\aaddress\x12\x1b\n" +
@@ -1196,12 +1169,10 @@ const file_app_dns_config_proto_rawDesc = "" +
 	"\x04type\x18\x01 \x01(\x0e2(.exclave.core.app.dns.DomainMatchingTypeR\x04type\x12\x16\n" +
 	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x0e\n" +
 	"\x02ip\x18\x03 \x03(\fR\x02ip\x12%\n" +
-	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\xa2\a\n" +
-	"\x06Config\x12G\n" +
-	"\vNameServers\x18\x01 \x03(\v2!.exclave.core.common.net.EndpointB\x02\x18\x01R\vNameServers\x12A\n" +
+	"\x0eproxied_domain\x18\x04 \x01(\tR\rproxiedDomain\"\xc3\x05\n" +
+	"\x06Config\x12A\n" +
 	"\vname_server\x18\x05 \x03(\v2 .exclave.core.app.dns.NameServerR\n" +
-	"nameServer\x12A\n" +
-	"\x05Hosts\x18\x02 \x03(\v2'.exclave.core.app.dns.Config.HostsEntryB\x02\x18\x01R\x05Hosts\x12\x1b\n" +
+	"nameServer\x12\x1b\n" +
 	"\tclient_ip\x18\x03 \x01(\fR\bclientIp\x12D\n" +
 	"\fstatic_hosts\x18\x04 \x03(\v2!.exclave.core.app.dns.HostMappingR\vstaticHosts\x12I\n" +
 	"\bfake_dns\x18\x10 \x01(\v2..exclave.core.app.dns.fakedns.FakeDnsPoolMultiR\afakeDns\x12\x10\n" +
@@ -1213,11 +1184,7 @@ const file_app_dns_config_proto_rawDesc = "" +
 	"\x16disableFallbackIfMatch\x18\v \x01(\bB\x02\x18\x01R\x16disableFallbackIfMatch\x12J\n" +
 	"\x0equery_strategy\x18\t \x01(\x0e2#.exclave.core.app.dns.QueryStrategyR\rqueryStrategy\x12J\n" +
 	"\x0ecache_strategy\x18\f \x01(\x0e2#.exclave.core.app.dns.CacheStrategyR\rcacheStrategy\x12S\n" +
-	"\x11fallback_strategy\x18\r \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyR\x10fallbackStrategy\x1a]\n" +
-	"\n" +
-	"HostsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x129\n" +
-	"\x05value\x18\x02 \x01(\v2#.exclave.core.common.net.IPOrDomainR\x05value:\x028\x01J\x04\b\a\x10\b\"\xf5\x05\n" +
+	"\x11fallback_strategy\x18\r \x01(\x0e2&.exclave.core.app.dns.FallbackStrategyR\x10fallbackStrategyJ\x04\b\x01\x10\x02J\x04\b\x02\x10\x03J\x04\b\a\x10\b\"\xf5\x05\n" +
 	"\x10SimplifiedConfig\x12K\n" +
 	"\vname_server\x18\x05 \x03(\v2*.exclave.core.app.dns.SimplifiedNameServerR\n" +
 	"nameServer\x12\x1b\n" +
@@ -1295,7 +1262,7 @@ func file_app_dns_config_proto_rawDescGZIP() []byte {
 }
 
 var file_app_dns_config_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_app_dns_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_app_dns_config_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_app_dns_config_proto_goTypes = []any{
 	(DomainMatchingType)(0),                     // 0: exclave.core.app.dns.DomainMatchingType
 	(QueryStrategy)(0),                          // 1: exclave.core.app.dns.QueryStrategy
@@ -1309,57 +1276,52 @@ var file_app_dns_config_proto_goTypes = []any{
 	(*SimplifiedNameServer)(nil),                // 9: exclave.core.app.dns.SimplifiedNameServer
 	(*NameServer_PriorityDomain)(nil),           // 10: exclave.core.app.dns.NameServer.PriorityDomain
 	(*NameServer_OriginalRule)(nil),             // 11: exclave.core.app.dns.NameServer.OriginalRule
-	nil,                                         // 12: exclave.core.app.dns.Config.HostsEntry
-	(*SimplifiedNameServer_PriorityDomain)(nil), // 13: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
-	(*SimplifiedNameServer_OriginalRule)(nil),   // 14: exclave.core.app.dns.SimplifiedNameServer.OriginalRule
-	(*net.Endpoint)(nil),                        // 15: exclave.core.common.net.Endpoint
-	(*routercommon.GeoIP)(nil),                  // 16: exclave.core.app.router.routercommon.GeoIP
-	(*fakedns.FakeDnsPoolMulti)(nil),            // 17: exclave.core.app.dns.fakedns.FakeDnsPoolMulti
-	(*routercommon.GeoSite)(nil),                // 18: exclave.core.app.router.routercommon.GeoSite
-	(*net.IPOrDomain)(nil),                      // 19: exclave.core.common.net.IPOrDomain
+	(*SimplifiedNameServer_PriorityDomain)(nil), // 12: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
+	(*SimplifiedNameServer_OriginalRule)(nil),   // 13: exclave.core.app.dns.SimplifiedNameServer.OriginalRule
+	(*net.Endpoint)(nil),                        // 14: exclave.core.common.net.Endpoint
+	(*routercommon.GeoIP)(nil),                  // 15: exclave.core.app.router.routercommon.GeoIP
+	(*fakedns.FakeDnsPoolMulti)(nil),            // 16: exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	(*routercommon.GeoSite)(nil),                // 17: exclave.core.app.router.routercommon.GeoSite
 }
 var file_app_dns_config_proto_depIdxs = []int32{
-	15, // 0: exclave.core.app.dns.NameServer.address:type_name -> exclave.core.common.net.Endpoint
+	14, // 0: exclave.core.app.dns.NameServer.address:type_name -> exclave.core.common.net.Endpoint
 	10, // 1: exclave.core.app.dns.NameServer.prioritized_domain:type_name -> exclave.core.app.dns.NameServer.PriorityDomain
-	16, // 2: exclave.core.app.dns.NameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	15, // 2: exclave.core.app.dns.NameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
 	11, // 3: exclave.core.app.dns.NameServer.original_rules:type_name -> exclave.core.app.dns.NameServer.OriginalRule
-	17, // 4: exclave.core.app.dns.NameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	16, // 4: exclave.core.app.dns.NameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
 	1,  // 5: exclave.core.app.dns.NameServer.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
 	2,  // 6: exclave.core.app.dns.NameServer.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
 	3,  // 7: exclave.core.app.dns.NameServer.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
 	0,  // 8: exclave.core.app.dns.HostMapping.type:type_name -> exclave.core.app.dns.DomainMatchingType
-	15, // 9: exclave.core.app.dns.Config.NameServers:type_name -> exclave.core.common.net.Endpoint
-	4,  // 10: exclave.core.app.dns.Config.name_server:type_name -> exclave.core.app.dns.NameServer
-	12, // 11: exclave.core.app.dns.Config.Hosts:type_name -> exclave.core.app.dns.Config.HostsEntry
-	5,  // 12: exclave.core.app.dns.Config.static_hosts:type_name -> exclave.core.app.dns.HostMapping
-	17, // 13: exclave.core.app.dns.Config.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 14: exclave.core.app.dns.Config.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
-	2,  // 15: exclave.core.app.dns.Config.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
-	3,  // 16: exclave.core.app.dns.Config.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
-	9,  // 17: exclave.core.app.dns.SimplifiedConfig.name_server:type_name -> exclave.core.app.dns.SimplifiedNameServer
-	8,  // 18: exclave.core.app.dns.SimplifiedConfig.static_hosts:type_name -> exclave.core.app.dns.SimplifiedHostMapping
-	17, // 19: exclave.core.app.dns.SimplifiedConfig.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 20: exclave.core.app.dns.SimplifiedConfig.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
-	2,  // 21: exclave.core.app.dns.SimplifiedConfig.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
-	3,  // 22: exclave.core.app.dns.SimplifiedConfig.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
-	0,  // 23: exclave.core.app.dns.SimplifiedHostMapping.type:type_name -> exclave.core.app.dns.DomainMatchingType
-	15, // 24: exclave.core.app.dns.SimplifiedNameServer.address:type_name -> exclave.core.common.net.Endpoint
-	13, // 25: exclave.core.app.dns.SimplifiedNameServer.prioritized_domain:type_name -> exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
-	16, // 26: exclave.core.app.dns.SimplifiedNameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
-	14, // 27: exclave.core.app.dns.SimplifiedNameServer.original_rules:type_name -> exclave.core.app.dns.SimplifiedNameServer.OriginalRule
-	17, // 28: exclave.core.app.dns.SimplifiedNameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
-	1,  // 29: exclave.core.app.dns.SimplifiedNameServer.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
-	2,  // 30: exclave.core.app.dns.SimplifiedNameServer.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
-	3,  // 31: exclave.core.app.dns.SimplifiedNameServer.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
-	18, // 32: exclave.core.app.dns.SimplifiedNameServer.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
-	0,  // 33: exclave.core.app.dns.NameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
-	19, // 34: exclave.core.app.dns.Config.HostsEntry.value:type_name -> exclave.core.common.net.IPOrDomain
-	0,  // 35: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
-	36, // [36:36] is the sub-list for method output_type
-	36, // [36:36] is the sub-list for method input_type
-	36, // [36:36] is the sub-list for extension type_name
-	36, // [36:36] is the sub-list for extension extendee
-	0,  // [0:36] is the sub-list for field type_name
+	4,  // 9: exclave.core.app.dns.Config.name_server:type_name -> exclave.core.app.dns.NameServer
+	5,  // 10: exclave.core.app.dns.Config.static_hosts:type_name -> exclave.core.app.dns.HostMapping
+	16, // 11: exclave.core.app.dns.Config.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 12: exclave.core.app.dns.Config.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 13: exclave.core.app.dns.Config.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 14: exclave.core.app.dns.Config.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	9,  // 15: exclave.core.app.dns.SimplifiedConfig.name_server:type_name -> exclave.core.app.dns.SimplifiedNameServer
+	8,  // 16: exclave.core.app.dns.SimplifiedConfig.static_hosts:type_name -> exclave.core.app.dns.SimplifiedHostMapping
+	16, // 17: exclave.core.app.dns.SimplifiedConfig.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 18: exclave.core.app.dns.SimplifiedConfig.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 19: exclave.core.app.dns.SimplifiedConfig.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 20: exclave.core.app.dns.SimplifiedConfig.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	0,  // 21: exclave.core.app.dns.SimplifiedHostMapping.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	14, // 22: exclave.core.app.dns.SimplifiedNameServer.address:type_name -> exclave.core.common.net.Endpoint
+	12, // 23: exclave.core.app.dns.SimplifiedNameServer.prioritized_domain:type_name -> exclave.core.app.dns.SimplifiedNameServer.PriorityDomain
+	15, // 24: exclave.core.app.dns.SimplifiedNameServer.geoip:type_name -> exclave.core.app.router.routercommon.GeoIP
+	13, // 25: exclave.core.app.dns.SimplifiedNameServer.original_rules:type_name -> exclave.core.app.dns.SimplifiedNameServer.OriginalRule
+	16, // 26: exclave.core.app.dns.SimplifiedNameServer.fake_dns:type_name -> exclave.core.app.dns.fakedns.FakeDnsPoolMulti
+	1,  // 27: exclave.core.app.dns.SimplifiedNameServer.query_strategy:type_name -> exclave.core.app.dns.QueryStrategy
+	2,  // 28: exclave.core.app.dns.SimplifiedNameServer.cache_strategy:type_name -> exclave.core.app.dns.CacheStrategy
+	3,  // 29: exclave.core.app.dns.SimplifiedNameServer.fallback_strategy:type_name -> exclave.core.app.dns.FallbackStrategy
+	17, // 30: exclave.core.app.dns.SimplifiedNameServer.geo_domain:type_name -> exclave.core.app.router.routercommon.GeoSite
+	0,  // 31: exclave.core.app.dns.NameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	0,  // 32: exclave.core.app.dns.SimplifiedNameServer.PriorityDomain.type:type_name -> exclave.core.app.dns.DomainMatchingType
+	33, // [33:33] is the sub-list for method output_type
+	33, // [33:33] is the sub-list for method input_type
+	33, // [33:33] is the sub-list for extension type_name
+	33, // [33:33] is the sub-list for extension extendee
+	0,  // [0:33] is the sub-list for field type_name
 }
 
 func init() { file_app_dns_config_proto_init() }
@@ -1375,7 +1337,7 @@ func file_app_dns_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_dns_config_proto_rawDesc), len(file_app_dns_config_proto_rawDesc)),
 			NumEnums:      4,
-			NumMessages:   11,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

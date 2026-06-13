@@ -122,11 +122,9 @@ func (x *Account) GetPassword() string {
 type ServerConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Deprecated: Marked as deprecated in proxy/mixed/config.proto.
-	AuthType AuthType          `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.mixed.AuthType" json:"auth_type,omitempty"`
-	Accounts map[string]string `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	// Deprecated: Marked as deprecated in proxy/mixed/config.proto.
-	Timeout   uint32 `protobuf:"varint,3,opt,name=timeout,proto3" json:"timeout,omitempty"`
-	UserLevel uint32 `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
+	AuthType  AuthType          `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=exclave.core.proxy.mixed.AuthType" json:"auth_type,omitempty"`
+	Accounts  map[string]string `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	UserLevel uint32            `protobuf:"varint,4,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
 	// Socks
 	UdpEnabled     bool            `protobuf:"varint,5,opt,name=udp_enabled,json=udpEnabled,proto3" json:"udp_enabled,omitempty"`
 	Address        *net.IPOrDomain `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
@@ -182,14 +180,6 @@ func (x *ServerConfig) GetAccounts() map[string]string {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in proxy/mixed/config.proto.
-func (x *ServerConfig) GetTimeout() uint32 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
-}
-
 func (x *ServerConfig) GetUserLevel() uint32 {
 	if x != nil {
 		return x.UserLevel
@@ -232,11 +222,10 @@ const file_proxy_mixed_config_proto_rawDesc = "" +
 	"\x18proxy/mixed/config.proto\x12\x18exclave.core.proxy.mixed\x1a\x18common/net/address.proto\"A\n" +
 	"\aAccount\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xdc\x03\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\xc4\x03\n" +
 	"\fServerConfig\x12C\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\".exclave.core.proxy.mixed.AuthTypeB\x02\x18\x01R\bauthType\x12P\n" +
-	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.mixed.ServerConfig.AccountsEntryR\baccounts\x12\x1c\n" +
-	"\atimeout\x18\x03 \x01(\rB\x02\x18\x01R\atimeout\x12\x1d\n" +
+	"\baccounts\x18\x02 \x03(\v24.exclave.core.proxy.mixed.ServerConfig.AccountsEntryR\baccounts\x12\x1d\n" +
 	"\n" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x12\x1f\n" +
 	"\vudp_enabled\x18\x05 \x01(\bR\n" +
@@ -246,7 +235,7 @@ const file_proxy_mixed_config_proto_rawDesc = "" +
 	"\x11allow_transparent\x18\t \x01(\bR\x10allowTransparent\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\a\x10\b*%\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\x03\x10\x04J\x04\b\a\x10\b*%\n" +
 	"\bAuthType\x12\v\n" +
 	"\aNO_AUTH\x10\x00\x12\f\n" +
 	"\bPASSWORD\x10\x01B\x88\x01\n" +

@@ -23,7 +23,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/platform"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/strmatcher"
-	"github.com/exclavenetwork/exclave-core/v5/features"
 	feature_dns "github.com/exclavenetwork/exclave-core/v5/features/dns"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/cfgcommon"
 	"github.com/exclavenetwork/exclave-core/v5/infra/conf/geodata"
@@ -55,22 +54,12 @@ type DomainMatcherInfo struct {
 // New creates a new DNS server with given configuration.
 func New(ctx context.Context, config *Config) (*DNS, error) {
 	// Create static hosts
-	hosts, err := NewStaticHosts(config.StaticHosts, config.Hosts)
+	hosts, err := NewStaticHosts(config.StaticHosts)
 	if err != nil {
 		return nil, newError("failed to create hosts").Base(err)
 	}
 
-	// Create name servers from legacy configs
 	clients := []*Client{}
-	for _, endpoint := range config.NameServers {
-		features.PrintDeprecatedFeatureWarning("simple DNS server")
-		client, err := NewClient(ctx, &NameServer{Address: endpoint}, config)
-		if err != nil {
-			return nil, newError("failed to create client").Base(err)
-		}
-		clients = append(clients, client)
-	}
-
 	// Create name servers
 	nsClientMap := map[int]int{}
 	for nsIdx, ns := range config.NameServer {

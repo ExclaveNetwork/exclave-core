@@ -29,9 +29,7 @@ message RoutingRule {
   // List of domains for target domain matching.
   repeated exclave.core.app.router.routercommon.Domain domain = 2;
 
-  // List of CIDRs for target IP address matching.
-  // Deprecated. Use geoip below.
-  repeated exclave.core.app.router.routercommon.CIDR cidr = 3 [deprecated = true];
+  reserved 3;
 
   // List of GeoIPs for target IP address matching. If this entry exists, the
   // cidr above will have no effect. GeoIP fields with the same country code are
@@ -39,21 +37,17 @@ message RoutingRule {
   // runtime. For customized GeoIPs, please leave country code empty.
   repeated exclave.core.app.router.routercommon.GeoIP geoip = 10;
 
-  // A range of port [from, to]. If the destination port is in this range, this
-  // rule takes effect. Deprecated. Use port_list.
-  exclave.core.common.net.PortRange port_range = 4 [deprecated = true];
+  reserved 4;
 
   // List of ports.
   exclave.core.common.net.PortList port_list = 14;
 
-  // List of networks. Deprecated. Use networks.
-  exclave.core.common.net.NetworkList network_list = 5 [deprecated = true];
+  reserved 5;
 
   // List of networks for matching.
   repeated exclave.core.common.net.Network networks = 13;
 
-  // List of CIDRs for source IP address matching.
-  repeated exclave.core.app.router.routercommon.CIDR source_cidr = 6 [deprecated = true];
+  reserved 6;
 
   // List of GeoIPs for source IP address matching. If this entry exists, the
   // source_cidr above will have no effect.

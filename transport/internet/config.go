@@ -8,36 +8,13 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/protoext"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
-	"github.com/exclavenetwork/exclave-core/v5/features"
 )
 
 type ConfigCreator func() interface{}
 
 var (
 	globalTransportConfigCreatorCache = make(map[string]ConfigCreator)
-	globalTransportSettings           []*TransportConfig
 )
-
-const unknownProtocol = "unknown"
-
-func transportProtocolToString(protocol TransportProtocol) string {
-	switch protocol {
-	case TransportProtocol_TCP:
-		return "tcp"
-	case TransportProtocol_UDP:
-		return "udp"
-	case TransportProtocol_HTTP:
-		return "http"
-	case TransportProtocol_MKCP:
-		return "mkcp"
-	case TransportProtocol_WebSocket:
-		return "websocket"
-	case TransportProtocol_DomainSocket:
-		return "domainsocket"
-	default:
-		return unknownProtocol
-	}
-}
 
 func RegisterProtocolConfigCreator(name string, creator ConfigCreator) error {
 	if _, found := globalTransportConfigCreatorCache[name]; found {
@@ -67,20 +44,17 @@ func (c *TransportConfig) GetUnifiedProtocolName() string {
 	if len(c.ProtocolName) > 0 {
 		return c.ProtocolName
 	}
-
-	return transportProtocolToString(c.Protocol)
+	return "tcp"
 }
 
 func (c *StreamConfig) GetEffectiveProtocol() string {
 	if c == nil {
 		return "tcp"
 	}
-
 	if len(c.ProtocolName) > 0 {
 		return c.ProtocolName
 	}
-
-	return transportProtocolToString(c.Protocol)
+	return "tcp"
 }
 
 func (c *StreamConfig) GetEffectiveTransportSettings() (interface{}, error) {
@@ -96,13 +70,6 @@ func (c *StreamConfig) GetTransportSettingsFor(protocol string) (interface{}, er
 			}
 		}
 	}
-
-	for _, settings := range globalTransportSettings {
-		if settings.GetUnifiedProtocolName() == protocol {
-			return settings.GetTypedSettings()
-		}
-	}
-
 	return CreateTransportConfig(protocol)
 }
 
@@ -117,12 +84,6 @@ func (c *StreamConfig) GetEffectiveSecuritySettings() (interface{}, error) {
 
 func (c *StreamConfig) HasSecuritySettings() bool {
 	return len(c.SecurityType) > 0
-}
-
-func ApplyGlobalTransportSettings(settings []*TransportConfig) error {
-	features.PrintDeprecatedFeatureWarning("global transport settings")
-	globalTransportSettings = settings
-	return nil
 }
 
 func (c *ProxyConfig) HasTag() bool {

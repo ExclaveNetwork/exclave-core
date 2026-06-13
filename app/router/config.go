@@ -7,7 +7,6 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 
 	"github.com/exclavenetwork/exclave-core/v5/app/router/routercommon"
-	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
 	"github.com/exclavenetwork/exclave-core/v5/features/routing"
@@ -66,8 +65,6 @@ func (rr *RoutingRule) BuildCondition() (Condition, error) {
 
 	if rr.PortList != nil {
 		conds.Add(NewPortMatcher(rr.PortList, false))
-	} else if rr.PortRange != nil {
-		conds.Add(NewPortMatcher(&net.PortList{Range: []*net.PortRange{rr.PortRange}}, false))
 	}
 
 	if rr.SourcePortList != nil {
@@ -76,8 +73,6 @@ func (rr *RoutingRule) BuildCondition() (Condition, error) {
 
 	if len(rr.Networks) > 0 {
 		conds.Add(NewNetworkMatcher(rr.Networks))
-	} else if rr.NetworkList != nil {
-		conds.Add(NewNetworkMatcher(rr.NetworkList.Network))
 	}
 
 	if len(rr.Geoip) > 0 {
@@ -87,23 +82,10 @@ func (rr *RoutingRule) BuildCondition() (Condition, error) {
 		}
 		cond.skipDomain = rr.SkipDomain
 		conds.Add(cond)
-	} else if len(rr.Cidr) > 0 {
-		cond, err := NewMultiGeoIPMatcher([]*routercommon.GeoIP{{Cidr: rr.Cidr}}, false)
-		if err != nil {
-			return nil, err
-		}
-		cond.skipDomain = rr.SkipDomain
-		conds.Add(cond)
 	}
 
 	if len(rr.SourceGeoip) > 0 {
 		cond, err := NewMultiGeoIPMatcher(rr.SourceGeoip, true)
-		if err != nil {
-			return nil, err
-		}
-		conds.Add(cond)
-	} else if len(rr.SourceCidr) > 0 {
-		cond, err := NewMultiGeoIPMatcher([]*routercommon.GeoIP{{Cidr: rr.SourceCidr}}, true)
 		if err != nil {
 			return nil, err
 		}

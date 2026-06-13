@@ -114,11 +114,9 @@ func testVMessHysteria2(t *testing.T, congestionType string) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -269,11 +267,9 @@ func testHysteria2Offical(t *testing.T, isUDP bool) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP, net.Network_UDP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP, net.Network_UDP},
 				}),
 			},
 		},
@@ -371,7 +367,7 @@ func TestHysteria2OnTCP(t *testing.T) {
 						},
 						TransportSettings: []*internet.TransportConfig{
 							{
-								Protocol: internet.TransportProtocol_TCP,
+								ProtocolName: "tcp",
 								Settings: serial.ToTypedMessage(&tcpTransport.Config{
 									HeaderSettings: serial.ToTypedMessage(&http.Config{}),
 								}),
@@ -403,11 +399,9 @@ func TestHysteria2OnTCP(t *testing.T) {
 					Listen:    net.NewIPOrDomain(net.LocalHostIP),
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
-					Address: net.NewIPOrDomain(dest.Address),
-					Port:    uint32(dest.Port),
-					NetworkList: &net.NetworkList{
-						Network: []net.Network{net.Network_TCP},
-					},
+					Address:  net.NewIPOrDomain(dest.Address),
+					Port:     uint32(dest.Port),
+					Networks: []net.Network{net.Network_TCP},
 				}),
 			},
 		},
@@ -426,7 +420,7 @@ func TestHysteria2OnTCP(t *testing.T) {
 						},
 						TransportSettings: []*internet.TransportConfig{
 							{
-								Protocol: internet.TransportProtocol_TCP,
+								ProtocolName: "tcp",
 								Settings: serial.ToTypedMessage(&tcpTransport.Config{
 									HeaderSettings: serial.ToTypedMessage(&http.Config{}),
 								}),
