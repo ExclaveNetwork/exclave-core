@@ -85,9 +85,9 @@ message SocketConfig {
   // option. This option is for UDP only.
   bool receive_original_dest_address = 4;
 
-  bytes bind_address = 5;
+  reserved 5;
 
-  uint32 bind_port = 6;
+  reserved 6;
 
   bool accept_proxy_protocol = 7;
 

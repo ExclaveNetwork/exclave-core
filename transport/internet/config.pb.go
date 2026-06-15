@@ -371,8 +371,6 @@ type SocketConfig struct {
 	// ReceiveOriginalDestAddress is for enabling IP_RECVORIGDSTADDR socket
 	// option. This option is for UDP only.
 	ReceiveOriginalDestAddress bool              `protobuf:"varint,4,opt,name=receive_original_dest_address,json=receiveOriginalDestAddress,proto3" json:"receive_original_dest_address,omitempty"`
-	BindAddress                []byte            `protobuf:"bytes,5,opt,name=bind_address,json=bindAddress,proto3" json:"bind_address,omitempty"`
-	BindPort                   uint32            `protobuf:"varint,6,opt,name=bind_port,json=bindPort,proto3" json:"bind_port,omitempty"`
 	AcceptProxyProtocol        bool              `protobuf:"varint,7,opt,name=accept_proxy_protocol,json=acceptProxyProtocol,proto3" json:"accept_proxy_protocol,omitempty"`
 	TcpKeepAliveInterval       int32             `protobuf:"varint,8,opt,name=tcp_keep_alive_interval,json=tcpKeepAliveInterval,proto3" json:"tcp_keep_alive_interval,omitempty"`
 	TfoQueueLength             uint32            `protobuf:"varint,9,opt,name=tfo_queue_length,json=tfoQueueLength,proto3" json:"tfo_queue_length,omitempty"`
@@ -443,20 +441,6 @@ func (x *SocketConfig) GetReceiveOriginalDestAddress() bool {
 		return x.ReceiveOriginalDestAddress
 	}
 	return false
-}
-
-func (x *SocketConfig) GetBindAddress() []byte {
-	if x != nil {
-		return x.BindAddress
-	}
-	return nil
-}
-
-func (x *SocketConfig) GetBindPort() uint32 {
-	if x != nil {
-		return x.BindPort
-	}
-	return 0
 }
 
 func (x *SocketConfig) GetAcceptProxyProtocol() bool {
@@ -597,14 +581,12 @@ const file_transport_internet_config_proto_rawDesc = "" +
 	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettingsJ\x04\b\x01\x10\x02\"Q\n" +
 	"\vProxyConfig\x12\x10\n" +
 	"\x03tag\x18\x01 \x01(\tR\x03tag\x120\n" +
-	"\x13transportLayerProxy\x18\x02 \x01(\bR\x13transportLayerProxy\"\xa3\a\n" +
+	"\x13transportLayerProxy\x18\x02 \x01(\bR\x13transportLayerProxy\"\xef\x06\n" +
 	"\fSocketConfig\x12\x12\n" +
 	"\x04mark\x18\x01 \x01(\rR\x04mark\x12P\n" +
 	"\x03tfo\x18\x02 \x01(\x0e2>.exclave.core.transport.internet.SocketConfig.TCPFastOpenStateR\x03tfo\x12P\n" +
 	"\x06tproxy\x18\x03 \x01(\x0e28.exclave.core.transport.internet.SocketConfig.TProxyModeR\x06tproxy\x12A\n" +
-	"\x1dreceive_original_dest_address\x18\x04 \x01(\bR\x1areceiveOriginalDestAddress\x12!\n" +
-	"\fbind_address\x18\x05 \x01(\fR\vbindAddress\x12\x1b\n" +
-	"\tbind_port\x18\x06 \x01(\rR\bbindPort\x122\n" +
+	"\x1dreceive_original_dest_address\x18\x04 \x01(\bR\x1areceiveOriginalDestAddress\x122\n" +
 	"\x15accept_proxy_protocol\x18\a \x01(\bR\x13acceptProxyProtocol\x125\n" +
 	"\x17tcp_keep_alive_interval\x18\b \x01(\x05R\x14tcpKeepAliveInterval\x12(\n" +
 	"\x10tfo_queue_length\x18\t \x01(\rR\x0etfoQueueLength\x12-\n" +
@@ -626,7 +608,7 @@ const file_transport_internet_config_proto_rawDesc = "" +
 	"\x03Off\x10\x00\x12\n" +
 	"\n" +
 	"\x06TProxy\x10\x01\x12\f\n" +
-	"\bRedirect\x10\x02\"w\n" +
+	"\bRedirect\x10\x02J\x04\b\x05\x10\x06J\x04\b\x06\x10\a\"w\n" +
 	"\x10TLSFragmentation\x128\n" +
 	"\x18tls_record_fragmentation\x18\x01 \x01(\bR\x16tlsRecordFragmentation\x12)\n" +
 	"\x10tcp_segmentation\x18\x02 \x01(\bR\x0ftcpSegmentation*/\n" +

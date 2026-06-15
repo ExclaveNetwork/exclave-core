@@ -155,14 +155,6 @@ func applyInboundSocketOptions(network string, address string, fd uintptr, confi
 	return nil
 }
 
-func bindAddr(_ uintptr, _ []byte, _ uint32) error {
-	return nil
-}
-
-func setReuseAddr(_ uintptr) error {
-	return nil
-}
-
 func setReusePort(_ uintptr) error {
 	return nil
 }

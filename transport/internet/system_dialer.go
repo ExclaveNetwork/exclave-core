@@ -38,12 +38,8 @@ func resolveSrcAddr(network net.Network, src net.Address) net.Addr {
 	}
 }
 
-func hasBindAddr(sockopt *SocketConfig) bool {
-	return sockopt != nil && len(sockopt.BindAddress) > 0 && sockopt.BindPort > 0
-}
-
 func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest net.Destination, sockopt *SocketConfig) (net.Conn, error) {
-	if dest.Network == net.Network_UDP && !hasBindAddr(sockopt) {
+	if dest.Network == net.Network_UDP {
 		srcAddr := resolveSrcAddr(net.Network_UDP, src)
 		if srcAddr == nil {
 			srcAddr = &net.UDPAddr{
@@ -115,11 +111,6 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 					if err := applyOutboundSocketOptions(network, address, fd, sockopt); err != nil {
 						newError("failed to apply socket options").Base(err).WriteToLog(session.ExportIDToError(ctx))
 					}
-					if dest.Network == net.Network_UDP && hasBindAddr(sockopt) {
-						if err := bindAddr(fd, sockopt.BindAddress, sockopt.BindPort); err != nil {
-							newError("failed to bind source address to ", sockopt.BindAddress).Base(err).WriteToLog(session.ExportIDToError(ctx))
-						}
-					}
 				}
 
 				for _, ctl := range d.controllers {
@@ -138,11 +129,6 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 func ApplySockopt(network, address string, fd uintptr, sockopt *SocketConfig) {
 	if err := applyOutboundSocketOptions(network, address, fd, sockopt); err != nil {
 		newError("failed to apply socket options").Base(err).WriteToLog()
-	}
-	if network == "udp4" || network == "udp6" && hasBindAddr(sockopt) {
-		if err := bindAddr(fd, sockopt.BindAddress, sockopt.BindPort); err != nil {
-			newError("failed to bind source address to ", sockopt.BindAddress).Base(err).WriteToLog()
-		}
 	}
 }
 

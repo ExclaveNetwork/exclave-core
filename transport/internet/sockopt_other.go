@@ -10,14 +10,6 @@ func applyInboundSocketOptions(_ string, _ string, _ uintptr, _ *SocketConfig) e
 	return nil
 }
 
-func bindAddr(_ uintptr, _ []byte, _ uint32) error {
-	return nil
-}
-
-func setReuseAddr(_ uintptr) error {
-	return nil
-}
-
 func setReusePort(_ uintptr) error {
 	return nil
 }
