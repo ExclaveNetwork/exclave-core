@@ -7,7 +7,7 @@ require (
 	github.com/adrg/xdg v0.5.3
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da
 	github.com/anytls/sing-anytls v0.0.11
-	github.com/apernet/quic-go v0.59.1-0.20260425001925-6c6cc9bcb716
+	github.com/apernet/quic-go v0.60.1-0.20260618182935-599b15a1fa26
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.34.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.9.2-1
@@ -23,7 +23,7 @@ require (
 	github.com/quic-go/quic-go v0.60.0
 	github.com/refraction-networking/utls v1.8.3-0.20260301010127-aa6edf4b11af
 	github.com/sagernet/sing v0.8.10
-	github.com/sagernet/sing-mux v0.3.4
+	github.com/sagernet/sing-mux v0.3.5
 	github.com/sagernet/sing-quic v0.6.1
 	github.com/sagernet/sing-shadowsocks v0.2.9
 	github.com/sagernet/sing-shadowsocks2 v0.2.2
