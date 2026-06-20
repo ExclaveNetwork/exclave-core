@@ -237,7 +237,7 @@ func (d *DefaultDispatcher) Dispatch(ctx context.Context, destination net.Destin
 					if resComp, ok := result.(SnifferResultComposite); ok {
 						protocol = resComp.ProtocolForDomainResult()
 					}
-					if sniffingRequest.RouteOnly && protocol == "fakedns" {
+					if sniffingRequest.RouteOnly && protocol != "fakedns" {
 						ob.RouteTarget = destination
 					} else {
 						ob.Target = destination
