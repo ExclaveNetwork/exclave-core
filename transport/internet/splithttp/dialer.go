@@ -202,7 +202,14 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 				default:
 					packetConn = internet.NewConnWrapper(rawConn)
 				}
-				return quic.Dial(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
+				conn, err := quic.Dial(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
+				if err != nil {
+					return nil, err
+				}
+				context.AfterFunc(conn.Context(), func() {
+					packetConn.Close()
+				})
+				return conn, nil
 			},
 		}
 	case "2":
@@ -378,10 +385,10 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 	}
 
 	if xmuxClient != nil {
-		xmuxClient.OpenUsage.Add(1)
+		xmuxClient.AddRunning()
 	}
 	if xmuxClientForDownload != nil && xmuxClientForDownload != xmuxClient {
-		xmuxClientForDownload.OpenUsage.Add(1)
+		xmuxClientForDownload.AddRunning()
 	}
 
 	var closed atomic.Int32
@@ -394,10 +401,10 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 				return
 			}
 			if xmuxClient != nil {
-				xmuxClient.OpenUsage.Add(-1)
+				xmuxClient.DoneRunning()
 			}
 			if xmuxClientForDownload != nil && xmuxClientForDownload != xmuxClient {
-				xmuxClientForDownload.OpenUsage.Add(-1)
+				xmuxClientForDownload.DoneRunning()
 			}
 		},
 	}
