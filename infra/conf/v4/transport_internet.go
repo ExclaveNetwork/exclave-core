@@ -413,8 +413,10 @@ type SplitHTTPConfig struct {
 	XPaddingPlacement    string               `json:"xPaddingPlacement"`
 	XPaddingMethod       string               `json:"xPaddingMethod"`
 	UplinkHTTPMethod     string               `json:"uplinkHTTPMethod"`
-	SessionPlacement     string               `json:"sessionPlacement"`
-	SessionKey           string               `json:"sessionKey"`
+	SessionIDPlacement   string               `json:"sessionIDPlacement"`
+	SessionIDKey         string               `json:"sessionIDKey"`
+	SessionIDTable       string               `json:"sessionIDTable"`
+	SessionIDLength      string               `json:"sessionIDLength"`
 	SeqPlacement         string               `json:"seqPlacement"`
 	SeqKey               string               `json:"seqKey"`
 	UplinkDataPlacement  string               `json:"uplinkDataPlacement"`
@@ -553,9 +555,9 @@ func (c *SplitHTTPConfig) Build() (proto.Message, error) {
 		XPaddingPlacement:    c.XPaddingPlacement,
 		XPaddingMethod:       c.XPaddingMethod,
 		UplinkHTTPMethod:     c.UplinkHTTPMethod,
-		SessionPlacement:     c.SessionPlacement,
+		SessionIDPlacement:   c.SessionIDPlacement,
 		SeqPlacement:         c.SeqPlacement,
-		SessionKey:           c.SessionKey,
+		SessionIDKey:         c.SessionIDKey,
 		SeqKey:               c.SeqKey,
 		UplinkDataPlacement:  c.UplinkDataPlacement,
 		UplinkDataKey:        c.UplinkDataKey,
@@ -564,6 +566,8 @@ func (c *SplitHTTPConfig) Build() (proto.Message, error) {
 		ScMaxEachPostBytes:   c.ScMaxEachPostBytes,
 		ScMinPostsIntervalMs: c.ScMinPostsIntervalMs,
 		ScMaxBufferedPosts:   c.ScMaxBufferedPosts,
+		SessionIDTable:       c.SessionIDTable,
+		SessionIDLength:      c.SessionIDLength,
 		UseBrowserForwarding: c.UseBrowserForwarding,
 	}
 	if config.XPaddingKey == "" {
@@ -604,12 +608,12 @@ func (c *SplitHTTPConfig) Build() (proto.Message, error) {
 	if config.UplinkHTTPMethod == "GET" && config.Mode != "packet-up" {
 		return nil, newError("uplinkHTTPMethod can be GET only in packet-up mode")
 	}
-	switch config.SessionPlacement {
+	switch config.SessionIDPlacement {
 	case "":
-		config.SessionPlacement = "path"
+		config.SessionIDPlacement = "path"
 	case "path", "cookie", "header", "query":
 	default:
-		return nil, newError("unsupported session placement: " + config.SessionPlacement)
+		return nil, newError("unsupported session placement: " + config.SessionIDPlacement)
 	}
 	switch config.SeqPlacement {
 	case "":
@@ -618,12 +622,12 @@ func (c *SplitHTTPConfig) Build() (proto.Message, error) {
 	default:
 		return nil, newError("unsupported seq placement: " + config.SeqPlacement)
 	}
-	if config.SessionPlacement != "path" && config.SessionKey == "" {
-		switch config.SessionPlacement {
+	if config.SessionIDPlacement != "path" && config.SessionIDKey == "" {
+		switch config.SessionIDPlacement {
 		case "cookie", "query":
-			config.SessionKey = "x_session"
+			config.SessionIDKey = "x_session"
 		case "header":
-			config.SessionKey = "X-Session"
+			config.SessionIDKey = "X-Session"
 		}
 	}
 	if config.SeqPlacement != "path" && config.SeqKey == "" {

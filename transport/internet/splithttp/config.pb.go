@@ -198,13 +198,15 @@ type Config struct {
 	XPaddingPlacement    string                 `protobuf:"bytes,15,opt,name=xPaddingPlacement,proto3" json:"xPaddingPlacement,omitempty"`
 	XPaddingMethod       string                 `protobuf:"bytes,16,opt,name=xPaddingMethod,proto3" json:"xPaddingMethod,omitempty"`
 	UplinkHTTPMethod     string                 `protobuf:"bytes,17,opt,name=uplinkHTTPMethod,proto3" json:"uplinkHTTPMethod,omitempty"`
-	SessionPlacement     string                 `protobuf:"bytes,18,opt,name=sessionPlacement,proto3" json:"sessionPlacement,omitempty"`
-	SessionKey           string                 `protobuf:"bytes,19,opt,name=sessionKey,proto3" json:"sessionKey,omitempty"`
+	SessionIDPlacement   string                 `protobuf:"bytes,18,opt,name=sessionIDPlacement,proto3" json:"sessionIDPlacement,omitempty"`
+	SessionIDKey         string                 `protobuf:"bytes,19,opt,name=sessionIDKey,proto3" json:"sessionIDKey,omitempty"`
 	SeqPlacement         string                 `protobuf:"bytes,20,opt,name=seqPlacement,proto3" json:"seqPlacement,omitempty"`
 	SeqKey               string                 `protobuf:"bytes,21,opt,name=seqKey,proto3" json:"seqKey,omitempty"`
 	UplinkDataPlacement  string                 `protobuf:"bytes,22,opt,name=uplinkDataPlacement,proto3" json:"uplinkDataPlacement,omitempty"`
 	UplinkDataKey        string                 `protobuf:"bytes,23,opt,name=uplinkDataKey,proto3" json:"uplinkDataKey,omitempty"`
 	UplinkChunkSize      string                 `protobuf:"bytes,24,opt,name=uplinkChunkSize,proto3" json:"uplinkChunkSize,omitempty"`
+	SessionIDTable       string                 `protobuf:"bytes,25,opt,name=sessionIDTable,proto3" json:"sessionIDTable,omitempty"`
+	SessionIDLength      string                 `protobuf:"bytes,26,opt,name=sessionIDLength,proto3" json:"sessionIDLength,omitempty"`
 	UseBrowserForwarding bool                   `protobuf:"varint,99,opt,name=use_browser_forwarding,json=useBrowserForwarding,proto3" json:"use_browser_forwarding,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
@@ -359,16 +361,16 @@ func (x *Config) GetUplinkHTTPMethod() string {
 	return ""
 }
 
-func (x *Config) GetSessionPlacement() string {
+func (x *Config) GetSessionIDPlacement() string {
 	if x != nil {
-		return x.SessionPlacement
+		return x.SessionIDPlacement
 	}
 	return ""
 }
 
-func (x *Config) GetSessionKey() string {
+func (x *Config) GetSessionIDKey() string {
 	if x != nil {
-		return x.SessionKey
+		return x.SessionIDKey
 	}
 	return ""
 }
@@ -408,6 +410,20 @@ func (x *Config) GetUplinkChunkSize() string {
 	return ""
 }
 
+func (x *Config) GetSessionIDTable() string {
+	if x != nil {
+		return x.SessionIDTable
+	}
+	return ""
+}
+
+func (x *Config) GetSessionIDLength() string {
+	if x != nil {
+		return x.SessionIDLength
+	}
+	return ""
+}
+
 func (x *Config) GetUseBrowserForwarding() bool {
 	if x != nil {
 		return x.UseBrowserForwarding
@@ -433,7 +449,8 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x12transport_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x04 \x01(\tR\fsecurityType\x12A\n" +
 	"\x11security_settings\x18\x05 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xe6\t\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xc0\n" +
+	"\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x12\n" +
@@ -452,16 +469,16 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x0exPaddingHeader\x18\x0e \x01(\tR\x0exPaddingHeader\x12,\n" +
 	"\x11xPaddingPlacement\x18\x0f \x01(\tR\x11xPaddingPlacement\x12&\n" +
 	"\x0exPaddingMethod\x18\x10 \x01(\tR\x0exPaddingMethod\x12*\n" +
-	"\x10uplinkHTTPMethod\x18\x11 \x01(\tR\x10uplinkHTTPMethod\x12*\n" +
-	"\x10sessionPlacement\x18\x12 \x01(\tR\x10sessionPlacement\x12\x1e\n" +
-	"\n" +
-	"sessionKey\x18\x13 \x01(\tR\n" +
-	"sessionKey\x12\"\n" +
+	"\x10uplinkHTTPMethod\x18\x11 \x01(\tR\x10uplinkHTTPMethod\x12.\n" +
+	"\x12sessionIDPlacement\x18\x12 \x01(\tR\x12sessionIDPlacement\x12\"\n" +
+	"\fsessionIDKey\x18\x13 \x01(\tR\fsessionIDKey\x12\"\n" +
 	"\fseqPlacement\x18\x14 \x01(\tR\fseqPlacement\x12\x16\n" +
 	"\x06seqKey\x18\x15 \x01(\tR\x06seqKey\x120\n" +
 	"\x13uplinkDataPlacement\x18\x16 \x01(\tR\x13uplinkDataPlacement\x12$\n" +
 	"\ruplinkDataKey\x18\x17 \x01(\tR\ruplinkDataKey\x12(\n" +
-	"\x0fuplinkChunkSize\x18\x18 \x01(\tR\x0fuplinkChunkSize\x124\n" +
+	"\x0fuplinkChunkSize\x18\x18 \x01(\tR\x0fuplinkChunkSize\x12&\n" +
+	"\x0esessionIDTable\x18\x19 \x01(\tR\x0esessionIDTable\x12(\n" +
+	"\x0fsessionIDLength\x18\x1a \x01(\tR\x0fsessionIDLength\x124\n" +
 	"\x16use_browser_forwarding\x18c \x01(\bR\x14useBrowserForwarding\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +

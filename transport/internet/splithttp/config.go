@@ -6,12 +6,14 @@ import (
 	"fmt"
 	"io"
 	"math/big"
+	mathrandv2 "math/rand/v2"
 	"net/http"
 	"strconv"
 	"strings"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
+	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
@@ -240,10 +242,10 @@ func (c *Config) GetNormalizedUplinkChunkSize() *RangeConfig {
 }
 
 func (c *Config) GetNormalizedSessionPlacement() string {
-	if c.SessionPlacement == "" {
+	if c.SessionIDPlacement == "" {
 		return PlacementPath
 	}
-	return c.SessionPlacement
+	return c.SessionIDPlacement
 }
 
 func (c *Config) GetNormalizedSeqPlacement() string {
@@ -261,8 +263,8 @@ func (c *Config) GetNormalizedUplinkDataPlacement() string {
 }
 
 func (c *Config) GetNormalizedSessionKey() string {
-	if c.SessionKey != "" {
-		return c.SessionKey
+	if c.SessionIDKey != "" {
+		return c.SessionIDKey
 	}
 	switch c.GetNormalizedSessionPlacement() {
 	case PlacementHeader:
@@ -448,6 +450,79 @@ func (c *Config) ExtractMetaFromRequest(req *http.Request, path string) (session
 	}
 
 	return sessionId, seqStr
+}
+
+// predefined
+var PredefinedTable = map[string]string{
+	"ALPHABET": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	"Alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+	"BASE36":   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	"Base62":   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+	"HEX":      "0123456789ABCDEF",
+	"alphabet": "abcdefghijklmnopqrstuvwxyz",
+	"base36":   "0123456789abcdefghijklmnopqrstuvwxyz",
+	"hex":      "0123456789abcdef",
+	"number":   "0123456789",
+}
+
+func (c *Config) GenerateSessionID() (string, error) {
+	length := c.getSessionIDLength().rand()
+	table, err := c.getNormalizedSessionIDTable()
+	if err != nil {
+		return "", err
+	}
+	if predefined, ok := PredefinedTable[table]; ok {
+		table = predefined
+	}
+	if table != "" && length > 0 {
+		id := make([]byte, length)
+		for i := range id {
+			id[i] = table[mathrandv2.N(len(table))]
+		}
+		return string(id), nil
+	} else {
+		uuid := uuid.New()
+		return uuid.String(), nil
+	}
+}
+
+func (c *Config) getSessionIDLength() *RangeConfig {
+	return newRandRangeConfig(0, 0, c.SessionIDLength)
+}
+
+func (c *Config) getNormalizedSessionIDTable() (string, error) {
+	sessionIDTable := c.SessionIDTable
+	if sessionIDTable != "" {
+		if predefined, ok := PredefinedTable[sessionIDTable]; ok {
+			sessionIDTable = predefined
+		}
+		sessionIDLength := c.getSessionIDLength()
+		room := roomSize(len(sessionIDTable), sessionIDLength.From, sessionIDLength.To)
+		// 2.1B possiblities should be enough
+		if room.Cmp(big.NewInt(2<<30)) < 0 {
+			return "", newError("sessionIDTable or sessionIDLength is too small")
+		}
+		if sessionIDLength.From <= 0 {
+			return "", newError("sessionIDLength.from must be greater than 0")
+		}
+		for i := 0; i < len(sessionIDTable); i++ {
+			if sessionIDTable[i] >= 0x80 {
+				return "", newError("sessionIDTable must contain only ASCII characters")
+			}
+		}
+	}
+	return sessionIDTable, nil
+}
+
+func roomSize(tableSize int, min, max int32) *big.Int {
+	base := big.NewInt(int64(tableSize))
+	sum := new(big.Int)
+	term := new(big.Int)
+	for k := min; k <= max; k++ {
+		term.Exp(base, big.NewInt(int64(k)), nil)
+		sum.Add(sum, term)
+	}
+	return sum
 }
 
 func appendToPath(path, value string) string {

@@ -49,12 +49,14 @@ message Config {
   string xPaddingPlacement = 15;
   string xPaddingMethod = 16;
   string uplinkHTTPMethod = 17;
-  string sessionPlacement = 18;
-  string sessionKey = 19;
+  string sessionIDPlacement = 18;
+  string sessionIDKey = 19;
   string seqPlacement = 20;
   string seqKey = 21;
   string uplinkDataPlacement = 22;
   string uplinkDataKey = 23;
   string uplinkChunkSize = 24;
+  string sessionIDTable = 25;
+  string sessionIDLength = 26;
   bool use_browser_forwarding = 99;
 }

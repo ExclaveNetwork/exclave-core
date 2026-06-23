@@ -25,7 +25,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
-	"github.com/exclavenetwork/exclave-core/v5/common/uuid"
 	"github.com/exclavenetwork/exclave-core/v5/features/extension"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
@@ -313,8 +312,10 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 
 	sessionId := ""
 	if mode != "stream-one" {
-		sessionIdUuid := uuid.New()
-		sessionId = sessionIdUuid.String()
+		sessionId, err = transportConfiguration.GenerateSessionID()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	newError(fmt.Sprintf("XHTTP is dialing to %s, mode %s, HTTP version %s, host %s", dest, mode, httpVersion, requestURL.Host)).AtInfo().WriteToLog(session.ExportIDToError(ctx))
