@@ -59,7 +59,12 @@ func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId str
 	if body != nil {
 		method = c.transportConfig.GetNormalizedUplinkHTTPMethod() // stream-up/one
 	}
-	req, _ := http.NewRequestWithContext(context.WithoutCancel(ctx), method, url, body)
+	var req *http.Request
+	req, err = http.NewRequestWithContext(context.WithoutCancel(ctx), method, url, body)
+	if err != nil {
+		err = newError("failed to create HTTP request for ", url).Base(err)
+		return
+	}
 	c.transportConfig.FillStreamRequest(req, sessionId, "")
 
 	wrc = &WaitReadCloser{Wait: make(chan struct{})}
