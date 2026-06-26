@@ -4,6 +4,7 @@ package dispatcher
 
 import (
 	"context"
+	"errors"
 	"slices"
 	"strings"
 	"sync"
@@ -349,8 +350,13 @@ func (d *DefaultDispatcher) routedDispatch(ctx context.Context, link *transport.
 			} else {
 				newError("non existing tag: ", tag).AtWarning().WriteToLog(session.ExportIDToError(ctx))
 			}
-		} else {
+		} else if errors.Is(err, routing.ErrNoRuleMatched) {
 			newError("default route for ", destination).AtWarning().WriteToLog(session.ExportIDToError(ctx))
+		} else {
+			newError("no outbound available for ", destination).Base(err).AtWarning().WriteToLog(session.ExportIDToError(ctx))
+			common.Close(link.Writer)
+			common.Interrupt(link.Reader)
+			return
 		}
 	}
 

@@ -1,7 +1,8 @@
 package routing
 
 import (
-	"github.com/exclavenetwork/exclave-core/v5/common"
+	"errors"
+
 	"github.com/exclavenetwork/exclave-core/v5/features"
 )
 
@@ -46,7 +47,7 @@ func (DefaultRouter) Type() interface{} {
 
 // PickRoute implements Router.
 func (DefaultRouter) PickRoute(ctx Context) (Route, error) {
-	return nil, common.ErrNoClue
+	return nil, ErrNoRuleMatched
 }
 
 // Start implements common.Runnable.
@@ -58,3 +59,5 @@ func (DefaultRouter) Start() error {
 func (DefaultRouter) Close() error {
 	return nil
 }
+
+var ErrNoRuleMatched = errors.New("no rule matched")

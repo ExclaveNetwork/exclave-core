@@ -139,7 +139,7 @@ func (r *Router) pickRouteInternal(ctx routing.Context) (*Rule, routing.Context,
 	}
 
 	if r.domainStrategy != DomainStrategy_IpIfNonMatch || len(ctx.GetTargetDomain()) == 0 || skipDNSResolve {
-		return nil, ctx, common.ErrNoClue
+		return nil, ctx, routing.ErrNoRuleMatched
 	}
 
 	ctx = routing_dns.ContextWithDNSClient(ctx, r.dns)
@@ -151,7 +151,7 @@ func (r *Router) pickRouteInternal(ctx routing.Context) (*Rule, routing.Context,
 		}
 	}
 
-	return nil, ctx, common.ErrNoClue
+	return nil, ctx, routing.ErrNoRuleMatched
 }
 
 // Start implements common.Runnable.
