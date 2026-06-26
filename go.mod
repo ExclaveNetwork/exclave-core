@@ -17,7 +17,7 @@ require (
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
 	github.com/gorilla/websocket v1.5.3
-	github.com/metacubex/utls v1.8.4
+	github.com/metacubex/utls v1.8.7
 	github.com/miekg/dns v1.1.72
 	github.com/pires/go-proxyproto v0.12.0
 	github.com/quic-go/quic-go v0.60.0
