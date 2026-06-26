@@ -33,7 +33,7 @@ type ServerInstance struct {
 	PaddingGaps   [][3]int
 
 	RWLock   sync.RWMutex
-	Closed   bool
+	Closed   chan struct{}
 	Lasts    map[int64][16]byte
 	Tickets  [][16]byte
 	Sessions map[[16]byte]*ServerSession
@@ -78,14 +78,17 @@ func (i *ServerInstance) Init(nfsSKeysBytes [][]byte, xorMode uint32, secondsFro
 		i.Lasts = make(map[int64][16]byte)
 		i.Tickets = make([][16]byte, 0, 1024)
 		i.Sessions = make(map[[16]byte]*ServerSession)
+		i.Closed = make(chan struct{})
 		go func() {
+			ticker := time.NewTicker(time.Minute)
+			defer ticker.Stop()
 			for {
-				time.Sleep(time.Minute)
-				i.RWLock.Lock()
-				if i.Closed {
-					i.RWLock.Unlock()
+				select {
+				case <-i.Closed:
 					return
+				case <-ticker.C:
 				}
+				i.RWLock.Lock()
 				minute := time.Now().Unix() / 60
 				last := i.Lasts[minute]
 				delete(i.Lasts, minute)
@@ -106,11 +109,11 @@ func (i *ServerInstance) Init(nfsSKeysBytes [][]byte, xorMode uint32, secondsFro
 	return err
 }
 
-func (i *ServerInstance) Close() (err error) {
-	i.RWLock.Lock()
-	i.Closed = true
-	i.RWLock.Unlock()
-	return err
+func (i *ServerInstance) Close() error {
+	if i.Closed != nil {
+		close(i.Closed)
+	}
+	return nil
 }
 
 func (i *ServerInstance) Handshake(conn net.Conn, fallback *[]byte) (*CommonConn, error) {
