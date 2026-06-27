@@ -19,7 +19,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
 	v2net "github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
-	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/extension"
 	"github.com/exclavenetwork/exclave-core/v5/features/outbound"
@@ -33,7 +32,7 @@ type Observer struct {
 	statusLock sync.Mutex
 	status     []*OutboundStatus
 
-	finished *done.Instance
+	cancel context.CancelFunc
 
 	ohm            outbound.Manager
 	persistStorage persistentstorage.ScopedPersistentStorage
@@ -71,21 +70,32 @@ func (o *Observer) Start() error {
 				}
 			}
 		}
-		o.finished = done.New()
-		go o.background()
+		ctx, cancel := context.WithCancel(context.Background())
+		o.cancel = cancel
+		go o.background(ctx)
 	}
 	return nil
 }
 
 func (o *Observer) Close() error {
-	if o.finished != nil {
-		return o.finished.Close()
+	if o.cancel != nil {
+		o.cancel()
 	}
 	return nil
 }
 
-func (o *Observer) background() {
-	for !o.finished.Done() {
+func (o *Observer) background(ctx context.Context) {
+	sleepTime := time.Second * 10
+	if o.config.ProbeInterval != 0 {
+		sleepTime = time.Duration(o.config.ProbeInterval)
+	}
+
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
 		hs, ok := o.ohm.(outbound.HandlerSelector)
 		if !ok {
 			newError("outbound.Manager is not a HandlerSelector").WriteToLog()
@@ -96,25 +106,25 @@ func (o *Observer) background() {
 
 		o.updateStatus(outbounds)
 
-		sleepTime := time.Second * 10
-		if o.config.ProbeInterval != 0 {
-			sleepTime = time.Duration(o.config.ProbeInterval)
-		}
-
 		if !o.config.EnableConcurrency {
 			sort.Strings(outbounds)
 			slept := false
 			for _, v := range outbounds {
-				result := o.probe(v)
+				result := o.probe(ctx, v)
 				o.updateStatusForResult(v, &result)
-				if o.finished.Done() {
+				select {
+				case <-ctx.Done():
 					return
+				case <-time.After(sleepTime):
+					slept = true
 				}
-				time.Sleep(sleepTime)
-				slept = true
 			}
 			if !slept {
-				time.Sleep(sleepTime)
+				select {
+				case <-ctx.Done():
+					return
+				case <-time.After(sleepTime):
+				}
 			}
 		}
 
@@ -122,7 +132,7 @@ func (o *Observer) background() {
 
 		for _, v := range outbounds {
 			go func(v string) {
-				result := o.probe(v)
+				result := o.probe(ctx, v)
 				o.updateStatusForResult(v, &result)
 				ch <- struct{}{}
 			}(v)
@@ -131,11 +141,15 @@ func (o *Observer) background() {
 		for range outbounds {
 			select {
 			case <-ch:
-			case <-o.finished.Wait():
+			case <-ctx.Done():
 				return
 			}
 		}
-		time.Sleep(sleepTime)
+		select {
+		case <-ctx.Done():
+			return
+		case <-time.After(sleepTime):
+		}
 	}
 }
 
@@ -146,7 +160,7 @@ func (o *Observer) updateStatus(outbounds []string) {
 	_ = outbounds
 }
 
-func (o *Observer) probe(outbound string) ProbeResult {
+func (o *Observer) probe(ctx context.Context, outbound string) ProbeResult {
 	errorCollectorForRequest := newErrorCollector()
 
 	httpTransport := http.Transport{
@@ -191,7 +205,11 @@ func (o *Observer) probe(outbound string) ProbeResult {
 		if o.config.ProbeUrl != "" {
 			probeURL = o.config.ProbeUrl
 		}
-		response, err := httpClient.Get(probeURL)
+		request, err := http.NewRequestWithContext(ctx, http.MethodGet, probeURL, nil)
+		if err != nil {
+			return err
+		}
+		response, err := httpClient.Do(request)
 		if err != nil {
 			return newError("outbound failed to relay connection").Base(err)
 		}
