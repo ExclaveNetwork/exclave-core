@@ -32,7 +32,12 @@ func (b *Balancer) PickOutbound() (string, error) {
 			newError("fallback to [", b.fallbackTag, "], due to error: ", err).AtInfo().WriteToLog()
 			return b.fallbackTag, nil
 		}
-		return "", err
+		if len(candidates) == 0 {
+			return "", err
+		} else {
+			newError("fallback to the first tag [", candidates[0], "]").Base(err).AtInfo().WriteToLog()
+			return candidates[0], nil
+		}
 	}
 	var tag string
 	if o := b.override.Get(); o != "" {
@@ -45,8 +50,13 @@ func (b *Balancer) PickOutbound() (string, error) {
 			newError("fallback to [", b.fallbackTag, "], due to empty tag returned").AtInfo().WriteToLog()
 			return b.fallbackTag, nil
 		}
-		// will use default handler
-		return "", newError("balancing strategy returns empty tag")
+		if len(candidates) == 0 {
+			return "", newError("balancing strategy returns empty tag")
+		} else {
+			err := newError("balancing strategy returns empty tag")
+			newError("fallback to the first tag [", candidates[0], "]").Base(err).AtInfo().WriteToLog()
+			return candidates[0], nil
+		}
 	}
 	return tag, nil
 }
