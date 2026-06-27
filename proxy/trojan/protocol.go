@@ -214,9 +214,14 @@ func (c *ConnReader) ParseHeader() error {
 		return newError("failed to read command").Base(err)
 	}
 
-	network := net.Network_TCP
-	if command[0] == commandUDP {
+	var network net.Network
+	switch command[0] {
+	case commandTCP:
+		network = net.Network_TCP
+	case commandUDP:
 		network = net.Network_UDP
+	default:
+		return newError("unknown command: ", command[0])
 	}
 
 	addr, port, err := addrParser.ReadAddressPort(nil, c.Reader)
