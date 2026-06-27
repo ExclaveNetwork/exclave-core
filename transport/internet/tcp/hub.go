@@ -12,6 +12,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
@@ -26,6 +27,7 @@ type Listener struct {
 	authConfig    internet.ConnectionAuthenticator
 	config        *Config
 	addConn       internet.ConnHandler
+	done          *done.Instance
 }
 
 // ListenTCP creates a new Listener based on configurations.
@@ -33,6 +35,7 @@ func ListenTCP(ctx context.Context, address net.Address, port net.Port, streamSe
 	l := &Listener{
 		ctx:     ctx,
 		addConn: handler,
+		done:    done.New(),
 	}
 	tcpSettings := streamSettings.ProtocolSettings.(*Config)
 	l.config = tcpSettings
@@ -103,7 +106,11 @@ func (v *Listener) keepAccepting() {
 			}
 			newError("failed to accepted raw connections").Base(err).AtWarning().WriteToLog()
 			if strings.Contains(errStr, "too many") {
-				time.Sleep(time.Millisecond * 500)
+				select {
+				case <-v.done.Wait():
+					return
+				case <-time.After(time.Millisecond * 500):
+				}
 			}
 			continue
 		}
@@ -132,6 +139,7 @@ func (v *Listener) Addr() net.Addr {
 
 // Close implements internet.Listener.Close.
 func (v *Listener) Close() error {
+	v.done.Close()
 	return v.listener.Close()
 }
 
