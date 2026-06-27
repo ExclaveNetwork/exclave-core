@@ -36,6 +36,7 @@ type requestHandler struct {
 	sessionMu *sync.Mutex
 	sessions  sync.Map
 	localAddr net.Addr
+	done      *done.Instance
 }
 
 type httpSession struct {
@@ -72,7 +73,10 @@ func (h *requestHandler) upsertSession(sessionId string) *httpSession {
 
 	shouldReap := done.New()
 	go func() {
-		time.Sleep(30 * time.Second)
+		select {
+		case <-h.done.Wait():
+		case <-time.After(time.Second * 30):
+		}
 		shouldReap.Close()
 	}()
 	go func() {
@@ -351,24 +355,24 @@ func (c *httpServerConn) Write(b []byte) (int, error) {
 }
 
 func (c *httpServerConn) Close() error {
-	c.Lock()
-	defer c.Unlock()
 	return c.Instance.Close()
 }
 
 type Listener struct {
-	sync.Mutex
 	server     http.Server
 	h3server   *http3.Server
 	listener   net.Listener
 	h3listener *quic.EarlyListener
 	config     *Config
 	addConn    internet.ConnHandler
+	done       *done.Instance
 }
 
 func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSettings *internet.MemoryStreamConfig, addConn internet.ConnHandler) (internet.Listener, error) {
+	done := done.New()
 	l := &Listener{
 		addConn: addConn,
+		done:    done,
 	}
 	l.config = streamSettings.ProtocolSettings.(*Config)
 	var err error
@@ -379,6 +383,7 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 		ln:        l,
 		sessionMu: &sync.Mutex{},
 		sessions:  sync.Map{},
+		done:      done,
 	}
 
 	tlsConfig := tls.ConfigFromStreamSettings(streamSettings)
@@ -465,6 +470,7 @@ func (ln *Listener) Addr() net.Addr {
 
 // Close implements net.Listener.Close().
 func (ln *Listener) Close() error {
+	ln.done.Close()
 	if ln.h3server != nil {
 		return ln.h3server.Close()
 	}
