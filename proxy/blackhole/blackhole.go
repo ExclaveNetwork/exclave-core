@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
@@ -13,6 +14,7 @@ import (
 // Handler is an outbound connection that silently swallow the entire payload.
 type Handler struct {
 	response ResponseConfig
+	done     *done.Instance
 }
 
 // New creates a new blackhole handler.
@@ -23,6 +25,7 @@ func New(ctx context.Context, config *Config) (*Handler, error) {
 	}
 	return &Handler{
 		response: response,
+		done:     done.New(),
 	}, nil
 }
 
@@ -31,8 +34,17 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	nBytes := h.response.WriteTo(link.Writer)
 	if nBytes > 0 {
 		// Sleep a little here to make sure the response is sent to client.
-		time.Sleep(time.Second)
+		select {
+		case <-ctx.Done():
+		case <-h.done.Wait():
+		case <-time.After(time.Second):
+		}
 	}
+	return nil
+}
+
+func (h *Handler) Close() error {
+	h.done.Close()
 	return nil
 }
 

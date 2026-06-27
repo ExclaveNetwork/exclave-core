@@ -101,11 +101,12 @@ func (s *simpleAssemblerClientSession) runOnce() {
 			resp, err := s.tripper.RoundTrip(s.ctx, request.Request{Data: data, ConnectionTag: s.sessionID})
 			if err != nil {
 				newError("failed to send data").Base(err).WriteToLog()
-				if s.ctx.Err() != nil {
+				select {
+				case <-s.ctx.Done():
 					return
+				case <-time.After(time.Millisecond * time.Duration(s.assembler.config.FailedRetryIntervalMs)):
+					continue
 				}
-				time.Sleep(time.Millisecond * time.Duration(s.assembler.config.FailedRetryIntervalMs))
-				continue
 			}
 			if len(resp.Data) != 0 {
 				s.readerChan <- resp.Data

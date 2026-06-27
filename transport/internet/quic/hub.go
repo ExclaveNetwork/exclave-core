@@ -35,8 +35,7 @@ func (l *Listener) acceptStreams(conn *quic.Conn) {
 					newError("failed to close connection").Base(err).WriteToLog()
 				}
 				return
-			default:
-				time.Sleep(time.Second)
+			case <-time.After(time.Second):
 				continue
 			}
 		}
@@ -59,8 +58,12 @@ func (l *Listener) keepAccepting() {
 			if l.done.Done() {
 				break
 			}
-			time.Sleep(time.Second)
-			continue
+			select {
+			case <-l.done.Wait():
+				break
+			case <-time.After(time.Second):
+				continue
+			}
 		}
 		go l.acceptStreams(conn)
 	}

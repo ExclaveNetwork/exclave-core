@@ -92,7 +92,12 @@ func (p *Plugin) startPlugin(oldProc Cmd) error {
 	}
 
 	go func() {
-		time.Sleep(time.Second)
+		select {
+		case <-p.done.Wait():
+			newError("closed").AtError().WriteToLog()
+			return
+		case <-time.After(time.Second):
+		}
 		err = platform.CheckChildProcess(proc.Process())
 		if err != nil {
 			newError("sip003 plugin ", proc.Path, " exits too fast").Base(err).WriteToLog()
@@ -119,7 +124,12 @@ func (p *Plugin) waitPlugin() {
 		newError("sip003 plugin exited with code ", status.ExitCode(), ", try to restart").WriteToLog()
 	}
 
-	time.Sleep(time.Second)
+	select {
+	case <-p.done.Wait():
+		newError("closed").AtError().WriteToLog()
+		return
+	case <-time.After(time.Second):
+	}
 
 	if err := p.startPlugin(p.pluginProcess); err != nil {
 		newError(err).WriteToLog()
