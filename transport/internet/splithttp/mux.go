@@ -54,7 +54,7 @@ func NewXmuxManager(xmuxConfig *XmuxConfig, newConnFunc func() (XmuxConn, error)
 	var config *XmuxConfig
 	if xmuxConfig == nil || reflect.DeepEqual(xmuxConfig, &XmuxConfig{}) {
 		config = &XmuxConfig{
-			MaxConcurrency:   "1-1",
+			MaxConnections:   "6-6",
 			HMaxRequestTimes: "600-900",
 			HMaxReusableSecs: "1800-3000",
 		}
