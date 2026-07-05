@@ -349,6 +349,9 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 		serverName := config.ServerName
 		config.ServerName = ""
 		if !config.InsecureSkipVerify {
+			if len(serverName) == 0 {
+				return nil, newError("either ServerName or InsecureSkipVerify must be specified")
+			}
 			config.InsecureSkipVerify = true
 			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
 				config.VerifyConnection = func(state tls.ConnectionState) error {
@@ -369,6 +372,9 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 
 	if serverNameToVerify, ok := session.ServerNameToVerifyFromContext(ctx); ok {
 		if !config.InsecureSkipVerify {
+			if len(serverNameToVerify) == 0 {
+				return nil, newError("either ServerNameToVerify or InsecureSkipVerify must be specified")
+			}
 			config.InsecureSkipVerify = true
 			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
 				config.VerifyConnection = func(state tls.ConnectionState) error {
