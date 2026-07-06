@@ -87,11 +87,10 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 
 func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*tuic.Client, error) {
 	o.clientAccess.Lock()
+	defer o.clientAccess.Unlock()
 	if o.client != nil {
-		defer o.clientAccess.Unlock()
 		return o.client, nil
 	}
-	o.clientAccess.Unlock()
 	handler, ok := dialer.(*outbound.Handler)
 	if !ok {
 		panic("dialer is not *outbound.Handler")
@@ -120,9 +119,7 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*tuic
 	if err != nil {
 		return nil, err
 	}
-	o.clientAccess.Lock()
 	o.client = client
-	o.clientAccess.Unlock()
 	return client, nil
 }
 
@@ -191,11 +188,10 @@ func (o *Outbound) InterfaceUpdate() {
 
 func (o *Outbound) Close() error {
 	o.clientAccess.Lock()
-	client := o.client
-	o.clientAccess.Unlock()
-	if client != nil {
-		return client.CloseWithError(os.ErrClosed)
+	if o.client != nil {
+		o.client.CloseWithError(os.ErrClosed)
 	}
+	o.clientAccess.Unlock()
 	return nil
 }
 
