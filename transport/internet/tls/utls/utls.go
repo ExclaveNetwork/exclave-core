@@ -138,6 +138,14 @@ func uTLSConfigFromTLSConfig(config *systls.Config) (*utls.Config, error) { // n
 		}
 		uconfig.Certificates = certificates
 	}
+	if config.VerifyConnection != nil {
+		// There is no good way to convert crypto/tls VerifyConnection to utls VerifyConnection.
+		// Currently VerifyConnection is not used. If VerifyConnection is used in the future,
+		// this must be changed.
+		uconfig.VerifyConnection = func(_ utls.ConnectionState) error {
+			panic("VerifyConnection is not nil")
+		}
+	}
 	return uconfig, nil
 }
 
