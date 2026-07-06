@@ -57,11 +57,10 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 
 func (o *Outbound) getClient(dialer internet.Dialer, resolver func(ctx context.Context, domain string) net.Address) (mieruclient.Client, error) {
 	o.clientAccess.Lock()
+	defer o.clientAccess.Unlock()
 	if o.client != nil {
-		defer o.clientAccess.Unlock()
 		return o.client, nil
 	}
-	o.clientAccess.Unlock()
 	handler, ok := dialer.(*outbound.Handler)
 	if !ok {
 		panic("dialer is not *outbound.Handler")
@@ -99,9 +98,7 @@ func (o *Outbound) getClient(dialer internet.Dialer, resolver func(ctx context.C
 	if err = client.Start(); err != nil {
 		return nil, err
 	}
-	o.clientAccess.Lock()
 	o.client = client
-	o.clientAccess.Unlock()
 	return client, nil
 }
 
