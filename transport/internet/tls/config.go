@@ -351,16 +351,24 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 		if !config.InsecureSkipVerify {
 			config.InsecureSkipVerify = true
 			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
-				config.VerifyConnection = func(state tls.ConnectionState) error {
+				config.VerifyPeerCertificate = func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
+					certs := make([]*x509.Certificate, len(rawCerts))
+					for i, rawCert := range rawCerts {
+						cert, err := x509.ParseCertificate(rawCert)
+						if err != nil {
+							return err
+						}
+						certs[i] = cert
+					}
 					verifyOptions := x509.VerifyOptions{
 						Roots:         config.RootCAs,
 						DNSName:       serverName,
 						Intermediates: x509.NewCertPool(),
 					}
-					for _, cert := range state.PeerCertificates[1:] {
+					for _, cert := range certs[1:] {
 						verifyOptions.Intermediates.AddCert(cert)
 					}
-					_, err := state.PeerCertificates[0].Verify(verifyOptions)
+					_, err := certs[0].Verify(verifyOptions)
 					return err
 				}
 			}
@@ -371,16 +379,24 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 		if !config.InsecureSkipVerify {
 			config.InsecureSkipVerify = true
 			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
-				config.VerifyConnection = func(state tls.ConnectionState) error {
+				config.VerifyPeerCertificate = func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
+					certs := make([]*x509.Certificate, len(rawCerts))
+					for i, rawCert := range rawCerts {
+						cert, err := x509.ParseCertificate(rawCert)
+						if err != nil {
+							return err
+						}
+						certs[i] = cert
+					}
 					verifyOptions := x509.VerifyOptions{
 						Roots:         config.RootCAs,
 						DNSName:       serverNameToVerify,
 						Intermediates: x509.NewCertPool(),
 					}
-					for _, cert := range state.PeerCertificates[1:] {
+					for _, cert := range certs[1:] {
 						verifyOptions.Intermediates.AddCert(cert)
 					}
-					_, err := state.PeerCertificates[0].Verify(verifyOptions)
+					_, err := certs[0].Verify(verifyOptions)
 					return err
 				}
 			}
