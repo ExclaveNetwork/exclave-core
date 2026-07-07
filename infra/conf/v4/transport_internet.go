@@ -694,6 +694,8 @@ func (p TransportProtocol) Build() (string, error) {
 		return "mekya", nil
 	case "xhttp", "splithttp":
 		return "splithttp", nil
+	case "tlsmirror":
+		return "tlsmirror", nil
 	default:
 		return "", newError("Config: unknown transport protocol: ", p)
 	}
@@ -719,6 +721,7 @@ type StreamConfig struct {
 	MekyaSettings       *MekyaConfig            `json:"mekyaSettings"`
 	SplitHTTPSettings   *SplitHTTPConfig        `json:"splithttpSettings"`
 	XHTTPSettings       *SplitHTTPConfig        `json:"xhttpSettings"`
+	TLSMirrorSettings   *TLSMirrorConfig        `json:"tlsmirrorSettings"`
 	SocketSettings      *socketcfg.SocketConfig `json:"sockopt"`
 }
 
@@ -927,6 +930,16 @@ func (c *StreamConfig) Build() (*internet.StreamConfig, error) {
 		config.TransportSettings = append(config.TransportSettings, &internet.TransportConfig{
 			ProtocolName: "splithttp",
 			Settings:     serial.ToTypedMessage(hs),
+		})
+	}
+	if c.TLSMirrorSettings != nil {
+		s, err := c.TLSMirrorSettings.Build()
+		if err != nil {
+			return nil, newError("Failed to build TLSMirror config.").Base(err)
+		}
+		config.TransportSettings = append(config.TransportSettings, &internet.TransportConfig{
+			ProtocolName: "tlsmirror",
+			Settings:     serial.ToTypedMessage(s),
 		})
 	}
 	return config, nil
