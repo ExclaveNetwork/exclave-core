@@ -3,7 +3,6 @@ package snell
 import (
 	"context"
 	"net"
-	"strconv"
 	"sync"
 
 	snellclient "github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/snell"
@@ -154,17 +153,15 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		return singbridge.ReturnError(bufio.CopyConn(detachedCtx, singbridge.NewPipeConnWrapper(link), serverConn))
 	}
 
-	// UDP-over-TCP
+	// UDP-over-TCP: wrap std net.PacketConn as sing network.PacketConn
 	pc, err := client.ListenPacket(detachedCtx)
 	if err != nil {
 		return err
 	}
-	target := destinationToNetAddr(destination)
-	wrapped := &fixedUDPPacketConn{PacketConn: pc, target: target}
 	return singbridge.ReturnError(bufio.CopyPacketConn(
 		detachedCtx,
 		singbridge.NewPacketConnWrapper(link, destination),
-		wrapped,
+		bufio.NewPacketConn(pc),
 	))
 }
 
@@ -173,37 +170,6 @@ func destinationAddressHost(d v2net.Destination) string {
 		return d.Address.Domain()
 	}
 	return d.Address.IP().String()
-}
-
-func destinationToNetAddr(d v2net.Destination) net.Addr {
-	host := destinationAddressHost(d)
-	port := int(d.Port)
-	if d.Address.Family().IsDomain() {
-		return &domainAddr{host: host, port: port}
-	}
-	return &net.UDPAddr{IP: d.Address.IP(), Port: port}
-}
-
-type domainAddr struct {
-	host string
-	port int
-}
-
-func (a *domainAddr) Network() string { return "udp" }
-func (a *domainAddr) String() string {
-	return net.JoinHostPort(a.host, strconv.Itoa(a.port))
-}
-
-type fixedUDPPacketConn struct {
-	net.PacketConn
-	target net.Addr
-}
-
-func (c *fixedUDPPacketConn) WriteTo(p []byte, addr net.Addr) (int, error) {
-	if addr == nil {
-		addr = c.target
-	}
-	return c.PacketConn.WriteTo(p, addr)
 }
 
 func (o *Outbound) InterfaceUpdate() {
