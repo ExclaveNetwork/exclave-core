@@ -118,16 +118,13 @@ func (o *Outbound) getClient(dialer internet.Dialer) (snellClient, error) {
 	psk := []byte(o.psk)
 	userKey := []byte(o.userKey)
 
-	var (
-		client snellClient
-		err    error
-	)
+	var client snellClient
 	if o.version == 6 {
 		mode, err := snellv6.ParseMode(o.mode)
 		if err != nil {
 			return nil, err
 		}
-		client, err = snellv6.NewClient(snellv6.ClientOptions{
+		c, err := snellv6.NewClient(snellv6.ClientOptions{
 			PSK:     psk,
 			UserKey: userKey,
 			Mode:    mode,
@@ -138,12 +135,13 @@ func (o *Outbound) getClient(dialer internet.Dialer) (snellClient, error) {
 		if err != nil {
 			return nil, err
 		}
+		client = c
 	} else {
 		obfsMode, err := snellproto.ParseObfsMode(o.obfs)
 		if err != nil {
 			return nil, err
 		}
-		client, err = snellv4.NewClient(snellv4.ClientOptions{
+		c, err := snellv4.NewClient(snellv4.ClientOptions{
 			PSK:      psk,
 			UserKey:  userKey,
 			Reuse:    o.reuse,
@@ -155,6 +153,7 @@ func (o *Outbound) getClient(dialer internet.Dialer) (snellClient, error) {
 		if err != nil {
 			return nil, err
 		}
+		client = c
 	}
 	o.client = client
 	return client, nil
@@ -176,7 +175,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		" (v", o.version, ")").WriteToLog(session.ExportIDToError(ctx))
 
 	detachedCtx := core.ToBackgroundDetachedContext(ctx)
-	target := singbridge.ToSocksaddr(destination)
+	target := singbridge.ToSocksAddr(destination)
 
 	if destination.Network == v2net.Network_TCP {
 		serverConn, err := client.DialContext(detachedCtx, target)
