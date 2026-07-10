@@ -248,17 +248,7 @@ func (w *shapedWriter) WriteZeroChunk() error {
 	return err
 }
 
-func (w *shapedWriter) CreateVectorisedWriter() (N.VectorisedWriter, bool) {
-	upstreamWriter, created := bufio.CreateVectorisedWriter(w.upstream)
-	if !created {
-		return nil, false
-	}
-	return w.CreateVectorisedWriterFor(upstreamWriter), true
-}
 
-func (w *shapedWriter) CreateVectorisedWriterFor(upstream N.VectorisedWriter) N.VectorisedWriter {
-	return &vectorisedShapedWriter{writer: w, upstream: upstream}
-}
 
 type vectorisedShapedWriter struct {
 	writer   *shapedWriter
@@ -266,41 +256,17 @@ type vectorisedShapedWriter struct {
 }
 
 func (w *vectorisedShapedWriter) WriteVectorised(buffers []*buf.Buffer) error {
-	var records []*buf.Buffer
-	defer func() {
-		buf.ReleaseMulti(records)
-	}()
-	recordWriter := w.writer
-	recordWriter.access.Lock()
-	defer recordWriter.access.Unlock()
+	// Compatibility fallback for sing v0.8.11 (no VectorisedWriteCreator chaining).
 	for _, buffer := range buffers {
-		dataLen := buffer.Len()
-		if dataLen == 0 {
-			buffer.Release()
+		if buffer.IsEmpty() {
 			continue
 		}
-		for data := buffer.Bytes(); len(data) > 0; {
-			payloadLimit := recordWriter.payloadLimitFor(time.Now())
-			recordLen := min(len(data), payloadLimit)
-			if len(data) == dataLen && dataLen <= payloadLimit {
-				record := recordWriter.makeBufferRecord(buffer)
-				buffer = nil
-				records = append(records, record)
-				break
-			}
-			records = append(records, recordWriter.makeSliceRecord(data[:recordLen]))
-			data = data[recordLen:]
-		}
-		if buffer != nil {
-			buffer.Release()
+		_, err := w.Write(buffer.Bytes())
+		if err != nil {
+			return err
 		}
 	}
-	if len(records) == 0 {
-		return nil
-	}
-	flushRecords := records
-	records = nil
-	return w.upstream.WriteVectorised(flushRecords)
+	return nil
 }
 
 var _ N.VectorisedWriter = (*vectorisedShapedWriter)(nil)
@@ -315,48 +281,17 @@ type packetVectorisedShapedWriter struct {
 }
 
 func (w *packetVectorisedShapedWriter) WriteVectorised(buffers []*buf.Buffer) error {
-	var records []*buf.Buffer
-	defer func() {
-		buf.ReleaseMulti(records)
-	}()
-	recordWriter := w.writer
-	recordWriter.access.Lock()
-	defer recordWriter.access.Unlock()
-	for index, buffer := range buffers {
+	// Compatibility fallback for sing v0.8.11 (no VectorisedWriteCreator chaining).
+	for _, buffer := range buffers {
 		if buffer.IsEmpty() {
-			buffer.Release()
 			continue
 		}
-		dataLen := buffer.Len()
-		nowUnix := time.Now().Unix()
-		chunkSize := recordWriter.chunkSize
-		if recordWriter.lastWriteUnix == 0 || nowUnix-recordWriter.lastWriteUnix > int64(recordWriter.profile.idleResetSec) {
-			chunkSize = recordWriter.profile.chunkInitial
+		_, err := w.Write(buffer.Bytes())
+		if err != nil {
+			return err
 		}
-		if chunkSize == 0 {
-			chunkSize = recordWriter.profile.chunkInitial
-		}
-		payloadLimit := recordWriter.profile.chunkPayloadLimit(recordWriter.seq, chunkSize)
-		if recordWriter.seq == 0 {
-			payloadLimit = min(payloadLimit, recordWriter.profile.firstRecordCap)
-		}
-		payloadLimit = max(1, min(payloadLimit, maxPayload))
-		if dataLen > payloadLimit {
-			buffer.Release()
-			buf.ReleaseMulti(buffers[index+1:])
-			return snell.ErrPayloadTooLarge
-		}
-		recordWriter.chunkSize = recordWriter.profile.nextChunkSize(chunkSize)
-		recordWriter.lastWriteUnix = nowUnix
-		record := recordWriter.makeBufferRecord(buffer)
-		records = append(records, record)
 	}
-	if len(records) == 0 {
-		return nil
-	}
-	flushRecords := records
-	records = nil
-	return w.upstream.WriteVectorised(flushRecords)
+	return nil
 }
 
 var _ N.VectorisedWriter = (*packetVectorisedShapedWriter)(nil)

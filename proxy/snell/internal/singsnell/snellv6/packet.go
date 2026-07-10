@@ -110,56 +110,8 @@ func (c *clientPacketConn) WritePacket(buffer *buf.Buffer, destination M.Socksad
 	return c.writer.WritePacketBuffer(buffer)
 }
 
-func (c *clientPacketConn) CreatePacketBatchWriter() (N.PacketBatchWriter, bool) {
-	upstreamWriter, created := bufio.CreateVectorisedWriter(c.Conn)
-	if !created {
-		return nil, false
-	}
-	return &clientPacketBatchWriter{conn: c, upstream: upstreamWriter}, true
-}
 
-type clientPacketBatchWriter struct {
-	conn     *clientPacketConn
-	upstream N.VectorisedWriter
 
-	access sync.Mutex
-	writer N.VectorisedWriter
-}
-
-func (w *clientPacketBatchWriter) WritePacketBatch(buffers []*buf.Buffer, destinations []M.Socksaddr) error {
-	if len(buffers) == 0 || len(buffers) != len(destinations) {
-		buf.ReleaseMulti(buffers)
-		return os.ErrInvalid
-	}
-	w.access.Lock()
-	if w.writer == nil {
-		err := w.conn.writeRequest()
-		if err != nil {
-			w.access.Unlock()
-			buf.ReleaseMulti(buffers)
-			return err
-		}
-		_, err = w.conn.readReply()
-		if err != nil {
-			w.access.Unlock()
-			buf.ReleaseMulti(buffers)
-			return err
-		}
-		w.writer = w.conn.writer.CreatePacketVectorisedWriterFor(w.upstream)
-	}
-	recordWriter := w.writer
-	w.access.Unlock()
-	for index, buffer := range buffers {
-		header := buf.With(buffer.ExtendHeader(1 + w.conn.udpRequestAddrLen(destinations[index])))
-		common.Must(header.WriteByte(snell.UDPCommandForward))
-		err := snell.WriteUDPRequestAddress(header, destinations[index])
-		if err != nil {
-			buf.ReleaseMulti(buffers)
-			return err
-		}
-	}
-	return recordWriter.WriteVectorised(buffers)
-}
 
 func (c *clientPacketConn) ReadPacket(buffer *buf.Buffer) (M.Socksaddr, error) {
 	reader, err := c.readReply()
@@ -329,54 +281,8 @@ func (c *serverPacketConn) WritePacket(buffer *buf.Buffer, destination M.Socksad
 	return writer.WritePacketBuffer(buffer)
 }
 
-func (c *serverPacketConn) CreatePacketBatchWriter() (N.PacketBatchWriter, bool) {
-	upstreamWriter, created := bufio.CreateVectorisedWriter(c.Conn)
-	if !created {
-		return nil, false
-	}
-	return &serverPacketBatchWriter{conn: c, upstream: upstreamWriter}, true
-}
 
-type serverPacketBatchWriter struct {
-	conn     *serverPacketConn
-	upstream N.VectorisedWriter
 
-	access sync.Mutex
-	writer N.VectorisedWriter
-}
-
-func (w *serverPacketBatchWriter) WritePacketBatch(buffers []*buf.Buffer, destinations []M.Socksaddr) error {
-	if len(buffers) == 0 || len(buffers) != len(destinations) {
-		buf.ReleaseMulti(buffers)
-		return os.ErrInvalid
-	}
-	w.access.Lock()
-	if w.writer == nil {
-		w.conn.writeAccess.Lock()
-		if w.conn.writer == nil {
-			err := w.conn.writeTunnelReply()
-			if err != nil {
-				w.conn.writeAccess.Unlock()
-				w.access.Unlock()
-				buf.ReleaseMulti(buffers)
-				return err
-			}
-		}
-		w.writer = w.conn.writer.CreatePacketVectorisedWriterFor(w.upstream)
-		w.conn.writeAccess.Unlock()
-	}
-	recordWriter := w.writer
-	w.access.Unlock()
-	for index, buffer := range buffers {
-		header := buf.With(buffer.ExtendHeader(w.conn.responseAddrLen(destinations[index])))
-		err := snell.WriteUDPResponseAddress(header, destinations[index])
-		if err != nil {
-			buf.ReleaseMulti(buffers)
-			return err
-		}
-	}
-	return recordWriter.WriteVectorised(buffers)
-}
 
 func (c *serverPacketConn) writeTunnelReply() error {
 	reply := [1]byte{snell.ReplyTunnel}
@@ -468,12 +374,8 @@ func (c *serverPacketConn) WaitReadPacket() (*buf.Buffer, M.Socksaddr, error) {
 var (
 	_ N.PacketConn              = (*clientPacketConn)(nil)
 	_ N.PacketReadWaiter        = (*clientPacketConn)(nil)
-	_ N.PacketBatchWriteCreator = (*clientPacketConn)(nil)
 	_ N.WriterWithMTU           = (*clientPacketConn)(nil)
-	_ N.PacketBatchWriter       = (*clientPacketBatchWriter)(nil)
 	_ N.PacketConn              = (*serverPacketConn)(nil)
 	_ N.PacketReadWaiter        = (*serverPacketConn)(nil)
-	_ N.PacketBatchWriteCreator = (*serverPacketConn)(nil)
 	_ N.WriterWithMTU           = (*serverPacketConn)(nil)
-	_ N.PacketBatchWriter       = (*serverPacketBatchWriter)(nil)
 )

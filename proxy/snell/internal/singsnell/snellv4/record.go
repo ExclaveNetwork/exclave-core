@@ -618,155 +618,40 @@ func (w *writer) WriteBuffer(buffer *buf.Buffer) error {
 	return w.writeBufferRecordLocked(buffer, paddingLen)
 }
 
-func (w *writer) CreateVectorisedWriter() (N.VectorisedWriter, bool) {
-	upstreamWriter, created := bufio.CreateVectorisedWriter(w.upstream)
-	if !created {
-		return nil, false
-	}
-	return w.CreateVectorisedWriterFor(upstreamWriter), true
-}
 
-func (w *writer) CreateVectorisedWriterFor(upstream N.VectorisedWriter) N.VectorisedWriter {
-	return &vectorisedWriter{writer: w, upstream: upstream}
-}
 
-type vectorisedWriter struct {
-	writer   *writer
-	upstream N.VectorisedWriter
-}
 
 func (w *vectorisedWriter) WriteVectorised(buffers []*buf.Buffer) error {
-	payloadLen := buf.LenMulti(buffers)
-	if payloadLen == 0 {
-		buf.ReleaseMulti(buffers)
-		return nil
-	}
-	var records []*buf.Buffer
-	defer func() {
-		buf.ReleaseMulti(records)
-	}()
-	recordWriter := w.writer
-	recordWriter.access.Lock()
-	defer recordWriter.access.Unlock()
-	err := recordWriter.initialize()
-	if err != nil {
-		buf.ReleaseMulti(buffers)
-		return err
-	}
-	nowUnix := time.Now().Unix()
-	payloadLimit := recordWriter.payloadLimitFor(nowUnix)
-	if payloadLimit <= 0 || payloadLimit > maxPayload {
-		panic("snell: invalid v4 payload limit")
-	}
-	// Surge 6.7.0 (11520): SNConnectorEngineAdapterV4::encryptData:outData:
-	// advances the growth window once per encrypt call and splits that call
-	// using the same payload limit.
-	recordWriter.advancePayloadLimit(payloadLimit, nowUnix)
-	index := 0
-	for remainingPayload := payloadLen; remainingPayload > 0; {
-		for buffers[index].IsEmpty() {
-			buffers[index].Release()
-			index++
+	// Compatibility fallback for sing v0.8.11 (no VectorisedWriteCreator chaining).
+	for _, buffer := range buffers {
+		if buffer.IsEmpty() {
+			continue
 		}
-		recordLen := min(remainingPayload, payloadLimit)
-		paddingLen := recordWriter.framePaddingLen(recordLen)
-		buffer := buffers[index]
-		if buffer.Len() == recordLen {
-			record, err := recordWriter.makeBufferRecordLocked(buffer, paddingLen)
-			if err != nil {
-				buffer.Release()
-				buf.ReleaseMulti(buffers[index+1:])
-				return err
-			}
-			records = append(records, record)
-			index++
-		} else {
-			payload := make([]byte, recordLen)
-			for copiedLen := 0; copiedLen < recordLen; {
-				buffer = buffers[index]
-				if buffer.IsEmpty() {
-					buffer.Release()
-					index++
-					continue
-				}
-				copyLen := min(recordLen-copiedLen, buffer.Len())
-				copy(payload[copiedLen:], buffer.Bytes()[:copyLen])
-				buffer.Advance(copyLen)
-				copiedLen += copyLen
-				if buffer.IsEmpty() {
-					buffer.Release()
-					index++
-				}
-			}
-			record, err := recordWriter.makeSliceRecordLocked(payload, paddingLen)
-			if err != nil {
-				buf.ReleaseMulti(buffers[index:])
-				return err
-			}
-			records = append(records, record)
+		_, err := w.Write(buffer.Bytes())
+		if err != nil {
+			return err
 		}
-		remainingPayload -= recordLen
 	}
-	buf.ReleaseMulti(buffers[index:])
-	flushRecords := records
-	records = nil
-	return w.upstream.WriteVectorised(flushRecords)
+	return nil
 }
 
 func (w *writer) CreatePacketVectorisedWriterFor(upstream N.VectorisedWriter) N.VectorisedWriter {
 	return &packetVectorisedWriter{writer: w, upstream: upstream}
 }
 
-type packetVectorisedWriter struct {
-	writer   *writer
-	upstream N.VectorisedWriter
-}
 
 func (w *packetVectorisedWriter) WriteVectorised(buffers []*buf.Buffer) error {
-	var records []*buf.Buffer
-	defer func() {
-		buf.ReleaseMulti(records)
-	}()
-	recordWriter := w.writer
-	recordWriter.access.Lock()
-	defer recordWriter.access.Unlock()
-	err := recordWriter.initialize()
-	if err != nil {
-		buf.ReleaseMulti(buffers)
-		return err
-	}
-	for index, buffer := range buffers {
+	// Compatibility fallback for sing v0.8.11 (no VectorisedWriteCreator chaining).
+	for _, buffer := range buffers {
 		if buffer.IsEmpty() {
-			buffer.Release()
 			continue
 		}
-		nowUnix := time.Now().Unix()
-		payloadLimit := recordWriter.payloadLimitFor(nowUnix)
-		if payloadLimit <= 0 || payloadLimit > maxPayload {
-			panic("snell: invalid v4 payload limit")
-		}
-		dataLen := buffer.Len()
-		if dataLen > payloadLimit {
-			buffer.Release()
-			buf.ReleaseMulti(buffers[index+1:])
-			return snell.ErrPayloadTooLarge
-		}
-		recordWriter.advancePayloadLimit(payloadLimit, nowUnix)
-		paddingLen := recordWriter.framePaddingLen(dataLen)
-		record, err := recordWriter.makeBufferRecordLocked(buffer, paddingLen)
+		_, err := w.Write(buffer.Bytes())
 		if err != nil {
-			buffer.Release()
-			buf.ReleaseMulti(buffers[index+1:])
 			return err
 		}
-		records = append(records, record)
 	}
-	if len(records) == 0 {
-		return nil
-	}
-	flushRecords := records
-	records = nil
-	return w.upstream.WriteVectorised(flushRecords)
+	return nil
 }
 
 func (w *writer) WritePacketBuffer(buffer *buf.Buffer) error {
@@ -821,7 +706,6 @@ var (
 	_ N.ExtendedReader         = (*reader)(nil)
 	_ N.ReadWaiter             = (*reader)(nil)
 	_ N.ExtendedWriter         = (*writer)(nil)
-	_ N.VectorisedWriteCreator = (*writer)(nil)
 	_ N.VectorisedWriter       = (*vectorisedWriter)(nil)
 	_ N.VectorisedWriter       = (*packetVectorisedWriter)(nil)
 	_ N.FrontHeadroom          = (*writer)(nil)

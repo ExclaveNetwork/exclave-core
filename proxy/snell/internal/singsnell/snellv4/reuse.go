@@ -312,9 +312,6 @@ func (c *reuseConn) WriteBuffer(buffer *buf.Buffer) error {
 	return c.session.writer.WriteBuffer(buffer)
 }
 
-func (c *reuseConn) CreateVectorisedWriter() (N.VectorisedWriter, bool) {
-	return c.session.writer.CreateVectorisedWriter()
-}
 
 func (c *reuseConn) CloseWrite() error {
 	c.closeWriteOnce.Do(func() {
@@ -455,7 +452,6 @@ func (c *reuseConn) RemoteAddr() net.Addr {
 var (
 	_ N.ExtendedConn           = (*reuseConn)(nil)
 	_ N.ReadWaitCreator        = (*reuseConn)(nil)
-	_ N.VectorisedWriteCreator = (*reuseConn)(nil)
 	_ N.EarlyReader            = (*reuseConn)(nil)
 	_ N.WriteCloser            = (*reuseConn)(nil)
 	_ N.ReadWaiter             = (*reuseReadWaiter)(nil)
