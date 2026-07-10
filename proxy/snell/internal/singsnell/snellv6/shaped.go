@@ -9,7 +9,6 @@ import (
 
 	snell "github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/singsnell"
 	"github.com/sagernet/sing/common/buf"
-	"github.com/sagernet/sing/common/bufio"
 	E "github.com/sagernet/sing/common/exceptions"
 	N "github.com/sagernet/sing/common/network"
 )
@@ -455,7 +454,7 @@ func (r *shapedReader) read() (*buf.Buffer, error) {
 			return nil, err
 		}
 	}
-	body := r.buf.NewSize(payloadLen + snell.AEADTagLen)
+	body := buf.NewSize(payloadLen + snell.AEADTagLen)
 	_, err = body.ReadFullFrom(r.upstream, payloadLen+snell.AEADTagLen)
 	if err != nil {
 		if padding != nil {
