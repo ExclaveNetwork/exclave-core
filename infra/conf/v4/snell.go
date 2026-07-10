@@ -8,12 +8,14 @@ import (
 )
 
 type SnellClientConfig struct {
-	Address *cfgcommon.Address `json:"address"`
-	Port    uint16             `json:"port"`
-	PSK     string             `json:"psk"`
-	Obfs    string             `json:"obfs"`
-	Version uint32             `json:"version"`
-	Reuse   bool               `json:"reuse"`
+	Address  *cfgcommon.Address `json:"address"`
+	Port     uint16             `json:"port"`
+	PSK      string             `json:"psk"`
+	Obfs     string             `json:"obfs"`
+	ObfsHost string             `json:"obfsHost"`
+	Version  uint32             `json:"version"`
+	Reuse    bool               `json:"reuse"`
+	Mode     string             `json:"mode"`
 }
 
 func (c *SnellClientConfig) Build() (proto.Message, error) {
@@ -28,11 +30,13 @@ func (c *SnellClientConfig) Build() (proto.Message, error) {
 		version = 4
 	}
 	return &snell.ClientConfig{
-		Address: c.Address.Build(),
-		Port:    uint32(c.Port),
-		Psk:     c.PSK,
-		Obfs:    c.Obfs,
-		Version: version,
-		Reuse:   c.Reuse,
+		Address:  c.Address.Build(),
+		Port:     uint32(c.Port),
+		Psk:      c.PSK,
+		Obfs:     c.Obfs,
+		ObfsHost: c.ObfsHost,
+		Version:  version,
+		Reuse:    c.Reuse,
+		Mode:     c.Mode,
 	}, nil
 }

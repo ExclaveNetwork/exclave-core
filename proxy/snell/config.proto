@@ -16,10 +16,14 @@ message ClientConfig {
   exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   string psk = 3;
-  // "off" | "http" | "tls"
+  // none | http | tls  (also accept off)
   string obfs = 4;
-  // 4 or 5 (wire-compatible for TCP / UDP-over-TCP)
+  // 1-6 (legacy 1-2 disabled in client; 3-5 via snellv4, 6 via snellv6)
   uint32 version = 5;
-  // enable CommandConnectV2 connection reuse
+  // enable connection reuse (v4+)
   bool reuse = 6;
+  // optional obfs host (default bing.com / cloudfront.net per mode)
+  string obfs_host = 7;
+  // v6 only: default | unshaped | unsafe-raw
+  string mode = 8;
 }

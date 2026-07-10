@@ -28,12 +28,16 @@ type ClientConfig struct {
 	Address *net.IPOrDomain        `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port    uint32                 `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
 	Psk     string                 `protobuf:"bytes,3,opt,name=psk,proto3" json:"psk,omitempty"`
-	// "off" | "http" | "tls"
+	// none | http | tls  (also accept off)
 	Obfs string `protobuf:"bytes,4,opt,name=obfs,proto3" json:"obfs,omitempty"`
-	// 4 or 5 (wire-compatible for TCP / UDP-over-TCP)
+	// 1-6 (legacy 1-2 disabled in client; 3-5 via snellv4, 6 via snellv6)
 	Version uint32 `protobuf:"varint,5,opt,name=version,proto3" json:"version,omitempty"`
-	// enable CommandConnectV2 connection reuse
-	Reuse         bool `protobuf:"varint,6,opt,name=reuse,proto3" json:"reuse,omitempty"`
+	// enable connection reuse (v4+)
+	Reuse bool `protobuf:"varint,6,opt,name=reuse,proto3" json:"reuse,omitempty"`
+	// optional obfs host (default bing.com / cloudfront.net per mode)
+	ObfsHost string `protobuf:"bytes,7,opt,name=obfs_host,json=obfsHost,proto3" json:"obfs_host,omitempty"`
+	// v6 only: default | unshaped | unsafe-raw
+	Mode          string `protobuf:"bytes,8,opt,name=mode,proto3" json:"mode,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -110,18 +114,34 @@ func (x *ClientConfig) GetReuse() bool {
 	return false
 }
 
+func (x *ClientConfig) GetObfsHost() string {
+	if x != nil {
+		return x.ObfsHost
+	}
+	return ""
+}
+
+func (x *ClientConfig) GetMode() string {
+	if x != nil {
+		return x.Mode
+	}
+	return ""
+}
+
 var File_proxy_snell_config_proto protoreflect.FileDescriptor
 
 const file_proxy_snell_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/snell/config.proto\x12\x18exclave.core.proxy.snell\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xce\x01\n" +
+	"\x18proxy/snell/config.proto\x12\x18exclave.core.proxy.snell\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xff\x01\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x10\n" +
 	"\x03psk\x18\x03 \x01(\tR\x03psk\x12\x12\n" +
 	"\x04obfs\x18\x04 \x01(\tR\x04obfs\x12\x18\n" +
 	"\aversion\x18\x05 \x01(\rR\aversion\x12\x14\n" +
-	"\x05reuse\x18\x06 \x01(\bR\x05reuse:\x15\x82\xb5\x18\x11\n" +
+	"\x05reuse\x18\x06 \x01(\bR\x05reuse\x12\x1b\n" +
+	"\tobfs_host\x18\a \x01(\tR\bobfsHost\x12\x12\n" +
+	"\x04mode\x18\b \x01(\tR\x04mode:\x15\x82\xb5\x18\x11\n" +
 	"\boutbound\x12\x05snellB\x88\x01\n" +
 	"2com.github.exclavenetwork.exclave.core.proxy.snellP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/snell\xaa\x02\x18Exclave.Core.Proxy.Snellb\x06proto3"
 
