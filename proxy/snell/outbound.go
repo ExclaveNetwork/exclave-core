@@ -6,9 +6,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/sagernet/sing-snell"
-	"github.com/sagernet/sing-snell/snellv4"
-	"github.com/sagernet/sing-snell/snellv6"
+	snellproto "github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/singsnell"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/singsnell/snellv4"
+	"github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/singsnell/snellv6"
 	"github.com/sagernet/sing/common/bufio"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"
@@ -32,17 +32,19 @@ func init() {
 	}))
 }
 
-// snellClient is the subset used by the outbound for v4 and v6 clients.
+// snellClient matches SagerNet sing-snell client surface used by sing-box.
 type snellClient interface {
 	DialContext(ctx context.Context, destination M.Socksaddr) (net.Conn, error)
-	ListenPacket(ctx context.Context) (N.NetPacketConn, error)
+	DialPacketConn(conn net.Conn) (N.NetPacketConn, error)
 	Close() error
 }
 
-// Outbound implements Snell v3–v6 client outbound (via SagerNet sing-snell).
+// Outbound implements Snell v4/v6 client outbound (SagerNet sing-snell).
+// Versions 3/5 map onto the v4 client path where supported by the library.
 type Outbound struct {
 	serverAddr   v2net.Destination
 	psk          string
+	userKey      string
 	obfs         string
 	obfsHost     string
 	version      int
@@ -63,6 +65,8 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 	if version == 0 {
 		version = 4
 	}
+	// sing-snell currently exposes dedicated clients for v4 and v6.
+	// Accept 3/4/5 → v4 client, 6 → v6 client.
 	if version < 3 || version > 6 {
 		return nil, newError("unsupported snell version ", version, " (want 3-6)")
 	}
@@ -109,49 +113,44 @@ func (o *Outbound) getClient(dialer internet.Dialer) (snellClient, error) {
 		return nil, newError("tls/security enabled on streamSettings; snell uses built-in crypto (use obfs=tls for fake TLS)")
 	}
 
-	obfsMode, err := snell.ParseObfsMode(o.obfs)
-	if err != nil {
-		return nil, err
-	}
-	obfsHost := o.obfsHost
-	if obfsHost == "" {
-		switch obfsMode {
-		case snell.ObfsModeTLS:
-			obfsHost = snell.DefaultTLSObfsHost
-		default:
-			obfsHost = snell.DefaultObfsHost
-		}
-	}
-	obfsCfg := snell.ObfsConfig{Mode: obfsMode, Host: obfsHost}
 	sdialer := singbridge.NewDialerWrapper(dialer)
 	server := M.ParseSocksaddr(o.serverAddr.NetAddr())
 	psk := []byte(o.psk)
+	userKey := []byte(o.userKey)
 
-	var client snellClient
+	var (
+		client snellClient
+		err    error
+	)
 	if o.version == 6 {
 		mode, err := snellv6.ParseMode(o.mode)
 		if err != nil {
 			return nil, err
 		}
 		client, err = snellv6.NewClient(snellv6.ClientOptions{
-			Dialer: sdialer,
-			Server: server,
-			PSK:    psk,
-			Obfs:   obfsCfg,
-			Mode:   mode,
-			Reuse:  o.reuse,
+			PSK:     psk,
+			UserKey: userKey,
+			Mode:    mode,
+			Reuse:   o.reuse,
+			Dialer:  sdialer,
+			Server:  server,
 		})
 		if err != nil {
 			return nil, err
 		}
 	} else {
+		obfsMode, err := snellproto.ParseObfsMode(o.obfs)
+		if err != nil {
+			return nil, err
+		}
 		client, err = snellv4.NewClient(snellv4.ClientOptions{
-			Dialer:  sdialer,
-			Server:  server,
-			PSK:     psk,
-			Version: o.version,
-			Obfs:    obfsCfg,
-			Reuse:   o.reuse,
+			PSK:      psk,
+			UserKey:  userKey,
+			Reuse:    o.reuse,
+			ObfsMode: obfsMode,
+			ObfsHost: o.obfsHost,
+			Dialer:   sdialer,
+			Server:   server,
 		})
 		if err != nil {
 			return nil, err
@@ -207,8 +206,14 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		return singbridge.ReturnError(bufio.CopyConn(detachedCtx, singbridge.NewPipeConnWrapper(link), serverConn))
 	}
 
-	pc, err := client.ListenPacket(detachedCtx)
+	// UDP-over-TCP: dial raw TCP to snell server, then DialPacketConn (sing-box pattern).
+	raw, err := dialer.Dial(detachedCtx, o.serverAddr)
 	if err != nil {
+		return err
+	}
+	pc, err := client.DialPacketConn(raw)
+	if err != nil {
+		_ = raw.Close()
 		return err
 	}
 	return singbridge.ReturnError(bufio.CopyPacketConn(

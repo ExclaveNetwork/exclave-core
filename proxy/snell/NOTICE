@@ -1,3 +1,2 @@
-Snell outbound vendors https://github.com/SagerNet/sing-snell (GPL-3.0)
-with sing dependency pinned to v0.8.11 for exclave-core compatibility.
-Supports Snell v3–v6.
+Snell protocol implementation inlined from https://github.com/SagerNet/sing-snell (GPL-3.0)
+Supports Snell v4 (via snellv4) and v6 (via snellv6), matching sing-box testing branch.

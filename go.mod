@@ -27,7 +27,6 @@ require (
 	github.com/sagernet/sing-quic v0.6.3
 	github.com/sagernet/sing-shadowsocks v0.2.9
 	github.com/sagernet/sing-shadowsocks2 v0.2.2
-	github.com/sagernet/sing-snell v0.0.0
 	github.com/seiflotfy/cuckoofilter v0.0.0-20240715131351-a2f2c23f1771
 	github.com/stretchr/testify v1.11.1
 	github.com/v2fly/BrowserBridge v0.0.0-20210430233438-0570fc1d7d08
@@ -72,5 +71,3 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260414002931-afd174a4e478 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/sagernet/sing-snell => ./proxy/snell/sing-snell
