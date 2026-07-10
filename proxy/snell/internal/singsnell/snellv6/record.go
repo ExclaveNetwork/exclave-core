@@ -174,7 +174,7 @@ func (r *unshapedReader) read() (*buf.Buffer, error) {
 	if payloadLen == 0 {
 		return nil, io.EOF
 	}
-	body := r.readWaitOptions.NewBufferSize(payloadLen + snell.AEADTagLen)
+	body := r.buf.NewSize(payloadLen + snell.AEADTagLen)
 	_, err = body.ReadFullFrom(r.upstream, payloadLen+snell.AEADTagLen)
 	if err != nil {
 		body.Release()
@@ -420,7 +420,7 @@ func (r *rawReader) read() (*buf.Buffer, error) {
 	if payloadLen == 0 {
 		return nil, io.EOF
 	}
-	body := r.readWaitOptions.NewBufferSize(payloadLen)
+	body := r.buf.NewSize(payloadLen)
 	_, err = body.ReadFullFrom(r.upstream, payloadLen)
 	if err != nil {
 		body.Release()

@@ -240,6 +240,7 @@ type RecordReader interface {
 
 type RecordWriter interface {
 	N.ExtendedWriter
+	CreateVectorisedWriterFor(upstream N.VectorisedWriter) N.VectorisedWriter
 	CreatePacketVectorisedWriterFor(upstream N.VectorisedWriter) N.VectorisedWriter
 	WritePacketBuffer(buffer *buf.Buffer) error
 	WriteZeroChunk() error

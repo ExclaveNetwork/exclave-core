@@ -108,7 +108,7 @@ func (r *reader) ReadRecord() (*buf.Buffer, error) {
 			return nil, err
 		}
 	}
-	body := r.readWaitOptions.NewBufferSize(payloadLen + snell.AEADTagLen)
+	body := r.buf.NewSize(payloadLen + snell.AEADTagLen)
 	_, err = body.ReadFullFrom(r.bufferedUpstream, payloadLen+snell.AEADTagLen)
 	if err != nil {
 		if padding != nil {
