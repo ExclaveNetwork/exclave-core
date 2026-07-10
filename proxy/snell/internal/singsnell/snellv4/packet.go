@@ -117,8 +117,21 @@ func (c *clientPacketConn) WritePacket(buffer *buf.Buffer, destination M.Socksad
 	return c.writer.WritePacketBuffer(buffer)
 }
 
+func (c *clientPacketConn) CreatePacketBatchWriter() (PacketBatchWriter, bool) {
+	return nil, false
+}
 
+type clientPacketBatchWriter struct {
+	conn     *clientPacketConn
+	upstream N.VectorisedWriter
 
+	access sync.Mutex
+	writer N.VectorisedWriter
+}
+
+func (w *clientPacketBatchWriter) WritePacketBatch(buffers []*buf.Buffer, destinations []M.Socksaddr) error {
+	return nil
+}
 
 func (c *clientPacketConn) ReadPacket(buffer *buf.Buffer) (M.Socksaddr, error) {
 	recordReader, err := c.readReply()

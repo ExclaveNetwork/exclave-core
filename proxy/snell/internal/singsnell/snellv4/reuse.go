@@ -312,6 +312,9 @@ func (c *reuseConn) WriteBuffer(buffer *buf.Buffer) error {
 	return c.session.writer.WriteBuffer(buffer)
 }
 
+func (c *reuseConn) CreateVectorisedWriter() (N.VectorisedWriter, bool) {
+	return nil, false
+}
 
 func (c *reuseConn) CloseWrite() error {
 	c.closeWriteOnce.Do(func() {

@@ -203,8 +203,48 @@ func (c *clientConn) WriteBuffer(buffer *buf.Buffer) error {
 	return c.writeRequestBuffer(buffer)
 }
 
+func (c *clientConn) CreateVectorisedWriter() (N.VectorisedWriter, bool) {
+	return nil, false
+}
 
+type clientVectorisedWriter struct {
+	conn     *clientConn
+	upstream N.VectorisedWriter
+}
 
+func (w *clientVectorisedWriter) WriteVectorised(buffers []*buf.Buffer) error {
+	conn := w.conn
+	if conn.writer != nil {
+		return conn.writer.CreateVectorisedWriterFor(w.upstream).WriteVectorised(buffers)
+	}
+	conn.access.Lock()
+	if conn.writer != nil {
+		recordWriter := conn.writer
+		conn.access.Unlock()
+		return recordWriter.CreateVectorisedWriterFor(w.upstream).WriteVectorised(buffers)
+	}
+	for index, buffer := range buffers {
+		if buffer.IsEmpty() {
+			buffer.Release()
+			continue
+		}
+		err := conn.writeRequestBuffer(buffer)
+		if err != nil {
+			conn.access.Unlock()
+			buf.ReleaseMulti(buffers[index+1:])
+			return err
+		}
+		if index+1 < len(buffers) {
+			recordWriter := conn.writer
+			conn.access.Unlock()
+			return recordWriter.CreateVectorisedWriterFor(w.upstream).WriteVectorised(buffers[index+1:])
+		}
+		conn.access.Unlock()
+		return nil
+	}
+	conn.access.Unlock()
+	return nil
+}
 
 func (c *clientConn) CloseWrite() error {
 	c.closeWriteOnce.Do(func() {
