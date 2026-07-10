@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package exclave.core.proxy.snell;
+option csharp_namespace = "Exclave.Core.Proxy.Snell";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/snell";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.snell";
+option java_multiple_files = true;
+
+import "common/protoext/extensions.proto";
+import "common/net/address.proto";
+
+message ClientConfig {
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "snell";
+
+  exclave.core.common.net.IPOrDomain address = 1;
+  uint32 port = 2;
+  string psk = 3;
+  // "off" | "http" | "tls"
+  string obfs = 4;
+  // 4 or 5 (wire-compatible for TCP / UDP-over-TCP)
+  uint32 version = 5;
+  // enable CommandConnectV2 connection reuse
+  bool reuse = 6;
+}

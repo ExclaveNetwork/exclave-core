@@ -1,0 +1,5 @@
+Snell client protocol implementation adapted from:
+  https://github.com/missuo/opensnell (GPL-3.0-or-later)
+which itself ports address/obfs pieces from Dreamacro/clash and icpz/open-snell.
+
+Snell is a protocol designed by the Surge team. This is an unofficial client.
