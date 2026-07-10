@@ -239,7 +239,4 @@ var (
 	_ N.PacketConn              = (*clientPacketConn)(nil)
 	_ N.PacketReadWaiter        = (*clientPacketConn)(nil)
 	_ N.WriterWithMTU           = (*clientPacketConn)(nil)
-	_ N.PacketConn              = (*serverPacketConn)(nil)
-	_ N.PacketReadWaiter        = (*serverPacketConn)(nil)
-	_ N.WriterWithMTU           = (*serverPacketConn)(nil)
 )
