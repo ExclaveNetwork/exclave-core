@@ -14,7 +14,6 @@ import (
 	snell "github.com/exclavenetwork/exclave-core/v5/proxy/snell/internal/singsnell"
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/buf"
-	"github.com/sagernet/sing/common/bufio"
 	E "github.com/sagernet/sing/common/exceptions"
 	N "github.com/sagernet/sing/common/network"
 )
