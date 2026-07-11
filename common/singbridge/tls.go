@@ -3,6 +3,7 @@ package singbridge
 import (
 	"context"
 	"crypto/tls"
+	"time"
 
 	singtls "github.com/sagernet/sing/common/tls"
 
@@ -47,6 +48,14 @@ func (c *tlsConfigWrapper) STDConfig() (*tls.Config, error) {
 }
 
 func (c *tlsConfigWrapper) Client(_ net.Conn) (singtls.Conn, error) {
+	panic("invalid")
+}
+
+func (c *tlsConfigWrapper) HandshakeTimeout() time.Duration {
+	panic("invalid")
+}
+
+func (c *tlsConfigWrapper) SetHandshakeTimeout(_ time.Duration) {
 	panic("invalid")
 }
 

@@ -62,6 +62,7 @@ var (
 		"tuic":             func() interface{} { return new(TuicClientConfig) },
 		"juicity":          func() interface{} { return new(JuicityClientConfig) },
 		"mieru":            func() interface{} { return new(MieruClientConfig) },
+		"snell":            func() interface{} { return new(SnellClientConfig) },
 		"trusttunnel":      func() interface{} { return new(TrustTunnelClientConfig) },
 	}, "protocol", "settings")
 )
