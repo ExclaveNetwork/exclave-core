@@ -15,15 +15,18 @@ message ClientConfig {
 
   exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
+  // Pre-shared key. Empty string is allowed (server may accept it).
   string psk = 3;
-  // none | http | tls  (also accept off)
-  string obfs = 4;
-  // 1-6 (legacy 1-2 disabled in client; 3-5 via snellv4, 6 via snellv6)
+  // "none" | "http" | "tls" (exact match; empty defaults to "none")
+  string obfs_mode = 4;
+  // 4 or 6 only
   uint32 version = 5;
-  // enable connection reuse (v4+)
+  // connection reuse
   bool reuse = 6;
-  // optional obfs host (default bing.com / cloudfront.net per mode)
+  // v4-only: optional obfs host (empty uses library defaults)
   string obfs_host = 7;
-  // v6 only: default | unshaped | unsafe-raw
+  // v6-only: "default" | "unshaped" | "unsafe-raw" (exact match; empty defaults to "default")
   string mode = 8;
+  // sing-box private extension (userPSK), only compatible with sing-box Snell server.
+  string user_psk = 9;
 }

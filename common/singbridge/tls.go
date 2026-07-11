@@ -3,6 +3,7 @@ package singbridge
 import (
 	"context"
 	"crypto/tls"
+	"time"
 
 	singtls "github.com/sagernet/sing/common/tls"
 
@@ -49,6 +50,14 @@ func (c *tlsConfigWrapper) STDConfig() (*tls.Config, error) {
 func (c *tlsConfigWrapper) Client(_ net.Conn) (singtls.Conn, error) {
 	panic("invalid")
 }
+
+// HandshakeTimeout / SetHandshakeTimeout satisfy sing v0.8.12+ tls.Config.
+// stdlib crypto/tls.Config has no handshake timeout field, so these are no-ops.
+func (c *tlsConfigWrapper) HandshakeTimeout() time.Duration {
+	return 0
+}
+
+func (c *tlsConfigWrapper) SetHandshakeTimeout(_ time.Duration) {}
 
 func (c *tlsConfigWrapper) Clone() singtls.Config {
 	panic("invalid")

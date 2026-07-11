@@ -22,11 +22,12 @@ require (
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.60.0
 	github.com/refraction-networking/utls v1.8.3-0.20260623165621-880e27d8b0e5
-	github.com/sagernet/sing v0.8.11
+	github.com/sagernet/sing v0.8.12-0.20260702081104-2ded2af32d3d
 	github.com/sagernet/sing-mux v0.3.5
 	github.com/sagernet/sing-quic v0.6.3
 	github.com/sagernet/sing-shadowsocks v0.2.9
 	github.com/sagernet/sing-shadowsocks2 v0.2.2
+	github.com/sagernet/sing-snell v0.0.0-20260709045721-90e5a65e1f85
 	github.com/seiflotfy/cuckoofilter v0.0.0-20240715131351-a2f2c23f1771
 	github.com/stretchr/testify v1.11.1
 	github.com/v2fly/BrowserBridge v0.0.0-20210430233438-0570fc1d7d08

@@ -27,17 +27,20 @@ type ClientConfig struct {
 	state   protoimpl.MessageState `protogen:"open.v1"`
 	Address *net.IPOrDomain        `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port    uint32                 `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
-	Psk     string                 `protobuf:"bytes,3,opt,name=psk,proto3" json:"psk,omitempty"`
-	// none | http | tls  (also accept off)
-	Obfs string `protobuf:"bytes,4,opt,name=obfs,proto3" json:"obfs,omitempty"`
-	// 1-6 (legacy 1-2 disabled in client; 3-5 via snellv4, 6 via snellv6)
+	// Pre-shared key. Empty string is allowed (server may accept it).
+	Psk string `protobuf:"bytes,3,opt,name=psk,proto3" json:"psk,omitempty"`
+	// "none" | "http" | "tls" (exact match; empty defaults to "none")
+	ObfsMode string `protobuf:"bytes,4,opt,name=obfs_mode,json=obfsMode,proto3" json:"obfs_mode,omitempty"`
+	// 4 or 6 only
 	Version uint32 `protobuf:"varint,5,opt,name=version,proto3" json:"version,omitempty"`
-	// enable connection reuse (v4+)
+	// connection reuse
 	Reuse bool `protobuf:"varint,6,opt,name=reuse,proto3" json:"reuse,omitempty"`
-	// optional obfs host (default bing.com / cloudfront.net per mode)
+	// v4-only: optional obfs host (empty uses library defaults)
 	ObfsHost string `protobuf:"bytes,7,opt,name=obfs_host,json=obfsHost,proto3" json:"obfs_host,omitempty"`
-	// v6 only: default | unshaped | unsafe-raw
-	Mode          string `protobuf:"bytes,8,opt,name=mode,proto3" json:"mode,omitempty"`
+	// v6-only: "default" | "unshaped" | "unsafe-raw" (exact match; empty defaults to "default")
+	Mode string `protobuf:"bytes,8,opt,name=mode,proto3" json:"mode,omitempty"`
+	// sing-box private extension (userPSK), only compatible with sing-box Snell server.
+	UserPsk       string `protobuf:"bytes,9,opt,name=user_psk,json=userPsk,proto3" json:"user_psk,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -93,9 +96,9 @@ func (x *ClientConfig) GetPsk() string {
 	return ""
 }
 
-func (x *ClientConfig) GetObfs() string {
+func (x *ClientConfig) GetObfsMode() string {
 	if x != nil {
-		return x.Obfs
+		return x.ObfsMode
 	}
 	return ""
 }
@@ -128,20 +131,28 @@ func (x *ClientConfig) GetMode() string {
 	return ""
 }
 
+func (x *ClientConfig) GetUserPsk() string {
+	if x != nil {
+		return x.UserPsk
+	}
+	return ""
+}
+
 var File_proxy_snell_config_proto protoreflect.FileDescriptor
 
 const file_proxy_snell_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/snell/config.proto\x12\x18exclave.core.proxy.snell\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xff\x01\n" +
+	"\x18proxy/snell/config.proto\x12\x18exclave.core.proxy.snell\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xa3\x02\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x10\n" +
-	"\x03psk\x18\x03 \x01(\tR\x03psk\x12\x12\n" +
-	"\x04obfs\x18\x04 \x01(\tR\x04obfs\x12\x18\n" +
+	"\x03psk\x18\x03 \x01(\tR\x03psk\x12\x1b\n" +
+	"\tobfs_mode\x18\x04 \x01(\tR\bobfsMode\x12\x18\n" +
 	"\aversion\x18\x05 \x01(\rR\aversion\x12\x14\n" +
 	"\x05reuse\x18\x06 \x01(\bR\x05reuse\x12\x1b\n" +
 	"\tobfs_host\x18\a \x01(\tR\bobfsHost\x12\x12\n" +
-	"\x04mode\x18\b \x01(\tR\x04mode:\x15\x82\xb5\x18\x11\n" +
+	"\x04mode\x18\b \x01(\tR\x04mode\x12\x19\n" +
+	"\buser_psk\x18\t \x01(\tR\auserPsk:\x15\x82\xb5\x18\x11\n" +
 	"\boutbound\x12\x05snellB\x88\x01\n" +
 	"2com.github.exclavenetwork.exclave.core.proxy.snellP\x01Z5github.com/exclavenetwork/exclave-core/v5/proxy/snell\xaa\x02\x18Exclave.Core.Proxy.Snellb\x06proto3"
 
