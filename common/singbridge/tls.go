@@ -51,13 +51,13 @@ func (c *tlsConfigWrapper) Client(_ net.Conn) (singtls.Conn, error) {
 	panic("invalid")
 }
 
-// HandshakeTimeout / SetHandshakeTimeout satisfy sing v0.8.12+ tls.Config.
-// stdlib crypto/tls.Config has no handshake timeout field, so these are no-ops.
 func (c *tlsConfigWrapper) HandshakeTimeout() time.Duration {
-	return 0
+	panic("invalid")
 }
 
-func (c *tlsConfigWrapper) SetHandshakeTimeout(_ time.Duration) {}
+func (c *tlsConfigWrapper) SetHandshakeTimeout(_ time.Duration) {
+	panic("invalid")
+}
 
 func (c *tlsConfigWrapper) Clone() singtls.Config {
 	panic("invalid")
