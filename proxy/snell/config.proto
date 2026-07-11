@@ -22,4 +22,13 @@ message ClientConfig {
   string obfs_mode = 7;
   string obfs_host = 8;
   string mode = 9;
+  DomainStrategy domain_strategy = 10;
+
+  enum DomainStrategy {
+    USE_IP = 0;
+    USE_IP4 = 1;
+    USE_IP6 = 2;
+    PREFER_IP4 = 3;
+    PREFER_IP6 = 4;
+  }
 }
