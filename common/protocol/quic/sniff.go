@@ -170,6 +170,9 @@ func SniffQUIC(input []byte) (*SniffHeader, error) {
 			return nil, err
 		}
 
+		if len(b) < hdrLen+4+block.BlockSize() {
+			return nil, errNotQuic
+		}
 		cache.Clear()
 		mask := cache.Extend(int32(block.BlockSize()))
 		if int(packetLen) < 4+block.BlockSize() {
