@@ -12,6 +12,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/exclavenetwork/exclave-core/v5/common/errors"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol/tls/cert"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
@@ -169,45 +170,6 @@ func getGetCertificateFunc(c *tls.Config, ca []*Certificate) func(hello *tls.Cli
 	}
 }
 
-func (c *Config) verifyPeerCert(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-	if c.PinnedPeerCertificateChainSha256 != nil {
-		hash := GenerateCertChainHash(rawCerts)
-		if !slices.ContainsFunc(c.PinnedPeerCertificateChainSha256, func(b []byte) bool {
-			return hmac.Equal(b, hash)
-		}) {
-			return newError("peer cert is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
-		}
-	}
-	if c.PinnedPeerCertificatePublicKeySha256 != nil {
-		hash, err := GenerateCertPublicKeyHash(rawCerts[0])
-		if err != nil {
-			return err
-		}
-		if !slices.ContainsFunc(c.PinnedPeerCertificatePublicKeySha256, func(b []byte) bool {
-			return hmac.Equal(b, hash)
-		}) {
-			return newError("peer cert public key is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
-		}
-	}
-	if c.PinnedPeerCertificateSha256 != nil {
-		pinnedPeerCertificateSha256 := make([][]byte, len(c.PinnedPeerCertificateSha256))
-		for i, v := range c.PinnedPeerCertificateSha256 {
-			b, err := hex.DecodeString(v)
-			if err != nil {
-				return err
-			}
-			pinnedPeerCertificateSha256[i] = b
-		}
-		hash := GenerateCertHash(rawCerts[0])
-		if !slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
-			return hmac.Equal(b, hash)
-		}) {
-			return newError("peer cert sha256 is unrecognized: ", hex.EncodeToString(hash))
-		}
-	}
-	return nil
-}
-
 type alwaysFlushWriter struct {
 	file *os.File
 }
@@ -251,11 +213,10 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 	}
 
 	config := &tls.Config{
-		RootCAs:               root,
-		InsecureSkipVerify:    c.AllowInsecure,
-		NextProtos:            c.NextProtocol,
-		VerifyPeerCertificate: c.verifyPeerCert,
-		ClientCAs:             clientRoot,
+		RootCAs:            root,
+		InsecureSkipVerify: c.AllowInsecure,
+		NextProtos:         c.NextProtocol,
+		ClientCAs:          clientRoot,
 	}
 
 	if c.AllowInsecureIfPinnedPeerCertificate && c.PinnedPeerCertificateChainSha256 != nil {
@@ -341,72 +302,118 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 		}
 	}
 
+	if c.PinnedPeerCertificateChainSha256 != nil || c.PinnedPeerCertificatePublicKeySha256 != nil ||
+		c.PinnedPeerCertificateSha256 != nil || len(c.ServerNameToVerify) > 0 {
+		if len(c.ServerNameToVerify) > 0 {
+			config.InsecureSkipVerify = true
+		}
+		config.VerifyConnection = func(state tls.ConnectionState) error {
+			if len(c.ServerNameToVerify) > 0 {
+				opts := x509.VerifyOptions{
+					Roots:         config.RootCAs,
+					Intermediates: x509.NewCertPool(),
+				}
+				for _, cert := range state.PeerCertificates[1:] {
+					opts.Intermediates.AddCert(cert)
+				}
+				if slices.Contains(c.ServerNameToVerify, "") {
+					return newError("serverNameToVerify contains empty value")
+				}
+				errs := []error{}
+				if !slices.ContainsFunc(c.ServerNameToVerify, func(serverName string) bool {
+					opts.DNSName = serverName
+					_, err := state.PeerCertificates[0].Verify(opts)
+					if err != nil {
+						errs = append(errs, err)
+					}
+					return err == nil
+				}) {
+					return errors.Combine(errs...)
+				}
+			}
+			if c.PinnedPeerCertificateChainSha256 != nil {
+				rawCerts := make([][]byte, len(state.PeerCertificates))
+				for i, peerCertificate := range state.PeerCertificates {
+					rawCerts[i] = peerCertificate.Raw
+				}
+				hash := GenerateCertChainHash(rawCerts)
+				if !slices.ContainsFunc(c.PinnedPeerCertificateChainSha256, func(b []byte) bool {
+					return hmac.Equal(b, hash)
+				}) {
+					return newError("peer cert chain is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
+				}
+			}
+			if c.PinnedPeerCertificatePublicKeySha256 != nil {
+				hash, err := GenerateCertPublicKeyHash(state.PeerCertificates[0].Raw)
+				if err != nil {
+					return err
+				}
+				if !slices.ContainsFunc(c.PinnedPeerCertificatePublicKeySha256, func(b []byte) bool {
+					return hmac.Equal(b, hash)
+				}) {
+					return newError("peer cert public key is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
+				}
+			}
+			if c.PinnedPeerCertificateSha256 != nil {
+				pinnedPeerCertificateSha256 := make([][]byte, len(c.PinnedPeerCertificateSha256))
+				for i, v := range c.PinnedPeerCertificateSha256 {
+					h, err := hex.DecodeString(v)
+					if err != nil {
+						return err
+					}
+					pinnedPeerCertificateSha256[i] = h
+				}
+				hash := GenerateCertHash(state.PeerCertificates[0].Raw)
+				if !slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
+					return hmac.Equal(b, hash)
+				}) {
+					opts := x509.VerifyOptions{
+						Roots:         x509.NewCertPool(),
+						Intermediates: x509.NewCertPool(),
+					}
+					hasMatch := false
+					for _, peerCertificate := range state.PeerCertificates[1:] {
+						hash := GenerateCertHash(peerCertificate.Raw)
+						if slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
+							return hmac.Equal(b, hash)
+						}) {
+							hasMatch = true
+							opts.Roots.AddCert(peerCertificate)
+						} else {
+							opts.Intermediates.AddCert(peerCertificate)
+						}
+					}
+					if !hasMatch {
+						return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+					}
+					if len(c.ServerNameToVerify) > 0 {
+						if slices.Contains(c.ServerNameToVerify, "") {
+							return newError("serverNameToVerify contains empty value")
+						}
+						if !slices.ContainsFunc(c.ServerNameToVerify, func(serverName string) bool {
+							opts.DNSName = serverName
+							_, err := state.PeerCertificates[0].Verify(opts)
+							return err == nil
+						}) {
+							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+						}
+					} else {
+						if len(config.ServerName) == 0 {
+							return newError("empty serverName")
+						}
+						opts.DNSName = config.ServerName
+						if _, err := state.PeerCertificates[0].Verify(opts); err != nil {
+							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+						}
+					}
+				}
+			}
+			return nil
+		}
+	}
+
 	if session.DisableALPNByDefaultFromContext(ctx) && len(c.NextProtocol) == 0 {
 		config.NextProtos = nil
-	}
-
-	if session.DisableSNIFromContext(ctx) {
-		serverName := config.ServerName
-		config.ServerName = ""
-		if !config.InsecureSkipVerify {
-			if len(serverName) == 0 {
-				return nil, newError("either ServerName or InsecureSkipVerify must be specified")
-			}
-			config.InsecureSkipVerify = true
-			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
-				config.VerifyPeerCertificate = func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
-					certs := make([]*x509.Certificate, len(rawCerts))
-					for i, rawCert := range rawCerts {
-						cert, err := x509.ParseCertificate(rawCert)
-						if err != nil {
-							return err
-						}
-						certs[i] = cert
-					}
-					verifyOptions := x509.VerifyOptions{
-						Roots:         config.RootCAs,
-						DNSName:       serverName,
-						Intermediates: x509.NewCertPool(),
-					}
-					for _, cert := range certs[1:] {
-						verifyOptions.Intermediates.AddCert(cert)
-					}
-					_, err := certs[0].Verify(verifyOptions)
-					return err
-				}
-			}
-		}
-	}
-
-	if serverNameToVerify, ok := session.ServerNameToVerifyFromContext(ctx); ok {
-		if !config.InsecureSkipVerify {
-			if len(serverNameToVerify) == 0 {
-				return nil, newError("either ServerNameToVerify or InsecureSkipVerify must be specified")
-			}
-			config.InsecureSkipVerify = true
-			if c.PinnedPeerCertificateChainSha256 == nil && c.PinnedPeerCertificatePublicKeySha256 == nil && c.PinnedPeerCertificateSha256 == nil {
-				config.VerifyPeerCertificate = func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
-					certs := make([]*x509.Certificate, len(rawCerts))
-					for i, rawCert := range rawCerts {
-						cert, err := x509.ParseCertificate(rawCert)
-						if err != nil {
-							return err
-						}
-						certs[i] = cert
-					}
-					verifyOptions := x509.VerifyOptions{
-						Roots:         config.RootCAs,
-						DNSName:       serverNameToVerify,
-						Intermediates: x509.NewCertPool(),
-					}
-					for _, cert := range certs[1:] {
-						verifyOptions.Intermediates.AddCert(cert)
-					}
-					_, err := certs[0].Verify(verifyOptions)
-					return err
-				}
-			}
-		}
 	}
 
 	return config, nil

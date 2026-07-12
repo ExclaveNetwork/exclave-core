@@ -36,21 +36,16 @@ type UConn struct {
 	Verified      bool
 }
 
-func (c *UConn) VerifyPeerCertificate(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-	certs := make([]*x509.Certificate, len(rawCerts))
-	for i, rawCert := range rawCerts {
-		cert, _ := x509.ParseCertificate(rawCert)
-		certs[i] = cert
-	}
-	if pub, ok := certs[0].PublicKey.(ed25519.PublicKey); ok {
+func (c *UConn) VerifyConnection(state utls.ConnectionState) error {
+	if pub, ok := state.PeerCertificates[0].PublicKey.(ed25519.PublicKey); ok {
 		h := hmac.New(sha512.New, c.AuthKey)
 		h.Write(pub)
-		if bytes.Equal(h.Sum(nil), certs[0].Signature) {
+		if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
 			if c.mldsa65Verify != nil {
-				if len(certs[0].Extensions) > 0 {
+				if len(state.PeerCertificates[0].Extensions) > 0 {
 					h.Write(c.HandshakeState.Hello.Raw)
 					h.Write(c.HandshakeState.ServerHello.Raw)
-					err := mldsa.Verify(c.mldsa65Verify, h.Sum(nil), certs[0].Extensions[0].Value, nil)
+					err := mldsa.Verify(c.mldsa65Verify, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil)
 					if err != nil {
 						return err
 					}
@@ -67,10 +62,10 @@ func (c *UConn) VerifyPeerCertificate(rawCerts [][]byte, verifiedChains [][]*x50
 		DNSName:       c.ServerName,
 		Intermediates: x509.NewCertPool(),
 	}
-	for _, cert := range certs[1:] {
+	for _, cert := range state.PeerCertificates[1:] {
 		opts.Intermediates.AddCert(cert)
 	}
-	if _, err := certs[0].Verify(opts); err != nil {
+	if _, err := state.PeerCertificates[0].Verify(opts); err != nil {
 		return err
 	}
 	return nil
@@ -88,7 +83,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	}
 
 	utlsConfig := &utls.Config{
-		VerifyPeerCertificate:  uConn.VerifyPeerCertificate,
+		VerifyConnection:       uConn.VerifyConnection,
 		ServerName:             config.ServerName,
 		InsecureSkipVerify:     true,
 		SessionTicketsDisabled: true,

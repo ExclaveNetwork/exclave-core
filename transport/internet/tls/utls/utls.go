@@ -122,7 +122,7 @@ func uTLSConfigFromTLSConfig(config *systls.Config) (*utls.Config, error) { // n
 		RootCAs:                        config.RootCAs,
 		NextProtos:                     config.NextProtos,
 		ServerName:                     config.ServerName,
-		VerifyPeerCertificate:          config.VerifyPeerCertificate,
+		VerifyPeerCertificate:          config.VerifyPeerCertificate, // not used
 		InsecureSkipVerify:             config.InsecureSkipVerify,
 		ClientAuth:                     utls.ClientAuthType(config.ClientAuth),
 		ClientCAs:                      config.ClientCAs,
@@ -139,11 +139,11 @@ func uTLSConfigFromTLSConfig(config *systls.Config) (*utls.Config, error) { // n
 		uconfig.Certificates = certificates
 	}
 	if config.VerifyConnection != nil {
-		// There is no good way to convert crypto/tls VerifyConnection to utls VerifyConnection.
-		// Currently VerifyConnection is not used. If VerifyConnection is used in the future,
-		// this must be changed.
-		uconfig.VerifyConnection = func(_ utls.ConnectionState) error {
-			panic("VerifyConnection is not nil")
+		uconfig.VerifyConnection = func(state utls.ConnectionState) error {
+			return config.VerifyConnection(systls.ConnectionState{
+				// Only `PeerCertificates` is used.
+				PeerCertificates: state.PeerCertificates,
+			})
 		}
 	}
 	return uconfig, nil

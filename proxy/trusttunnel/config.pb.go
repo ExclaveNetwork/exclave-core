@@ -73,17 +73,16 @@ func (ClientConfig_DomainStrategy) EnumDescriptor() ([]byte, []int) {
 }
 
 type ClientConfig struct {
-	state              protoimpl.MessageState      `protogen:"open.v1"`
-	Address            *net.IPOrDomain             `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
-	Port               uint32                      `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
-	Level              uint32                      `protobuf:"varint,3,opt,name=level,proto3" json:"level,omitempty"`
-	Username           string                      `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`
-	Password           string                      `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
-	Http3              bool                        `protobuf:"varint,6,opt,name=http3,proto3" json:"http3,omitempty"`
-	DomainStrategy     ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.trusttunnel.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
-	ServerNameToVerify string                      `protobuf:"bytes,8,opt,name=server_name_to_verify,json=serverNameToVerify,proto3" json:"server_name_to_verify,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state          protoimpl.MessageState      `protogen:"open.v1"`
+	Address        *net.IPOrDomain             `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Port           uint32                      `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
+	Level          uint32                      `protobuf:"varint,3,opt,name=level,proto3" json:"level,omitempty"`
+	Username       string                      `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`
+	Password       string                      `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
+	Http3          bool                        `protobuf:"varint,6,opt,name=http3,proto3" json:"http3,omitempty"`
+	DomainStrategy ClientConfig_DomainStrategy `protobuf:"varint,7,opt,name=domain_strategy,json=domainStrategy,proto3,enum=exclave.core.proxy.trusttunnel.ClientConfig_DomainStrategy" json:"domain_strategy,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ClientConfig) Reset() {
@@ -165,18 +164,11 @@ func (x *ClientConfig) GetDomainStrategy() ClientConfig_DomainStrategy {
 	return ClientConfig_USE_IP
 }
 
-func (x *ClientConfig) GetServerNameToVerify() string {
-	if x != nil {
-		return x.ServerNameToVerify
-	}
-	return ""
-}
-
 var File_proxy_trusttunnel_config_proto protoreflect.FileDescriptor
 
 const file_proxy_trusttunnel_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1eproxy/trusttunnel/config.proto\x12\x1eexclave.core.proxy.trusttunnel\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xd3\x03\n" +
+	"\x1eproxy/trusttunnel/config.proto\x12\x1eexclave.core.proxy.trusttunnel\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xa6\x03\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x14\n" +
@@ -184,8 +176,7 @@ const file_proxy_trusttunnel_config_proto_rawDesc = "" +
 	"\busername\x18\x04 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x05 \x01(\tR\bpassword\x12\x14\n" +
 	"\x05http3\x18\x06 \x01(\bR\x05http3\x12d\n" +
-	"\x0fdomain_strategy\x18\a \x01(\x0e2;.exclave.core.proxy.trusttunnel.ClientConfig.DomainStrategyR\x0edomainStrategy\x121\n" +
-	"\x15server_name_to_verify\x18\b \x01(\tR\x12serverNameToVerify\"V\n" +
+	"\x0fdomain_strategy\x18\a \x01(\x0e2;.exclave.core.proxy.trusttunnel.ClientConfig.DomainStrategyR\x0edomainStrategy\"V\n" +
 	"\x0eDomainStrategy\x12\n" +
 	"\n" +
 	"\x06USE_IP\x10\x00\x12\v\n" +
@@ -195,7 +186,7 @@ const file_proxy_trusttunnel_config_proto_rawDesc = "" +
 	"PREFER_IP4\x10\x03\x12\x0e\n" +
 	"\n" +
 	"PREFER_IP6\x10\x04:\x1b\x82\xb5\x18\x17\n" +
-	"\boutbound\x12\vtrusttunnelB\x9a\x01\n" +
+	"\boutbound\x12\vtrusttunnelJ\x04\b\b\x10\tB\x9a\x01\n" +
 	"8com.github.exclavenetwork.exclave.core.proxy.trusttunnelP\x01Z;github.com/exclavenetwork/exclave-core/v5/proxy/trusttunnel\xaa\x02\x1eExclave.Core.Proxy.TrustTunnelb\x06proto3"
 
 var (

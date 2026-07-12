@@ -85,6 +85,7 @@ message Config {
 
   repeated bytes pinned_peer_certificate_public_key_sha256 = 900;
   repeated string pinned_peer_certificate_sha256 = 901;
+  repeated string server_name_to_verify = 903;
 
   ECH ech = 902;
 

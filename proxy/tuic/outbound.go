@@ -38,7 +38,6 @@ type Outbound struct {
 	client        *tuic.Client
 	clientAccess  sync.Mutex
 	udpOverStream bool
-	disableSNI    bool
 }
 
 func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
@@ -48,7 +47,6 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 			Port:    net.Port(config.Port),
 			Network: net.Network_UDP,
 		},
-		disableSNI:    config.DisableSni,
 		udpOverStream: config.UdpOverStream,
 	}
 	uuid, err := uuid.ParseString(config.Uuid)
@@ -111,7 +109,6 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*tuic
 	}
 	// TUIC does not send ALPN if not explicitly set
 	ctx = session.ContextWithDisableALPNByDefault(ctx, true)
-	ctx = session.ContextWithDisableSNI(ctx, o.disableSNI)
 	options := o.options
 	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr))
 	options.Dialer = singbridge.NewDialerWrapper(dialer)
