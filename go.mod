@@ -3,13 +3,13 @@ module github.com/exclavenetwork/exclave-core/v5
 go 1.25.0
 
 require (
-	filippo.io/mldsa v0.0.0-20260215214346-43d0283efc3e
+	filippo.io/mldsa v0.0.0-20260711112038-ff3f469cee29
 	github.com/adrg/xdg v0.5.3
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da
 	github.com/anytls/sing-anytls v0.0.11
 	github.com/apernet/quic-go v0.60.1-0.20260618182935-599b15a1fa26
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
-	github.com/enfein/mieru/v3 v3.34.0
+	github.com/enfein/mieru/v3 v3.34.1
 	github.com/exclavenetwork/hysteria/core/v2 v2.9.3-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.9.3-1
 	github.com/exclavenetwork/sing-juicity v0.1.5
