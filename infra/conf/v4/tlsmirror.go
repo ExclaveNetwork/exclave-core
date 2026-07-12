@@ -16,7 +16,7 @@ import (
 type TLSMirrorConfig struct {
 	ForwardAddress                string                                   `json:"forwardAddress"`
 	ForwardPort                   uint32                                   `json:"forwardPort"`
-	ForwardTag                    string                                   `json:"dorwardTag"`
+	ForwardTag                    string                                   `json:"forwardTag"`
 	CarrierConnectionTag          string                                   `json:"carrierConnectionTag"`
 	EmbeddedTrafficGenerator      *TLSMirrorEmbeddedTrafficGeneratorConfig `json:"embeddedTrafficGenerator"`
 	PrimaryKey                    string                                   `json:"primaryKey"`
