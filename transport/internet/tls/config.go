@@ -302,13 +302,14 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 		}
 	}
 
-	if c.PinnedPeerCertificateChainSha256 != nil || c.PinnedPeerCertificatePublicKeySha256 != nil ||
-		c.PinnedPeerCertificateSha256 != nil || len(c.ServerNameToVerify) > 0 {
+	pinned := c.PinnedPeerCertificateChainSha256 != nil || c.PinnedPeerCertificatePublicKeySha256 != nil || c.PinnedPeerCertificateSha256 != nil
+	if pinned || len(c.ServerNameToVerify) > 0 {
+		insecureSkipVerify := config.InsecureSkipVerify
 		if len(c.ServerNameToVerify) > 0 {
 			config.InsecureSkipVerify = true
 		}
 		config.VerifyConnection = func(state tls.ConnectionState) error {
-			if len(c.ServerNameToVerify) > 0 {
+			if len(c.ServerNameToVerify) > 0 && (!insecureSkipVerify || !pinned) {
 				opts := x509.VerifyOptions{
 					Roots:         config.RootCAs,
 					Intermediates: x509.NewCertPool(),
