@@ -8,19 +8,28 @@ import (
 	"encoding/pem"
 )
 
-func CalculatePEMCertChainSHA256Hash(certContent []byte) string {
-	var certChain [][]byte
+func CalculatePEMCertChainSHA256Hash(certContent []byte) (string, error) {
+	var hashValue []byte
+	ok := false
 	for {
 		block, remain := pem.Decode(certContent)
 		if block == nil {
 			break
 		}
-		certChain = append(certChain, block.Bytes)
+		hash := sha256.Sum256(block.Bytes)
+		if hashValue == nil {
+			hashValue = hash[:]
+		} else {
+			newHashValue := sha256.Sum256(append(hashValue, hash[:]...))
+			hashValue = newHashValue[:]
+		}
 		certContent = remain
+		ok = true
 	}
-	certChainHash := GenerateCertChainHash(certChain)
-	certChainHashB64 := base64.StdEncoding.EncodeToString(certChainHash)
-	return certChainHashB64
+	if !ok {
+		return "", newError("invalid certificate")
+	}
+	return base64.StdEncoding.EncodeToString(hashValue), nil
 }
 
 func CalculatePEMCertPublicKeySHA256Hash(certContent []byte) (string, error) {
@@ -28,11 +37,12 @@ func CalculatePEMCertPublicKeySHA256Hash(certContent []byte) (string, error) {
 	if block == nil {
 		return "", newError("invalid certificate")
 	}
-	certPublicKeyHash, err := GenerateCertPublicKeyHash(block.Bytes)
+	cert, err := x509.ParseCertificate(block.Bytes)
 	if err != nil {
-		return "", newError("invalid certificate")
+		return "", err
 	}
-	return base64.StdEncoding.EncodeToString(certPublicKeyHash), nil
+	hash := sha256.Sum256(cert.RawSubjectPublicKeyInfo)
+	return base64.StdEncoding.EncodeToString(hash[:]), nil
 }
 
 func CalculatePEMCertSHA256Hash(certContent []byte) (string, error) {
@@ -40,37 +50,6 @@ func CalculatePEMCertSHA256Hash(certContent []byte) (string, error) {
 	if block == nil {
 		return "", newError("invalid certificate")
 	}
-	return hex.EncodeToString(GenerateCertHash(block.Bytes)), nil
-}
-
-func GenerateCertChainHash(rawCerts [][]byte) []byte {
-	var hashValue []byte
-	for _, certValue := range rawCerts {
-		out := sha256.Sum256(certValue)
-		if hashValue == nil {
-			hashValue = out[:]
-		} else {
-			newHashValue := sha256.Sum256(append(hashValue, out[:]...))
-			hashValue = newHashValue[:]
-		}
-	}
-	return hashValue
-}
-
-func GenerateCertPublicKeyHash(rawCert []byte) ([]byte, error) {
-	cert, err := x509.ParseCertificate(rawCert)
-	if err != nil {
-		return nil, newError("invalid certificate")
-	}
-	publicKey, err := x509.MarshalPKIXPublicKey(cert.PublicKey)
-	if err != nil {
-		return nil, newError("invalid public key")
-	}
-	hashValue := sha256.Sum256(publicKey)
-	return hashValue[:], nil
-}
-
-func GenerateCertHash(rawCert []byte) []byte {
-	hashValue := sha256.Sum256(rawCert)
-	return hashValue[:]
+	hash := sha256.Sum256(block.Bytes)
+	return hex.EncodeToString(hash[:]), nil
 }

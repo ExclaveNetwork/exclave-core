@@ -28,7 +28,10 @@ func executeChainHash(cmd *base.Command, args []string) {
 		base.Fatalf("Failed to read cert file: %s", err)
 		return
 	}
-
-	certChainHashB64 := v2tls.CalculatePEMCertChainSHA256Hash(certContent)
+	certChainHashB64, err := v2tls.CalculatePEMCertChainSHA256Hash(certContent)
+	if err != nil {
+		base.Fatalf("%s", err)
+		return
+	}
 	fmt.Println(certChainHashB64)
 }

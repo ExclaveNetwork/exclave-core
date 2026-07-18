@@ -3,6 +3,7 @@ package tls
 import (
 	"context"
 	"crypto/hmac"
+	"crypto/sha256"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
@@ -333,26 +334,28 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 				}
 			}
 			if c.PinnedPeerCertificateChainSha256 != nil {
-				rawCerts := make([][]byte, len(state.PeerCertificates))
-				for i, peerCertificate := range state.PeerCertificates {
-					rawCerts[i] = peerCertificate.Raw
+				var hashValue []byte
+				for _, peerCertificate := range state.PeerCertificates {
+					hash := sha256.Sum256(peerCertificate.Raw)
+					if hashValue == nil {
+						hashValue = hash[:]
+					} else {
+						newHashValue := sha256.Sum256(append(hashValue, hash[:]...))
+						hashValue = newHashValue[:]
+					}
 				}
-				hash := GenerateCertChainHash(rawCerts)
 				if !slices.ContainsFunc(c.PinnedPeerCertificateChainSha256, func(b []byte) bool {
-					return hmac.Equal(b, hash)
+					return hmac.Equal(b, hashValue)
 				}) {
-					return newError("peer cert chain is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
+					return newError("peer cert chain is unrecognized: ", base64.StdEncoding.EncodeToString(hashValue))
 				}
 			}
 			if c.PinnedPeerCertificatePublicKeySha256 != nil {
-				hash, err := GenerateCertPublicKeyHash(state.PeerCertificates[0].Raw)
-				if err != nil {
-					return err
-				}
+				hash := sha256.Sum256(state.PeerCertificates[0].RawSubjectPublicKeyInfo)
 				if !slices.ContainsFunc(c.PinnedPeerCertificatePublicKeySha256, func(b []byte) bool {
-					return hmac.Equal(b, hash)
+					return hmac.Equal(b, hash[:])
 				}) {
-					return newError("peer cert public key is unrecognized: ", base64.StdEncoding.EncodeToString(hash))
+					return newError("peer cert public key is unrecognized: ", base64.StdEncoding.EncodeToString(hash[:]))
 				}
 			}
 			if c.PinnedPeerCertificateSha256 != nil {
@@ -364,9 +367,9 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 					}
 					pinnedPeerCertificateSha256[i] = h
 				}
-				hash := GenerateCertHash(state.PeerCertificates[0].Raw)
+				hash := sha256.Sum256(state.PeerCertificates[0].Raw)
 				if !slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
-					return hmac.Equal(b, hash)
+					return hmac.Equal(b, hash[:])
 				}) {
 					opts := x509.VerifyOptions{
 						Roots:         x509.NewCertPool(),
@@ -374,9 +377,9 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 					}
 					hasMatch := false
 					for _, peerCertificate := range state.PeerCertificates[1:] {
-						hash := GenerateCertHash(peerCertificate.Raw)
+						hash := sha256.Sum256(peerCertificate.Raw)
 						if slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
-							return hmac.Equal(b, hash)
+							return hmac.Equal(b, hash[:])
 						}) {
 							hasMatch = true
 							opts.Roots.AddCert(peerCertificate)
@@ -385,7 +388,7 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 						}
 					}
 					if !hasMatch {
-						return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+						return newError("peer cert is unrecognized: ", hex.EncodeToString(hash[:]))
 					}
 					if len(c.ServerNameToVerify) > 0 {
 						if slices.Contains(c.ServerNameToVerify, "") {
@@ -396,7 +399,7 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 							_, err := state.PeerCertificates[0].Verify(opts)
 							return err == nil
 						}) {
-							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash[:]))
 						}
 					} else {
 						if len(config.ServerName) == 0 {
@@ -404,7 +407,7 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 						}
 						opts.DNSName = config.ServerName
 						if _, err := state.PeerCertificates[0].Verify(opts); err != nil {
-							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash))
+							return newError("peer cert is unrecognized: ", hex.EncodeToString(hash[:]))
 						}
 					}
 				}

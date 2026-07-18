@@ -3,12 +3,10 @@ package tls
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"encoding/base64"
 	"fmt"
 	"net"
 
 	"github.com/exclavenetwork/exclave-core/v5/main/commands/base"
-	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
 // cmdPing is the tls ping command
@@ -67,8 +65,6 @@ func executePing(cmd *base.Command, args []string) {
 			NextProtos:         []string{"http/1.1"},
 			MaxVersion:         tls.VersionTLS12,
 			MinVersion:         tls.VersionTLS12,
-			// Do not release tool before v5's refactor
-			// VerifyPeerCertificate: showCert(),
 		})
 		err = tlsConn.Handshake()
 		if err != nil {
@@ -92,8 +88,6 @@ func executePing(cmd *base.Command, args []string) {
 			NextProtos: []string{"http/1.1"},
 			MaxVersion: tls.VersionTLS12,
 			MinVersion: tls.VersionTLS12,
-			// Do not release tool before v5's refactor
-			// VerifyPeerCertificate: showCert(),
 		})
 		err = tlsConn.Handshake()
 		if err != nil {
@@ -114,13 +108,5 @@ func printCertificates(certs []*x509.Certificate) {
 			continue
 		}
 		fmt.Println("Allowed domains: ", cert.DNSNames)
-	}
-}
-
-func showCert() func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-	return func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-		hash := v2tls.GenerateCertChainHash(rawCerts)
-		fmt.Println("Certificate Chain Hash: ", base64.StdEncoding.EncodeToString(hash))
-		return nil
 	}
 }

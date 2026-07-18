@@ -1,6 +1,7 @@
 package scenarios
 
 import (
+	"crypto/sha256"
 	"crypto/x509"
 	"runtime"
 	"testing"
@@ -813,7 +814,8 @@ func TestSimpleTLSConnectionPinned(t *testing.T) {
 	defer tcpServer.Close()
 	certificateDer := cert.MustGenerate(nil)
 	certificate := tls.ParseCertificate(certificateDer)
-	certHash := tls.GenerateCertChainHash([][]byte{certificateDer.Certificate})
+	sha256.Sum256(certificate.Certificate)
+	certHash := sha256.Sum256(certificate.Certificate)
 	userID := protocol.NewID(uuid.New())
 	serverPort := tcp.PickPort()
 	serverConfig := &core.Config{
@@ -887,7 +889,7 @@ func TestSimpleTLSConnectionPinned(t *testing.T) {
 						SecuritySettings: []*anypb.Any{
 							serial.ToTypedMessage(&tls.Config{
 								AllowInsecure:                    true,
-								PinnedPeerCertificateChainSha256: [][]byte{certHash},
+								PinnedPeerCertificateChainSha256: [][]byte{certHash[:]},
 							}),
 						},
 					},

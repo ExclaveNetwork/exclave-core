@@ -69,7 +69,7 @@ UdHkhVNcsAKX1H7GNNLOEADksd86wuoXvg==
 -----END CERTIFICATE-----
 `
 	t.Run("bundle", func(t *testing.T) {
-		hash := CalculatePEMCertChainSHA256Hash([]byte(CertBundle))
+		hash, _ := CalculatePEMCertChainSHA256Hash([]byte(CertBundle))
 		assert.Equal(t, "WF65fBkgltadMnXryOMZ6TEYeV4d5Q0uu4SGXGZ0RjI=", hash)
 	})
 	const Single = `-----BEGIN CERTIFICATE-----
@@ -104,7 +104,7 @@ tzY45d4mjPs0fKCFKSsVM6YT0tX4NwIKsOaeQg30WLtRyDwYm6ma/a/UUUS0FloZ
 -----END CERTIFICATE-----
 `
 	t.Run("single", func(t *testing.T) {
-		hash := CalculatePEMCertChainSHA256Hash([]byte(Single))
+		hash, _ := CalculatePEMCertChainSHA256Hash([]byte(Single))
 		assert.Equal(t, "FW3SVMCL6um2wVltOdgJ3DpI82aredw83YoCblkMkVM=", hash)
 	})
 }
