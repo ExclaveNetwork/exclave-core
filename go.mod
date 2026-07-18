@@ -6,7 +6,7 @@ require (
 	filippo.io/mldsa v0.0.0-20260711112038-ff3f469cee29
 	github.com/adrg/xdg v0.5.3
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da
-	github.com/anytls/sing-anytls v0.0.11
+	github.com/anytls/sing-anytls v0.0.13
 	github.com/apernet/quic-go v0.60.1-0.20260618182935-599b15a1fa26
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.34.1

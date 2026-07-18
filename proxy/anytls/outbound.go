@@ -31,6 +31,7 @@ type Outbound struct {
 	idleSessionCheckInterval int64
 	idleSessionTimeout       int64
 	minIdleSession           int64
+	disableReuse             bool
 	client                   *anytls.Client
 	clientAccess             sync.Mutex
 }
@@ -47,6 +48,7 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 		idleSessionCheckInterval: config.IdleSessionCheckInterval,
 		idleSessionTimeout:       config.IdleSessionTimeout,
 		minIdleSession:           config.MinIdleSession,
+		disableReuse:             config.DisableReuse,
 	}, nil
 }
 
@@ -74,6 +76,7 @@ func (o *Outbound) getClient(dialer internet.Dialer) (*anytls.Client, error) {
 		IdleSessionCheckInterval: time.Duration(o.idleSessionCheckInterval) * time.Second,
 		IdleSessionTimeout:       time.Duration(o.idleSessionTimeout) * time.Second,
 		MinIdleSession:           int(o.minIdleSession),
+		DisableReuse:             o.disableReuse,
 		DialOut: func(ctx context.Context) (net.Conn, error) {
 			return dialer.Dial(ctx, o.serverAddr)
 		},

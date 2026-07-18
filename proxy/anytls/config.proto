@@ -18,6 +18,7 @@ message ClientConfig {
   int64 idle_session_check_interval = 4;
   int64 idle_session_timeout = 5;
   int64 min_idle_session = 6;
+  bool disable_reuse = 7;
 }
 
 message User {

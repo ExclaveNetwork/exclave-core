@@ -14,6 +14,7 @@ type AnyTLSClientConfig struct {
 	IdleSessionCheckInterval int64              `json:"idleSessionCheckInterval"`
 	IdleSessionTimeout       int64              `json:"idleSessionTimeout"`
 	MinIdleSession           int64              `json:"minIdleSession"`
+	DisableReuse             bool               `json:"disableReuse"`
 }
 
 func (c *AnyTLSClientConfig) Build() (proto.Message, error) {
@@ -27,6 +28,7 @@ func (c *AnyTLSClientConfig) Build() (proto.Message, error) {
 		IdleSessionCheckInterval: c.IdleSessionCheckInterval,
 		IdleSessionTimeout:       c.IdleSessionTimeout,
 		MinIdleSession:           c.MinIdleSession,
+		DisableReuse:             c.DisableReuse,
 	}
 	return config, nil
 }

@@ -25,6 +25,7 @@ type ClientConfig struct {
 	IdleSessionCheckInterval int64                  `protobuf:"varint,4,opt,name=idle_session_check_interval,json=idleSessionCheckInterval,proto3" json:"idle_session_check_interval,omitempty"`
 	IdleSessionTimeout       int64                  `protobuf:"varint,5,opt,name=idle_session_timeout,json=idleSessionTimeout,proto3" json:"idle_session_timeout,omitempty"`
 	MinIdleSession           int64                  `protobuf:"varint,6,opt,name=min_idle_session,json=minIdleSession,proto3" json:"min_idle_session,omitempty"`
+	DisableReuse             bool                   `protobuf:"varint,7,opt,name=disable_reuse,json=disableReuse,proto3" json:"disable_reuse,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -99,6 +100,13 @@ func (x *ClientConfig) GetMinIdleSession() int64 {
 		return x.MinIdleSession
 	}
 	return 0
+}
+
+func (x *ClientConfig) GetDisableReuse() bool {
+	if x != nil {
+		return x.DisableReuse
+	}
+	return false
 }
 
 type User struct {
@@ -217,14 +225,15 @@ var File_proxy_anytls_config_proto protoreflect.FileDescriptor
 
 const file_proxy_anytls_config_proto_rawDesc = "" +
 	"\n" +
-	"\x19proxy/anytls/config.proto\x12\x19exclave.core.proxy.anytls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xb0\x02\n" +
+	"\x19proxy/anytls/config.proto\x12\x19exclave.core.proxy.anytls\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"\xd5\x02\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12=\n" +
 	"\x1bidle_session_check_interval\x18\x04 \x01(\x03R\x18idleSessionCheckInterval\x120\n" +
 	"\x14idle_session_timeout\x18\x05 \x01(\x03R\x12idleSessionTimeout\x12(\n" +
-	"\x10min_idle_session\x18\x06 \x01(\x03R\x0eminIdleSession:\x16\x82\xb5\x18\x12\n" +
+	"\x10min_idle_session\x18\x06 \x01(\x03R\x0eminIdleSession\x12#\n" +
+	"\rdisable_reuse\x18\a \x01(\bR\fdisableReuse:\x16\x82\xb5\x18\x12\n" +
 	"\boutbound\x12\x06anytls\"N\n" +
 	"\x04User\x12\x1a\n" +
 	"\bpassword\x18\x01 \x01(\tR\bpassword\x12\x14\n" +
