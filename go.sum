@@ -235,8 +235,8 @@ github.com/sagernet/sing-shadowsocks v0.2.9 h1:Paep5zCszRKsEn8587O0MnhFWKJwDW1Y4
 github.com/sagernet/sing-shadowsocks v0.2.9/go.mod h1:TE/Z6401Pi8tgr0nBZcM/xawAI6u3F6TTbz4nH/qw+8=
 github.com/sagernet/sing-shadowsocks2 v0.2.2 h1:GUN6ttP3NSJL/bFJJZZezp9/o6DQdG9qWyQdRvOy2LY=
 github.com/sagernet/sing-shadowsocks2 v0.2.2/go.mod h1:ZAYv1VFjvnMK4QQJltuvoN52biUN76TdNwzyDjSRrzc=
-github.com/sagernet/sing-snell v0.0.0-20260710094516-a4e97ee24beb h1:VvU2/PZqP5tbKTDq0BxkhRO8ZnKI4UJzziakgBiP2Qg=
-github.com/sagernet/sing-snell v0.0.0-20260710094516-a4e97ee24beb/go.mod h1:PcwzX/Xvqky0EP3kGt8OCjYb3R1pydenPHNQZcPZmXY=
+github.com/sagernet/sing-snell v0.0.0-20260719094200-c43fbee0e839 h1:YL0oCb55moImUGvjhhVEYODGMo5i9dAf+RpmMFPCq9w=
+github.com/sagernet/sing-snell v0.0.0-20260719094200-c43fbee0e839/go.mod h1:PcwzX/Xvqky0EP3kGt8OCjYb3R1pydenPHNQZcPZmXY=
 github.com/sagernet/smux v1.5.50-sing-box-mod.1 h1:XkJcivBC9V4wBjiGXIXZ229aZCU1hzcbp6kSkkyQ478=
 github.com/sagernet/smux v1.5.50-sing-box-mod.1/go.mod h1:NjhsCEWedJm7eFLyhuBgIEzwfhRmytrUoiLluxs5Sk8=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=

@@ -37,6 +37,7 @@ var (
 type snellClient interface {
 	DialContext(ctx context.Context, destination metadata.Socksaddr) (net.Conn, error)
 	DialPacketConn(conn net.Conn) (network.NetPacketConn, error)
+	Reset()
 	Close() error
 }
 
@@ -234,14 +235,17 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 }
 
 func (o *Outbound) InterfaceUpdate() {
-	_ = o.Close()
+	o.clientAccess.Lock()
+	if o.client != nil {
+		o.client.Reset()
+	}
+	o.clientAccess.Unlock()
 }
 
 func (o *Outbound) Close() error {
 	o.clientAccess.Lock()
 	if o.client != nil {
 		_ = o.client.Close()
-		o.client = nil
 	}
 	o.clientAccess.Unlock()
 	return nil
