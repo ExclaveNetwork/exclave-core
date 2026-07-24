@@ -57,10 +57,10 @@ github.com/dgryski/go-metro v0.0.0-20200812162917-85c65e2d0165/go.mod h1:c9O8+fp
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/enfein/mieru/v3 v3.34.1 h1:V5RMMtFfWhSHIMyxsqgmsXyDXP+6H4V9azwLTeQVTz4=
 github.com/enfein/mieru/v3 v3.34.1/go.mod h1:zJBUCsi5rxyvHM8fjFf+GLaEl4OEjjBXr1s5F6Qd3hM=
-github.com/exclavenetwork/hysteria/core/v2 v2.9.3-1 h1:o8Sc2WQW51F5khBq5at/bT1FWcsHG853nA2ceJNE53I=
-github.com/exclavenetwork/hysteria/core/v2 v2.9.3-1/go.mod h1:oKL5gKIKCvAMaEisBDd2J4rTyLdpokpOTN3AZUr+oTI=
-github.com/exclavenetwork/hysteria/extras/v2 v2.9.3-1 h1:+rgbuOPSG8mi/cJZ1A05evVxZeE1HQdcd8bHHYJyicw=
-github.com/exclavenetwork/hysteria/extras/v2 v2.9.3-1/go.mod h1:0TackschLivWkLO4mtt3ZC/MFEIhUBo4932LQkZwtoo=
+github.com/exclavenetwork/hysteria/core/v2 v2.10.0-1 h1:xUd4cMqQaVPMgyof/VE2ji2Afr6E51Qr1L+UyPtR6BY=
+github.com/exclavenetwork/hysteria/core/v2 v2.10.0-1/go.mod h1:oKL5gKIKCvAMaEisBDd2J4rTyLdpokpOTN3AZUr+oTI=
+github.com/exclavenetwork/hysteria/extras/v2 v2.10.0-1 h1:sT0RZzSaawsCVlCBXWRyPdtscc7px3K/tMruNAUdbOw=
+github.com/exclavenetwork/hysteria/extras/v2 v2.10.0-1/go.mod h1:0TackschLivWkLO4mtt3ZC/MFEIhUBo4932LQkZwtoo=
 github.com/exclavenetwork/sing-juicity v0.1.5 h1:Cwb3zjQ7iMe61X+X53J9bM2LcsqInhS3q+a5UPM8oSg=
 github.com/exclavenetwork/sing-juicity v0.1.5/go.mod h1:2DohMvdRHvjMQGbbem18mZuPuUADdtKIh5FQTTGm8es=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=

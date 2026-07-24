@@ -17,13 +17,14 @@ const (
 )
 
 type Congestion struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	UpMbps        uint64                 `protobuf:"varint,2,opt,name=up_mbps,json=upMbps,proto3" json:"up_mbps,omitempty"`
-	DownMbps      uint64                 `protobuf:"varint,3,opt,name=down_mbps,json=downMbps,proto3" json:"down_mbps,omitempty"`
-	BbrProfile    string                 `protobuf:"bytes,4,opt,name=bbrProfile,proto3" json:"bbrProfile,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"open.v1"`
+	Type                    string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	UpMbps                  uint64                 `protobuf:"varint,2,opt,name=up_mbps,json=upMbps,proto3" json:"up_mbps,omitempty"`
+	DownMbps                uint64                 `protobuf:"varint,3,opt,name=down_mbps,json=downMbps,proto3" json:"down_mbps,omitempty"`
+	BbrProfile              string                 `protobuf:"bytes,4,opt,name=bbrProfile,proto3" json:"bbrProfile,omitempty"`
+	DisableLossCompensation bool                   `protobuf:"varint,5,opt,name=disable_loss_compensation,json=disableLossCompensation,proto3" json:"disable_loss_compensation,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *Congestion) Reset() {
@@ -82,6 +83,13 @@ func (x *Congestion) GetBbrProfile() string {
 		return x.BbrProfile
 	}
 	return ""
+}
+
+func (x *Congestion) GetDisableLossCompensation() bool {
+	if x != nil {
+		return x.DisableLossCompensation
+	}
+	return false
 }
 
 type OBFS struct {
@@ -280,7 +288,7 @@ var File_transport_internet_hysteria2_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
 	"\n" +
-	")transport/internet/hysteria2/config.proto\x12)exclave.core.transport.internet.hysteria2\x1a common/protoext/extensions.proto\"v\n" +
+	")transport/internet/hysteria2/config.proto\x12)exclave.core.transport.internet.hysteria2\x1a common/protoext/extensions.proto\"\xb2\x01\n" +
 	"\n" +
 	"Congestion\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x17\n" +
@@ -288,7 +296,8 @@ const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
 	"\tdown_mbps\x18\x03 \x01(\x04R\bdownMbps\x12\x1e\n" +
 	"\n" +
 	"bbrProfile\x18\x04 \x01(\tR\n" +
-	"bbrProfile\"\x86\x01\n" +
+	"bbrProfile\x12:\n" +
+	"\x19disable_loss_compensation\x18\x05 \x01(\bR\x17disableLossCompensation\"\x86\x01\n" +
 	"\x04OBFS\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12&\n" +

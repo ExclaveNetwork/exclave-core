@@ -10,8 +10,8 @@ require (
 	github.com/apernet/quic-go v0.60.1-0.20260618182935-599b15a1fa26
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.34.1
-	github.com/exclavenetwork/hysteria/core/v2 v2.9.3-1
-	github.com/exclavenetwork/hysteria/extras/v2 v2.9.3-1
+	github.com/exclavenetwork/hysteria/core/v2 v2.10.0-1
+	github.com/exclavenetwork/hysteria/extras/v2 v2.10.0-1
 	github.com/exclavenetwork/sing-juicity v0.1.5
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4

@@ -143,10 +143,11 @@ func (c *TCPConfig) Build() (proto.Message, error) {
 }
 
 type Hy2ConfigCongestion struct {
-	Type       string `json:"type"`
-	UpMbps     uint64 `json:"up_mbps"`
-	DownMbps   uint64 `json:"down_mbps"`
-	BBRProfile string `json:"bbrProfile"`
+	Type                    string `json:"type"`
+	UpMbps                  uint64 `json:"up_mbps"`
+	DownMbps                uint64 `json:"down_mbps"`
+	BBRProfile              string `json:"bbrProfile"`
+	DisableLossCompensation bool   `json:"disableLossCompensation"`
 }
 
 type Hyteria2ConfigOBFS struct {
@@ -176,10 +177,11 @@ func (c *Hy2Config) Build() (proto.Message, error) {
 		Password:  c.Password,
 		Passwords: c.Passwords,
 		Congestion: &hysteria2.Congestion{
-			Type:       c.Congestion.Type,
-			DownMbps:   c.Congestion.DownMbps,
-			UpMbps:     c.Congestion.UpMbps,
-			BbrProfile: c.Congestion.BBRProfile,
+			Type:                    c.Congestion.Type,
+			DownMbps:                c.Congestion.DownMbps,
+			UpMbps:                  c.Congestion.UpMbps,
+			BbrProfile:              c.Congestion.BBRProfile,
+			DisableLossCompensation: c.Congestion.DisableLossCompensation,
 		},
 		UseUdpExtension:       c.UseUDPExtension,
 		IgnoreClientBandwidth: c.IgnoreClientBandwidth,

@@ -210,11 +210,15 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 
 	config := streamSettings.ProtocolSettings.(*Config)
 	hyConfig := &hyClient.Config{
-		Auth:            config.GetPassword(),
-		TLSConfig:       tlsConfig,
-		ServerAddr:      serverAddr,
-		BandwidthConfig: hyClient.BandwidthConfig{MaxTx: config.Congestion.GetUpMbps() * MBps, MaxRx: config.GetCongestion().GetDownMbps() * MBps},
-		FastOpen:        true,
+		Auth:       config.GetPassword(),
+		TLSConfig:  tlsConfig,
+		ServerAddr: serverAddr,
+		BandwidthConfig: hyClient.BandwidthConfig{
+			MaxTx:                   config.Congestion.GetUpMbps() * MBps,
+			MaxRx:                   config.GetCongestion().GetDownMbps() * MBps,
+			DisableLossCompensation: config.GetCongestion().GetDisableLossCompensation(),
+		},
+		FastOpen: true,
 		QUICConfig: &quic.Config{
 			OmitMaxDatagramFrameSize: config.OmitMaxDatagramFrameSize,
 		},
