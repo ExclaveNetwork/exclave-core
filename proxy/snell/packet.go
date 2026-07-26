@@ -1,6 +1,7 @@
 package snell
 
 import (
+	"github.com/sagernet/sing/common"
 	singbuf "github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/metadata"
 	"github.com/sagernet/sing/common/network"
@@ -109,4 +110,39 @@ func (w *packetConnWrapper) WritePacket(buffer *singbuf.Buffer, destination meta
 func (w *packetConnWrapper) Close() error {
 	buf.ReleaseMulti(w.cached)
 	return nil
+}
+
+func newServerConnWrapper(serverConn network.NetPacketConn) network.NetPacketConn {
+	frontHeadroom, ok1 := common.Cast[network.FrontHeadroom](serverConn)
+	rearHeadroom, ok2 := common.Cast[network.RearHeadroom](serverConn)
+	_, ok3 := common.Cast[network.WriterWithMTU](serverConn)
+	if ok1 && ok2 && ok3 {
+		return &serverConnWrapper{
+			NetPacketConn: serverConn,
+			frontHeadroom: frontHeadroom,
+			rearHeadroom:  rearHeadroom,
+		}
+	}
+	return serverConn
+}
+
+type serverConnWrapper struct {
+	network.NetPacketConn
+	frontHeadroom network.FrontHeadroom
+	rearHeadroom  network.RearHeadroom
+}
+
+func (w *serverConnWrapper) FrontHeadroom() int {
+	return w.frontHeadroom.FrontHeadroom()
+}
+
+func (w *serverConnWrapper) RearHeadroom() int {
+	return w.rearHeadroom.RearHeadroom()
+}
+
+func (w *serverConnWrapper) WriterMTU() int {
+	// https://github.com/SagerNet/sing-snell/blob/c43fbee0e8399abb81e9954944fb63c076331aec/snellv4/packet.go#L219
+	// https://github.com/SagerNet/sing-snell/blob/c43fbee0e8399abb81e9954944fb63c076331aec/snellv6/packet.go#L224
+	// workaround UDP MTU issue
+	return 0xffff
 }

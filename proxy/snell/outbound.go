@@ -230,7 +230,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 				return err
 			}
 		}
-		return singbridge.ReturnError(bufio.CopyPacketConn(detachedCtx, newPacketConnWrapper(link, destination, addr, o.resolver), serverConn))
+		return singbridge.ReturnError(bufio.CopyPacketConn(detachedCtx, newPacketConnWrapper(link, destination, addr, o.resolver), newServerConnWrapper(serverConn)))
 	}
 }
 
