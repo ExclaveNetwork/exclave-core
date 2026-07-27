@@ -1,10 +1,14 @@
 package singbridge
 
 import (
+	"io"
+	"time"
+
 	singbuf "github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/metadata"
 	"github.com/sagernet/sing/common/network"
 
+	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
@@ -13,70 +17,91 @@ import (
 var _ network.PacketConn = (*packetConnWrapper)(nil)
 
 func NewPacketConnWrapper(link *transport.Link, dest net.Destination) *packetConnWrapper {
-	conn := &packetConnWrapper{
-		Reader: link.Reader,
-		Writer: link.Writer,
+	return &packetConnWrapper{
+		reader: link.Reader,
+		writer: link.Writer,
 		dest:   dest,
 	}
-	return conn
 }
 
 type packetConnWrapper struct {
-	buf.Reader
-	buf.Writer
+	reader buf.Reader
+	writer buf.Writer
 	dest   net.Destination
 	cached buf.MultiBuffer
-	net.Conn
 }
 
 func (w *packetConnWrapper) ReadPacket(buffer *singbuf.Buffer) (metadata.Socksaddr, error) {
 	if w.cached != nil {
-		mb, bb := buf.SplitFirst(w.cached)
-		if bb == nil {
+		mb, b := buf.SplitFirst(w.cached)
+		if b == nil {
 			w.cached = nil
 		} else {
-			buffer.Write(bb.Bytes())
 			w.cached = mb
+			_, err := buffer.Write(b.Bytes())
+			if err != nil {
+				b.Release()
+				return metadata.Socksaddr{}, err
+			}
 			var destination net.Destination
-			if bb.Endpoint != nil {
-				destination = *bb.Endpoint
+			if b.Endpoint != nil {
+				destination = *b.Endpoint
 			} else {
 				destination = w.dest
 			}
-			bb.Release()
+			b.Release()
 			return ToSocksAddr(destination), nil
 		}
 	}
-	mb, err := w.ReadMultiBuffer()
+	mb, err := w.reader.ReadMultiBuffer()
 	if err != nil {
 		return metadata.Socksaddr{}, err
 	}
-	nb, bb := buf.SplitFirst(mb)
-	if bb == nil {
-		return metadata.Socksaddr{}, nil
-	} else {
-		buffer.Write(bb.Bytes())
-		w.cached = nb
-		var destination net.Destination
-		if bb.Endpoint != nil {
-			destination = *bb.Endpoint
-		} else {
-			destination = w.dest
-		}
-		bb.Release()
-		return ToSocksAddr(destination), nil
+	mb2, b := buf.SplitFirst(mb)
+	if b == nil {
+		return metadata.Socksaddr{}, io.EOF
 	}
+	w.cached = mb2
+	_, err = buffer.Write(b.Bytes())
+	if err != nil {
+		b.Release()
+		return metadata.Socksaddr{}, err
+	}
+	var destination net.Destination
+	if b.Endpoint != nil {
+		destination = *b.Endpoint
+	} else {
+		destination = w.dest
+	}
+	b.Release()
+	return ToSocksAddr(destination), nil
 }
 
 func (w *packetConnWrapper) WritePacket(buffer *singbuf.Buffer, destination metadata.Socksaddr) error {
-	vBuf := buf.New()
-	vBuf.Write(buffer.Bytes())
+	b := buf.NewWithSize(int32(buffer.Len()))
+	common.Must2(b.Write(buffer.Bytes()))
 	endpoint := ToDestination(destination, net.Network_UDP)
-	vBuf.Endpoint = &endpoint
-	return w.WriteMultiBuffer(buf.MultiBuffer{vBuf})
+	b.Endpoint = &endpoint
+	return w.writer.WriteMultiBuffer(buf.MultiBuffer{b})
 }
 
 func (w *packetConnWrapper) Close() error {
 	buf.ReleaseMulti(w.cached)
 	return nil
+}
+
+func (w *packetConnWrapper) SetDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *packetConnWrapper) SetReadDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *packetConnWrapper) SetWriteDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *packetConnWrapper) LocalAddr() net.Addr {
+	panic("invalid")
 }

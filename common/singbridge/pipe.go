@@ -2,7 +2,9 @@ package singbridge
 
 import (
 	"io"
+	"time"
 
+	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
@@ -13,7 +15,6 @@ var _ net.Conn = (*pipeConnWrapper)(nil)
 type pipeConnWrapper struct {
 	reader io.Reader
 	writer buf.Writer
-	net.Conn
 }
 
 func NewPipeConnWrapper(link *transport.Link) *pipeConnWrapper {
@@ -32,29 +33,38 @@ func (w *pipeConnWrapper) Close() error {
 	return nil
 }
 
-func (w *pipeConnWrapper) Read(b []byte) (n int, err error) {
+func (w *pipeConnWrapper) Read(b []byte) (int, error) {
 	return w.reader.Read(b)
 }
 
-func (w *pipeConnWrapper) Write(p []byte) (n int, err error) {
-	n = len(p)
-	var mb buf.MultiBuffer
-	pLen := len(p)
-	for pLen > 0 {
-		buffer := buf.New()
-		if pLen > buf.Size {
-			buffer.Write(p[:buf.Size])
-			p = p[buf.Size:]
-		} else {
-			buffer.Write(p)
-		}
-		pLen -= int(buffer.Len())
-		mb = append(mb, buffer)
-	}
-	err = w.writer.WriteMultiBuffer(mb)
+func (w *pipeConnWrapper) Write(p []byte) (int, error) {
+	b := buf.NewWithSize(int32(len(p)))
+	common.Must2(b.Write(p))
+	mb := buf.MultiBuffer{b}
+	err := w.writer.WriteMultiBuffer(mb)
 	if err != nil {
-		n = 0
 		buf.ReleaseMulti(mb)
+		return 0, err
 	}
-	return n, err
+	return len(p), nil
+}
+
+func (w *pipeConnWrapper) SetDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *pipeConnWrapper) SetReadDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *pipeConnWrapper) SetWriteDeadline(t time.Time) error {
+	panic("invalid")
+}
+
+func (w *pipeConnWrapper) LocalAddr() net.Addr {
+	panic("invalid")
+}
+
+func (w *pipeConnWrapper) RemoteAddr() net.Addr {
+	panic("invalid")
 }
