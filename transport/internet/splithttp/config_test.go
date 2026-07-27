@@ -3,8 +3,9 @@ package splithttp_test
 import (
 	"testing"
 
-	. "github.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp"
 	"github.com/stretchr/testify/assert"
+
+	. "github.com/exclavenetwork/exclave-core/v5/transport/internet/splithttp"
 )
 
 func Test_GetNormalizedPath(t *testing.T) {
