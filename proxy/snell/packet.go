@@ -142,7 +142,6 @@ func (w *serverConnWrapper) RearHeadroom() int {
 
 func (w *serverConnWrapper) WriterMTU() int {
 	// https://github.com/SagerNet/sing-snell/blob/c43fbee0e8399abb81e9954944fb63c076331aec/snellv4/packet.go#L219
-	// https://github.com/SagerNet/sing-snell/blob/c43fbee0e8399abb81e9954944fb63c076331aec/snellv6/packet.go#L224
 	// workaround UDP MTU issue
-	return 0xffff
+	return 0xffff - 259
 }
