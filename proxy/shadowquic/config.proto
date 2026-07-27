@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package exclave.core.proxy.shadowquic;
+option csharp_namespace = "Exclave.Core.Proxy.Shadowquic";
+option go_package = "github.com/exclavenetwork/exclave-core/v5/proxy/shadowquic";
+option java_package = "com.github.exclavenetwork.exclave.core.proxy.shadowquic";
+option java_multiple_files = true;
+
+import "common/protoext/extensions.proto";
+import "common/net/address.proto";
+
+message ClientConfig {
+  option (exclave.core.common.protoext.message_opt).type = "outbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowquic";
+
+  exclave.core.common.net.IPOrDomain address = 1;
+  uint32 port = 2;
+  string username = 3;
+  string password = 4;
+  string congestion_control = 5;
+  bool udp_over_stream = 6;
+  bool zero_rtt_handshake = 7;
+  string server_name = 8;
+  repeated string alpn = 9;
+}
