@@ -296,7 +296,11 @@ func NewUidMatcher(uidList []int32) *UidMatcher { // nolint: stylecheck
 
 // Apply implements Condition.
 func (u UidMatcher) Apply(ctx routing.Context) bool {
-	return u.uidList[ctx.GetUid()]
+	uid := ctx.GetUid()
+	if uid == nil {
+		return false
+	}
+	return u.uidList[*uid]
 }
 
 type WifiSSIDMatcher struct {

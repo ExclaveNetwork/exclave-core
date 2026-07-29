@@ -34,7 +34,7 @@ type RoutingContext struct {
 	Attributes        map[string]string      `protobuf:"bytes,10,rep,name=Attributes,proto3" json:"Attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	OutboundGroupTags []string               `protobuf:"bytes,11,rep,name=OutboundGroupTags,proto3" json:"OutboundGroupTags,omitempty"`
 	OutboundTag       string                 `protobuf:"bytes,12,opt,name=OutboundTag,proto3" json:"OutboundTag,omitempty"`
-	Uid               int32                  `protobuf:"varint,13,opt,name=uid,proto3" json:"uid,omitempty"`
+	Uid               *int32                 `protobuf:"varint,13,opt,name=uid,proto3,oneof" json:"uid,omitempty"`
 	Ssid              string                 `protobuf:"bytes,14,opt,name=ssid,proto3" json:"ssid,omitempty"`
 	NetworkType       string                 `protobuf:"bytes,15,opt,name=network_type,json=networkType,proto3" json:"network_type,omitempty"`
 	unknownFields     protoimpl.UnknownFields
@@ -156,8 +156,8 @@ func (x *RoutingContext) GetOutboundTag() string {
 }
 
 func (x *RoutingContext) GetUid() int32 {
-	if x != nil {
-		return x.Uid
+	if x != nil && x.Uid != nil {
+		return *x.Uid
 	}
 	return 0
 }
@@ -661,7 +661,7 @@ var File_app_router_command_command_proto protoreflect.FileDescriptor
 
 const file_app_router_command_command_proto_rawDesc = "" +
 	"\n" +
-	" app/router/command/command.proto\x12\x1fexclave.core.app.router.command\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\"\xf5\x04\n" +
+	" app/router/command/command.proto\x12\x1fexclave.core.app.router.command\x1a common/protoext/extensions.proto\x1a\x18common/net/network.proto\"\x82\x05\n" +
 	"\x0eRoutingContext\x12\x1e\n" +
 	"\n" +
 	"InboundTag\x18\x01 \x01(\tR\n" +
@@ -683,13 +683,14 @@ const file_app_router_command_command_proto_rawDesc = "" +
 	" \x03(\v2?.exclave.core.app.router.command.RoutingContext.AttributesEntryR\n" +
 	"Attributes\x12,\n" +
 	"\x11OutboundGroupTags\x18\v \x03(\tR\x11OutboundGroupTags\x12 \n" +
-	"\vOutboundTag\x18\f \x01(\tR\vOutboundTag\x12\x10\n" +
-	"\x03uid\x18\r \x01(\x05R\x03uid\x12\x12\n" +
+	"\vOutboundTag\x18\f \x01(\tR\vOutboundTag\x12\x15\n" +
+	"\x03uid\x18\r \x01(\x05H\x00R\x03uid\x88\x01\x01\x12\x12\n" +
 	"\x04ssid\x18\x0e \x01(\tR\x04ssid\x12!\n" +
 	"\fnetwork_type\x18\x0f \x01(\tR\vnetworkType\x1a=\n" +
 	"\x0fAttributesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"F\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\x06\n" +
+	"\x04_uid\"F\n" +
 	"\x1cSubscribeRoutingStatsRequest\x12&\n" +
 	"\x0eFieldSelectors\x18\x01 \x03(\tR\x0eFieldSelectors\"\xb9\x01\n" +
 	"\x10TestRouteRequest\x12W\n" +
@@ -775,6 +776,7 @@ func file_app_router_command_command_proto_init() {
 	if File_app_router_command_command_proto != nil {
 		return
 	}
+	file_app_router_command_command_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

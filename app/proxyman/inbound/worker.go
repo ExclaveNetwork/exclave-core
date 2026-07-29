@@ -105,7 +105,7 @@ func (w *tcpWorker) callback(conn internet.Connection) {
 				newError("[TCP (", uid, "/", packageName, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 			}
 		}
-		inbound.UID = uid
+		inbound.UID = &uid
 	}
 
 	ctx = session.ContextWithInbound(ctx, inbound)
@@ -362,7 +362,7 @@ func (w *udpWorker) callback(b *buf.Buffer, source net.Destination, originalDest
 						newError("[UDP (", uid, "/", packageName, ")] ", source.NetAddr(), " ==> ", dest.NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 					}
 				}
-				inbound.UID = uid
+				inbound.UID = &uid
 			}
 
 			ctx = session.ContextWithInbound(ctx, inbound)
