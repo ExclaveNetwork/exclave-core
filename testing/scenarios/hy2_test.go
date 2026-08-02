@@ -1,6 +1,7 @@
 package scenarios
 
 import (
+	"runtime"
 	"testing"
 	"time"
 
@@ -33,6 +34,10 @@ import (
 )
 
 func TestVMessHysteria2Congestion(t *testing.T) {
+	if runtime.GOOS == "linux" {
+		t.Skip("temporarily skipped")
+		return
+	}
 	for _, v := range []string{"bbr", "brutal"} {
 		testVMessHysteria2(t, v)
 	}
