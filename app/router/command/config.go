@@ -29,7 +29,7 @@ func (c routingContext) GetTargetPort() net.Port {
 }
 
 func (c routingContext) GetUid() *int32 {
-	return c.RoutingContext.Uid
+	return c.Uid
 }
 
 // GetSkipDNSResolve is a mock implementation here to match the interface,

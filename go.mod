@@ -12,8 +12,8 @@ require (
 	github.com/enfein/mieru/v3 v3.35.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.10.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.10.0-1
-	github.com/exclavenetwork/sing-juicity v0.1.6
-	github.com/exclavenetwork/sing-shadowquic v0.0.0-20260727142250-c7e5fc87ed51
+	github.com/exclavenetwork/sing-juicity v0.1.7
+	github.com/exclavenetwork/sing-shadowquic v0.0.0-20260801175020-65c7acc31f93
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
@@ -41,7 +41,7 @@ require (
 	golang.org/x/sync v0.22.0
 	golang.org/x/sys v0.47.0
 	golang.zx2c4.com/wireguard v0.0.0-20260522210424-ecfc5a8d5446
-	google.golang.org/grpc v1.82.1
+	google.golang.org/grpc v1.83.0
 	google.golang.org/protobuf v1.36.11
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
 	h12.io/socks v1.0.3
@@ -77,6 +77,6 @@ require (
 	golang.org/x/time v0.7.0 // indirect
 	golang.org/x/tools v0.47.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260414002931-afd174a4e478 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
