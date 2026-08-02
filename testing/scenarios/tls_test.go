@@ -3,7 +3,6 @@ package scenarios
 import (
 	"crypto/x509"
 	"encoding/base64"
-	"runtime"
 	"testing"
 	"time"
 
@@ -130,15 +129,6 @@ func TestSimpleTLSConnection(t *testing.T) {
 }
 
 func TestAutoIssuingCertificate(t *testing.T) {
-	if runtime.GOOS == "windows" {
-		// Not supported on Windows yet.
-		return
-	}
-
-	if runtime.GOARCH == "arm64" {
-		return
-	}
-
 	tcpServer := tcp.Server{
 		MsgProcessor: xor,
 	}

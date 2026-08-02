@@ -36,18 +36,7 @@ func xor(b []byte) []byte {
 	return r
 }
 
-func readFrom(conn net.Conn, timeout time.Duration, length int) []byte {
-	b := make([]byte, length)
-	deadline := time.Now().Add(timeout)
-	conn.SetReadDeadline(deadline)
-	n, err := io.ReadFull(conn, b[:length])
-	if err != nil {
-		fmt.Println("Unexpected error from readFrom:", err)
-	}
-	return b[:n]
-}
-
-func readFrom2(conn net.Conn, timeout time.Duration, length int) ([]byte, error) {
+func readFrom(conn net.Conn, timeout time.Duration, length int) ([]byte, error) {
 	b := make([]byte, length)
 	deadline := time.Now().Add(timeout)
 	conn.SetReadDeadline(deadline)
@@ -243,7 +232,7 @@ func testTCPConn2(conn net.Conn, payloadSize int, timeout time.Duration) func() 
 			return errors.New("expect ", len(payload), " written, but actually ", nBytes)
 		}
 
-		response, err := readFrom2(conn, timeout, payloadSize)
+		response, err := readFrom(conn, timeout, payloadSize)
 		if err != nil {
 			return err
 		}

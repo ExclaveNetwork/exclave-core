@@ -8,7 +8,6 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/hex"
-	"os"
 	"slices"
 	"sync"
 	"time"
@@ -96,6 +95,25 @@ func (c *Config) getCustomCA() []*Certificate {
 	return certs
 }
 
+func (c *Config) getCertPool() (*x509.CertPool, error) {
+	if c.DisableSystemRoot {
+		return c.loadSelfCertPool(Certificate_AUTHORITY_VERIFY)
+	}
+	pool, err := x509.SystemCertPool()
+	if err != nil {
+		return nil, newError("system root").AtWarning().Base(err)
+	}
+	if len(c.Certificate) == 0 {
+		return pool, nil
+	}
+	for _, cert := range c.Certificate {
+		if !pool.AppendCertsFromPEM(cert.Certificate) {
+			return nil, newError("append cert to root").AtWarning().Base(err)
+		}
+	}
+	return pool, nil
+}
+
 func getGetCertificateFunc(c *tls.Config, ca []*Certificate) func(hello *tls.ClientHelloInfo) (*tls.Certificate, error) {
 	var access sync.RWMutex
 
@@ -169,16 +187,6 @@ func getGetCertificateFunc(c *tls.Config, ca []*Certificate) func(hello *tls.Cli
 
 		return issuedCertificate, nil
 	}
-}
-
-type alwaysFlushWriter struct {
-	file *os.File
-}
-
-func (a *alwaysFlushWriter) Write(p []byte) (n int, err error) {
-	n, err = a.file.Write(p)
-	a.file.Sync()
-	return n, err
 }
 
 // GetTLSConfig converts this Config into tls.Config.
