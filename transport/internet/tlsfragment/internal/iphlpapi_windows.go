@@ -1,4 +1,4 @@
-package tlsfragment
+package internal
 
 import (
 	"errors"

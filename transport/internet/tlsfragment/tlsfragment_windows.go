@@ -12,6 +12,8 @@ import (
 	"unsafe"
 
 	"golang.org/x/sys/windows"
+
+	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tlsfragment/internal"
 )
 
 func writeAndWaitAck(ctx context.Context, conn *net.TCPConn, payload []byte, fallbackDelay time.Duration) error {
@@ -47,11 +49,11 @@ func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []b
 		return writeAndWaitAckEStats(ctx, conn, payload)
 	}
 	var (
-		tcpInfo  *tcpInfoV0
+		tcpInfo  *internal.TcpInfoV0
 		innerErr error
 	)
 	err = rawConn.Control(func(fd uintptr) {
-		tcpInfo, innerErr = getTcpInfo(fd)
+		tcpInfo, innerErr = internal.GetTcpInfo(fd)
 	})
 	if innerErr != nil || err != nil {
 		if err == nil {
@@ -66,19 +68,19 @@ func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []b
 		}
 		return os.NewSyscallError("WSAIoctl", err)
 	}
-	bytesOutBefore := tcpInfo.bytesOut
+	bytesOutBefore := tcpInfo.BytesOut
 	_, err = conn.Write(payload)
 	if err != nil {
 		return err
 	}
 	err = rawConn.Control(func(fd uintptr) {
 		for {
-			tcpInfo, innerErr = getTcpInfo(fd)
+			tcpInfo, innerErr = internal.GetTcpInfo(fd)
 			if innerErr != nil {
 				innerErr = os.NewSyscallError("WSAIoctl", innerErr)
 				return
 			}
-			if tcpInfo.bytesOut >= bytesOutBefore+uint64(len(payload)) && tcpInfo.bytesInFlight == 0 {
+			if tcpInfo.BytesOut >= bytesOutBefore+uint64(len(payload)) && tcpInfo.BytesInFlight == 0 {
 				return
 			}
 			select {
@@ -111,16 +113,16 @@ func writeAndWaitAckEStats(ctx context.Context, conn *net.TCPConn, payload []byt
 		return os.ErrInvalid
 	}
 	if source.Addr().Is4() {
-		tcpTable, err := GetTcpTable()
+		tcpTable, err := internal.GetTcpTable()
 		if err != nil {
 			return err
 		}
-		rowIndex := slices.IndexFunc(tcpTable, func(row MibTcpRow) bool {
+		rowIndex := slices.IndexFunc(tcpTable, func(row internal.MibTcpRow) bool {
 			return source == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwLocalAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwLocalPort))[:])) &&
 				destination == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwRemoteAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwRemotePort))[:]))
 		})
 		if rowIndex == -1 {
-			rowIndex = slices.IndexFunc(tcpTable, func(row MibTcpRow) bool {
+			rowIndex = slices.IndexFunc(tcpTable, func(row internal.MibTcpRow) bool {
 				return source == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwLocalAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwLocalPort))[:])) ||
 					destination == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwRemoteAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwRemotePort))[:]))
 			})
@@ -129,19 +131,19 @@ func writeAndWaitAckEStats(ctx context.Context, conn *net.TCPConn, payload []byt
 			return errors.New("row not found for: " + source.String())
 		}
 		tcpRow := &tcpTable[rowIndex]
-		if err := SetPerTcpConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
+		if err := internal.SetPerTcpConnectionEStatsSendBuffer(tcpRow, &internal.TcpEstatsSendBuffRwV0{
 			EnableCollection: true,
 		}); err != nil {
 			return os.NewSyscallError("SetPerTcpConnectionEStatsSendBufferV0", err)
 		}
-		defer SetPerTcpConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
+		defer internal.SetPerTcpConnectionEStatsSendBuffer(tcpRow, &internal.TcpEstatsSendBuffRwV0{
 			EnableCollection: false,
 		})
 		if _, err := conn.Write(payload); err != nil {
 			return err
 		}
 		for {
-			eStatsSendBuffer, err := GetPerTcpConnectionEStatsSendBuffer(tcpRow)
+			eStatsSendBuffer, err := internal.GetPerTcpConnectionEStatsSendBuffer(tcpRow)
 			if err != nil {
 				return err
 			}
@@ -155,16 +157,16 @@ func writeAndWaitAckEStats(ctx context.Context, conn *net.TCPConn, payload []byt
 			}
 		}
 	} else {
-		tcpTable, err := GetTcp6Table()
+		tcpTable, err := internal.GetTcp6Table()
 		if err != nil {
 			return err
 		}
-		rowIndex := slices.IndexFunc(tcpTable, func(row MibTcp6Row) bool {
+		rowIndex := slices.IndexFunc(tcpTable, func(row internal.MibTcp6Row) bool {
 			return source == netip.AddrPortFrom(netip.AddrFrom16(row.LocalAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.LocalPort))[:])) &&
 				destination == netip.AddrPortFrom(netip.AddrFrom16(row.RemoteAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.RemotePort))[:]))
 		})
 		if rowIndex == -1 {
-			rowIndex = slices.IndexFunc(tcpTable, func(row MibTcp6Row) bool {
+			rowIndex = slices.IndexFunc(tcpTable, func(row internal.MibTcp6Row) bool {
 				return source == netip.AddrPortFrom(netip.AddrFrom16(row.LocalAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.LocalPort))[:])) ||
 					destination == netip.AddrPortFrom(netip.AddrFrom16(row.RemoteAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.RemotePort))[:]))
 			})
@@ -173,19 +175,19 @@ func writeAndWaitAckEStats(ctx context.Context, conn *net.TCPConn, payload []byt
 			return errors.New("row not found for: " + source.String())
 		}
 		tcpRow := &tcpTable[rowIndex]
-		if err := SetPerTcp6ConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
+		if err := internal.SetPerTcp6ConnectionEStatsSendBuffer(tcpRow, &internal.TcpEstatsSendBuffRwV0{
 			EnableCollection: true,
 		}); err != nil {
 			return os.NewSyscallError("SetPerTcpConnectionEStatsSendBufferV0", err)
 		}
-		defer SetPerTcp6ConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
+		defer internal.SetPerTcp6ConnectionEStatsSendBuffer(tcpRow, &internal.TcpEstatsSendBuffRwV0{
 			EnableCollection: false,
 		})
 		if _, err := conn.Write(payload); err != nil {
 			return err
 		}
 		for {
-			eStatsSendBuffer, err := GetPerTcp6ConnectionEStatsSendBuffer(tcpRow)
+			eStatsSendBuffer, err := internal.GetPerTcp6ConnectionEStatsSendBuffer(tcpRow)
 			if err != nil {
 				return err
 			}
