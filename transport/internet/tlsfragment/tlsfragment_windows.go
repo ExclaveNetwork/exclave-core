@@ -42,6 +42,63 @@ func writeAndWaitAck(ctx context.Context, conn *net.TCPConn, payload []byte, fal
 }
 
 func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []byte) error {
+	rawConn, err := conn.SyscallConn()
+	if err != nil {
+		return writeAndWaitAckEStats(ctx, conn, payload)
+	}
+	var (
+		tcpInfo  *tcpInfoV0
+		innerErr error
+	)
+	err = rawConn.Control(func(fd uintptr) {
+		tcpInfo, innerErr = getTcpInfo(fd)
+	})
+	if innerErr != nil || err != nil {
+		if err == nil {
+			err = innerErr
+		} else {
+			err = errors.Join(innerErr, err)
+		}
+	}
+	if err != nil {
+		if errors.Is(err, windows.WSAEOPNOTSUPP) || errors.Is(err, windows.WSAEINVAL) {
+			return writeAndWaitAckEStats(ctx, conn, payload)
+		}
+		return os.NewSyscallError("WSAIoctl", err)
+	}
+	bytesOutBefore := tcpInfo.bytesOut
+	_, err = conn.Write(payload)
+	if err != nil {
+		return err
+	}
+	err = rawConn.Control(func(fd uintptr) {
+		for {
+			tcpInfo, innerErr = getTcpInfo(fd)
+			if innerErr != nil {
+				innerErr = os.NewSyscallError("WSAIoctl", innerErr)
+				return
+			}
+			if tcpInfo.bytesOut >= bytesOutBefore+uint64(len(payload)) && tcpInfo.bytesInFlight == 0 {
+				return
+			}
+			select {
+			case <-ctx.Done():
+				innerErr = ctx.Err()
+				return
+			case <-time.After(10 * time.Millisecond):
+			}
+		}
+	})
+	if innerErr != nil || err != nil {
+		if err == nil {
+			return innerErr
+		}
+		return errors.Join(innerErr, err)
+	}
+	return nil
+}
+
+func writeAndWaitAckEStats(ctx context.Context, conn *net.TCPConn, payload []byte) error {
 	var source, destination netip.AddrPort
 	if tcpAddr, ok := conn.LocalAddr().(*net.TCPAddr); ok {
 		source = tcpAddr.AddrPort()
