@@ -1,6 +1,7 @@
 package tlsfragment
 
 import (
+	"context"
 	"encoding/binary"
 	"errors"
 	"net"
@@ -12,25 +13,34 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-func writeAndWaitAck(conn *net.TCPConn, payload []byte, fallbackDelay time.Duration) error {
+func writeAndWaitAck(ctx context.Context, conn *net.TCPConn, payload []byte, fallbackDelay time.Duration) error {
 	start := time.Now()
-	if err := writeAndWaitAckInternal(conn, payload); err != nil {
+	if err := writeAndWaitAckInternal(ctx, conn, payload); err != nil {
 		if errors.Is(err, windows.ERROR_ACCESS_DENIED) {
 			if _, err := conn.Write(payload); err != nil {
 				return err
 			}
-			time.Sleep(fallbackDelay)
-			return nil
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-time.After(fallbackDelay):
+				return nil
+			}
 		}
 		return err
 	}
 	if time.Since(start) <= 20*time.Millisecond {
-		time.Sleep(fallbackDelay)
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(fallbackDelay):
+			return nil
+		}
 	}
 	return nil
 }
 
-func writeAndWaitAckInternal(conn *net.TCPConn, payload []byte) error {
+func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []byte) error {
 	var source, destination netip.AddrPort
 	if tcpAddr, ok := conn.LocalAddr().(*net.TCPAddr); ok {
 		source = tcpAddr.AddrPort()
@@ -77,7 +87,11 @@ func writeAndWaitAckInternal(conn *net.TCPConn, payload []byte) error {
 			if eStatsSendBuffer.CurRetxQueue == 0 {
 				return nil
 			}
-			time.Sleep(10 * time.Millisecond)
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-time.After(10 * time.Millisecond):
+			}
 		}
 	} else {
 		tcpTable, err := GetTcp6Table()
@@ -114,7 +128,11 @@ func writeAndWaitAckInternal(conn *net.TCPConn, payload []byte) error {
 			if eStatsSendBuffer.CurRetxQueue == 0 {
 				return nil
 			}
-			time.Sleep(10 * time.Millisecond)
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-time.After(10 * time.Millisecond):
+			}
 		}
 	}
 }

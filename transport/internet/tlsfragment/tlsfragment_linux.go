@@ -1,6 +1,7 @@
 package tlsfragment
 
 import (
+	"context"
 	"errors"
 	"net"
 	"time"
@@ -8,7 +9,7 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-func writeAndWaitAck(conn *net.TCPConn, payload []byte, fallbackDelay time.Duration) error {
+func writeAndWaitAck(ctx context.Context, conn *net.TCPConn, payload []byte, fallbackDelay time.Duration) error {
 	if _, err := conn.Write(payload); err != nil {
 		return err
 	}
@@ -28,11 +29,21 @@ func writeAndWaitAck(conn *net.TCPConn, payload []byte, fallbackDelay time.Durat
 			if tcpInfo.Unacked == 0 {
 				if time.Since(start) <= 20*time.Millisecond {
 					// under transparent proxy
-					time.Sleep(fallbackDelay)
+					select {
+					case <-ctx.Done():
+						innerErr = ctx.Err()
+						return
+					case <-time.After(fallbackDelay):
+					}
 				}
 				return
 			}
-			time.Sleep(10 * time.Millisecond)
+			select {
+			case <-ctx.Done():
+				innerErr = ctx.Err()
+				return
+			case <-time.After(10 * time.Millisecond):
+			}
 		}
 	})
 	if innerErr != nil || err != nil {

@@ -101,6 +101,7 @@ func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig
 		}
 		if dest.Network == net.Network_TCP && sockopt != nil && sockopt.TlsFragmentation != nil && (sockopt.TlsFragmentation.TlsRecordFragmentation || sockopt.TlsFragmentation.TcpSegmentation) {
 			return tlsfragment.NewTLSFragmentConn(
+				ctx,
 				detourConn,
 				sockopt.TlsFragmentation.TlsRecordFragmentation,
 				sockopt.TlsFragmentation.TcpSegmentation,
@@ -116,6 +117,7 @@ func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig
 	connectionPool := session.ConnectionPoolFromContext(ctx)
 	if dest.Network == net.Network_TCP && sockopt != nil && sockopt.TlsFragmentation != nil && (sockopt.TlsFragmentation.TlsRecordFragmentation || sockopt.TlsFragmentation.TcpSegmentation) {
 		tlsfragmentConn := tlsfragment.NewTLSFragmentConn(
+			ctx,
 			rawConn,
 			sockopt.TlsFragmentation.TlsRecordFragmentation,
 			sockopt.TlsFragmentation.TcpSegmentation,

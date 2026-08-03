@@ -2,6 +2,7 @@ package tlsfragment
 
 import (
 	"bytes"
+	"context"
 	"encoding/binary"
 	"math/rand"
 	"net"
@@ -11,9 +12,10 @@ import (
 	"golang.org/x/net/publicsuffix"
 )
 
-func NewTLSFragmentConn(conn net.Conn, splitRecord, splitPacket bool) net.Conn {
+func NewTLSFragmentConn(ctx context.Context, conn net.Conn, splitRecord, splitPacket bool) net.Conn {
 	fragmentConn := &tlsFragmentConn{
 		Conn:        conn,
+		ctx:         ctx,
 		splitRecord: splitRecord,
 		splitPacket: splitPacket,
 	}
@@ -26,6 +28,7 @@ func NewTLSFragmentConn(conn net.Conn, splitRecord, splitPacket bool) net.Conn {
 type tlsFragmentConn struct {
 	net.Conn
 	tcpConn            *net.TCPConn
+	ctx                context.Context
 	splitPacket        bool
 	splitRecord        bool
 	firstPacketWritten bool
@@ -88,7 +91,7 @@ func (c *tlsFragmentConn) Write(b []byte) (int, error) {
 		}
 		if c.splitPacket {
 			if c.tcpConn != nil && i != len(splitIndexes) {
-				if err := writeAndWaitAck(c.tcpConn, payload, time.Millisecond*time.Duration(20+rand.Intn(20))); err != nil {
+				if err := writeAndWaitAck(c.ctx, c.tcpConn, payload, time.Millisecond*time.Duration(20+rand.Intn(20))); err != nil {
 					return 0, err
 				}
 			} else {
@@ -96,7 +99,11 @@ func (c *tlsFragmentConn) Write(b []byte) (int, error) {
 					return 0, err
 				}
 				if i != len(splitIndexes) {
-					time.Sleep(time.Millisecond * time.Duration(20+rand.Intn(20)))
+					select {
+					case <-c.ctx.Done():
+						return 0, c.ctx.Err()
+					case <-time.After(time.Millisecond * time.Duration(20+rand.Intn(20))):
+					}
 				}
 			}
 		}
