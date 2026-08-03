@@ -58,5 +58,6 @@ message Config {
   string uplinkChunkSize = 24;
   string sessionIDTable = 25;
   string sessionIDLength = 26;
+  bool parse_x_forwarded_for = 27;
   bool use_browser_forwarding = 99;
 }

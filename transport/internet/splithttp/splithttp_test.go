@@ -106,7 +106,8 @@ func TestDialWithRemoteAddr(t *testing.T) {
 	listen, err := ListenSH(context.Background(), net.LocalHostIP, listenPort, &internet.MemoryStreamConfig{
 		ProtocolName: "splithttp",
 		ProtocolSettings: &Config{
-			Path: "sh",
+			Path:               "sh",
+			ParseXForwardedFor: true,
 		},
 	}, func(conn internet.Connection) {
 		go func(c internet.Connection) {

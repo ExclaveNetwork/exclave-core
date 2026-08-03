@@ -207,6 +207,7 @@ type Config struct {
 	UplinkChunkSize      string                 `protobuf:"bytes,24,opt,name=uplinkChunkSize,proto3" json:"uplinkChunkSize,omitempty"`
 	SessionIDTable       string                 `protobuf:"bytes,25,opt,name=sessionIDTable,proto3" json:"sessionIDTable,omitempty"`
 	SessionIDLength      string                 `protobuf:"bytes,26,opt,name=sessionIDLength,proto3" json:"sessionIDLength,omitempty"`
+	ParseXForwardedFor   bool                   `protobuf:"varint,27,opt,name=parse_x_forwarded_for,json=parseXForwardedFor,proto3" json:"parse_x_forwarded_for,omitempty"`
 	UseBrowserForwarding bool                   `protobuf:"varint,99,opt,name=use_browser_forwarding,json=useBrowserForwarding,proto3" json:"use_browser_forwarding,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
@@ -424,6 +425,13 @@ func (x *Config) GetSessionIDLength() string {
 	return ""
 }
 
+func (x *Config) GetParseXForwardedFor() bool {
+	if x != nil {
+		return x.ParseXForwardedFor
+	}
+	return false
+}
+
 func (x *Config) GetUseBrowserForwarding() bool {
 	if x != nil {
 		return x.UseBrowserForwarding
@@ -449,7 +457,7 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x12transport_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x04 \x01(\tR\fsecurityType\x12A\n" +
 	"\x11security_settings\x18\x05 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xc0\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xf3\n" +
 	"\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12\x12\n" +
@@ -478,7 +486,8 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\ruplinkDataKey\x18\x17 \x01(\tR\ruplinkDataKey\x12(\n" +
 	"\x0fuplinkChunkSize\x18\x18 \x01(\tR\x0fuplinkChunkSize\x12&\n" +
 	"\x0esessionIDTable\x18\x19 \x01(\tR\x0esessionIDTable\x12(\n" +
-	"\x0fsessionIDLength\x18\x1a \x01(\tR\x0fsessionIDLength\x124\n" +
+	"\x0fsessionIDLength\x18\x1a \x01(\tR\x0fsessionIDLength\x121\n" +
+	"\x15parse_x_forwarded_for\x18\x1b \x01(\bR\x12parseXForwardedFor\x124\n" +
 	"\x16use_browser_forwarding\x18c \x01(\bR\x14useBrowserForwarding\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +

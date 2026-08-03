@@ -143,7 +143,7 @@ func (h *requestHandler) ServeHTTP(writer http.ResponseWriter, request *http.Req
 		}
 	}
 	forwardedAddrs := http_proto.ParseXForwardedFor(request.Header)
-	if len(forwardedAddrs) > 0 && forwardedAddrs[0].Family().IsIP() {
+	if h.config.ParseXForwardedFor && len(forwardedAddrs) > 0 && forwardedAddrs[0].Family().IsIP() {
 		remoteAddr = &net.TCPAddr{
 			IP:   forwardedAddrs[0].IP(),
 			Port: 0,
