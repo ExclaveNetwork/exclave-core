@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/netip"
 	"os"
+	"slices"
 	"time"
 	"unsafe"
 
@@ -57,17 +58,20 @@ func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []b
 		if err != nil {
 			return err
 		}
-		var tcpRow *MibTcpRow
-		for _, row := range tcpTable {
-			if source == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwLocalAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwLocalPort))[:])) ||
-				destination == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwRemoteAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwRemotePort))[:])) {
-				tcpRow = &row
-				break
-			}
+		rowIndex := slices.IndexFunc(tcpTable, func(row MibTcpRow) bool {
+			return source == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwLocalAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwLocalPort))[:])) &&
+				destination == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwRemoteAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwRemotePort))[:]))
+		})
+		if rowIndex == -1 {
+			rowIndex = slices.IndexFunc(tcpTable, func(row MibTcpRow) bool {
+				return source == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwLocalAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwLocalPort))[:])) ||
+					destination == netip.AddrPortFrom(netip.AddrFrom4(*(*[4]byte)(unsafe.Pointer(&row.DwRemoteAddr))), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.DwRemotePort))[:]))
+			})
 		}
-		if tcpRow == nil {
+		if rowIndex == -1 {
 			return errors.New("row not found for: " + source.String())
 		}
+		tcpRow := &tcpTable[rowIndex]
 		if err := SetPerTcpConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
 			EnableCollection: true,
 		}); err != nil {
@@ -98,17 +102,20 @@ func writeAndWaitAckInternal(ctx context.Context, conn *net.TCPConn, payload []b
 		if err != nil {
 			return err
 		}
-		var tcpRow *MibTcp6Row
-		for _, row := range tcpTable {
-			if source == netip.AddrPortFrom(netip.AddrFrom16(row.LocalAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.LocalPort))[:])) ||
-				destination == netip.AddrPortFrom(netip.AddrFrom16(row.RemoteAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.RemotePort))[:])) {
-				tcpRow = &row
-				break
-			}
+		rowIndex := slices.IndexFunc(tcpTable, func(row MibTcp6Row) bool {
+			return source == netip.AddrPortFrom(netip.AddrFrom16(row.LocalAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.LocalPort))[:])) &&
+				destination == netip.AddrPortFrom(netip.AddrFrom16(row.RemoteAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.RemotePort))[:]))
+		})
+		if rowIndex == -1 {
+			rowIndex = slices.IndexFunc(tcpTable, func(row MibTcp6Row) bool {
+				return source == netip.AddrPortFrom(netip.AddrFrom16(row.LocalAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.LocalPort))[:])) ||
+					destination == netip.AddrPortFrom(netip.AddrFrom16(row.RemoteAddr), binary.BigEndian.Uint16((*[4]byte)(unsafe.Pointer(&row.RemotePort))[:]))
+			})
 		}
-		if tcpRow == nil {
+		if rowIndex == -1 {
 			return errors.New("row not found for: " + source.String())
 		}
+		tcpRow := &tcpTable[rowIndex]
 		if err := SetPerTcp6ConnectionEStatsSendBuffer(tcpRow, &TcpEstatsSendBuffRwV0{
 			EnableCollection: true,
 		}); err != nil {
