@@ -173,6 +173,7 @@ type Config struct {
 	HopIntervalMin           uint64                 `protobuf:"varint,11,opt,name=hop_interval_min,json=hopIntervalMin,proto3" json:"hop_interval_min,omitempty"`
 	HopIntervalMax           uint64                 `protobuf:"varint,12,opt,name=hop_interval_max,json=hopIntervalMax,proto3" json:"hop_interval_max,omitempty"`
 	OmitMaxDatagramFrameSize bool                   `protobuf:"varint,1000,opt,name=omit_max_datagram_frame_size,json=omitMaxDatagramFrameSize,proto3" json:"omit_max_datagram_frame_size,omitempty"`
+	ChromeParrot             bool                   `protobuf:"varint,1001,opt,name=chrome_parrot,json=chromeParrot,proto3" json:"chrome_parrot,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -284,6 +285,13 @@ func (x *Config) GetOmitMaxDatagramFrameSize() bool {
 	return false
 }
 
+func (x *Config) GetChromeParrot() bool {
+	if x != nil {
+		return x.ChromeParrot
+	}
+	return false
+}
+
 var File_transport_internet_hysteria2_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
@@ -302,7 +310,7 @@ const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12&\n" +
 	"\x0fmin_packet_size\x18\x03 \x01(\x05R\rminPacketSize\x12&\n" +
-	"\x0fmax_packet_size\x18\x04 \x01(\x05R\rmaxPacketSize\"\xb3\x04\n" +
+	"\x0fmax_packet_size\x18\x04 \x01(\x05R\rmaxPacketSize\"\xd9\x04\n" +
 	"\x06Config\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12U\n" +
 	"\n" +
@@ -317,7 +325,8 @@ const file_transport_internet_hysteria2_config_proto_rawDesc = "" +
 	" \x01(\x04R\vhopInterval\x12(\n" +
 	"\x10hop_interval_min\x18\v \x01(\x04R\x0ehopIntervalMin\x12(\n" +
 	"\x10hop_interval_max\x18\f \x01(\x04R\x0ehopIntervalMax\x12?\n" +
-	"\x1comit_max_datagram_frame_size\x18\xe8\a \x01(\bR\x18omitMaxDatagramFrameSize:\x1a\x82\xb5\x18\x16\n" +
+	"\x1comit_max_datagram_frame_size\x18\xe8\a \x01(\bR\x18omitMaxDatagramFrameSize\x12$\n" +
+	"\rchrome_parrot\x18\xe9\a \x01(\bR\fchromeParrot:\x1a\x82\xb5\x18\x16\n" +
 	"\ttransport\x12\thysteria2B\xbb\x01\n" +
 	"Ccom.github.exclavenetwork.exclave.core.transport.internet.hysteria2P\x01ZFgithub.com/exclavenetwork/exclave-core/v5/transport/internet/hysteria2\xaa\x02)Exclave.Core.Transport.Internet.Hysteria2b\x06proto3"
 

@@ -41,4 +41,5 @@ message Config {
   uint64 hop_interval_min = 11;
   uint64 hop_interval_max = 12;
   bool omit_max_datagram_frame_size = 1000;
+  bool chrome_parrot = 1001;
 }

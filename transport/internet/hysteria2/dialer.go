@@ -221,6 +221,7 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		FastOpen: true,
 		QUICConfig: &quic.Config{
 			OmitMaxDatagramFrameSize: config.OmitMaxDatagramFrameSize,
+			ChromeParrot:             config.ChromeParrot,
 		},
 	}
 

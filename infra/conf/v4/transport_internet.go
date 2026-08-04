@@ -169,6 +169,7 @@ type Hy2Config struct {
 	HopIntervalMin           uint64              `json:"hopIntervalMin"`
 	HopIntervalMax           uint64              `json:"hopIntervalMax"`
 	OmitMaxDatagramFrameSize bool                `json:"omitMaxDatagramFrameSize"`
+	ChromeParrot             bool                `json:"chromeParrot"`
 }
 
 // Build implements Buildable.
@@ -196,6 +197,7 @@ func (c *Hy2Config) Build() (proto.Message, error) {
 		HopIntervalMin:           c.HopIntervalMin,
 		HopIntervalMax:           c.HopIntervalMax,
 		OmitMaxDatagramFrameSize: c.OmitMaxDatagramFrameSize,
+		ChromeParrot:             c.ChromeParrot,
 	}, nil
 }
 
