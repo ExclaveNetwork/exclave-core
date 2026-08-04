@@ -6,6 +6,7 @@ import (
 	"crypto/aes"
 	"encoding/binary"
 	"io"
+	"math"
 
 	"golang.org/x/crypto/hkdf"
 
@@ -279,12 +280,15 @@ func SniffQUIC(input []byte) (*SniffHeader, error) {
 				if err != nil || length > uint64(buffer.Len()) {
 					return nil, io.ErrUnexpectedEOF
 				}
+				if offset+length > math.MaxInt32 {
+					return nil, io.ErrShortBuffer
+				}
 				if cryptoLen < int(offset+length) {
 					cryptoLen = int(offset + length)
-					if cryptoDataBuf.Cap() < int32(cryptoLen) {
-						return nil, io.ErrShortBuffer
-					}
-					if cryptoDataBuf.Len() != int32(cryptoLen) {
+					if int(cryptoDataBuf.Len()) != cryptoLen {
+						if int(cryptoDataBuf.Cap()-cryptoDataBuf.Len()) < cryptoLen {
+							return nil, io.ErrShortBuffer
+						}
 						cryptoDataBuf.Extend(int32(cryptoLen) - cryptoDataBuf.Len())
 					}
 				}

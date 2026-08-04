@@ -174,7 +174,7 @@ func SniffTLS(b []byte) (*SniffHeader, error) {
 	data := buf.NewWithSize(32767)
 	defer data.Release()
 	for len(b) > 0 {
-		if data.Cap() < int32(len(b)) {
+		if int(data.Cap()) < len(b) {
 			return nil, io.ErrShortBuffer
 		}
 		data.Write(b[5:min(5+headerLen, len(b))])

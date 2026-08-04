@@ -277,3 +277,13 @@ func TestSniffQUICPacketNumberLength4(t *testing.T) {
 		t.Error("failed")
 	}
 }
+
+// https://github.com/v2fly/v2ray-core/pull/3788
+func TestSniffFakeQUICPacketWithOverflowingCryptoOffset(t *testing.T) {
+	pkt, err := hex.DecodeString("c90000000108010203040506070800001ffb3fb57eab02b69aeb6155bbfe08bb9f6a0df9a020dfbdb8e8af3a2a29aa02")
+	common.Must(err)
+	_, err = quic.SniffQUIC(pkt)
+	if err == nil {
+		t.Error("failed")
+	}
+}
