@@ -10,9 +10,9 @@
 package mocks
 
 import (
-	net "net"
 	reflect "reflect"
 
+	net "github.com/exclavenetwork/exclave-core/v5/common/net"
 	gomock "go.uber.org/mock/gomock"
 )
 

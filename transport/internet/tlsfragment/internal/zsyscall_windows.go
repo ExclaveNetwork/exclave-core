@@ -49,7 +49,7 @@ var (
 )
 
 func getPerTcp6ConnectionEStats(row *MibTcp6Row, estatsType uint32, rw uintptr, rwVersion uint64, rwSize uint64, ros uintptr, rosVersion uint64, rosSize uint64, rod uintptr, rodVersion uint64, rodSize uint64) (errcode error) {
-	r0, _, _ := syscall.Syscall12(procGetPerTcp6ConnectionEStats.Addr(), 11, uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(ros), uintptr(rosVersion), uintptr(rosSize), uintptr(rod), uintptr(rodVersion), uintptr(rodSize), 0)
+	r0, _, _ := syscall.SyscallN(procGetPerTcp6ConnectionEStats.Addr(), uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(ros), uintptr(rosVersion), uintptr(rosSize), uintptr(rod), uintptr(rodVersion), uintptr(rodSize))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}
@@ -57,7 +57,7 @@ func getPerTcp6ConnectionEStats(row *MibTcp6Row, estatsType uint32, rw uintptr, 
 }
 
 func getPerTcpConnectionEStats(row *MibTcpRow, estatsType uint32, rw uintptr, rwVersion uint64, rwSize uint64, ros uintptr, rosVersion uint64, rosSize uint64, rod uintptr, rodVersion uint64, rodSize uint64) (errcode error) {
-	r0, _, _ := syscall.Syscall12(procGetPerTcpConnectionEStats.Addr(), 11, uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(ros), uintptr(rosVersion), uintptr(rosSize), uintptr(rod), uintptr(rodVersion), uintptr(rodSize), 0)
+	r0, _, _ := syscall.SyscallN(procGetPerTcpConnectionEStats.Addr(), uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(ros), uintptr(rosVersion), uintptr(rosSize), uintptr(rod), uintptr(rodVersion), uintptr(rodSize))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}
@@ -69,7 +69,7 @@ func getTcp6Table(tcpTable *byte, sizePointer *uint32, order bool) (errcode erro
 	if order {
 		_p0 = 1
 	}
-	r0, _, _ := syscall.Syscall(procGetTcp6Table.Addr(), 3, uintptr(unsafe.Pointer(tcpTable)), uintptr(unsafe.Pointer(sizePointer)), uintptr(_p0))
+	r0, _, _ := syscall.SyscallN(procGetTcp6Table.Addr(), uintptr(unsafe.Pointer(tcpTable)), uintptr(unsafe.Pointer(sizePointer)), uintptr(_p0))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}
@@ -81,7 +81,7 @@ func getTcpTable(tcpTable *byte, sizePointer *uint32, order bool) (errcode error
 	if order {
 		_p0 = 1
 	}
-	r0, _, _ := syscall.Syscall(procGetTcpTable.Addr(), 3, uintptr(unsafe.Pointer(tcpTable)), uintptr(unsafe.Pointer(sizePointer)), uintptr(_p0))
+	r0, _, _ := syscall.SyscallN(procGetTcpTable.Addr(), uintptr(unsafe.Pointer(tcpTable)), uintptr(unsafe.Pointer(sizePointer)), uintptr(_p0))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}
@@ -89,7 +89,7 @@ func getTcpTable(tcpTable *byte, sizePointer *uint32, order bool) (errcode error
 }
 
 func setPerTcp6ConnectionEStats(row *MibTcp6Row, estatsType uint32, rw uintptr, rwVersion uint64, rwSize uint64, offset uint64) (errcode error) {
-	r0, _, _ := syscall.Syscall6(procSetPerTcp6ConnectionEStats.Addr(), 6, uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(offset))
+	r0, _, _ := syscall.SyscallN(procSetPerTcp6ConnectionEStats.Addr(), uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(offset))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}
@@ -97,7 +97,7 @@ func setPerTcp6ConnectionEStats(row *MibTcp6Row, estatsType uint32, rw uintptr, 
 }
 
 func setPerTcpConnectionEStats(row *MibTcpRow, estatsType uint32, rw uintptr, rwVersion uint64, rwSize uint64, offset uint64) (errcode error) {
-	r0, _, _ := syscall.Syscall6(procSetPerTcpConnectionEStats.Addr(), 6, uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(offset))
+	r0, _, _ := syscall.SyscallN(procSetPerTcpConnectionEStats.Addr(), uintptr(unsafe.Pointer(row)), uintptr(estatsType), uintptr(rw), uintptr(rwVersion), uintptr(rwSize), uintptr(offset))
 	if r0 != 0 {
 		errcode = syscall.Errno(r0)
 	}

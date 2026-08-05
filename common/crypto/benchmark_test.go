@@ -19,20 +19,6 @@ func benchmarkStream(b *testing.B, c cipher.Stream) {
 	}
 }
 
-func BenchmarkChaCha20(b *testing.B) {
-	key := make([]byte, 32)
-	nonce := make([]byte, 8)
-	c := NewChaCha20Stream(key, nonce)
-	benchmarkStream(b, c)
-}
-
-func BenchmarkChaCha20IETF(b *testing.B) {
-	key := make([]byte, 32)
-	nonce := make([]byte, 12)
-	c := NewChaCha20Stream(key, nonce)
-	benchmarkStream(b, c)
-}
-
 func BenchmarkAESEncryption(b *testing.B) {
 	key := make([]byte, 32)
 	iv := make([]byte, 16)
