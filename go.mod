@@ -22,7 +22,7 @@ require (
 	github.com/miekg/dns v1.1.72
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.61.0
-	github.com/refraction-networking/utls v1.8.3-0.20260623165621-880e27d8b0e5
+	github.com/refraction-networking/utls v1.8.3-0.20260802151714-23b1dac19c06
 	github.com/sagernet/sing v0.8.13-0.20260804143108-f22b119cc7a2
 	github.com/sagernet/sing-mux v0.3.5
 	github.com/sagernet/sing-quic v0.6.4
