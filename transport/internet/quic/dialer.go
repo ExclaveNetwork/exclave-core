@@ -16,9 +16,12 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
+
+var _ storage.TransientStorageLifecycleReceiver = (*transportConnectionState)(nil)
 
 type connectionContext struct {
 	rawConn net.PacketConn

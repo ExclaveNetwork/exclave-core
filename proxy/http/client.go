@@ -30,6 +30,12 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/security"
 )
 
+var (
+	_ proxy.Outbound                    = (*Client)(nil)
+	_ proxy.ClosableOutbound            = (*Client)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Client)(nil)
+)
+
 type Client struct {
 	serverPicker       protocol.ServerPicker
 	policyManager      policy.Manager

@@ -33,6 +33,12 @@ import (
 	v2tls "github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
 
+var (
+	_ proxy.Outbound                    = (*Client)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Client)(nil)
+	_ proxy.ClosableOutbound            = (*Client)(nil)
+)
+
 type Client struct {
 	config        *ClientConfig
 	serverAddress net.Destination

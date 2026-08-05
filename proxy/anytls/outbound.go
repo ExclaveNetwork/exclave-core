@@ -14,6 +14,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/singbridge"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
@@ -23,6 +24,12 @@ func init() {
 		return NewClient(ctx, config.(*ClientConfig))
 	}))
 }
+
+var (
+	_ proxy.Outbound                    = (*Outbound)(nil)
+	_ proxy.ClosableOutbound            = (*Outbound)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Outbound)(nil)
+)
 
 type Outbound struct {
 	ctx                      context.Context

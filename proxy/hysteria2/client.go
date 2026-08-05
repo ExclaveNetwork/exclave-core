@@ -21,6 +21,8 @@ import (
 	hyTransport "github.com/exclavenetwork/exclave-core/v5/transport/internet/hysteria2"
 )
 
+var _ proxy.Outbound = (*Client)(nil)
+
 // Client is an inbound handler
 type Client struct {
 	serverPicker  protocol.ServerPicker

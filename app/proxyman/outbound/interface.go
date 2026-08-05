@@ -25,9 +25,12 @@ func UnRegisterInterfaceUpdateCallback(elem *list.Element) {
 
 func InterfaceUpdate() {
 	interfaceUpdateCallbackMutex.Lock()
+	callbacks := make([]func(), 0, interfaceUpdateCallBackList.Len())
 	for elem := interfaceUpdateCallBackList.Front(); elem != nil; elem = elem.Next() {
-		callback := elem.Value.(func())
-		callback()
+		callbacks = append(callbacks, elem.Value.(func()))
 	}
 	interfaceUpdateCallbackMutex.Unlock()
+	for _, callback := range callbacks {
+		callback()
+	}
 }

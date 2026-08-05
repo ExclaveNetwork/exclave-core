@@ -28,6 +28,11 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
+var (
+	_ proxy.Outbound            = (*Handler)(nil)
+	_ proxy.OutboundWithSingMux = (*Handler)(nil)
+)
+
 // Handler is an outbound connection handler for VMess protocol.
 type Handler struct {
 	serverList     *protocol.ServerList

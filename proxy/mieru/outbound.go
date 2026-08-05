@@ -15,6 +15,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/udp"
@@ -25,6 +26,12 @@ func init() {
 		return NewClient(ctx, config.(*ClientConfig))
 	}))
 }
+
+var (
+	_ proxy.Outbound                    = (*Outbound)(nil)
+	_ proxy.ClosableOutbound            = (*Outbound)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Outbound)(nil)
+)
 
 type Outbound struct {
 	serverAddr   net.Destination

@@ -20,9 +20,12 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 )
+
+var _ storage.TransientStorageLifecycleReceiver = (*transportConnectionState)(nil)
 
 var _ hyClient.Client = (*lateInitHysteriaClient)(nil)
 

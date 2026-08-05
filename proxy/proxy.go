@@ -9,6 +9,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 	"github.com/exclavenetwork/exclave-core/v5/features/routing"
@@ -32,6 +33,26 @@ type Inbound interface {
 type Outbound interface {
 	// Process processes the given connection. The given dialer may be used to dial a system outbound connection.
 	Process(context.Context, *transport.Link, internet.Dialer) error
+}
+
+type ClosableOutbound interface {
+	Outbound
+	common.Closable
+}
+
+type OutboundWithInterfaceUpdate interface {
+	Outbound
+	InterfaceUpdate()
+}
+
+type OutboundWithSingMux interface {
+	Outbound
+	SupportSingMux() bool
+}
+
+type OutboundWithSingUot interface {
+	Outbound
+	SingUotEnabled() bool
 }
 
 // UserManager is the interface for Inbounds and Outbounds that can manage their users.

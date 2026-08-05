@@ -30,6 +30,12 @@ func init() {
 	}))
 }
 
+var (
+	_ proxy.Outbound                    = (*Outbound)(nil)
+	_ proxy.ClosableOutbound            = (*Outbound)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Outbound)(nil)
+)
+
 type Outbound struct {
 	serverAddr   net.Destination
 	options      juicity.ClientOptions

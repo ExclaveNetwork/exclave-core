@@ -20,12 +20,15 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/grpc/encoding"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls"
 )
+
+var _ storage.TransientStorageLifecycleReceiver = (*transportConnectionState)(nil)
 
 func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.MemoryStreamConfig) (internet.Connection, error) {
 	newError("creating connection to ", dest).WriteToLog(session.ExportIDToError(ctx))

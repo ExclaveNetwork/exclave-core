@@ -35,8 +35,9 @@ func init() {
 }
 
 var (
-	_ proxy.Outbound  = (*Client)(nil)
-	_ common.Closable = (*Client)(nil)
+	_ proxy.Outbound                    = (*Client)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Client)(nil)
+	_ proxy.ClosableOutbound            = (*Client)(nil)
 )
 
 type sshClient struct {

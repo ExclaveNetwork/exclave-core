@@ -6,27 +6,42 @@ import (
 	"time"
 )
 
+type deadlineSetter interface {
+	SetDeadline(t time.Time) error
+}
+
 type ConnectionPool struct {
-	list.List
-	sync.Mutex
+	mu   sync.Mutex
+	list list.List
 }
 
 func NewConnectionPool() *ConnectionPool {
 	return new(ConnectionPool)
 }
 
+func (p *ConnectionPool) PushBack(deadlineSetter deadlineSetter) *list.Element {
+	p.mu.Lock()
+	elem := p.list.PushBack(deadlineSetter)
+	p.mu.Unlock()
+	return elem
+}
+
+func (p *ConnectionPool) Remove(elem *list.Element) {
+	p.mu.Lock()
+	_ = p.list.Remove(elem)
+	p.mu.Unlock()
+}
+
 func (p *ConnectionPool) ResetConnections() {
-	now := time.Now()
-	p.Lock()
-	for elem := p.Front(); elem != nil; elem = elem.Next() {
-		// common.Close(elem.Value)
-		// Use `SetDeadline` instead of `Close` to avoid double close
-		if setDeadlineFn, ok := elem.Value.(interface {
-			SetDeadline(time.Time) error
-		}); ok {
-			setDeadlineFn.SetDeadline(now)
-		}
+	p.mu.Lock()
+	deadlineSetters := make([]deadlineSetter, 0, p.list.Len())
+	for elem := p.list.Front(); elem != nil; elem = elem.Next() {
+		deadlineSetters = append(deadlineSetters, elem.Value.(deadlineSetter))
 	}
-	p.Init()
-	p.Unlock()
+	p.list.Init()
+	p.mu.Unlock()
+	now := time.Now()
+	for _, deadlineSetter := range deadlineSetters {
+		deadlineSetter.SetDeadline(now)
+	}
 }

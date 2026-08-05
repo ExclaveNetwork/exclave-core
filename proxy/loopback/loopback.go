@@ -11,9 +11,12 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
+
+var _ proxy.Outbound = (*Loopback)(nil)
 
 type Loopback struct {
 	config             *Config

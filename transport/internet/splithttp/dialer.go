@@ -26,6 +26,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
 	"github.com/exclavenetwork/exclave-core/v5/features/extension"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
@@ -33,6 +34,8 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/transportcommon"
 	"github.com/exclavenetwork/exclave-core/v5/transport/pipe"
 )
+
+var _ storage.TransientStorageLifecycleReceiver = (*transportConnectionState)(nil)
 
 const (
 	// defines the maximum time an idle TCP session can survive in the tunnel, so

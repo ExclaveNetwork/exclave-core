@@ -17,11 +17,14 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/environment/envctx"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/net/cnc"
+	"github.com/exclavenetwork/exclave-core/v5/features/extension/storage"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/security"
 	"github.com/exclavenetwork/exclave-core/v5/transport/pipe"
 )
+
+var _ storage.TransientStorageLifecycleReceiver = (*transportConnectionState)(nil)
 
 type dialerConf struct {
 	net.Destination

@@ -19,6 +19,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/singbridge"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
@@ -30,6 +31,10 @@ func init() {
 }
 
 var (
+	_ proxy.Outbound                    = (*Outbound)(nil)
+	_ proxy.ClosableOutbound            = (*Outbound)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Outbound)(nil)
+
 	_ snellClient = (*snellv4.Client)(nil)
 	_ snellClient = (*snellv6.Client)(nil)
 )

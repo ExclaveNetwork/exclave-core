@@ -68,6 +68,11 @@ func init() {
 	}))
 }
 
+var (
+	_ proxy.Outbound            = (*Handler)(nil)
+	_ proxy.OutboundWithSingMux = (*Handler)(nil)
+)
+
 // Handler is an outbound connection handler for VLess protocol.
 type Handler struct {
 	serverList     *protocol.ServerList

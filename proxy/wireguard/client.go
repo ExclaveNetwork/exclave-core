@@ -34,8 +34,15 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+)
+
+var (
+	_ proxy.Outbound                    = (*Client)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Client)(nil)
+	_ proxy.ClosableOutbound            = (*Client)(nil)
 )
 
 type Client struct {

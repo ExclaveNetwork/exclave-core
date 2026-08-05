@@ -21,6 +21,13 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
+var (
+	_ proxy.Outbound            = (*Client)(nil)
+	_ proxy.ClosableOutbound    = (*Client)(nil)
+	_ proxy.OutboundWithSingMux = (*Client)(nil)
+	_ proxy.OutboundWithSingUot = (*Client)(nil)
+)
+
 // Client is a inbound handler for Shadowsocks protocol
 type Client struct {
 	serverPicker  protocol.ServerPicker

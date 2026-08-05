@@ -17,6 +17,11 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
+var (
+	_ proxy.Outbound            = (*Client)(nil)
+	_ proxy.OutboundWithSingMux = (*Client)(nil)
+)
+
 // Client is an inbound handler for trojan protocol
 type Client struct {
 	serverPicker  protocol.ServerPicker

@@ -23,9 +23,6 @@ func newTrackedConn(conn net.Conn, pool *track.ConnectionPool) net.Conn {
 	if _, ok := conn.(*trackedPacketConn); ok {
 		panic("already a trackedPacketConn")
 	}
-	pool.Lock()
-	elem := pool.PushBack(conn)
-	pool.Unlock()
 
 	var packetConn net.PacketConn
 	switch conn := conn.(type) {
@@ -37,13 +34,13 @@ func newTrackedConn(conn net.Conn, pool *track.ConnectionPool) net.Conn {
 		return &trackedConn{
 			Conn: conn,
 			pool: pool,
-			elem: elem,
+			elem: pool.PushBack(conn),
 		}
 	}
 	trackedPacketConn := &trackedPacketConn{
 		PacketConn: packetConn,
 		pool:       pool,
-		elem:       elem,
+		elem:       pool.PushBack(conn),
 		read:       conn.Read,
 		write:      conn.Write,
 		remoteAddr: conn.RemoteAddr,
@@ -100,9 +97,7 @@ type trackedConn struct {
 }
 
 func (c *trackedConn) Close() error {
-	c.pool.Lock()
 	c.pool.Remove(c.elem)
-	c.pool.Unlock()
 	return c.Conn.Close()
 }
 
@@ -128,9 +123,7 @@ func (c *trackedPacketConn) RemoteAddr() net.Addr {
 }
 
 func (c *trackedPacketConn) Close() error {
-	c.pool.Lock()
 	c.pool.Remove(c.elem)
-	c.pool.Unlock()
 	return c.PacketConn.Close()
 }
 

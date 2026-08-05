@@ -176,12 +176,9 @@ func NewHandler(ctx context.Context, config *core.OutboundHandlerConfig) (outbou
 	if h.senderSettings != nil && h.senderSettings.Smux != nil && h.senderSettings.Smux.Enabled {
 		config := h.senderSettings.Smux
 		if config.Enabled {
-			if iface, ok := proxyHandler.(interface{ SupportSingMux() bool }); !ok || !iface.SupportSingMux() {
+			if iface, ok := proxyHandler.(proxy.OutboundWithSingMux); !ok || !iface.SupportSingMux() {
 				return nil, newError("protocol does not support sing-mux")
 			}
-			/*if iface, ok := proxyHandler.(interface{ SingUotEnabled() bool }); ok && iface.SingUotEnabled() {
-				return nil, newError("smux conflicts with uot")
-			}*/
 			h.smux, err = sing_mux.NewClient(sing_mux.Options{
 				Dialer:         singbridge.NewOutboundDialerWrapper(proxyHandler, h),
 				Logger:         singbridge.NewLoggerWrapper(newError),
@@ -297,7 +294,7 @@ func (h *Handler) Dispatch(ctx context.Context, link *transport.Link) {
 		link.Writer = writer
 	}
 	uot := false
-	if iface, ok := h.proxy.(interface{ SingUotEnabled() bool }); ok && iface.SingUotEnabled() && outbound.Target.Network == net.Network_UDP {
+	if iface, ok := h.proxy.(proxy.OutboundWithSingUot); ok && iface.SingUotEnabled() && outbound.Target.Network == net.Network_UDP {
 		uot = true
 	}
 	if h.mux != nil && (h.mux.Enabled || session.MuxPreferedFromContext(ctx)) {
@@ -527,8 +524,8 @@ func (h *Handler) Start() error {
 }
 
 func (h *Handler) interfaceUpdate() {
-	if fn, ok := h.proxy.(interface{ InterfaceUpdate() }); ok {
-		fn.InterfaceUpdate()
+	if outboundWithInterfaceUpdate, ok := h.proxy.(proxy.OutboundWithInterfaceUpdate); ok {
+		outboundWithInterfaceUpdate.InterfaceUpdate()
 	}
 	if h.smux != nil {
 		h.smux.Reset()
@@ -561,7 +558,7 @@ func (h *Handler) Close() error {
 		common.Close(h.smux)
 	}
 
-	if closableProxy, ok := h.proxy.(common.Closable); ok {
+	if closableProxy, ok := h.proxy.(proxy.ClosableOutbound); ok {
 		if err := closableProxy.Close(); err != nil {
 			newError("unable to close proxy").Base(err).AtError().WriteToLog()
 		}

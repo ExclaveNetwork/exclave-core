@@ -7,8 +7,14 @@ import (
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal/done"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
+)
+
+var (
+	_ proxy.Outbound         = (*Handler)(nil)
+	_ proxy.ClosableOutbound = (*Handler)(nil)
 )
 
 // Handler is an outbound connection that silently swallow the entire payload.

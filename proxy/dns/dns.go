@@ -18,6 +18,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	feature_dns "github.com/exclavenetwork/exclave-core/v5/features/dns"
 	"github.com/exclavenetwork/exclave-core/v5/features/policy"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
@@ -43,6 +44,8 @@ func init() {
 		return common.CreateObject(ctx, fullConfig)
 	}))
 }
+
+var _ proxy.Outbound = (*Handler)(nil)
 
 type ownLinkVerifier interface {
 	IsOwnLink(ctx context.Context) bool

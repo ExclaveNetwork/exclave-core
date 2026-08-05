@@ -18,6 +18,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/features/dns/localdns"
 	"github.com/exclavenetwork/exclave-core/v5/features/policy"
 	"github.com/exclavenetwork/exclave-core/v5/features/stats"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
@@ -42,6 +43,11 @@ func init() {
 		return common.CreateObject(ctx, fullConfig)
 	}))
 }
+
+var (
+	_ proxy.Outbound                    = (*Handler)(nil)
+	_ proxy.OutboundWithInterfaceUpdate = (*Handler)(nil) // SagerNet private
+)
 
 // Handler handles Freedom connections.
 type Handler struct {
