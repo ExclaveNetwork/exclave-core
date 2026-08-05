@@ -28,11 +28,9 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encryption"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/httpupgrade"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 func init() {
@@ -243,11 +241,6 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 				t = reflect.TypeOf(commonConn).Elem()
 				p = uintptr(unsafe.Pointer(commonConn))
 			} else {
-				if httpupgradeConn, ok := iConn.(*httpupgrade.Connection); ok {
-					iConn = httpupgradeConn.Conn
-				} else if websocketConn, ok := iConn.(*websocket.Connection); ok {
-					iConn = websocketConn.Conn.NetConn()
-				}
 				if tlsConn, ok := iConn.(*tls.Conn); ok {
 					t = reflect.TypeOf(tlsConn.Conn).Elem()
 					p = uintptr(unsafe.Pointer(tlsConn.Conn))

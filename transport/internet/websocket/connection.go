@@ -14,11 +14,11 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 )
 
-var _ buf.Writer = (*Connection)(nil)
+var _ buf.Writer = (*connection)(nil)
 
-// Connection is a wrapper for net.Conn over WebSocket Connection.
-type Connection struct {
-	Conn       *websocket.Conn
+// connection is a wrapper for net.Conn over WebSocket connection.
+type connection struct {
+	conn       *websocket.Conn
 	reader     io.Reader
 	remoteAddr net.Addr
 	writeMu    sync.Mutex
@@ -33,24 +33,24 @@ type DelayedDialer interface {
 	Dial(ctx context.Context, earlyData []byte) (*websocket.Conn, error)
 }
 
-func newConnection(conn *websocket.Conn, remoteAddr net.Addr) *Connection {
-	return &Connection{
-		Conn:       conn,
+func newConnection(conn *websocket.Conn, remoteAddr net.Addr) *connection {
+	return &connection{
+		conn:       conn,
 		remoteAddr: remoteAddr,
 	}
 }
 
-func newConnectionWithEarlyData(conn *websocket.Conn, remoteAddr net.Addr, earlyData io.Reader) *Connection {
-	return &Connection{
-		Conn:       conn,
+func newConnectionWithEarlyData(conn *websocket.Conn, remoteAddr net.Addr, earlyData io.Reader) *connection {
+	return &connection{
+		conn:       conn,
 		remoteAddr: remoteAddr,
 		reader:     earlyData,
 	}
 }
 
-func newConnectionWithDelayedDial(ctx context.Context, dialer DelayedDialer) *Connection {
+func newConnectionWithDelayedDial(ctx context.Context, dialer DelayedDialer) *connection {
 	delayedDialContext, cancelFunc := context.WithCancel(ctx)
-	return &Connection{
+	return &connection{
 		shouldWait:        true,
 		delayedDialFinish: delayedDialContext,
 		finishedDial:      cancelFunc,
@@ -76,7 +76,7 @@ func newRelayedConnection(conn io.ReadWriteCloser) *connectionForwarder {
 }
 
 // Read implements net.Conn.Read()
-func (c *Connection) Read(b []byte) (int, error) {
+func (c *connection) Read(b []byte) (int, error) {
 	for {
 		reader, err := c.getReader()
 		if err != nil {
@@ -92,10 +92,10 @@ func (c *Connection) Read(b []byte) (int, error) {
 	}
 }
 
-func (c *Connection) getReader() (io.Reader, error) {
+func (c *connection) getReader() (io.Reader, error) {
 	if c.shouldWait {
 		<-c.delayedDialFinish.Done()
-		if c.Conn == nil {
+		if c.conn == nil {
 			return nil, newError("unable to read delayed dial websocket connection as it do not exist")
 		}
 	}
@@ -103,7 +103,7 @@ func (c *Connection) getReader() (io.Reader, error) {
 		return c.reader, nil
 	}
 
-	_, reader, err := c.Conn.NextReader()
+	_, reader, err := c.conn.NextReader()
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *Connection) getReader() (io.Reader, error) {
 }
 
 // Write implements io.Writer.
-func (c *Connection) Write(b []byte) (int, error) {
+func (c *connection) Write(b []byte) (int, error) {
 	c.writeMu.Lock()
 	defer c.writeMu.Unlock()
 
@@ -122,41 +122,41 @@ func (c *Connection) Write(b []byte) (int, error) {
 			c.finishedDial()
 			return 0, newError("Unable to proceed with delayed write").Base(err)
 		}
-		c.Conn = conn
-		c.remoteAddr = c.Conn.RemoteAddr()
+		c.conn = conn
+		c.remoteAddr = c.conn.RemoteAddr()
 		c.shouldWait = false
 		c.finishedDial()
 		return len(b), nil
 	}
-	if err := c.Conn.WriteMessage(websocket.BinaryMessage, b); err != nil {
+	if err := c.conn.WriteMessage(websocket.BinaryMessage, b); err != nil {
 		return 0, err
 	}
 	return len(b), nil
 }
 
-func (c *Connection) WriteMultiBuffer(mb buf.MultiBuffer) error {
+func (c *connection) WriteMultiBuffer(mb buf.MultiBuffer) error {
 	mb = buf.Compact(mb)
 	mb, err := buf.WriteMultiBuffer(c, mb)
 	buf.ReleaseMulti(mb)
 	return err
 }
 
-func (c *Connection) Close() error {
+func (c *connection) Close() error {
 	if c.shouldWait {
 		select {
 		case <-c.delayedDialFinish.Done():
 		default:
 			c.finishedDial()
 		}
-		if c.Conn == nil {
+		if c.conn == nil {
 			return newError("unable to close delayed dial websocket connection as it do not exist")
 		}
 	}
 	var errors []interface{}
-	if err := c.Conn.WriteControl(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""), time.Now().Add(time.Second*5)); err != nil {
+	if err := c.conn.WriteControl(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""), time.Now().Add(time.Second*5)); err != nil {
 		errors = append(errors, err)
 	}
-	if err := c.Conn.Close(); err != nil {
+	if err := c.conn.Close(); err != nil {
 		errors = append(errors, err)
 	}
 	if len(errors) > 0 {
@@ -165,10 +165,10 @@ func (c *Connection) Close() error {
 	return nil
 }
 
-func (c *Connection) LocalAddr() net.Addr {
+func (c *connection) LocalAddr() net.Addr {
 	if c.shouldWait {
 		<-c.delayedDialFinish.Done()
-		if c.Conn == nil {
+		if c.conn == nil {
 			newError("websocket transport is not materialized when LocalAddr() is called").AtWarning().WriteToLog()
 			return &net.UnixAddr{
 				Name: "@placeholder",
@@ -176,13 +176,13 @@ func (c *Connection) LocalAddr() net.Addr {
 			}
 		}
 	}
-	return c.Conn.LocalAddr()
+	return c.conn.LocalAddr()
 }
 
-func (c *Connection) RemoteAddr() net.Addr {
+func (c *connection) RemoteAddr() net.Addr {
 	if c.shouldWait {
 		<-c.delayedDialFinish.Done()
-		if c.Conn == nil {
+		if c.conn == nil {
 			newError("websocket transport is not materialized when RemoteAddr() is called").AtWarning().WriteToLog()
 			return &net.UnixAddr{
 				Name: "@placeholder",
@@ -193,25 +193,25 @@ func (c *Connection) RemoteAddr() net.Addr {
 	return c.remoteAddr
 }
 
-func (c *Connection) SetDeadline(t time.Time) error {
+func (c *connection) SetDeadline(t time.Time) error {
 	if err := c.SetReadDeadline(t); err != nil {
 		return err
 	}
 	return c.SetWriteDeadline(t)
 }
 
-func (c *Connection) SetReadDeadline(t time.Time) error {
+func (c *connection) SetReadDeadline(t time.Time) error {
 	if c.shouldWait {
 		<-c.delayedDialFinish.Done()
-		if c.Conn == nil {
+		if c.conn == nil {
 			newError("websocket transport is not materialized when SetReadDeadline() is called").AtWarning().WriteToLog()
 			return nil
 		}
 	}
-	return c.Conn.SetReadDeadline(t)
+	return c.conn.SetReadDeadline(t)
 }
 
-func (c *Connection) SetWriteDeadline(t time.Time) error {
+func (c *connection) SetWriteDeadline(t time.Time) error {
 	// Do not hold writeMu while waiting for the first write to materialize a
 	// delayed connection. The first write needs that mutex to perform the dial.
 	if c.delayedDialFinish != nil {
@@ -221,9 +221,9 @@ func (c *Connection) SetWriteDeadline(t time.Time) error {
 	c.writeMu.Lock()
 	defer c.writeMu.Unlock()
 
-	if c.Conn == nil {
+	if c.conn == nil {
 		newError("websocket transport is not materialized when SetWriteDeadline() is called").AtWarning().WriteToLog()
 		return nil
 	}
-	return c.Conn.SetWriteDeadline(t)
+	return c.conn.SetWriteDeadline(t)
 }

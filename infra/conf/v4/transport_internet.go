@@ -790,7 +790,7 @@ func (c *StreamConfig) Build() (*internet.StreamConfig, error) {
 	}
 	if strings.EqualFold(c.Security, "reality") {
 		switch config.ProtocolName {
-		case "tcp", "http", "gun", "splithttp", "domainsocket", "websocket", "httpupgrade":
+		case "tcp", "http", "gun", "splithttp", "domainsocket":
 		default:
 			return nil, newError("REALITY does not support ", config.ProtocolName, " for now.")
 		}

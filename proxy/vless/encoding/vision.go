@@ -17,11 +17,9 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/features/stats"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encryption"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/httpupgrade"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls/utls"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 var (
@@ -601,11 +599,6 @@ func UnwrapRawConn(conn net.Conn) (net.Conn, stats.Counter, stats.Counter) {
 			writerCounter = statConn.WriteCounter
 		}
 		if !isEncryption { // avoids double penetration
-			if httpupgradeConn, ok := conn.(*httpupgrade.Connection); ok {
-				conn = httpupgradeConn.Conn
-			} else if websocketConn, ok := conn.(*websocket.Connection); ok {
-				conn = websocketConn.Conn.NetConn()
-			}
 			if tlsConn, ok := conn.(*tls.Conn); ok {
 				conn = tlsConn.NetConn()
 			} else if utlsConn, ok := conn.(utls.UTLSClientConnection); ok {

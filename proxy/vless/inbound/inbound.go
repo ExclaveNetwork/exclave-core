@@ -35,10 +35,8 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encoding"
 	"github.com/exclavenetwork/exclave-core/v5/proxy/vless/encryption"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/httpupgrade"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/tls"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/websocket"
 )
 
 func init() {
@@ -491,11 +489,6 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 					t = reflect.TypeOf(commonConn).Elem()
 					p = uintptr(unsafe.Pointer(commonConn))
 				} else {
-					if httpupgradeConn, ok := iConn.(*httpupgrade.Connection); ok {
-						iConn = httpupgradeConn.Conn
-					} else if websocketConn, ok := iConn.(*websocket.Connection); ok {
-						iConn = websocketConn.Conn.NetConn()
-					}
 					if tlsConn, ok := iConn.(*tls.Conn); ok {
 						if tlsConn.ConnectionState().Version != 0x0304 /* VersionTLS13 */ {
 							return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, tlsConn.ConnectionState().Version).AtWarning()
