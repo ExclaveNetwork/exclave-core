@@ -52,7 +52,7 @@ func (c *tlsConfigWrapper) Client(_ net.Conn) (singtls.Conn, error) {
 }
 
 func (c *tlsConfigWrapper) HandshakeTimeout() time.Duration {
-	panic("invalid")
+	return -1
 }
 
 func (c *tlsConfigWrapper) SetHandshakeTimeout(_ time.Duration) {
