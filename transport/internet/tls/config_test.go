@@ -3,6 +3,7 @@ package tls_test
 import (
 	gotls "crypto/tls"
 	"crypto/x509"
+	"reflect"
 	"testing"
 	"time"
 
@@ -93,5 +94,68 @@ func BenchmarkCertificateIssuing(b *testing.B) {
 		})
 		delete(tlsConfig.NameToCertificate, "www.v2fly.org")
 		tlsConfig.Certificates = tlsConfig.Certificates[:lenCerts]
+	}
+}
+
+func TestClone(t *testing.T) {
+	config1 := &Config{
+		AllowInsecure: true,
+		Certificate: []*Certificate{
+			{
+				Certificate: []byte{1},
+				Key:         []byte{1},
+			},
+		},
+		ServerName:                           "1",
+		NextProtocol:                         []string{"1"},
+		DisableSystemRoot:                    true,
+		PinnedPeerCertificateChainSha256:     [][]byte{{1}},
+		VerifyClientCertificate:              true,
+		MinVersion:                           Config_TLS1_0,
+		MaxVersion:                           Config_TLS1_0,
+		AllowInsecureIfPinnedPeerCertificate: true,
+		Ciphersuites:                         []uint32{1},
+		PinnedPeerCertificatePublicKeySha256: [][]byte{{1}},
+		PinnedPeerCertificateSha256:          []string{"1"},
+		ServerNameToVerify:                   []string{"1"},
+		Ech: &Config_ECH{
+			Enabled:     true,
+			Config:      []byte{1},
+			QueryDomain: "1",
+			Key:         []byte{1},
+		},
+	}
+	for i := 0; i < reflect.ValueOf(config1).Elem().Type().NumField(); i++ {
+		field := reflect.ValueOf(config1).Elem().Type().Field(i)
+		switch name := field.Name; name {
+		case "AllowInsecure", "Certificate", "ServerName", "NextProtocol", "DisableSystemRoot",
+			"PinnedPeerCertificateChainSha256", "VerifyClientCertificate", "MinVersion",
+			"MaxVersion", "AllowInsecureIfPinnedPeerCertificate", "Ciphersuites",
+			"PinnedPeerCertificatePublicKeySha256", "PinnedPeerCertificateSha256",
+			"ServerNameToVerify", "Ech":
+		default:
+			if !field.IsExported() {
+				continue
+			}
+			t.Errorf("unknown field %q", name)
+		}
+	}
+	config2 := config1.Clone()
+	if !reflect.DeepEqual(config1, config2) {
+		t.Errorf("failed to copy a field")
+	}
+	for i := 0; i < reflect.ValueOf(config1.Ech).Elem().Type().NumField(); i++ {
+		field := reflect.ValueOf(config1.Ech).Elem().Type().Field(i)
+		switch name := field.Name; name {
+		case "Enabled", "Config", "QueryDomain", "Key":
+		default:
+			if !field.IsExported() {
+				continue
+			}
+			t.Errorf("unknown field %q", name)
+		}
+	}
+	if !reflect.DeepEqual(config1.Ech, config2.Ech) {
+		t.Errorf("failed to copy a field")
 	}
 }

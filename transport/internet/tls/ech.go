@@ -17,10 +17,6 @@ import (
 )
 
 func (c *Config) applyECH(ctx context.Context, config *tls.Config) error {
-	if len(c.Ech.Config) > 0 {
-		config.EncryptedClientHelloConfigList = c.Ech.Config
-		return nil
-	}
 	domain := config.ServerName
 	if len(c.Ech.QueryDomain) > 0 {
 		domain = c.Ech.QueryDomain

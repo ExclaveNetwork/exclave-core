@@ -44,7 +44,11 @@ func (d *dialerWrapper) DialContext(ctx context.Context, network string, destina
 }
 
 func (d *dialerWrapper) ListenPacket(ctx context.Context, destination metadata.Socksaddr) (net.PacketConn, error) {
-	panic("invalid")
+	conn, err := d.dialer.Dial(ctx, ToDestination(destination, net.Network_UDP))
+	if err != nil {
+		return nil, err
+	}
+	return newBindPacketConn(conn), nil
 }
 
 func NewOutboundDialerWrapper(outbound proxy.Outbound, dialer internet.Dialer) *outboundDialerWrapper {
@@ -69,7 +73,11 @@ func (d *outboundDialerWrapper) DialContext(ctx context.Context, network string,
 }
 
 func (d *outboundDialerWrapper) ListenPacket(ctx context.Context, destination metadata.Socksaddr) (net.PacketConn, error) {
-	panic("invalid")
+	conn, err := d.DialContext(ctx, network.NetworkUDP, destination)
+	if err != nil {
+		return nil, err
+	}
+	return internet.NewConnWrapper(conn), nil
 }
 
 func newConnectPacketConn(conn net.Conn) net.Conn {
@@ -89,7 +97,7 @@ func newConnectPacketConn(conn net.Conn) net.Conn {
 	default:
 		return conn
 	}
-	connectPacketConn := &connectPacketConn{
+	statCounterPacketConn := &statCounterPacketConn{
 		PacketConn:   packetConn,
 		readCounter:  readCounter,
 		writeCounter: writeCounter,
@@ -102,12 +110,12 @@ func newConnectPacketConn(conn net.Conn) net.Conn {
 		SetReadBuffer(bytes int) error
 	})
 	if !canSetBuffer {
-		return connectPacketConn
+		return statCounterPacketConn
 	}
 	setBufferConn := &setBufferConn{
-		connectPacketConn: connectPacketConn,
-		setWriteBuffer:    setBufferFn.SetWriteBuffer,
-		setReadBuffer:     setBufferFn.SetReadBuffer,
+		statCounterPacketConn: statCounterPacketConn,
+		setWriteBuffer:        setBufferFn.SetWriteBuffer,
+		setReadBuffer:         setBufferFn.SetReadBuffer,
 	}
 	syscallConnFn, isSyscallConn := packetConn.(interface {
 		SyscallConn() (syscall.RawConn, error)
@@ -142,7 +150,77 @@ func newConnectPacketConn(conn net.Conn) net.Conn {
 	return oobConn
 }
 
-type connectPacketConn struct {
+func newBindPacketConn(conn net.Conn) net.PacketConn {
+	var readCounter, writeCounter stats.Counter
+	iConn := conn
+	if statConn, ok := iConn.(*internet.StatCouterConnection); ok {
+		iConn = statConn.Connection
+		readCounter = statConn.ReadCounter
+		writeCounter = statConn.WriteCounter
+	}
+	var packetConn net.PacketConn
+	switch iConn := iConn.(type) {
+	case *internet.PacketConnWrapper:
+		packetConn = iConn.Conn
+	case net.PacketConn:
+		packetConn = iConn
+	default:
+		return internet.NewConnWrapper(conn)
+	}
+	statCounterPacketConn := &statCounterPacketConn{
+		PacketConn:   packetConn,
+		readCounter:  readCounter,
+		writeCounter: writeCounter,
+		read:         iConn.Read,
+		write:        iConn.Write,
+		remoteAddr:   iConn.RemoteAddr,
+	}
+	setBufferFn, canSetBuffer := packetConn.(interface {
+		SetWriteBuffer(bytes int) error
+		SetReadBuffer(bytes int) error
+	})
+	if !canSetBuffer {
+		return statCounterPacketConn
+	}
+	setBufferConn := &setBufferConn{
+		statCounterPacketConn: statCounterPacketConn,
+		setWriteBuffer:        setBufferFn.SetWriteBuffer,
+		setReadBuffer:         setBufferFn.SetReadBuffer,
+	}
+	syscallConnFn, isSyscallConn := packetConn.(interface {
+		SyscallConn() (syscall.RawConn, error)
+	})
+	if !isSyscallConn {
+		return setBufferConn
+	}
+	syscallConn := &syscallConn{
+		setBufferConn: setBufferConn,
+		syscallConn:   syscallConnFn.SyscallConn,
+	}
+	oobFn, oobCapable := packetConn.(interface {
+		ReadMsgUDP(b, oob []byte) (int, int, int, *net.UDPAddr, error)
+		WriteMsgUDP(b, oob []byte, addr *net.UDPAddr) (int, int, error)
+	})
+	if !oobCapable {
+		return syscallConn
+	}
+	oobConn := &oobConn{
+		syscallConn: syscallConn,
+		readMsgUDP:  oobFn.ReadMsgUDP,
+		writeMsgUDP: oobFn.WriteMsgUDP,
+	}
+	readBatchFn, canReadBatch := packetConn.(interface {
+		ReadBatch(ms []ipv4.Message, flags int) (int, error)
+	})
+	if canReadBatch {
+		oobConn.readBatch = readBatchFn.ReadBatch
+	} else {
+		oobConn.readBatch = ipv4.NewPacketConn(oobConn).ReadBatch
+	}
+	return oobConn
+}
+
+type statCounterPacketConn struct {
 	net.PacketConn
 	readCounter  stats.Counter
 	writeCounter stats.Counter
@@ -151,7 +229,7 @@ type connectPacketConn struct {
 	remoteAddr   func() net.Addr
 }
 
-func (c *connectPacketConn) ReadFrom(p []byte) (int, net.Addr, error) {
+func (c *statCounterPacketConn) ReadFrom(p []byte) (int, net.Addr, error) {
 	n, addr, err := c.PacketConn.ReadFrom(p)
 	if c.readCounter != nil {
 		c.readCounter.Add(int64(n))
@@ -159,7 +237,7 @@ func (c *connectPacketConn) ReadFrom(p []byte) (int, net.Addr, error) {
 	return n, addr, err
 }
 
-func (c *connectPacketConn) WriteTo(p []byte, addr net.Addr) (int, error) {
+func (c *statCounterPacketConn) WriteTo(p []byte, addr net.Addr) (int, error) {
 	n, err := c.PacketConn.WriteTo(p, addr)
 	if c.writeCounter != nil {
 		c.writeCounter.Add(int64(n))
@@ -167,7 +245,7 @@ func (c *connectPacketConn) WriteTo(p []byte, addr net.Addr) (int, error) {
 	return n, err
 }
 
-func (c *connectPacketConn) Read(b []byte) (int, error) {
+func (c *statCounterPacketConn) Read(b []byte) (int, error) {
 	n, err := c.read(b)
 	if c.readCounter != nil {
 		c.readCounter.Add(int64(n))
@@ -175,7 +253,7 @@ func (c *connectPacketConn) Read(b []byte) (int, error) {
 	return n, err
 }
 
-func (c *connectPacketConn) Write(b []byte) (int, error) {
+func (c *statCounterPacketConn) Write(b []byte) (int, error) {
 	n, err := c.write(b)
 	if c.writeCounter != nil {
 		c.writeCounter.Add(int64(n))
@@ -183,12 +261,12 @@ func (c *connectPacketConn) Write(b []byte) (int, error) {
 	return n, err
 }
 
-func (c *connectPacketConn) RemoteAddr() net.Addr {
+func (c *statCounterPacketConn) RemoteAddr() net.Addr {
 	return c.remoteAddr()
 }
 
 type setBufferConn struct {
-	*connectPacketConn
+	*statCounterPacketConn
 	setWriteBuffer func(bytes int) error
 	setReadBuffer  func(bytes int) error
 }

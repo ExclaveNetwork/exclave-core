@@ -90,18 +90,21 @@ func (w *packetConnWrapper) Close() error {
 	return nil
 }
 
-func (w *packetConnWrapper) SetDeadline(t time.Time) error {
-	panic("invalid")
+func (w *packetConnWrapper) SetDeadline(_ time.Time) error {
+	return nil
 }
 
-func (w *packetConnWrapper) SetReadDeadline(t time.Time) error {
-	panic("invalid")
+func (w *packetConnWrapper) SetReadDeadline(_ time.Time) error {
+	return nil
 }
 
-func (w *packetConnWrapper) SetWriteDeadline(t time.Time) error {
-	panic("invalid")
+func (w *packetConnWrapper) SetWriteDeadline(_ time.Time) error {
+	return nil
 }
 
 func (w *packetConnWrapper) LocalAddr() net.Addr {
-	panic("invalid")
+	return &net.UDPAddr{
+		IP:   []byte{0, 0, 0, 0},
+		Port: 0,
+	}
 }

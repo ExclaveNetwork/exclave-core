@@ -49,22 +49,28 @@ func (w *pipeConnWrapper) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
-func (w *pipeConnWrapper) SetDeadline(t time.Time) error {
-	panic("invalid")
+func (w *pipeConnWrapper) SetDeadline(_ time.Time) error {
+	return nil
 }
 
-func (w *pipeConnWrapper) SetReadDeadline(t time.Time) error {
-	panic("invalid")
+func (w *pipeConnWrapper) SetReadDeadline(_ time.Time) error {
+	return nil
 }
 
-func (w *pipeConnWrapper) SetWriteDeadline(t time.Time) error {
-	panic("invalid")
+func (w *pipeConnWrapper) SetWriteDeadline(_ time.Time) error {
+	return nil
 }
 
 func (w *pipeConnWrapper) LocalAddr() net.Addr {
-	panic("invalid")
+	return &net.TCPAddr{
+		IP:   []byte{0, 0, 0, 0},
+		Port: 0,
+	}
 }
 
 func (w *pipeConnWrapper) RemoteAddr() net.Addr {
-	panic("invalid")
+	return &net.TCPAddr{
+		IP:   []byte{0, 0, 0, 0},
+		Port: 0,
+	}
 }

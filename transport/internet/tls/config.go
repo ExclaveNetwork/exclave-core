@@ -191,7 +191,7 @@ func getGetCertificateFunc(c *tls.Config, ca []*Certificate) func(hello *tls.Cli
 
 // GetTLSConfig converts this Config into tls.Config.
 func (c *Config) GetTLSConfig(opts ...Option) *tls.Config {
-	config, err := c.getTLSConfig(context.TODO(), opts...)
+	config, err := c.getTLSConfig(context.TODO(), false, opts...)
 	if err != nil {
 		panic(err)
 	}
@@ -199,10 +199,10 @@ func (c *Config) GetTLSConfig(opts ...Option) *tls.Config {
 }
 
 func (c *Config) GetTLSConfigWithContext(ctx context.Context, opts ...Option) (*tls.Config, error) {
-	return c.getTLSConfig(ctx, opts...)
+	return c.getTLSConfig(ctx, true, opts...)
 }
 
-func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config, error) {
+func (c *Config) getTLSConfig(ctx context.Context, hasCtx bool, opts ...Option) (*tls.Config, error) {
 	root, err := c.getCertPool()
 	if err != nil {
 		newError("failed to load system root certificate").AtError().Base(err).WriteToLog()
@@ -305,8 +305,12 @@ func (c *Config) getTLSConfig(ctx context.Context, opts ...Option) (*tls.Config,
 				config.EncryptedClientHelloKeys = echKeys
 			}
 		} else {
-			if err := c.applyECH(ctx, config); err != nil {
-				return nil, err
+			if len(c.Ech.Config) > 0 {
+				config.EncryptedClientHelloConfigList = c.Ech.Config
+			} else if hasCtx {
+				if err := c.applyECH(ctx, config); err != nil {
+					return nil, err
+				}
 			}
 		}
 	}
@@ -469,6 +473,35 @@ func ConfigFromStreamSettings(settings *internet.MemoryStreamConfig) *Config {
 	config, ok := settings.SecuritySettings.(*Config)
 	if !ok {
 		return nil
+	}
+	return config
+}
+
+func (c *Config) Clone() *Config {
+	config := &Config{
+		AllowInsecure:                        c.AllowInsecure,
+		Certificate:                          c.Certificate,
+		ServerName:                           c.ServerName,
+		NextProtocol:                         c.NextProtocol,
+		DisableSystemRoot:                    c.DisableSystemRoot,
+		PinnedPeerCertificateChainSha256:     c.PinnedPeerCertificateChainSha256,
+		VerifyClientCertificate:              c.VerifyClientCertificate,
+		MinVersion:                           c.MinVersion,
+		MaxVersion:                           c.MaxVersion,
+		AllowInsecureIfPinnedPeerCertificate: c.AllowInsecureIfPinnedPeerCertificate,
+		Ciphersuites:                         c.Ciphersuites,
+		PinnedPeerCertificatePublicKeySha256: c.PinnedPeerCertificatePublicKeySha256,
+		PinnedPeerCertificateSha256:          c.PinnedPeerCertificateSha256,
+		ServerNameToVerify:                   c.ServerNameToVerify,
+		Ech:                                  c.Ech,
+	}
+	if c.Ech != nil {
+		config.Ech = &Config_ECH{
+			Enabled:     c.Ech.Enabled,
+			Config:      c.Ech.Config,
+			QueryDomain: c.Ech.QueryDomain,
+			Key:         c.Ech.Key,
+		}
 	}
 	return config
 }
