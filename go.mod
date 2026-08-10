@@ -10,8 +10,8 @@ require (
 	github.com/apernet/quic-go v0.61.1-0.20260806010916-184d081eef3e
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.35.0
-	github.com/exclavenetwork/hysteria/core/v2 v2.12.0-1
-	github.com/exclavenetwork/hysteria/extras/v2 v2.12.0-1
+	github.com/exclavenetwork/hysteria/core/v2 v2.12.1-1
+	github.com/exclavenetwork/hysteria/extras/v2 v2.12.1-1
 	github.com/exclavenetwork/sing-juicity v0.3.0-beta.1
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20260801175020-65c7acc31f93
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
@@ -23,9 +23,9 @@ require (
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.61.0
 	github.com/refraction-networking/utls v1.8.3-0.20260802151714-23b1dac19c06
-	github.com/sagernet/sing v0.8.13-0.20260804143108-f22b119cc7a2
+	github.com/sagernet/sing v0.9.0-beta.2
 	github.com/sagernet/sing-mux v0.3.5
-	github.com/sagernet/sing-quic v0.7.0-beta.1
+	github.com/sagernet/sing-quic v0.7.0-beta.2
 	github.com/sagernet/sing-shadowsocks v0.2.9
 	github.com/sagernet/sing-shadowsocks2 v0.2.2
 	github.com/sagernet/sing-snell v0.0.0-20260727093646-7cb813e07b73
@@ -68,7 +68,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
-	github.com/sagernet/quic-go v0.61.0-sing-box-mod.3 // indirect
+	github.com/sagernet/quic-go v0.61.0-sing-box-mod.4 // indirect
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
 	github.com/xtaci/smux v1.5.57 // indirect
 	golang.org/x/exp v0.0.0-20260727155853-b88d891fe743 // indirect
