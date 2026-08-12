@@ -3,6 +3,7 @@ package hysteria2
 import (
 	"context"
 	gotls "crypto/tls"
+	"crypto/x509"
 	"sync"
 	"time"
 
@@ -201,9 +202,59 @@ func (f *connFactory) New(addr net.Addr) (net.PacketConn, error) {
 }
 
 func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *internet.MemoryStreamConfig, resolver func(ctx context.Context, domain string) net.Address) (hyClient.Client, error) {
+	config := streamSettings.ProtocolSettings.(*Config)
+
 	tlsConfig, err := GetClientTLSConfig(ctx, dest, streamSettings)
 	if err != nil {
 		return nil, err
+	}
+
+	// workaround https://github.com/apernet/quic-go/blob/184d081eef3e9edd5cb7c0ddf2460c91f2e6adb1/internal/handshake/tls_conn_utls.go#L57-L63
+	if config.ChromeParrot {
+		// Convert VerifyConnection to VerifyPeerCertificate. Session resumption is not used.
+		if tlsConfig.VerifyConnection != nil {
+			verifyConnection := tlsConfig.VerifyConnection
+			tlsConfig.VerifyConnection = nil
+			verifyPeerCertificate := tlsConfig.VerifyPeerCertificate
+			tlsConfig.VerifyPeerCertificate = func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+				if verifyPeerCertificate != nil {
+					err := verifyPeerCertificate(rawCerts, verifiedChains)
+					if err != nil {
+						return err
+					}
+				}
+				certs := make([]*x509.Certificate, len(rawCerts))
+				for i, rawCert := range rawCerts {
+					cert, err := x509.ParseCertificate(rawCert)
+					if err != nil {
+						return err
+					}
+					certs[i] = cert
+				}
+				return verifyConnection(gotls.ConnectionState{
+					// Only `PeerCertificates` is used.
+					PeerCertificates: certs,
+				})
+			}
+		}
+		// Convert mTLS client certificates from Certificates to GetClientCertificate.
+		if tlsConfig.Certificates != nil {
+			certs := tlsConfig.Certificates
+			tlsConfig.Certificates = nil
+			// If GetClientCertificate is not nil, Certificates will be ignored.
+			if tlsConfig.GetClientCertificate == nil {
+				tlsConfig.GetClientCertificate = func(cri *gotls.CertificateRequestInfo) (*gotls.Certificate, error) {
+					for _, cert := range certs {
+						if err := cri.SupportsCertificate(&cert); err != nil {
+							continue
+						}
+						return &cert, nil
+					}
+					// If Certificate.Certificate is empty then no certificate will be sent to the server.
+					return new(gotls.Certificate), nil
+				}
+			}
+		}
 	}
 
 	serverAddr, err := ResolveAddress(ctx, dest, resolver)
@@ -211,7 +262,6 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		return nil, err
 	}
 
-	config := streamSettings.ProtocolSettings.(*Config)
 	hyConfig := &hyClient.Config{
 		Auth:       config.GetPassword(),
 		TLSConfig:  tlsConfig,
