@@ -94,7 +94,13 @@ func SniffQUIC(input []byte) (*SniffHeader, error) {
 		}
 
 		packetType := (typeByte & 0x30) >> 4
-		isQuicInitial := packetType == 0x0
+		var isQuicInitial bool
+		switch versionNumber {
+		case versionDraft29, version1:
+			isQuicInitial = packetType == 0x0
+		case version2:
+			isQuicInitial = packetType == 0x1
+		}
 
 		var destConnID []byte
 		if l, err := buffer.ReadByte(); err != nil {
