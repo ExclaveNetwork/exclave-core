@@ -78,7 +78,10 @@ func parseRangeString(str string) (int, int, error) {
 		left, err := strconv.Atoi(pair[0])
 		right, err2 := strconv.Atoi(pair[1])
 		if err == nil && err2 == nil {
-			return left, right, nil
+			if left <= right {
+				return left, right, nil
+			}
+			return right, left, nil
 		}
 	}
 	return 0, 0, newError("invalid range string: ", str)
