@@ -451,6 +451,8 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 		Handler:           handler,
 		ReadHeaderTimeout: time.Second * 4,
 		Protocols:         protocols,
+		// workaround https://github.com/golang/go/issues/80876
+		ReadTimeout: time.Hour,
 	}
 	go func() {
 		if err := l.server.Serve(l.listener); err != nil {
