@@ -115,6 +115,9 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 	httpSettings := streamSettings.ProtocolSettings.(*Config)
 	var listener *Listener
 	if port == net.Port(0) { // unix
+		if !address.Family().IsDomain() {
+			return nil, newError("invalid address for unix domain socket: ", address)
+		}
 		listener = &Listener{
 			handler: handler,
 			local: &net.UnixAddr{

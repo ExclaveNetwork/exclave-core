@@ -416,6 +416,9 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 	}
 
 	if port == net.Port(0) { // unix
+		if !address.Family().IsDomain() {
+			return nil, newError("invalid address for unix domain socket: ", address)
+		}
 		l.listener, err = internet.ListenSystem(ctx, &net.UnixAddr{
 			Name: address.Domain(),
 			Net:  "unix",

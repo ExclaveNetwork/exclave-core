@@ -113,6 +113,9 @@ func ListenWS(ctx context.Context, address net.Address, port net.Port, streamSet
 	var listener net.Listener
 	var err error
 	if port == net.Port(0) { // unix
+		if !address.Family().IsDomain() {
+			return nil, newError("invalid address for unix domain socket: ", address)
+		}
 		listener, err = internet.ListenSystem(ctx, &net.UnixAddr{
 			Name: address.Domain(),
 			Net:  "unix",
