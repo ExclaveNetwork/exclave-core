@@ -51,7 +51,7 @@ func wrapSysConn(rawConn net.PacketConn, config *Config) (net.PacketConn, error)
 	if syscallConnFn, isSyscallConn := rawConn.(interface {
 		SetWriteBuffer(bytes int) error
 		SetReadBuffer(bytes int) error
-		SyscallConn() (syscall.RawConn, error)
+		syscall.Conn
 	}); isSyscallConn {
 		return &syscallConn{
 			setBufferConn: &setBufferConn{

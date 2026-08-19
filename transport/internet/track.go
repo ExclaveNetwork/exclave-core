@@ -57,9 +57,7 @@ func newTrackedConn(conn net.Conn, pool *track.ConnectionPool) net.Conn {
 		setWriteBuffer:    setBufferFn.SetWriteBuffer,
 		setReadBuffer:     setBufferFn.SetReadBuffer,
 	}
-	syscallConnFn, isSyscallConn := packetConn.(interface {
-		SyscallConn() (syscall.RawConn, error)
-	})
+	syscallConnFn, isSyscallConn := packetConn.(syscall.Conn)
 	if !isSyscallConn {
 		return setBufferConn
 	}
@@ -110,14 +108,20 @@ type trackedPacketConn struct {
 	remoteAddr func() net.Addr
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_oob.go#L113
+// https://github.com/golang/net/blob/f6c404bf8371cea2a96e5bf2075b6f5a3b06657c/ipv4/endpoint.go#L103
 func (c *trackedPacketConn) Read(b []byte) (int, error) {
 	return c.read(b)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_oob.go#L113
+// https://github.com/golang/net/blob/f6c404bf8371cea2a96e5bf2075b6f5a3b06657c/ipv4/endpoint.go#L103
 func (c *trackedPacketConn) Write(b []byte) (int, error) {
 	return c.write(b)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_oob.go#L113
+// https://github.com/golang/net/blob/f6c404bf8371cea2a96e5bf2075b6f5a3b06657c/ipv4/endpoint.go#L103
 func (c *trackedPacketConn) RemoteAddr() net.Addr {
 	return c.remoteAddr()
 }
@@ -145,26 +149,34 @@ type oobConn struct {
 	readBatch   func(ms []ipv4.Message, flags int) (int, error)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_buffers.go#L14
 func (c *setBufferConn) SetReadBuffer(bytes int) error {
 	return c.setReadBuffer(bytes)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_buffers_write.go#L16
 func (c *setBufferConn) SetWriteBuffer(bytes int) error {
 	return c.setWriteBuffer(bytes)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_buffers.go#L21
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_buffers_write.go#L23
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn.go#L79
 func (c *syscallConn) SyscallConn() (syscall.RawConn, error) {
 	return c.syscallConn()
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn.go#L97
 func (c *oobConn) ReadMsgUDP(b, oob []byte) (int, int, int, *net.UDPAddr, error) {
 	return c.readMsgUDP(b, oob)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn.go#L97
 func (c *oobConn) WriteMsgUDP(b, oob []byte, addr *net.UDPAddr) (int, int, error) {
 	return c.writeMsgUDP(b, oob, addr)
 }
 
+// https://github.com/quic-go/quic-go/blob/cea2e60cea0e3ce5248d1ec2003c0a2b73051547/sys_conn_oob.go#L109-L114
 func (c *oobConn) ReadBatch(ms []ipv4.Message, flags int) (int, error) {
 	return c.readBatch(ms, flags)
 }

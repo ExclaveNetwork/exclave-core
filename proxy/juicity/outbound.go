@@ -92,7 +92,7 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*juic
 	}
 	options := o.options
 	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr), v2tls.WithNextProto("h3"))
-	options.Dialer = singbridge.NewDialerWrapper(dialer)
+	options.Dialer = singbridge.NewQUICDialerWrapper(dialer)
 	client, err := juicity.NewClient(options)
 	if err != nil {
 		return nil, err

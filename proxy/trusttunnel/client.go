@@ -25,7 +25,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
 	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 	"github.com/exclavenetwork/exclave-core/v5/features/policy"
-	"github.com/exclavenetwork/exclave-core/v5/features/stats"
 	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
@@ -233,31 +232,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, target net.Destination, ta
 					if err != nil {
 						return nil, err
 					}
-					var readCounter, writeCounter stats.Counter
-					iConn := conn
-					if statConn, ok := iConn.(*internet.StatCouterConnection); ok {
-						iConn = statConn.Connection
-						readCounter = statConn.ReadCounter
-						writeCounter = statConn.WriteCounter
-					}
-					var packetConn net.PacketConn
-					switch iConn := iConn.(type) {
-					case *internet.PacketConnWrapper:
-						if readCounter != nil || writeCounter != nil {
-							packetConn = newStatCounterConn(iConn.Conn, readCounter, writeCounter)
-						} else {
-							packetConn = iConn.Conn
-						}
-					case net.PacketConn:
-						if readCounter != nil || writeCounter != nil {
-							packetConn = newStatCounterConn(iConn, readCounter, writeCounter)
-						} else {
-							packetConn = iConn
-						}
-					default:
-						packetConn = internet.NewConnWrapper(iConn)
-					}
-					quicConn, err := quic.Dial(detachedContext, packetConn, conn.RemoteAddr(), tlsCfg, cfg)
+					quicConn, err := quic.Dial(detachedContext, newQUICPacketConn(conn), conn.RemoteAddr(), tlsCfg, cfg)
 					if err != nil {
 						conn.Close()
 						return nil, err

@@ -118,7 +118,7 @@ func (o *Outbound) getClient(ctx context.Context, dialer internet.Dialer) (*tuic
 	ctx = session.ContextWithDisableALPNByDefault(ctx, true)
 	options := o.options
 	options.TLSConfig = singbridge.NewTLSConfigWrapper(ctx, tlsSettings, v2tls.WithDestination(o.serverAddr))
-	options.Dialer = singbridge.NewDialerWrapper(dialer)
+	options.Dialer = singbridge.NewQUICDialerWrapper(dialer)
 	client, err := tuic.NewClient(options)
 	if err != nil {
 		return nil, err
