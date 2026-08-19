@@ -367,10 +367,7 @@ func (r *requestToPacketConnServerSession) OnRoundTrip(ctx context.Context, req 
 		{
 			_, _ = r.writingConnectionQueue.TakeUntil(func(i interface{}) bool {
 				i.(*writingConnection).focus()
-				if i.(*writingConnection).finishCtx.Err() != nil { //nolint: gosimple
-					return true
-				}
-				return false
+				return i.(*writingConnection).finishCtx.Err() != nil
 			})
 		}
 	}
