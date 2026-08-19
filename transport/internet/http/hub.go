@@ -146,8 +146,6 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 			Addr:              serial.Concat(address, ":", port),
 			Handler:           h2c.NewHandler(listener, h2s),
 			ReadHeaderTimeout: time.Second * 4,
-			// workaround https://github.com/golang/go/issues/80876
-			ReadTimeout: time.Hour,
 		}
 	} else {
 		server = &http.Server{
@@ -155,8 +153,6 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 			TLSConfig:         config.GetTLSConfig(tls.WithNextProto("h2")),
 			Handler:           listener,
 			ReadHeaderTimeout: time.Second * 4,
-			// workaround https://github.com/golang/go/issues/80876
-			ReadTimeout: time.Hour,
 		}
 	}
 
