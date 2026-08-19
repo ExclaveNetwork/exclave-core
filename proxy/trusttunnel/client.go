@@ -58,7 +58,7 @@ func (c *Client) Close() error {
 		case *http3.Transport:
 			transport.Close()
 		case *http2.Transport:
-			closeHTTP2Transport(transport)
+			transport.CloseIdleConnections()
 		}
 		c.transport = nil
 	}
