@@ -19,7 +19,6 @@ import (
 	"strings"
 	"time"
 
-	"filippo.io/mldsa"
 	utls "github.com/refraction-networking/utls"
 	"golang.org/x/crypto/hkdf"
 	"golang.org/x/net/http2"
@@ -32,7 +31,7 @@ type UConn struct {
 	*utls.UConn
 	ServerName    string
 	AuthKey       []byte
-	mldsa65Verify *mldsa.PublicKey
+	mldsa65Verify *mldsaPublicKey
 	Verified      bool
 }
 
@@ -45,7 +44,7 @@ func (c *UConn) VerifyConnection(state utls.ConnectionState) error {
 				if len(state.PeerCertificates[0].Extensions) > 0 {
 					h.Write(c.HandshakeState.Hello.Raw)
 					h.Write(c.HandshakeState.ServerHello.Raw)
-					err := mldsa.Verify(c.mldsa65Verify, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil)
+					err := mldsaVerify(c.mldsa65Verify, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil)
 					if err != nil {
 						return err
 					}
@@ -75,7 +74,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	uConn := &UConn{}
 
 	if len(config.Mldsa65Verify) > 0 {
-		mldsa65Verify, err := mldsa.NewPublicKey(mldsa.MLDSA65(), config.Mldsa65Verify)
+		mldsa65Verify, err := mldsaNewPublicKey(mldsa65(), config.Mldsa65Verify)
 		if err != nil {
 			return nil, err
 		}
