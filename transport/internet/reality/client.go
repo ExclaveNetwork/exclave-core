@@ -44,12 +44,10 @@ func (c *UConn) verifyConnection(state utls.ConnectionState) error {
 				if len(state.PeerCertificates[0].Extensions) > 0 {
 					h.Write(c.HandshakeState.Hello.Raw)
 					h.Write(c.HandshakeState.ServerHello.Raw)
-					err := c.mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value)
-					if err != nil {
-						return err
+					if c.mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value) == nil {
+						c.verified = true
+						return nil
 					}
-					c.verified = true
-					return nil
 				}
 			} else {
 				c.verified = true
