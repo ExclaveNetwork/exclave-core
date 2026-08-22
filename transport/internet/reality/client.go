@@ -29,36 +29,36 @@ import (
 
 type UConn struct {
 	*utls.UConn
-	ServerName    string
-	AuthKey       []byte
-	mldsa65Verify *mldsaPublicKey
-	Verified      bool
+	serverName  string
+	authKey     []byte
+	mldsaVerify *mldsaVerify
+	verified    bool
 }
 
-func (c *UConn) VerifyConnection(state utls.ConnectionState) error {
+func (c *UConn) verifyConnection(state utls.ConnectionState) error {
 	if pub, ok := state.PeerCertificates[0].PublicKey.(ed25519.PublicKey); ok {
-		h := hmac.New(sha512.New, c.AuthKey)
+		h := hmac.New(sha512.New, c.authKey)
 		h.Write(pub)
 		if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
-			if c.mldsa65Verify != nil {
+			if c.mldsaVerify != nil {
 				if len(state.PeerCertificates[0].Extensions) > 0 {
 					h.Write(c.HandshakeState.Hello.Raw)
 					h.Write(c.HandshakeState.ServerHello.Raw)
-					err := mldsaVerify(c.mldsa65Verify, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil)
+					err := c.mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value)
 					if err != nil {
 						return err
 					}
-					c.Verified = true
+					c.verified = true
 					return nil
 				}
 			} else {
-				c.Verified = true
+				c.verified = true
 				return nil
 			}
 		}
 	}
 	opts := x509.VerifyOptions{
-		DNSName:       c.ServerName,
+		DNSName:       c.serverName,
 		Intermediates: x509.NewCertPool(),
 	}
 	for _, cert := range state.PeerCertificates[1:] {
@@ -72,17 +72,15 @@ func (c *UConn) VerifyConnection(state utls.ConnectionState) error {
 
 func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
 	uConn := &UConn{}
-
 	if len(config.Mldsa65Verify) > 0 {
-		mldsa65Verify, err := mldsaNewPublicKey(mldsa65(), config.Mldsa65Verify)
+		mldsaVerify, err := newMLDSA65Verify(config.Mldsa65Verify)
 		if err != nil {
 			return nil, err
 		}
-		uConn.mldsa65Verify = mldsa65Verify
+		uConn.mldsaVerify = mldsaVerify
 	}
-
 	utlsConfig := &utls.Config{
-		VerifyConnection:       uConn.VerifyConnection,
+		VerifyConnection:       uConn.verifyConnection,
 		ServerName:             config.ServerName,
 		InsecureSkipVerify:     true,
 		SessionTicketsDisabled: true,
@@ -90,7 +88,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	if utlsConfig.ServerName == "" {
 		utlsConfig.ServerName = dest.Address.String()
 	}
-	uConn.ServerName = utlsConfig.ServerName
+	uConn.serverName = utlsConfig.ServerName
 	fingerprint := getFingerprint(config.Fingerprint)
 	if fingerprint == nil {
 		return nil, newError("REALITY: failed to get fingerprint").AtError()
@@ -150,14 +148,14 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	if ecdhe == nil {
 		return nil, newError("Current fingerprint ", uConn.ClientHelloID.Client, uConn.ClientHelloID.Version, " does not support TLS 1.3, REALITY handshake cannot establish.")
 	}
-	uConn.AuthKey, _ = ecdhe.ECDH(publicKey)
-	if uConn.AuthKey == nil {
+	uConn.authKey, _ = ecdhe.ECDH(publicKey)
+	if uConn.authKey == nil {
 		return nil, newError("REALITY: SharedKey == nil")
 	}
-	if _, err := hkdf.New(sha256.New, uConn.AuthKey, hello.Random[:20], []byte("REALITY")).Read(uConn.AuthKey); err != nil {
+	if _, err := hkdf.New(sha256.New, uConn.authKey, hello.Random[:20], []byte("REALITY")).Read(uConn.authKey); err != nil {
 		return nil, err
 	}
-	block, err := aes.NewCipher(uConn.AuthKey)
+	block, err := aes.NewCipher(uConn.authKey)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +168,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	if err := uConn.HandshakeContext(ctx); err != nil {
 		return nil, err
 	}
-	if !uConn.Verified {
+	if !uConn.verified {
 		go func() {
 			client := &http.Client{
 				Transport: &http2.Transport{
@@ -179,7 +177,7 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 					},
 				},
 			}
-			req, err := http.NewRequest("GET", "https://"+uConn.ServerName, nil)
+			req, err := http.NewRequest("GET", "https://"+uConn.serverName, nil)
 			if err != nil {
 				return
 			}

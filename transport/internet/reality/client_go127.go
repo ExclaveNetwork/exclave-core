@@ -6,34 +6,20 @@ import (
 	"crypto/mldsa"
 )
 
-type mldsaPublicKey struct {
-	*mldsa.PublicKey
+type mldsaVerify struct {
+	publicKey *mldsa.PublicKey
 }
 
-type mldsaOptions struct {
-	*mldsa.Options
+func (v *mldsaVerify) verify(message, signature []byte) error {
+	return mldsa.Verify(v.publicKey, message, signature, nil)
 }
 
-type mldsaParameters struct {
-	mldsa.Parameters
-}
-
-func mldsa65() mldsaParameters {
-	return mldsaParameters{
-		Parameters: mldsa.MLDSA65(),
-	}
-}
-
-func mldsaVerify(pk *mldsaPublicKey, message []byte, signature []byte, opts *mldsaOptions) error {
-	return mldsa.Verify(pk.PublicKey, message, signature, opts.Options)
-}
-
-func mldsaNewPublicKey(params mldsaParameters, encoding []byte) (*mldsaPublicKey, error) {
-	pk, err := mldsa.NewPublicKey(params.Parameters, encoding)
+func newMLDSA65Verify(encoding []byte) (*mldsaVerify, error) {
+	publicKey, err := mldsa.NewPublicKey(mldsa.MLDSA65(), encoding)
 	if err != nil {
 		return nil, err
 	}
-	return &mldsaPublicKey{
-		PublicKey: pk,
+	return &mldsaVerify{
+		publicKey: publicKey,
 	}, nil
 }
