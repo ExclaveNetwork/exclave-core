@@ -113,21 +113,20 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 		}
 	}
 	hello := uConn.HandshakeState.Hello
-	raw := hello.Raw
-	if raw == nil {
+	if hello.Raw == nil {
 		// utls.HelloGolang
 		var err error
-		raw, err = hello.Marshal()
+		hello.Raw, err = hello.Marshal()
 		if err != nil {
 			return nil, err
 		}
 	}
 	hello.SessionId = make([]byte, 32)
-	copy(raw[39:], hello.SessionId) // the fixed location of `Session ID`
-	hello.SessionId[0] = 25         // Version_x
-	hello.SessionId[1] = 5          // Version_y
-	hello.SessionId[2] = 16         // Version_z
-	hello.SessionId[3] = 0          // reserved
+	copy(hello.Raw[39:], hello.SessionId) // the fixed location of `Session ID`
+	hello.SessionId[0] = 25               // Version_x
+	hello.SessionId[1] = 5                // Version_y
+	hello.SessionId[2] = 16               // Version_z
+	hello.SessionId[3] = 0                // reserved
 	binary.BigEndian.PutUint32(hello.SessionId[4:], uint32(time.Now().Unix()))
 	copy(hello.SessionId[8:], config.ShortId)
 	publicKey, err := ecdh.X25519().NewPublicKey(config.PublicKey)
@@ -161,8 +160,8 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 	if err != nil {
 		return nil, err
 	}
-	aead.Seal(hello.SessionId[:0], hello.Random[20:], hello.SessionId[:16], raw)
-	copy(raw[39:], hello.SessionId)
+	aead.Seal(hello.SessionId[:0], hello.Random[20:], hello.SessionId[:16], hello.Raw)
+	copy(hello.Raw[39:], hello.SessionId)
 	if err := uConn.HandshakeContext(ctx); err != nil {
 		return nil, err
 	}
