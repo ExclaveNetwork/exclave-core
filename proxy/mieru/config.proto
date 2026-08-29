@@ -23,3 +23,18 @@ message ClientConfig {
   string handshake_mode = 8;
   string traffic_pattern = 9;
 }
+
+message ServerConfig {
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "mieru";
+
+  exclave.core.common.net.IPOrDomain address = 1;
+  uint32 port = 2;
+  repeated string port_range = 3;
+  string username = 4;
+  string password = 5;
+  string protocol = 6;
+  string multiplexing = 7;
+  string handshake_mode = 8;
+  string traffic_pattern = 9;
+}

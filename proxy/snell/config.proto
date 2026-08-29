@@ -33,3 +33,17 @@ message ClientConfig {
     PREFER_IP6 = 4;
   }
 }
+
+message ServerConfig {
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "snell";
+
+  exclave.core.common.net.IPOrDomain address = 1;
+  uint32 port = 2;
+  string psk = 3;
+  uint32 version = 4;
+  string user_key = 5;
+  string obfs_mode = 6;
+  string obfs_host = 7;
+  string obfs_uri = 8;
+}
