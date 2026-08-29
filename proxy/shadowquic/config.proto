@@ -23,3 +23,17 @@ message ClientConfig {
   string server_name = 8;
   repeated string alpn = 9;
 }
+
+message ServerConfig {
+  option (exclave.core.common.protoext.message_opt).type = "inbound";
+  option (exclave.core.common.protoext.message_opt).short_name = "shadowquic";
+
+  exclave.core.common.net.IPOrDomain address = 1;
+  uint32 port = 2;
+  string username = 3;
+  string password = 4;
+  string congestion_control = 5;
+  bool udp_over_stream = 6;
+  string server_name = 7;
+  repeated string alpn = 8;
+}
