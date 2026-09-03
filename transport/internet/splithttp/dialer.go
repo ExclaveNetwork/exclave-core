@@ -310,6 +310,9 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		mode = "packet-up"
 		if realityConfig != nil {
 			mode = "stream-one"
+			if transportConfiguration.DownloadSettings != nil {
+				mode = "stream-up"
+			}
 		}
 	}
 
