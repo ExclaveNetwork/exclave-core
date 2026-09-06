@@ -26,8 +26,8 @@ require (
 	github.com/sagernet/sing v0.9.2
 	github.com/sagernet/sing-mux v0.3.6
 	github.com/sagernet/sing-quic v0.7.0
-	github.com/sagernet/sing-shadowsocks v0.2.9
-	github.com/sagernet/sing-shadowsocks2 v0.2.2
+	github.com/sagernet/sing-shadowsocks v0.2.8
+	github.com/sagernet/sing-shadowsocks2 v0.2.1
 	github.com/sagernet/sing-snell v0.0.0-20260904135315-bc5a12ac736f
 	github.com/seiflotfy/cuckoofilter v0.0.0-20240715131351-a2f2c23f1771
 	github.com/stretchr/testify v1.12.1
