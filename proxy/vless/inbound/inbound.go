@@ -473,7 +473,7 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 	responseAddons := &encoding.Addons{}
 
 	var input *bytes.Reader
-	var rawInput *bytes.Buffer
+	var rawInput **bytes.Buffer
 	switch requestAddons.Flow {
 	case vless.XRV:
 		if account.Flow == requestAddons.Flow {
@@ -514,7 +514,13 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 				i, _ := t.FieldByName("input")
 				r, _ := t.FieldByName("rawInput")
 				input = (*bytes.Reader)(unsafe.Pointer(p + i.Offset))
-				rawInput = (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+				switch r.Type.Kind() {
+				case reflect.Struct:
+					buffer := (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+					rawInput = &buffer
+				case reflect.Pointer:
+					rawInput = (**bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+				}
 			}
 		} else {
 			return newError(account.ID.String() + " is not able to use " + requestAddons.Flow).AtWarning()

@@ -219,7 +219,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	}
 
 	var input *bytes.Reader
-	var rawInput *bytes.Buffer
+	var rawInput **bytes.Buffer
 	allowUDP443 := false
 	switch requestAddons.Flow {
 	case vless.XRV + "-udp443":
@@ -257,7 +257,13 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 			i, _ := t.FieldByName("input")
 			r, _ := t.FieldByName("rawInput")
 			input = (*bytes.Reader)(unsafe.Pointer(p + i.Offset))
-			rawInput = (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+			switch r.Type.Kind() {
+			case reflect.Struct:
+				buffer := (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+				rawInput = &buffer
+			case reflect.Pointer:
+				rawInput = (**bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+			}
 		}
 	}
 

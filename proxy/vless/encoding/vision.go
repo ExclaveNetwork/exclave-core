@@ -127,13 +127,13 @@ type VisionReader struct {
 	isUplink     bool
 	conn         net.Conn
 	input        *bytes.Reader
-	rawInput     *bytes.Buffer
+	rawInput     **bytes.Buffer
 
 	// internal
 	directReadCounter stats.Counter
 }
 
-func NewVisionReader(reader buf.Reader, trafficState *TrafficState, isUplink bool, ctx context.Context, conn net.Conn, input *bytes.Reader, rawInput *bytes.Buffer) *VisionReader {
+func NewVisionReader(reader buf.Reader, trafficState *TrafficState, isUplink bool, ctx context.Context, conn net.Conn, input *bytes.Reader, rawInput **bytes.Buffer) *VisionReader {
 	return &VisionReader{
 		Reader:       reader,
 		trafficState: trafficState,
@@ -206,13 +206,20 @@ func (w *VisionReader) ReadMultiBuffer() (buf.MultiBuffer, error) {
 		if inputBuffer, err := buf.ReadFrom(w.input); err == nil && !inputBuffer.IsEmpty() {
 			buffer, _ = buf.MergeMulti(buffer, inputBuffer)
 		}
-		if rawInputBuffer, err := buf.ReadFrom(w.rawInput); err == nil && !rawInputBuffer.IsEmpty() {
-			buffer, _ = buf.MergeMulti(buffer, rawInputBuffer)
+		rawInput := *w.rawInput
+		if rawInput != nil {
+			if rawInputBuffer, err := buf.ReadFrom(rawInput); err == nil && !rawInputBuffer.IsEmpty() {
+				buffer, _ = buf.MergeMulti(buffer, rawInputBuffer)
+			}
 		}
 		*w.input = bytes.Reader{} // release memory
 		w.input = nil
-		*w.rawInput = bytes.Buffer{} // release memory
-		w.rawInput = nil
+		if rawInput != nil {
+			rawInput.Reset()
+			// FIXME
+			// rawInputPool.Put(rawInput)
+			rawInput = nil
+		}
 
 		readerConn, readCounter, _ := UnwrapRawConn(w.conn)
 		w.directReadCounter = readCounter
