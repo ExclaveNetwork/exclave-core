@@ -235,13 +235,14 @@ func DecodeHeader(h []byte) (l int, err error) {
 }
 
 func RandBetween(from int64, to int64) int64 {
-	if from == to {
-		return from
-	}
 	if from > to {
 		from, to = to, from
 	}
-	bigInt, _ := rand.Int(rand.Reader, big.NewInt(to-from))
+	delta := to - from
+	if delta == 0 || delta == 1 {
+		return from
+	}
+	bigInt, _ := rand.Int(rand.Reader, big.NewInt(delta))
 	return from + bigInt.Int64()
 }
 

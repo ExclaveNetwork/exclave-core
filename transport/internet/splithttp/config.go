@@ -51,10 +51,11 @@ func newRandRangeConfig(defaultFrom, defaultTo int32, randRange string) (config 
 }
 
 func (c *RangeConfig) rand() int32 {
-	if c.From == c.To {
+	delta := c.To - c.From
+	if delta == 0 || delta == 1 {
 		return c.From
 	}
-	bigInt, _ := rand.Int(rand.Reader, big.NewInt(int64(c.To-c.From)))
+	bigInt, _ := rand.Int(rand.Reader, big.NewInt(int64(delta)))
 	return c.From + int32(bigInt.Int64())
 }
 
