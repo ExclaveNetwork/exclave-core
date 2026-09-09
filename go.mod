@@ -23,7 +23,7 @@ require (
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.62.0
 	github.com/refraction-networking/utls v1.8.3-0.20260802151714-23b1dac19c06
-	github.com/sagernet/sing v0.9.2
+	github.com/sagernet/sing v0.9.3
 	github.com/sagernet/sing-mux v0.3.6
 	github.com/sagernet/sing-quic v0.7.0
 	github.com/sagernet/sing-shadowsocks v0.2.8
@@ -36,10 +36,10 @@ require (
 	github.com/v2fly/struc v0.0.0-20241227015403-8e8fa1badfd6
 	go.uber.org/mock v0.6.0
 	go4.org/netipx v0.0.0-20260823151212-3075585bcbeb
-	golang.org/x/crypto v0.56.0
-	golang.org/x/net v0.58.0
-	golang.org/x/sync v0.22.0
-	golang.org/x/sys v0.47.0
+	golang.org/x/crypto v0.57.0
+	golang.org/x/net v0.59.0
+	golang.org/x/sync v0.23.0
+	golang.org/x/sys v0.48.0
 	golang.zx2c4.com/wireguard v0.0.0-20260522210424-ecfc5a8d5446
 	google.golang.org/grpc v1.83.2
 	google.golang.org/protobuf v1.36.12
@@ -70,9 +70,9 @@ require (
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
 	github.com/xtaci/smux v1.5.57 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
-	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
-	golang.org/x/text v0.41.0 // indirect
-	golang.org/x/time v0.15.0 // indirect
+	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba // indirect
+	golang.org/x/text v0.42.0 // indirect
+	golang.org/x/time v0.16.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260904194346-d0f1323225a4 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260908043556-f8649ddbbfe6 // indirect
 )
