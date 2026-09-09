@@ -60,8 +60,7 @@ func (c *Hysteria2ClientConfig) Build() (proto.Message, error) {
 }
 
 // Hysteria2ServerConfig is Inbound configuration
-type Hysteria2ServerConfig struct {
-}
+type Hysteria2ServerConfig struct{}
 
 // Build implements Buildable
 func (c *Hysteria2ServerConfig) Build() (proto.Message, error) {

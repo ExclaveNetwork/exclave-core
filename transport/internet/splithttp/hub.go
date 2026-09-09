@@ -272,7 +272,6 @@ func (h *requestHandler) ServeHTTP(writer http.ResponseWriter, request *http.Req
 			Payload: payload,
 			Seq:     seq,
 		})
-
 		if err != nil {
 			newError("failed to upload (PushPayload)").Base(err).AtInfo().WriteToLog()
 			writer.WriteHeader(http.StatusInternalServerError)

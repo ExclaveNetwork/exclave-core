@@ -112,7 +112,7 @@ func (v *AuthenticatorRequest) Build() (*http.RequestConfig, error) {
 	}
 
 	if len(v.Path) > 0 {
-		config.Uri = append([]string(nil), (v.Path)...)
+		config.Uri = append([]string(nil), v.Path...)
 	}
 
 	if len(v.Headers) > 0 {

@@ -27,8 +27,8 @@ import (
 )
 
 func TestInterfaces(t *testing.T) {
-	_ = (outbound.Handler)(new(Handler))
-	_ = (outbound.Manager)(new(Manager))
+	_ = outbound.Handler(new(Handler))
+	_ = outbound.Manager(new(Manager))
 }
 
 //go:linkname toContext github.com/exclavenetwork/exclave-core/v5.toContext
@@ -49,7 +49,7 @@ func TestOutboundWithoutStatCounter(t *testing.T) {
 	}
 
 	v, _ := core.New(config)
-	v.AddFeature((outbound.Manager)(new(Manager)))
+	v.AddFeature(outbound.Manager(new(Manager)))
 	ctx := toContext(context.Background(), v)
 	defaultNetworkImpl := systemnetworkimpl.NewSystemNetworkDefault()
 	defaultFilesystemImpl := filesystemimpl.NewDefaultFileSystemDefaultImpl()
@@ -91,7 +91,7 @@ func TestOutboundWithStatCounter(t *testing.T) {
 	}
 
 	v, _ := core.New(config)
-	v.AddFeature((outbound.Manager)(new(Manager)))
+	v.AddFeature(outbound.Manager(new(Manager)))
 	ctx := toContext(context.Background(), v)
 	defaultNetworkImpl := systemnetworkimpl.NewSystemNetworkDefault()
 	defaultFilesystemImpl := filesystemimpl.NewDefaultFileSystemDefaultImpl()

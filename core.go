@@ -17,9 +17,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/serial"
 )
 
-var (
-	version = "5.50.0"
-)
+var version = "5.50.0"
 
 // Version returns V2Ray's version as a string, in the form of "x.y.z" where x, y and z are numbers.
 // ".z" part may be omitted in regular releases.

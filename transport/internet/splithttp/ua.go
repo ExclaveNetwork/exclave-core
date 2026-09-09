@@ -23,18 +23,42 @@ func chromeVersion() int {
 }
 
 // The full Chromium brand GREASE implementation
-var clientHintGreaseNA = []string{" ", "(", ":", "-", ".", "/", ")", ";", "=", "?", "_"}
-var clientHintVersionNA = []string{"8", "99", "24"}
-var clientHintShuffle3 = [][3]int{{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 0, 1}, {2, 1, 0}}
-var clientHintShuffle4 = [][4]int{
-	{0, 1, 2, 3}, {0, 1, 3, 2}, {0, 2, 1, 3}, {0, 2, 3, 1}, {0, 3, 1, 2}, {0, 3, 2, 1},
-	{1, 0, 2, 3}, {1, 0, 3, 2}, {1, 2, 0, 3}, {1, 2, 3, 0}, {1, 3, 0, 2}, {1, 3, 2, 0},
-	{2, 0, 1, 3}, {2, 0, 3, 1}, {2, 1, 0, 3}, {2, 1, 3, 0}, {2, 3, 0, 1}, {2, 3, 1, 0},
-	{3, 0, 1, 2}, {3, 0, 2, 1}, {3, 1, 0, 2}, {3, 1, 2, 0}, {3, 2, 0, 1}, {3, 2, 1, 0}}
+var (
+	clientHintGreaseNA  = []string{" ", "(", ":", "-", ".", "/", ")", ";", "=", "?", "_"}
+	clientHintVersionNA = []string{"8", "99", "24"}
+	clientHintShuffle3  = [][3]int{{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 0, 1}, {2, 1, 0}}
+	clientHintShuffle4  = [][4]int{
+		{0, 1, 2, 3},
+		{0, 1, 3, 2},
+		{0, 2, 1, 3},
+		{0, 2, 3, 1},
+		{0, 3, 1, 2},
+		{0, 3, 2, 1},
+		{1, 0, 2, 3},
+		{1, 0, 3, 2},
+		{1, 2, 0, 3},
+		{1, 2, 3, 0},
+		{1, 3, 0, 2},
+		{1, 3, 2, 0},
+		{2, 0, 1, 3},
+		{2, 0, 3, 1},
+		{2, 1, 0, 3},
+		{2, 1, 3, 0},
+		{2, 3, 0, 1},
+		{2, 3, 1, 0},
+		{3, 0, 1, 2},
+		{3, 0, 2, 1},
+		{3, 1, 0, 2},
+		{3, 1, 2, 0},
+		{3, 2, 0, 1},
+		{3, 2, 1, 0},
+	}
+)
 
 func getGreasedChInvalidBrand(seed int) string {
 	return "\"Not" + clientHintGreaseNA[seed%len(clientHintGreaseNA)] + "A" + clientHintGreaseNA[(seed+1)%len(clientHintGreaseNA)] + "Brand\";v=\"" + clientHintVersionNA[seed%len(clientHintVersionNA)] + "\""
 }
+
 func getGreasedChOrder(brandLength int, seed int) []int {
 	switch brandLength {
 	case 1:
@@ -47,6 +71,7 @@ func getGreasedChOrder(brandLength int, seed int) []int {
 		return clientHintShuffle4[seed%len(clientHintShuffle4)][:]
 	}
 }
+
 func getUngreasedChUa(majorVersion int, forkName string) []string {
 	// Set the capacity to 4, the maximum allowed brand size, so Go will never allocate memory twice
 	baseChUa := make([]string, 0, 4)
@@ -60,6 +85,7 @@ func getUngreasedChUa(majorVersion int, forkName string) []string {
 	}
 	return baseChUa
 }
+
 func getGreasedChUa(majorVersion int, forkName string) string {
 	ungreasedCh := getUngreasedChUa(majorVersion, forkName)
 	shuffleMap := getGreasedChOrder(len(ungreasedCh), majorVersion)
@@ -75,11 +101,13 @@ func getGreasedChUa(majorVersion int, forkName string) string {
 var firefoxUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0"
 
 // The code below provides a coherent default browser user agent string based on a CPU-seeded PRNG.
-var anchoredChromeVersion = chromeVersion()
-var chromeUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + strconv.Itoa(anchoredChromeVersion) + ".0.0.0 Safari/537.36"
-var chromeUACH = getGreasedChUa(anchoredChromeVersion, "chrome")
-var msEdgeUA = chromeUA + "Edg/" + strconv.Itoa(anchoredChromeVersion) + ".0.0.0"
-var msEdgeUACH = getGreasedChUa(anchoredChromeVersion, "edge")
+var (
+	anchoredChromeVersion = chromeVersion()
+	chromeUA              = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + strconv.Itoa(anchoredChromeVersion) + ".0.0.0 Safari/537.36"
+	chromeUACH            = getGreasedChUa(anchoredChromeVersion, "chrome")
+	msEdgeUA              = chromeUA + "Edg/" + strconv.Itoa(anchoredChromeVersion) + ".0.0.0"
+	msEdgeUACH            = getGreasedChUa(anchoredChromeVersion, "edge")
+)
 
 func applyMasqueradedHeaders(header http.Header, browser string, variant string) {
 	// Browser-specific.
