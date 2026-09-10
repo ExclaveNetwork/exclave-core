@@ -26,7 +26,7 @@ func (h *SniffHeader) Domain() string {
 
 var (
 	// refer to https://pkg.go.dev/net/http@master#pkg-constants
-	methods = [...]string{"get", "post", "head", "put", "delete", "options", "connect", "patch", "trace"}
+	methods = [...]string{"get", "post", "head", "put", "delete", "options", "connect", "patch", "trace", "query"}
 
 	errNotHTTPMethod = errors.New("not an HTTP method")
 )
