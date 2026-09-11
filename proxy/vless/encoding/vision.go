@@ -592,12 +592,12 @@ func UnwrapRawConn(conn net.Conn) (net.Conn, stats.Counter, stats.Counter) {
 	var readCounter, writerCounter stats.Counter
 	if conn != nil {
 		isEncryption := false
-		if commonConn, ok := conn.(*encryption.CommonConn); ok {
-			conn = commonConn.Conn
+		if c, ok := conn.(*encryption.CommonConn); ok {
+			conn = c.Conn
 			isEncryption = true
 		}
-		if xorConn, ok := conn.(*encryption.XorConn); ok {
-			return xorConn, nil, nil // full-random xorConn should not be penetrated
+		if c, ok := conn.(*encryption.XorConn); ok {
+			return c, nil, nil // full-random xorConn should not be penetrated
 		}
 		statConn, ok := conn.(*internet.StatCouterConnection)
 		if ok {
@@ -606,22 +606,23 @@ func UnwrapRawConn(conn net.Conn) (net.Conn, stats.Counter, stats.Counter) {
 			writerCounter = statConn.WriteCounter
 		}
 		if !isEncryption { // avoids double penetration
-			if tlsConn, ok := conn.(*tls.Conn); ok {
-				conn = tlsConn.NetConn()
-			} else if utlsConn, ok := conn.(utls.UTLSClientConnection); ok {
-				conn = utlsConn.NetConn()
-			} else if realityConn, ok := conn.(*reality.Conn); ok {
-				conn = realityConn.NetConn()
-			} else if realityUConn, ok := conn.(*reality.UConn); ok {
-				conn = realityUConn.NetConn()
-			} else if gotlsConn, ok := conn.(*gotls.Conn); ok {
-				conn = gotlsConn.NetConn()
-			} else if gorealityConn, ok := conn.(*goreality.Conn); ok {
-				conn = gorealityConn.NetConn()
+			switch c := conn.(type) {
+			case *tls.Conn:
+				conn = c.NetConn()
+			case utls.UTLSClientConnection:
+				conn = c.NetConn()
+			case *reality.Conn:
+				conn = c.NetConn()
+			case *reality.UConn:
+				conn = c.NetConn()
+			case *gotls.Conn:
+				conn = c.NetConn()
+			case *goreality.Conn:
+				conn = c.NetConn()
 			}
 		}
-		if pc, ok := conn.(*proxyproto.Conn); ok {
-			conn = pc.Raw()
+		if c, ok := conn.(*proxyproto.Conn); ok {
+			conn = c.Raw()
 			// buf.Size > 4096, there is no need to process pc's bufReader
 		}
 	}

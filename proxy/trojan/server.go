@@ -323,14 +323,15 @@ func (s *Server) fallback(ctx context.Context, sid errors.ExportOption, err erro
 
 	name := ""
 	alpn := ""
-	if tlsConn, ok := iConn.(*tls.Conn); ok {
-		cs := tlsConn.ConnectionState()
+	switch c := iConn.(type) {
+	case *tls.Conn:
+		cs := c.ConnectionState()
 		name = cs.ServerName
 		alpn = cs.NegotiatedProtocol
 		newError("realName = " + name).AtInfo().WriteToLog(sid)
 		newError("realAlpn = " + alpn).AtInfo().WriteToLog(sid)
-	} else if realityConn, ok := iConn.(*reality.Conn); ok {
-		cs := realityConn.ConnectionState()
+	case *reality.Conn:
+		cs := c.ConnectionState()
 		name = cs.ServerName
 		alpn = cs.NegotiatedProtocol
 		newError("realName = " + name).AtInfo().WriteToLog(sid)
@@ -373,10 +374,7 @@ func (s *Server) fallback(ctx context.Context, sid errors.ExportOption, err erro
 			firstBytes := first.Bytes()
 			for i := 4; i <= 8; i++ { // 5 -> 9
 				if firstBytes[i] == '/' && firstBytes[i-1] == ' ' {
-					search := len(firstBytes)
-					if search > 64 {
-						search = 64 // up to about 60
-					}
+					search := min(64, len(firstBytes)) // up to about 60
 					for j := i + 1; j < search; j++ {
 						k := firstBytes[j]
 						if k == '\r' || k == '\n' { // avoid logging \r or \n

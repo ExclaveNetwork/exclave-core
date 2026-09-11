@@ -74,7 +74,6 @@ type Handler struct {
 	validator             *vless.Validator
 	decryption            *encryption.ServerInstance
 	fallbacks             map[string]map[string]map[string]*Fallback // or nil
-	// regexps               map[string]*regexp.Regexp       // or nil
 }
 
 // New creates a new VLess inbound handler.
@@ -160,7 +159,6 @@ func New(ctx context.Context, config *Config) (*Handler, error) {
 
 	if config.Fallbacks != nil {
 		handler.fallbacks = make(map[string]map[string]map[string]*Fallback)
-		// handler.regexps = make(map[string]*regexp.Regexp)
 		for _, fb := range config.Fallbacks {
 			if handler.fallbacks[fb.Name] == nil {
 				handler.fallbacks[fb.Name] = make(map[string]map[string]*Fallback)
@@ -169,15 +167,6 @@ func New(ctx context.Context, config *Config) (*Handler, error) {
 				handler.fallbacks[fb.Name][fb.Alpn] = make(map[string]*Fallback)
 			}
 			handler.fallbacks[fb.Name][fb.Alpn][fb.Path] = fb
-			/*
-				if fb.Path != "" {
-					if r, err := regexp.Compile(fb.Path); err != nil {
-						return nil, newError("invalid path regexp").Base(err).AtError()
-					} else {
-						handler.regexps[fb.Path] = r
-					}
-				}
-			*/
 		}
 		if handler.fallbacks[""] != nil {
 			for name, apfb := range handler.fallbacks {
@@ -193,7 +182,7 @@ func New(ctx context.Context, config *Config) (*Handler, error) {
 		for _, apfb := range handler.fallbacks {
 			if apfb[""] != nil {
 				for alpn, pfb := range apfb {
-					if alpn != "" { // && alpn != "h2" {
+					if alpn != "" {
 						for path, fb := range apfb[""] {
 							if pfb[path] == nil {
 								pfb[path] = fb
@@ -249,8 +238,7 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 	sid := session.ExportIDToError(ctx)
 
 	iConn := connection
-	statConn, ok := iConn.(*internet.StatCouterConnection)
-	if ok {
+	if statConn, ok := iConn.(*internet.StatCouterConnection); ok {
 		iConn = statConn.Connection
 	}
 
@@ -300,14 +288,15 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 
 			name := ""
 			alpn := ""
-			if tlsConn, ok := iConn.(*tls.Conn); ok {
-				cs := tlsConn.ConnectionState()
+			switch c := iConn.(type) {
+			case *tls.Conn:
+				cs := c.ConnectionState()
 				name = cs.ServerName
 				alpn = cs.NegotiatedProtocol
 				newError("realName = " + name).AtInfo().WriteToLog(sid)
 				newError("realAlpn = " + alpn).AtInfo().WriteToLog(sid)
-			} else if realityConn, ok := iConn.(*reality.Conn); ok {
-				cs := realityConn.ConnectionState()
+			case *reality.Conn:
+				cs := c.ConnectionState()
 				name = cs.ServerName
 				alpn = cs.NegotiatedProtocol
 				newError("realName = " + name).AtInfo().WriteToLog(sid)
@@ -346,29 +335,11 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 
 			path := ""
 			if len(pfb) > 1 || pfb[""] == nil {
-				/*
-					if lines := bytes.Split(firstBytes, []byte{'\r', '\n'}); len(lines) > 1 {
-						if s := bytes.Split(lines[0], []byte{' '}); len(s) == 3 {
-							if len(s[0]) < 8 && len(s[1]) > 0 && len(s[2]) == 8 {
-								newError("realPath = " + string(s[1])).AtInfo().WriteToLog(sid)
-								for _, fb := range pfb {
-									if fb.Path != "" && h.regexps[fb.Path].Match(s[1]) {
-										path = fb.Path
-										break
-									}
-								}
-							}
-						}
-					}
-				*/
 				if firstLen >= 18 && first.Byte(4) != '*' { // not h2c
 					firstBytes := first.Bytes()
 					for i := 4; i <= 8; i++ { // 5 -> 9
 						if firstBytes[i] == '/' && firstBytes[i-1] == ' ' {
-							search := len(firstBytes)
-							if search > 64 {
-								search = 64 // up to about 60
-							}
+							search := min(64, len(firstBytes)) // up to about 60
 							for j := i + 1; j < search; j++ {
 								k := firstBytes[j]
 								if k == '\r' || k == '\n' { // avoid logging \r or \n
@@ -468,15 +439,12 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 	}
 	inbound.User = request.User
 
-	account := request.User.Account.(*vless.MemoryAccount)
-
 	responseAddons := &encoding.Addons{}
 
 	var input *bytes.Reader
 	var rawInput **bytes.Buffer
-	switch requestAddons.Flow {
-	case vless.XRV:
-		if account.Flow == requestAddons.Flow {
+	if requestAddons.Flow == vless.XRV {
+		if account := request.User.Account.(*vless.MemoryAccount); account.Flow == requestAddons.Flow {
 			switch request.Command {
 			case protocol.RequestCommandUDP:
 				return newError(requestAddons.Flow + " doesn't support UDP").AtWarning()
@@ -484,42 +452,43 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 				fallthrough // we will break Mux connections that contain TCP requests
 			case protocol.RequestCommandTCP:
 				var t reflect.Type
-				var p uintptr
-				if commonConn, ok := connection.(*encryption.CommonConn); ok {
-					t = reflect.TypeOf(commonConn).Elem()
-					p = uintptr(unsafe.Pointer(commonConn))
+				var p unsafe.Pointer
+				if c, ok := connection.(*encryption.CommonConn); ok {
+					t = reflect.TypeOf(c).Elem()
+					p = unsafe.Pointer(c)
 				} else {
-					if tlsConn, ok := iConn.(*tls.Conn); ok {
-						if tlsConn.ConnectionState().Version != 0x0304 /* VersionTLS13 */ {
-							return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, tlsConn.ConnectionState().Version).AtWarning()
+					switch c := iConn.(type) {
+					case *tls.Conn:
+						if version := c.ConnectionState().Version; version != gotls.VersionTLS13 {
+							return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, version).AtWarning()
 						}
-						t = reflect.TypeOf(tlsConn.Conn).Elem()
-						p = uintptr(unsafe.Pointer(tlsConn.Conn))
-					} else if realityConn, ok := iConn.(*reality.Conn); ok {
-						t = reflect.TypeOf(realityConn.Conn).Elem()
-						p = uintptr(unsafe.Pointer(realityConn.Conn))
-					} else if gotlsConn, ok := iConn.(*gotls.Conn); ok {
-						if gotlsConn.ConnectionState().Version != 0x0304 /* VersionTLS13 */ {
-							return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, gotlsConn.ConnectionState().Version).AtWarning()
+						t = reflect.TypeOf(c.Conn).Elem()
+						p = unsafe.Pointer(c.Conn)
+					case *reality.Conn:
+						t = reflect.TypeOf(c.Conn).Elem()
+						p = unsafe.Pointer(c.Conn)
+					case *gotls.Conn:
+						if version := c.ConnectionState().Version; version != gotls.VersionTLS13 {
+							return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, version).AtWarning()
 						}
-						t = reflect.TypeOf(gotlsConn).Elem()
-						p = uintptr(unsafe.Pointer(gotlsConn))
-					} else if gorealityConn, ok := iConn.(*goreality.Conn); ok {
-						t = reflect.TypeOf(gorealityConn).Elem()
-						p = uintptr(unsafe.Pointer(gorealityConn))
-					} else {
+						t = reflect.TypeOf(c).Elem()
+						p = unsafe.Pointer(c)
+					case *goreality.Conn:
+						t = reflect.TypeOf(c).Elem()
+						p = unsafe.Pointer(c)
+					default:
 						return newError("XTLS only supports TLS and REALITY directly for now.").AtWarning()
 					}
 				}
 				i, _ := t.FieldByName("input")
 				r, _ := t.FieldByName("rawInput")
-				input = (*bytes.Reader)(unsafe.Pointer(p + i.Offset))
+				input = (*bytes.Reader)(unsafe.Add(p, i.Offset))
 				switch r.Type.Kind() {
 				case reflect.Struct:
-					buffer := (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+					buffer := (*bytes.Buffer)(unsafe.Add(p, r.Offset))
 					rawInput = &buffer
 				case reflect.Pointer:
-					rawInput = (**bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+					rawInput = (**bytes.Buffer)(unsafe.Add(p, r.Offset))
 				}
 			}
 		} else {

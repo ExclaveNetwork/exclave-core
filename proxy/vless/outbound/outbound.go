@@ -176,8 +176,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	defer conn.Close()
 
 	iConn := conn
-	statConn, ok := iConn.(*internet.StatCouterConnection)
-	if ok {
+	if statConn, ok := iConn.(*internet.StatCouterConnection); ok {
 		iConn = statConn.Connection
 	}
 
@@ -236,33 +235,34 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 			fallthrough // let server break Mux connections that contain TCP requests
 		case protocol.RequestCommandTCP:
 			var t reflect.Type
-			var p uintptr
-			if commonConn, ok := conn.(*encryption.CommonConn); ok {
-				t = reflect.TypeOf(commonConn).Elem()
-				p = uintptr(unsafe.Pointer(commonConn))
+			var p unsafe.Pointer
+			if c, ok := conn.(*encryption.CommonConn); ok {
+				t = reflect.TypeOf(c).Elem()
+				p = unsafe.Pointer(c)
 			} else {
-				if tlsConn, ok := iConn.(*tls.Conn); ok {
-					t = reflect.TypeOf(tlsConn.Conn).Elem()
-					p = uintptr(unsafe.Pointer(tlsConn.Conn))
-				} else if utlsConn, ok := iConn.(utls.UTLSClientConnection); ok {
-					t = reflect.TypeOf(utlsConn.Conn).Elem()
-					p = uintptr(unsafe.Pointer(utlsConn.Conn))
-				} else if realityConn, ok := iConn.(*reality.UConn); ok {
-					t = reflect.TypeOf(realityConn.Conn).Elem()
-					p = uintptr(unsafe.Pointer(realityConn.Conn))
-				} else {
+				switch c := iConn.(type) {
+				case *tls.Conn:
+					t = reflect.TypeOf(c.Conn).Elem()
+					p = unsafe.Pointer(c.Conn)
+				case utls.UTLSClientConnection:
+					t = reflect.TypeOf(c.Conn).Elem()
+					p = unsafe.Pointer(c.Conn)
+				case *reality.UConn:
+					t = reflect.TypeOf(c.Conn).Elem()
+					p = unsafe.Pointer(c.Conn)
+				default:
 					return newError("XTLS only supports TLS and REALITY directly for now.").AtWarning()
 				}
 			}
 			i, _ := t.FieldByName("input")
 			r, _ := t.FieldByName("rawInput")
-			input = (*bytes.Reader)(unsafe.Pointer(p + i.Offset))
+			input = (*bytes.Reader)(unsafe.Add(p, i.Offset))
 			switch r.Type.Kind() {
 			case reflect.Struct:
-				buffer := (*bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+				buffer := (*bytes.Buffer)(unsafe.Add(p, r.Offset))
 				rawInput = &buffer
 			case reflect.Pointer:
-				rawInput = (**bytes.Buffer)(unsafe.Pointer(p + r.Offset))
+				rawInput = (**bytes.Buffer)(unsafe.Add(p, r.Offset))
 			}
 		}
 	}
