@@ -140,6 +140,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 	if err != nil {
 		return newError("failed to connect to server").Base(err)
 	}
+	defer connection.Close()
 
 	if network == net.Network_TCP {
 		if o.streamPlugin != nil {
