@@ -2,6 +2,7 @@ package tlscfg
 
 import (
 	"encoding/base64"
+	"encoding/hex"
 	"strings"
 
 	"github.com/golang/protobuf/proto"
@@ -19,7 +20,7 @@ type TLSConfig struct {
 	ServerName                           string                `json:"serverName"`
 	ALPN                                 *cfgcommon.StringList `json:"alpn"`
 	DisableSystemRoot                    bool                  `json:"disableSystemRoot"`
-	PinnedPeerCertificateChainSha256     *[]string             `json:"pinnedPeerCertificateChainSha256"`
+	PinnedPeerCertificateChainSha256     []string              `json:"pinnedPeerCertificateChainSha256"`
 	PinnedPeerCertificatePublicKeySha256 []string              `json:"pinnedPeerCertificatePublicKeySha256"`
 	PinnedPeerCertificateSha256          []string              `json:"pinnedPeerCertificateSha256"`
 	VerifyClientCertificate              bool                  `json:"verifyClientCertificate"`
@@ -62,28 +63,36 @@ func (c *TLSConfig) Build() (proto.Message, error) {
 	config.DisableSystemRoot = c.DisableSystemRoot
 
 	if c.PinnedPeerCertificateChainSha256 != nil {
-		config.PinnedPeerCertificateChainSha256 = [][]byte{}
-		for _, v := range *c.PinnedPeerCertificateChainSha256 {
+		config.PinnedPeerCertificateChainSha256 = make([][]byte, len(c.PinnedPeerCertificateChainSha256))
+		for i, v := range c.PinnedPeerCertificateChainSha256 {
 			hashValue, err := base64.StdEncoding.DecodeString(v)
 			if err != nil {
 				return nil, err
 			}
-			config.PinnedPeerCertificateChainSha256 = append(config.PinnedPeerCertificateChainSha256, hashValue)
+			config.PinnedPeerCertificateChainSha256[i] = hashValue
 		}
 	}
 
-	if len(c.PinnedPeerCertificatePublicKeySha256) > 0 {
-		for _, v := range c.PinnedPeerCertificatePublicKeySha256 {
+	if c.PinnedPeerCertificatePublicKeySha256 != nil {
+		config.PinnedPeerCertificatePublicKeySha256 = make([][]byte, len(c.PinnedPeerCertificatePublicKeySha256))
+		for i, v := range c.PinnedPeerCertificatePublicKeySha256 {
 			hashValue, err := base64.StdEncoding.DecodeString(v)
 			if err != nil {
 				return nil, err
 			}
-			config.PinnedPeerCertificatePublicKeySha256 = append(config.PinnedPeerCertificatePublicKeySha256, hashValue)
+			config.PinnedPeerCertificatePublicKeySha256[i] = hashValue
 		}
 	}
 
-	if len(c.PinnedPeerCertificateSha256) > 0 {
-		config.PinnedPeerCertificateSha256 = c.PinnedPeerCertificateSha256
+	if c.PinnedPeerCertificateSha256 != nil {
+		config.PinnedPeerCertificateSha256 = make([][]byte, len(c.PinnedPeerCertificateSha256))
+		for i, v := range c.PinnedPeerCertificateSha256 {
+			hashValue, err := hex.DecodeString(v)
+			if err != nil {
+				return nil, err
+			}
+			config.PinnedPeerCertificateSha256[i] = hashValue
+		}
 	}
 
 	if c.ECH != nil {

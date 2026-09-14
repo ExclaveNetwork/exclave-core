@@ -231,7 +231,7 @@ type Config struct {
 	// This is an developer option.
 	Ciphersuites                         []uint32    `protobuf:"varint,19,rep,packed,name=ciphersuites,proto3" json:"ciphersuites,omitempty"`
 	PinnedPeerCertificatePublicKeySha256 [][]byte    `protobuf:"bytes,900,rep,name=pinned_peer_certificate_public_key_sha256,json=pinnedPeerCertificatePublicKeySha256,proto3" json:"pinned_peer_certificate_public_key_sha256,omitempty"`
-	PinnedPeerCertificateSha256          []string    `protobuf:"bytes,901,rep,name=pinned_peer_certificate_sha256,json=pinnedPeerCertificateSha256,proto3" json:"pinned_peer_certificate_sha256,omitempty"`
+	PinnedPeerCertificateSha256          [][]byte    `protobuf:"bytes,901,rep,name=pinned_peer_certificate_sha256,json=pinnedPeerCertificateSha256,proto3" json:"pinned_peer_certificate_sha256,omitempty"`
 	ServerNameToVerify                   []string    `protobuf:"bytes,903,rep,name=server_name_to_verify,json=serverNameToVerify,proto3" json:"server_name_to_verify,omitempty"`
 	Ech                                  *Config_ECH `protobuf:"bytes,902,opt,name=ech,proto3" json:"ech,omitempty"`
 	unknownFields                        protoimpl.UnknownFields
@@ -352,7 +352,7 @@ func (x *Config) GetPinnedPeerCertificatePublicKeySha256() [][]byte {
 	return nil
 }
 
-func (x *Config) GetPinnedPeerCertificateSha256() []string {
+func (x *Config) GetPinnedPeerCertificateSha256() [][]byte {
 	if x != nil {
 		return x.PinnedPeerCertificateSha256
 	}
@@ -474,7 +474,7 @@ const file_transport_internet_tls_config_proto_rawDesc = "" +
 	")allow_insecure_if_pinned_peer_certificate\x18\v \x01(\bR$allowInsecureIfPinnedPeerCertificate\x12\"\n" +
 	"\fciphersuites\x18\x13 \x03(\rR\fciphersuites\x12X\n" +
 	")pinned_peer_certificate_public_key_sha256\x18\x84\a \x03(\fR$pinnedPeerCertificatePublicKeySha256\x12D\n" +
-	"\x1epinned_peer_certificate_sha256\x18\x85\a \x03(\tR\x1bpinnedPeerCertificateSha256\x122\n" +
+	"\x1epinned_peer_certificate_sha256\x18\x85\a \x03(\fR\x1bpinnedPeerCertificateSha256\x122\n" +
 	"\x15server_name_to_verify\x18\x87\a \x03(\tR\x12serverNameToVerify\x12B\n" +
 	"\x03ech\x18\x86\a \x01(\v2/.exclave.core.transport.internet.tls.Config.ECHR\x03ech\x1al\n" +
 	"\x03ECH\x12\x18\n" +

@@ -116,7 +116,7 @@ func TestClone(t *testing.T) {
 		AllowInsecureIfPinnedPeerCertificate: true,
 		Ciphersuites:                         []uint32{1},
 		PinnedPeerCertificatePublicKeySha256: [][]byte{{1}},
-		PinnedPeerCertificateSha256:          []string{"1"},
+		PinnedPeerCertificateSha256:          [][]byte{{1}},
 		ServerNameToVerify:                   []string{"1"},
 		Ech: &Config_ECH{
 			Enabled:     true,

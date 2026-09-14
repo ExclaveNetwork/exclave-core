@@ -1,8 +1,8 @@
 package tls
 
 import (
+	"bytes"
 	"context"
-	"crypto/hmac"
 	"crypto/sha256"
 	"crypto/tls"
 	"crypto/x509"
@@ -315,7 +315,7 @@ func (c *Config) getTLSConfig(ctx context.Context, hasCtx bool, opts ...Option) 
 		}
 	}
 
-	pinned := c.PinnedPeerCertificateChainSha256 != nil || c.PinnedPeerCertificatePublicKeySha256 != nil || c.PinnedPeerCertificateSha256 != nil
+	pinned := len(c.PinnedPeerCertificateChainSha256) > 0 || len(c.PinnedPeerCertificatePublicKeySha256) > 0 || len(c.PinnedPeerCertificateSha256) > 0
 	if pinned || len(c.ServerNameToVerify) > 0 {
 		insecureSkipVerify := config.InsecureSkipVerify
 		if len(c.ServerNameToVerify) > 0 {
@@ -345,7 +345,7 @@ func (c *Config) getTLSConfig(ctx context.Context, hasCtx bool, opts ...Option) 
 					return errors.Combine(errs...)
 				}
 			}
-			if c.PinnedPeerCertificateChainSha256 != nil {
+			if len(c.PinnedPeerCertificateChainSha256) > 0 {
 				var hashValue []byte
 				for _, peerCertificate := range state.PeerCertificates {
 					hash := sha256.Sum256(peerCertificate.Raw)
@@ -357,31 +357,23 @@ func (c *Config) getTLSConfig(ctx context.Context, hasCtx bool, opts ...Option) 
 					}
 				}
 				if !slices.ContainsFunc(c.PinnedPeerCertificateChainSha256, func(b []byte) bool {
-					return hmac.Equal(b, hashValue)
+					return bytes.Equal(b, hashValue)
 				}) {
 					return newError("peer cert chain is unrecognized: ", base64.StdEncoding.EncodeToString(hashValue))
 				}
 			}
-			if c.PinnedPeerCertificatePublicKeySha256 != nil {
+			if len(c.PinnedPeerCertificatePublicKeySha256) > 0 {
 				hash := sha256.Sum256(state.PeerCertificates[0].RawSubjectPublicKeyInfo)
 				if !slices.ContainsFunc(c.PinnedPeerCertificatePublicKeySha256, func(b []byte) bool {
-					return hmac.Equal(b, hash[:])
+					return bytes.Equal(b, hash[:])
 				}) {
 					return newError("peer cert public key is unrecognized: ", base64.StdEncoding.EncodeToString(hash[:]))
 				}
 			}
-			if c.PinnedPeerCertificateSha256 != nil {
-				pinnedPeerCertificateSha256 := make([][]byte, len(c.PinnedPeerCertificateSha256))
-				for i, v := range c.PinnedPeerCertificateSha256 {
-					h, err := hex.DecodeString(v)
-					if err != nil {
-						return err
-					}
-					pinnedPeerCertificateSha256[i] = h
-				}
+			if len(c.PinnedPeerCertificateSha256) > 0 {
 				hash := sha256.Sum256(state.PeerCertificates[0].Raw)
-				if !slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
-					return hmac.Equal(b, hash[:])
+				if !slices.ContainsFunc(c.PinnedPeerCertificateSha256, func(b []byte) bool {
+					return bytes.Equal(b, hash[:])
 				}) {
 					opts := x509.VerifyOptions{
 						Roots:         x509.NewCertPool(),
@@ -390,8 +382,8 @@ func (c *Config) getTLSConfig(ctx context.Context, hasCtx bool, opts ...Option) 
 					hasMatch := false
 					for _, peerCertificate := range state.PeerCertificates[1:] {
 						hash := sha256.Sum256(peerCertificate.Raw)
-						if slices.ContainsFunc(pinnedPeerCertificateSha256, func(b []byte) bool {
-							return hmac.Equal(b, hash[:])
+						if slices.ContainsFunc(c.PinnedPeerCertificateSha256, func(b []byte) bool {
+							return bytes.Equal(b, hash[:])
 						}) {
 							hasMatch = true
 							opts.Roots.AddCert(peerCertificate)
