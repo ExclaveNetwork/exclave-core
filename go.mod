@@ -7,9 +7,9 @@ require (
 	github.com/adrg/xdg v0.5.3
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da
 	github.com/anytls/sing-anytls v0.0.13
-	github.com/apernet/quic-go v0.61.1-0.20260806010916-184d081eef3e
+	github.com/apernet/quic-go v0.62.1-0.20260912175848-73339f7edbb9
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
-	github.com/enfein/mieru/v3 v3.36.1
+	github.com/enfein/mieru/v3 v3.37.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.12.2-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.12.2-1
 	github.com/exclavenetwork/sing-juicity v0.3.0

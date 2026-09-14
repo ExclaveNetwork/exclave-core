@@ -26,8 +26,8 @@ github.com/andybalholm/brotli v1.2.4 h1:649LN6qF+/7JJYNN3Wdu4Dt5PS6eC/yP/Go3Bb0/
 github.com/andybalholm/brotli v1.2.4/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
 github.com/anytls/sing-anytls v0.0.13 h1:FL+krjOmwpYYLpl5rrV/BrzDMfxbi05YgIQh+NAA37c=
 github.com/anytls/sing-anytls v0.0.13/go.mod h1:7rjN6IukwysmdusYsrV51Fgu1uW6vsrdd6ctjnEAln8=
-github.com/apernet/quic-go v0.61.1-0.20260806010916-184d081eef3e h1:5mgtR5gwIgBKMiGI1QdXldZZ+SNor06Nbu1wCBulQBg=
-github.com/apernet/quic-go v0.61.1-0.20260806010916-184d081eef3e/go.mod h1:x7qxEvX6MCVtDuBKHj3E+88+BtrbEMuAL5qGUKItjW8=
+github.com/apernet/quic-go v0.62.1-0.20260912175848-73339f7edbb9 h1:IpePaGNz34fn9X8bUbm+jHBYcQKV90TbrbujQK61Txo=
+github.com/apernet/quic-go v0.62.1-0.20260912175848-73339f7edbb9/go.mod h1:J7UZVOMF2M1LiE3iiUZWPuy8YCPAcLJOwVURrfJCvc0=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=
 github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310/go.mod h1:ufUuZ+zHj4x4TnLV4JWEpy2hxWSpsRywHrMgIH9cCH8=
@@ -55,8 +55,8 @@ github.com/dgryski/go-metro v0.0.0-20200812162917-85c65e2d0165/go.mod h1:c9O8+fp
 github.com/dgryski/go-metro v0.0.0-20250106013310-edb8663e5e33 h1:ucRHb6/lvW/+mTEIGbvhcYU3S8+uSNkuMjx/qZFfhtM=
 github.com/dgryski/go-metro v0.0.0-20250106013310-edb8663e5e33/go.mod h1:c9O8+fpSOX1DM8cPNSkX/qsBWdkD4yd2dpciOWQjpBw=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
-github.com/enfein/mieru/v3 v3.36.1 h1:g8iaFf+jNc/MGE3qiGslJ4BPSPTeWPmULa0HIvfhENM=
-github.com/enfein/mieru/v3 v3.36.1/go.mod h1:zJBUCsi5rxyvHM8fjFf+GLaEl4OEjjBXr1s5F6Qd3hM=
+github.com/enfein/mieru/v3 v3.37.0 h1:DKBDeBmlbpNKiOXtKXqxJo/BF+KvJKnbChn6fryeyHg=
+github.com/enfein/mieru/v3 v3.37.0/go.mod h1:zJBUCsi5rxyvHM8fjFf+GLaEl4OEjjBXr1s5F6Qd3hM=
 github.com/exclavenetwork/hysteria/core/v2 v2.12.2-1 h1:zglF+7VgjHVO6guUPO+AHuZdJq2u6JrZ9OYIHwiyz4E=
 github.com/exclavenetwork/hysteria/core/v2 v2.12.2-1/go.mod h1:R5Uz48F3GDpNQaQOL8CWr6HONzkQUnecFZyMoAxXPk4=
 github.com/exclavenetwork/hysteria/extras/v2 v2.12.2-1 h1:FL3ItGsQFE/037i1f86I9Bd5gPGN1R7PS9c3qvPN+rM=
