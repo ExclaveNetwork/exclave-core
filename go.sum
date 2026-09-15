@@ -236,8 +236,8 @@ github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQD
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/sagernet/quic-go v0.61.0-sing-box-mod.7 h1:sW2O+DoNF+my1PGlSZ3zG2N+fdxLR3DC0l4sXCM0lBE=
 github.com/sagernet/quic-go v0.61.0-sing-box-mod.7/go.mod h1:hmLC8GJPp+BrpBgrgJnacvI4fZGIhasuy1ROJJ8GR4E=
-github.com/sagernet/sing v0.9.3 h1:66QWoMcD24KrQ4PqiaNNWApogJaf6LoozcW2RPtJ7KE=
-github.com/sagernet/sing v0.9.3/go.mod h1:K3Owt3xPhHugvlnlPPxZJ/exXdaJfEPOTNorGk4AXjo=
+github.com/sagernet/sing v0.9.4 h1:nIdH+Yvy4NzTezB+c3z/9of1jLRggnrtMtb3uMOIaNM=
+github.com/sagernet/sing v0.9.4/go.mod h1:K3Owt3xPhHugvlnlPPxZJ/exXdaJfEPOTNorGk4AXjo=
 github.com/sagernet/sing-mux v0.3.6 h1:ix+CPhZsR9XIAmEVLIUdz+itDzXs1T6iKO8eF/XOVOQ=
 github.com/sagernet/sing-mux v0.3.6/go.mod h1:QvlKMyNBNrQoyX4x+gq028uPbLM2XeRpWtDsWBJbFSk=
 github.com/sagernet/sing-quic v0.7.0 h1:dgbJdRYsa9DXbgjchnuVf2xhAvjY4/jylWdNNVZWmRU=
