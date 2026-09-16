@@ -374,11 +374,11 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		}
 		switch {
 		case transportConfiguration.UseBrowserForwarding && requestURLForDownload.Scheme == "https" && destForDownload.Port != 443:
-			requestURL.Host = net.JoinHostPort(hostForDownload, destForDownload.Port.String())
+			requestURLForDownload.Host = net.JoinHostPort(hostForDownload, destForDownload.Port.String())
 		case transportConfiguration.UseBrowserForwarding && requestURLForDownload.Scheme == "http" && destForDownload.Port != 80:
-			requestURL.Host = net.JoinHostPort(hostForDownload, destForDownload.Port.String())
+			requestURLForDownload.Host = net.JoinHostPort(hostForDownload, destForDownload.Port.String())
 		default:
-			requestURL.Host = host
+			requestURLForDownload.Host = hostForDownload
 		}
 		requestURLForDownload.Path = downloadConfig.GetNormalizedPath()
 		requestURLForDownload.RawQuery = downloadConfig.GetNormalizedQuery()
