@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	gonet "net"
 	"net/http"
 	"net/http/httptrace"
 	"sync"
@@ -43,7 +42,8 @@ func (c *DefaultDialerClient) IsClosed() bool {
 	return c.closed.Load()
 }
 
-func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId string, body io.Reader, uploadOnly bool) (wrc io.ReadCloser, remoteAddr, localAddr gonet.Addr, err error) {
+func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId string, body io.Reader, uploadOnly bool) (io.ReadCloser, net.Addr, net.Addr, error) {
+	var remoteAddr, localAddr net.Addr
 	// this is done when the TCP/UDP connection to the server was established,
 	// and we can unblock the Dial function and print correct net addresses in
 	// logs
@@ -60,23 +60,21 @@ func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId str
 	if body != nil {
 		method = c.transportConfig.GetNormalizedUplinkHTTPMethod() // stream-up/one
 	}
-	var req *http.Request
-	req, err = http.NewRequestWithContext(context.WithoutCancel(ctx), method, url, body)
+	req, err := http.NewRequestWithContext(context.WithoutCancel(ctx), method, url, body)
 	if err != nil {
-		err = newError("failed to create HTTP request for ", url).Base(err)
-		return
+		newError("failed to create HTTP request for ", url).Base(err).AtInfo().WriteToLog(session.ExportIDToError(ctx))
+		return nil, nil, nil, err
 	}
 	c.transportConfig.FillStreamRequest(req, sessionId, "")
 
-	wrc = &WaitReadCloser{wait: done.New()}
+	wrc := &WaitReadCloser{wait: done.New()}
 	go func() {
-		var resp *http.Response
-		resp, err = c.client.Do(req)
-		if err != nil {
+		resp, respErr := c.client.Do(req)
+		if respErr != nil {
 			if !uploadOnly { // stream-down is enough
 				c.client.CloseIdleConnections()
 				c.closed.Store(true)
-				newError("failed to " + method + " " + url).Base(err).AtInfo().WriteToLog(session.ExportIDToError(ctx))
+				newError("failed to " + method + " " + url).Base(respErr).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 			}
 			gotConn.Close()
 			common.Close(body)
@@ -91,14 +89,13 @@ func (c *DefaultDialerClient) OpenStream(ctx context.Context, url, sessionId str
 			resp.Body.Close() // if it is called immediately, the upload will be interrupted also
 			common.Close(body)
 			wrc.Close()
-			err = newError("unexpected status ", resp.StatusCode)
 			return
 		}
-		wrc.(*WaitReadCloser).Set(resp.Body)
+		wrc.Set(resp.Body)
 	}()
 
 	<-gotConn.Wait()
-	return wrc, remoteAddr, localAddr, err
+	return wrc, remoteAddr, localAddr, nil
 }
 
 func (c *DefaultDialerClient) PostPacket(ctx context.Context, url, sessionId, seqStr string, payload buf.MultiBuffer) error {
