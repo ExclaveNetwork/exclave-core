@@ -52,8 +52,8 @@ type netTun struct {
 	incomingPacket chan *buffer.View
 	mtu            int
 	hasV4, hasV6   bool
-	isClosed       bool
 	closeOnce      sync.Once
+	closed         chan struct{}
 }
 
 type Net netTun
@@ -70,6 +70,7 @@ func CreateNetTUN(localAddresses []netip.Addr, mtu int, promiscuousMode bool) (t
 		events:         make(chan tun.Event, 10),
 		incomingPacket: make(chan *buffer.View),
 		mtu:            mtu,
+		closed:         make(chan struct{}),
 	}
 	sackEnabledOpt := tcpip.TCPSACKEnabled(true) // TCP SACK is disabled by default
 	tcpipErr := dev.stack.SetTransportProtocolOption(tcp.ProtocolNumber, &sackEnabledOpt)
@@ -131,17 +132,20 @@ func (tun *netTun) Events() <-chan tun.Event {
 }
 
 func (tun *netTun) Read(buf [][]byte, sizes []int, offset int) (int, error) {
-	view, ok := <-tun.incomingPacket
-	if !ok {
+	select {
+	case view, ok := <-tun.incomingPacket:
+		if !ok {
+			return 0, os.ErrClosed
+		}
+		n, err := view.Read(buf[0][offset:])
+		if err != nil {
+			return 0, err
+		}
+		sizes[0] = n
+		return 1, nil
+	case <-tun.closed:
 		return 0, os.ErrClosed
 	}
-
-	n, err := view.Read(buf[0][offset:])
-	if err != nil {
-		return 0, err
-	}
-	sizes[0] = n
-	return 1, nil
 }
 
 func (tun *netTun) Write(buf [][]byte, offset int) (int, error) {
@@ -173,7 +177,10 @@ func (tun *netTun) WriteNotify() {
 	view := pkt.ToView()
 	pkt.DecRef()
 
-	tun.incomingPacket <- view
+	select {
+	case tun.incomingPacket <- view:
+	case <-tun.closed:
+	}
 }
 
 func (tun *netTun) Close() error {
@@ -182,13 +189,14 @@ func (tun *netTun) Close() error {
 		tun.stack.Close()
 		tun.ep.RemoveNotify(tun.notifyHandle)
 		tun.ep.Close()
-
 		if tun.events != nil {
 			close(tun.events)
 		}
-
-		if tun.incomingPacket != nil {
+		/*if tun.incomingPacket != nil {
 			close(tun.incomingPacket)
+		}*/
+		if tun.closed != nil {
+			close(tun.closed)
 		}
 	})
 	return nil
