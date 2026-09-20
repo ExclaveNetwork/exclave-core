@@ -10,8 +10,8 @@ require (
 	github.com/apernet/quic-go v0.62.1-0.20260912175848-73339f7edbb9
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.37.0
-	github.com/exclavenetwork/hysteria/core/v2 v2.12.2-1
-	github.com/exclavenetwork/hysteria/extras/v2 v2.12.2-1
+	github.com/exclavenetwork/hysteria/core/v2 v2.12.3-1
+	github.com/exclavenetwork/hysteria/extras/v2 v2.12.3-1
 	github.com/exclavenetwork/sing-juicity v0.3.0
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20260904152941-03a261e772e4
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
@@ -23,8 +23,8 @@ require (
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.62.0
 	github.com/refraction-networking/utls v1.8.3-0.20260802151714-23b1dac19c06
-	github.com/sagernet/sing v0.9.4
-	github.com/sagernet/sing-mux v0.3.6
+	github.com/sagernet/sing v0.9.5
+	github.com/sagernet/sing-mux v0.3.8
 	github.com/sagernet/sing-quic v0.7.0
 	github.com/sagernet/sing-shadowsocks v0.2.8
 	github.com/sagernet/sing-shadowsocks2 v0.2.1
@@ -41,7 +41,7 @@ require (
 	golang.org/x/sync v0.23.0
 	golang.org/x/sys v0.48.0
 	golang.zx2c4.com/wireguard v0.0.0-20260522210424-ecfc5a8d5446
-	google.golang.org/grpc v1.83.2
+	google.golang.org/grpc v1.84.0
 	google.golang.org/protobuf v1.36.12
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
 	h12.io/socks v1.0.3
@@ -74,5 +74,5 @@ require (
 	golang.org/x/text v0.42.0 // indirect
 	golang.org/x/time v0.16.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 // indirect
 )
