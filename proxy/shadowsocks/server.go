@@ -224,6 +224,7 @@ func (s *Server) handleConnection(ctx context.Context, conn internet.Connection,
 			if err != nil {
 				return newError("failed to handle request to shadowsocks SIP003 plugin").Base(err)
 			}
+			defer dest.Close()
 			if err := task.Run(ctx, func() error {
 				_, err := io.Copy(conn, dest)
 				return err

@@ -163,7 +163,12 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 			if err != nil {
 				return nil, err
 			}
-			return reality.UClient(detachedCtx, conn, dest, realityConfig)
+			realityConn, err := reality.UClient(detachedCtx, conn, dest, realityConfig)
+			if err != nil {
+				conn.Close()
+				return nil, err
+			}
+			return realityConn, nil
 		}
 		return transportcommon.DialWithSecuritySettings(detachedCtx, dest, streamSettings)
 	}
@@ -200,14 +205,12 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 				default:
 					packetConn = internet.NewConnWrapper(rawConn)
 				}
-				conn, err := quic.Dial(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
+				quicConn, err := quic.Dial(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
 				if err != nil {
+					rawConn.Close()
 					return nil, err
 				}
-				context.AfterFunc(conn.Context(), func() {
-					packetConn.Close()
-				})
-				return conn, nil
+				return quicConn, nil
 			},
 		}
 	case "2":

@@ -273,14 +273,16 @@ func (s *QUICNameServer) sendQuery(ctx context.Context, domain string, clientIP 
 				return
 			}
 
+			defer conn.CancelRead(0)
+
 			_, err = conn.Write(dnsReqBuf.Bytes())
 			if err != nil {
+				conn.Close()
 				newError("failed to send query").Base(err).AtError().WriteToLog()
 				return
 			}
 
 			_ = conn.Close()
-			defer conn.CancelRead(0)
 
 			var length uint16
 			err = binary.Read(conn, binary.BigEndian, &length)
@@ -342,13 +344,15 @@ func (s *QUICNameServer) QueryRaw(ctx context.Context, request []byte) ([]byte, 
 		return nil, newError("failed to open quic connection").Base(err)
 	}
 
+	defer conn.CancelRead(0)
+
 	_, err = conn.Write(dnsReqBuf.Bytes())
 	if err != nil {
+		conn.Close()
 		return nil, newError("failed to send query").Base(err)
 	}
 
 	_ = conn.Close()
-	defer conn.CancelRead(0)
 
 	var length uint16
 	err = binary.Read(conn, binary.BigEndian, &length)
@@ -548,7 +552,12 @@ func (s *QUICNameServer) openConnection(ctx context.Context) (*quic.Conn, error)
 			cnc.ConnectionInputMulti(link.Writer),
 			cnc.ConnectionOutputMultiUDP(link.Reader),
 		)
-		return quic.Dial(detachedCtx, internet.NewConnWrapper(rawConn), rawConn.RemoteAddr(), tlsConfig, quicConfig)
+		quicConn, err := quic.Dial(detachedCtx, internet.NewConnWrapper(rawConn), rawConn.RemoteAddr(), tlsConfig, quicConfig)
+		if err != nil {
+			rawConn.Close()
+			return nil, err
+		}
+		return quicConn, nil
 	}
 
 	rawConn, err := internet.DialSystem(session.ContextWithConnectionPool(ctx, s.connectionPool), s.destination, nil)
@@ -564,7 +573,12 @@ func (s *QUICNameServer) openConnection(ctx context.Context) (*quic.Conn, error)
 	default:
 		packetConn = internet.NewConnWrapper(rawConn)
 	}
-	return quic.Dial(ctx, packetConn, rawConn.RemoteAddr(), tlsConfig, quicConfig)
+	quicConn, err := quic.Dial(ctx, packetConn, rawConn.RemoteAddr(), tlsConfig, quicConfig)
+	if err != nil {
+		rawConn.Close()
+		return nil, err
+	}
+	return quicConn, nil
 }
 
 func (s *QUICNameServer) openStream(ctx context.Context) (*quic.Stream, error) {

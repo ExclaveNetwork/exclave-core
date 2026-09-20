@@ -91,11 +91,7 @@ func NewDoHLocalNameServer(url *url.URL) *DoHNameServer {
 					return nil, err
 				}
 				ctx = session.ContextWithConnectionPool(ctx, connectionPool)
-				conn, err := internet.DialSystem(ctx, dest, nil)
-				if err != nil {
-					return nil, err
-				}
-				return conn, nil
+				return internet.DialSystem(ctx, dest, nil)
 			},
 		}
 		return &http.Client{

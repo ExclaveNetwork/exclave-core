@@ -141,7 +141,6 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 	defer conn.Close()
 	if _, ok := conn.(*http2Conn); !ok && !c.h1SkipWaitForReply {
 		if _, err := conn.Write(firstPayload); err != nil {
-			conn.Close()
 			return err
 		}
 	}

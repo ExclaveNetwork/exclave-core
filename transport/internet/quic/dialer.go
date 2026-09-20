@@ -201,6 +201,7 @@ func (c *clientConnections) openConnection(ctx context.Context, dest net.Destina
 
 	tc, err := tlsConfig.GetTLSConfigWithContext(detachedContext, tls.WithDestination(dest))
 	if err != nil {
+		sysConn.Close()
 		return nil, err
 	}
 

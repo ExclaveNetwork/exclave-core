@@ -22,24 +22,30 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 
 	dialer := func(ctx context.Context, earlyData []byte) (net.Conn, io.Reader, error) {
 		var conn internet.Connection
-		var err error
 		if realityConfig := reality.ConfigFromStreamSettings(streamSettings); realityConfig != nil {
-			conn, err = internet.DialSystem(ctx, dest, streamSettings.SocketSettings)
+			rawConn, err := internet.DialSystem(ctx, dest, streamSettings.SocketSettings)
 			if err != nil {
 				return nil, nil, newError("failed to dial request to ", dest).Base(err)
 			}
-			conn, err = reality.UClient(ctx, conn, dest, realityConfig)
+			realityConn, err := reality.UClient(ctx, rawConn, dest, realityConfig)
+			if err != nil {
+				rawConn.Close()
+				return nil, nil, newError("failed to dial request to ", dest).Base(err)
+			}
+			conn = realityConn
 		} else {
-			conn, err = transportcommon.DialWithSecuritySettings(ctx, dest, streamSettings,
+			securityConn, err := transportcommon.DialWithSecuritySettings(ctx, dest, streamSettings,
 				security.OptionWithDestination{Dest: dest},
 				security.OptionWithALPN{ALPNs: []string{"http/1.1"}},
 			)
-		}
-		if err != nil {
-			return nil, nil, newError("failed to dial request to ", dest).Base(err)
+			if err != nil {
+				return nil, nil, newError("failed to dial request to ", dest).Base(err)
+			}
+			conn = securityConn
 		}
 		req, err := http.NewRequestWithContext(ctx, "GET", transportConfiguration.GetNormalizedPath(), nil)
 		if err != nil {
+			conn.Close()
 			return nil, nil, err
 		}
 
@@ -60,6 +66,7 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 
 		if len(earlyData) > 0 {
 			if transportConfiguration.EarlyDataHeaderName == "" {
+				conn.Close()
 				return nil, nil, newError("EarlyDataHeaderName is not set")
 			}
 			req.Header.Set(transportConfiguration.EarlyDataHeaderName, base64.URLEncoding.EncodeToString(earlyData))
@@ -67,12 +74,14 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 
 		err = req.Write(conn)
 		if err != nil {
+			conn.Close()
 			return nil, nil, err
 		}
 
 		if earlyData != nil && len(earlyData[earlyDataSize:]) > 0 {
 			_, err = conn.Write(earlyData[earlyDataSize:])
 			if err != nil {
+				conn.Close()
 				return nil, nil, newError("failed to finish write early data").Base(err)
 			}
 		}
@@ -80,6 +89,7 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 		bufferedConn := bufio.NewReader(conn)
 		resp, err := http.ReadResponse(bufferedConn, req) // nolint:bodyclose
 		if err != nil {
+			conn.Close()
 			return nil, nil, err
 		}
 
@@ -90,6 +100,7 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 			return conn, earlyReplyReader, nil
 		}
 
+		conn.Close()
 		return nil, nil, newError("unrecognized reply")
 	}
 

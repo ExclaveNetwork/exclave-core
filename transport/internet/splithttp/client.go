@@ -180,15 +180,6 @@ func (c *DefaultDialerClient) PostPacket(ctx context.Context, url, sessionId, se
 	return nil
 }
 
-// HTTP/1.1 and HTTP/2 will close itself, we only handle HTTP/3 here
-/*func (c *DefaultDialerClient) Close() error {
-	transport := c.client.Transport
-	if h3Transport, ok := transport.(*http3.Transport); ok {
-		h3Transport.Close()
-	}
-	return nil
-}*/
-
 type WaitReadCloser struct {
 	wait   *done.Instance
 	reader atomic.Pointer[io.ReadCloser]

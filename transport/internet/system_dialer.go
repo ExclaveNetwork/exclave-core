@@ -76,6 +76,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		} else {
 			addr, err := localdns.New().LookupIP(dest.Address.Domain())
 			if err != nil {
+				packetConn.Close()
 				return nil, err
 			}
 			destAddr.IP = addr[0]

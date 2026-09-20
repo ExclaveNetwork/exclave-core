@@ -214,6 +214,7 @@ func (i *MultiUserInbound) Process(ctx context.Context, network net.Network, con
 			if err != nil {
 				return newError("failed to handle request to shadowsocks SIP003 plugin").Base(err)
 			}
+			defer dest.Close()
 			if err := task.Run(ctx, func() error {
 				_, err := io.Copy(connection, dest)
 				return err

@@ -144,6 +144,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 			bytespool.Free(firstPayload)
 		}
 		if err != nil {
+			serverConn.Close()
 			return singbridge.ReturnError(err)
 		}
 		return singbridge.ReturnError(bufio.CopyConn(detachedCtx, singbridge.NewPipeConnWrapper(link), serverConn))

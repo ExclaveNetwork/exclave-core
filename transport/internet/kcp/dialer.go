@@ -61,10 +61,12 @@ func DialKCP(ctx context.Context, dest net.Destination, streamSettings *internet
 
 	header, err := kcpSettings.GetPackerHeader()
 	if err != nil {
+		rawConn.Close()
 		return nil, newError("failed to create packet header").Base(err)
 	}
 	security, err := kcpSettings.GetSecurity()
 	if err != nil {
+		rawConn.Close()
 		return nil, newError("failed to create security").Base(err)
 	}
 	reader := &KCPPacketReader{
@@ -91,6 +93,7 @@ func DialKCP(ctx context.Context, dest net.Destination, streamSettings *internet
 	if config := tls.ConfigFromStreamSettings(streamSettings); config != nil {
 		tlsConfig, err := config.GetTLSConfigWithContext(ctx, tls.WithDestination(dest))
 		if err != nil {
+			iConn.Close()
 			return nil, err
 		}
 		iConn = tls.Client(iConn, tlsConfig)

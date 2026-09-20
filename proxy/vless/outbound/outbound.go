@@ -173,7 +173,9 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	if err != nil {
 		return newError("failed to find an available destination").Base(err).AtWarning()
 	}
-	defer conn.Close()
+	defer func() {
+		conn.Close()
+	}()
 
 	iConn := conn
 	if statConn, ok := iConn.(*internet.StatCouterConnection); ok {
@@ -189,10 +191,11 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	newError("tunneling request to ", target, " via ", rec.Destination().NetAddr()).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 
 	if h.encryption != nil {
-		var err error
-		if conn, err = h.encryption.Handshake(conn); err != nil {
+		encryptionConn, err := h.encryption.Handshake(conn)
+		if err != nil {
 			return newError("ML-KEM-768 handshake failed").Base(err).AtInfo()
 		}
+		conn = encryptionConn
 	}
 
 	command := protocol.RequestCommandTCP

@@ -156,9 +156,14 @@ func getGrpcClient(ctx context.Context, dest net.Destination, streamSettings *in
 				return nil, err
 			}
 			if realityConfig := reality.ConfigFromStreamSettings(streamSettings); realityConfig != nil {
-				return reality.UClient(detachedContext, conn, dest, realityConfig)
+				realityConn, err := reality.UClient(detachedContext, conn, dest, realityConfig)
+				if err != nil {
+					conn.Close()
+					return nil, err
+				}
+				return realityConn, nil
 			}
-			return conn, err
+			return conn, nil
 		}),
 		grpc.WithDisableServiceConfig(),
 	}

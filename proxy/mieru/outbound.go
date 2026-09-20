@@ -147,6 +147,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 	if err != nil {
 		return err
 	}
+	defer conn.Close()
 
 	var reader buf.Reader
 	var writer buf.Writer

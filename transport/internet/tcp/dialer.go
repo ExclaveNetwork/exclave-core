@@ -23,24 +23,31 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 	securityEngine, _ := security.CreateSecurityEngineFromSettings(ctx, streamSettings)
 
 	if securityEngine != nil {
-		conn, err = securityEngine.Client(conn, security.OptionWithDestination{Dest: dest})
+		securityConn, err := securityEngine.Client(conn, security.OptionWithDestination{Dest: dest})
 		if err != nil {
+			conn.Close()
 			return nil, newError("unable to create security protocol client from security engine").Base(err)
 		}
+		conn = securityConn
 	} else if config := reality.ConfigFromStreamSettings(streamSettings); config != nil {
-		if conn, err = reality.UClient(ctx, conn, dest, config); err != nil {
+		realityConn, err := reality.UClient(ctx, conn, dest, config)
+		if err != nil {
+			conn.Close()
 			return nil, err
 		}
+		conn = realityConn
 	}
 
 	tcpSettings := streamSettings.ProtocolSettings.(*Config)
 	if tcpSettings.HeaderSettings != nil {
 		headerConfig, err := serial.GetInstanceOf(tcpSettings.HeaderSettings)
 		if err != nil {
+			conn.Close()
 			return nil, newError("failed to get header settings").Base(err).AtError()
 		}
 		auth, err := internet.CreateConnectionAuthenticator(headerConfig)
 		if err != nil {
+			conn.Close()
 			return nil, newError("failed to create header authenticator").Base(err).AtError()
 		}
 		conn = auth.Client(conn)

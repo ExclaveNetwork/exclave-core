@@ -64,11 +64,12 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 			if err != nil {
 				return nil, newError("dial REALITY connection failed").Base(err)
 			}
-			conn, err = reality.UClient(ctx, conn, dest, realityConfig)
+			realityConn, err := reality.UClient(ctx, conn, dest, realityConfig)
 			if err != nil {
+				conn.Close()
 				return nil, newError("unable to create REALITY client").Base(err)
 			}
-			return conn, nil
+			return realityConn, nil
 		}
 	} else if securityEngine != nil {
 		protocol = "wss"
@@ -78,13 +79,14 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 			if err != nil {
 				return nil, newError("dial TLS connection failed").Base(err)
 			}
-			conn, err = securityEngine.Client(conn,
+			securityConn, err := securityEngine.Client(conn,
 				security.OptionWithDestination{Dest: dest},
 				security.OptionWithALPN{ALPNs: []string{"http/1.1"}})
 			if err != nil {
+				conn.Close()
 				return nil, newError("unable to create security protocol client from security engine").Base(err)
 			}
-			return conn, nil
+			return securityConn, nil
 		}
 	}
 

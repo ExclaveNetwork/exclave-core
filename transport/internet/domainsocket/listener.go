@@ -94,6 +94,7 @@ func (ln *Listener) run() {
 			} else if ln.realityConfig != nil {
 				if conn, err = utls.RealityServer(context.Background(), conn, ln.realityConfig); err != nil {
 					newError(err).AtInfo().WriteToLog()
+					// conn closed by utls.RealityServer
 					return
 				}
 			}

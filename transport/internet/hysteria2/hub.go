@@ -130,12 +130,14 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 		case "standard", "conservative", "aggressive":
 			congestionConfig.BBRProfile = congestion.BbrProfile
 		default:
+			rawConn.Close()
 			return nil, newError("unknown congestion BBR profile: ", congestion.BbrProfile)
 		}
 	case "reno":
 		congestionConfig.Type = "reno"
 	case "brutal":
 	default:
+		rawConn.Close()
 		return nil, newError("unknown congestion type: ", congestion.Type)
 	}
 	hyConfig.CongestionConfig = congestionConfig
@@ -152,9 +154,11 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 			})
 		case "":
 		default:
+			rawConn.Close()
 			return nil, newError("unknown obfs type: ", config.Obfs.Type)
 		}
 		if err != nil {
+			rawConn.Close()
 			return nil, err
 		}
 	} else {
@@ -163,6 +167,7 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 
 	hyServer, err := hyServer.NewServer(hyConfig)
 	if err != nil {
+		rawConn.Close()
 		return nil, err
 	}
 

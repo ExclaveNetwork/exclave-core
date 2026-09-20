@@ -402,6 +402,8 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 		tr := &quic.Transport{Conn: conn, StatelessResetKey: k}
 		l.h3listener, err = tr.ListenEarly(tlsConfig.GetTLSConfig(), nil)
 		if err != nil {
+			tr.Close()
+			conn.Close()
 			return nil, newError("failed to listen QUIC for XHTTP/3 on ", address, ":", port).Base(err)
 		}
 		handler.localAddr = l.h3listener.Addr()
@@ -412,8 +414,6 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 			if err := l.h3server.ServeListener(l.h3listener); err != nil {
 				newError("failed to serve HTTP/3 for XHTTP/3").Base(err).AtWarning().WriteToLog(session.ExportIDToError(ctx))
 			}
-			_ = tr.Close()
-			_ = conn.Close()
 		}()
 		newError("listening QUIC for XHTTP/3 on ", address, ":", port).WriteToLog(session.ExportIDToError(ctx))
 

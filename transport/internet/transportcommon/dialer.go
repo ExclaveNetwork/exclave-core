@@ -19,6 +19,7 @@ func DialWithSecuritySettings(ctx context.Context, dest net.Destination, streamS
 	}
 	securityEngine, err := security.CreateSecurityEngineFromSettings(ctx, streamSettings)
 	if err != nil {
+		conn.Close()
 		return nil, newError("unable to create security engine").Base(err)
 	}
 
@@ -26,10 +27,12 @@ func DialWithSecuritySettings(ctx context.Context, dest net.Destination, streamS
 		if len(options) == 0 {
 			options = []security.Option{security.OptionWithDestination{Dest: dest}}
 		}
-		conn, err = securityEngine.Client(conn, options...)
+		securityConn, err := securityEngine.Client(conn, options...)
 		if err != nil {
+			conn.Close()
 			return nil, newError("unable to create security protocol client from security engine").Base(err)
 		}
+		return internet.Connection(securityConn), nil
 	}
 	return internet.Connection(conn), nil
 }

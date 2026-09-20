@@ -92,20 +92,25 @@ func (c *Client) Dial(ctx context.Context) (net.Conn, error) {
 	if c.config.SecurityConfig != nil {
 		securityConfigSetting, err := serial.GetInstanceOf(c.config.SecurityConfig)
 		if err != nil {
+			conn.Close()
 			return nil, newError("unable to get security config instance").Base(err)
 		}
 		securityEngine, err := common.CreateObject(c.ctx, securityConfigSetting)
 		if err != nil {
+			conn.Close()
 			return nil, newError("unable to create security engine from security settings").Base(err)
 		}
 		securityEngineTyped, ok := securityEngine.(security.Engine)
 		if !ok {
+			conn.Close()
 			return nil, newError("type assertion error when create security engine from security settings")
 		}
-		conn, err = securityEngineTyped.Client(conn, security.OptionWithDestination{Dest: dest})
+		securityConn, err := securityEngineTyped.Client(conn, security.OptionWithDestination{Dest: dest})
 		if err != nil {
+			conn.Close()
 			return nil, newError("unable to create security protocol client from security engine").Base(err)
 		}
+		conn = securityConn
 	}
 	return conn, nil
 }

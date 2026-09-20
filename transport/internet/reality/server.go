@@ -26,6 +26,7 @@ func (c *Conn) HandshakeAddress() net.Address {
 func Server(ctx context.Context, conn net.Conn, config *utls.RealityConfig) (net.Conn, error) {
 	realityConn, err := utls.RealityServer(ctx, conn, config)
 	if err != nil {
+		// conn closed by utls.RealityServer
 		return nil, err
 	}
 	return &Conn{Conn: realityConn}, nil

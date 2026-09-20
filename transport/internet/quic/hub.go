@@ -114,7 +114,7 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 
 	conn, err := wrapSysConn(rawConn, config)
 	if err != nil {
-		conn.Close()
+		rawConn.Close()
 		return nil, err
 	}
 
@@ -125,6 +125,7 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
 
 	qListener, err := tr.Listen(tlsConfig.GetTLSConfig(), quicConfig)
 	if err != nil {
+		tr.Close()
 		conn.Close()
 		return nil, err
 	}

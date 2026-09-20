@@ -103,12 +103,17 @@ func getHTTPClient(ctx context.Context, dest net.Destination, securityEngine *se
 			}
 
 			if realitySettings := reality.ConfigFromStreamSettings(streamSettings); realitySettings != nil {
-				return reality.UClient(detachedContext, pconn, dest, realitySettings)
+				realityConn, err := reality.UClient(detachedContext, pconn, dest, realitySettings)
+				if err != nil {
+					pconn.Close()
+					return nil, err
+				}
+				return realityConn, nil
 			}
 
-			cn, err := (*securityEngine).Client(pconn,
-				security.OptionWithDestination{Dest: dest})
+			cn, err := (*securityEngine).Client(pconn, security.OptionWithDestination{Dest: dest})
 			if err != nil {
+				pconn.Close()
 				return nil, err
 			}
 

@@ -83,10 +83,12 @@ func ListenTCP(ctx context.Context, address net.Address, port net.Port, streamSe
 	if tcpSettings.HeaderSettings != nil {
 		headerConfig, err := serial.GetInstanceOf(tcpSettings.HeaderSettings)
 		if err != nil {
+			listener.Close()
 			return nil, newError("invalid header settings").Base(err).AtError()
 		}
 		auth, err := internet.CreateConnectionAuthenticator(headerConfig)
 		if err != nil {
+			listener.Close()
 			return nil, newError("invalid header settings.").Base(err).AtError()
 		}
 		l.authConfig = auth
@@ -121,6 +123,7 @@ func (v *Listener) keepAccepting() {
 			if v.realityConfig != nil {
 				if conn, err = reality.Server(v.ctx, conn, v.realityConfig); err != nil {
 					newError(err).AtInfo().WriteToLog()
+					// conn closed by reality.Server
 					return
 				}
 			}

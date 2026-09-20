@@ -248,10 +248,11 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 	}
 
 	if h.decryption != nil {
-		var err error
-		if connection, err = h.decryption.Handshake(connection, nil); err != nil {
+		decryptionConn, err := h.decryption.Handshake(connection, nil)
+		if err != nil {
 			return newError("ML-KEM-768 handshake failed").Base(err).AtInfo()
 		}
+		connection = decryptionConn
 	}
 
 	first := buf.FromBytes(make([]byte, buf.Size))

@@ -140,7 +140,6 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 	if err != nil {
 		return newError("failed to connect to server").Base(err)
 	}
-	defer connection.Close()
 
 	if network == net.Network_TCP {
 		if o.streamPlugin != nil {
@@ -182,8 +181,10 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		return singbridge.ReturnError(bufio.CopyConn(ctx, singbridge.NewPipeConnWrapper(link), serverConn))
 	} else {
 		if o.uotClient != nil {
-			uotConn, err := o.uotClient.DialEarlyConn(o.method.DialEarlyConn(connection, M.Socksaddr{Fqdn: uot.MagicAddress}), false, singbridge.ToSocksAddr(destination))
+			serverConn := o.method.DialEarlyConn(connection, M.Socksaddr{Fqdn: uot.MagicAddress})
+			uotConn, err := o.uotClient.DialEarlyConn(serverConn, false, singbridge.ToSocksAddr(destination))
 			if err != nil {
+				serverConn.Close()
 				return err
 			}
 			return singbridge.ReturnError(bufio.CopyPacketConn(ctx, singbridge.NewPacketConnWrapper(link, destination), uotConn))

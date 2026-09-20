@@ -178,6 +178,7 @@ func (d *persistentMirrorTLSDialer) handleIncomingCarrierConnection(ctx context.
 			uniformRandomAddBigInt, err := cryptoRand.Int(cryptoRand.Reader, uniformRandomAdd)
 			if err != nil {
 				newError("failed to generate random delay").Base(err).AtWarning().WriteToLog()
+				forwardConn.Close()
 				return
 			}
 			uniformRandomAddU64 := uint64(uniformRandomAddBigInt.Int64())

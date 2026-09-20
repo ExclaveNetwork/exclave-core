@@ -401,14 +401,17 @@ func (h *Handler) Dial(ctx context.Context, dest net.Destination) (internet.Conn
 
 				securityEngine, err := security.CreateSecurityEngineFromSettings(ctx, h.streamSettings)
 				if err != nil {
+					conn.Close()
 					return nil, newError("unable to create security engine").Base(err)
 				}
 
 				if securityEngine != nil {
-					conn, err = securityEngine.Client(conn, security.OptionWithDestination{Dest: dest})
+					securityConn, err := securityEngine.Client(conn, security.OptionWithDestination{Dest: dest})
 					if err != nil {
+						conn.Close()
 						return nil, newError("unable to create security protocol client from security engine").Base(err)
 					}
+					conn = securityConn
 				}
 
 				return h.getStatCouterConnection(conn), nil
