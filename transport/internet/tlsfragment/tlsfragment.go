@@ -35,7 +35,7 @@ type tlsFragmentConn struct {
 }
 
 func (c *tlsFragmentConn) Write(b []byte) (int, error) {
-	if c.firstPacketWritten {
+	if c.firstPacketWritten || len(b) == 0 {
 		return c.Conn.Write(b)
 	}
 	c.firstPacketWritten = true
