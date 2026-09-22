@@ -12,13 +12,13 @@ require (
 	github.com/enfein/mieru/v3 v3.37.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.12.3-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.12.3-1
+	github.com/exclavenetwork/reality v0.0.0-20260921174136-96fe685b8ce9
 	github.com/exclavenetwork/sing-juicity v0.3.0
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20260904152941-03a261e772e4
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
 	github.com/gorilla/websocket v1.5.3
-	github.com/metacubex/utls v1.8.7
 	github.com/miekg/dns v1.1.73
 	github.com/pires/go-proxyproto v0.15.0
 	github.com/quic-go/quic-go v0.63.0
@@ -64,6 +64,7 @@ require (
 	github.com/metacubex/jls-tls v0.0.0-20260723084315-67adc0e2f796 // indirect
 	github.com/metacubex/mlkem v0.1.0 // indirect
 	github.com/metacubex/randv2 v0.2.1-0.20260726125100-81aa96a9b1a5 // indirect
+	github.com/metacubex/utls v1.8.7 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
 	github.com/sagernet/quic-go v0.61.0-sing-box-mod.7 // indirect

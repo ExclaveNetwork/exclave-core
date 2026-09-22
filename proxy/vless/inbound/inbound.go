@@ -14,7 +14,7 @@ import (
 	"time"
 	"unsafe"
 
-	goreality "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 	"github.com/pires/go-proxyproto"
 
 	core "github.com/exclavenetwork/exclave-core/v5"

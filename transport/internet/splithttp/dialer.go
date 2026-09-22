@@ -163,7 +163,7 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 			if err != nil {
 				return nil, err
 			}
-			realityConn, err := reality.UClient(detachedCtx, conn, dest, realityConfig)
+			realityConn, err := reality.Client(detachedCtx, conn, dest, realityConfig)
 			if err != nil {
 				conn.Close()
 				return nil, err

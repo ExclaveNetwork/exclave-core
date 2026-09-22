@@ -25,6 +25,8 @@ type REALITYConfig struct {
 	Password    string          `json:"password"`
 	PrivateKey  string          `json:"privateKey"`
 	ShortIds    []string        `json:"shortIds"`
+	MaxTimeDiff uint64          `json:"maxTimeDiff"`
+	MLDSA65Seed string          `json:"mldsa65Seed"`
 
 	Fingerprint           string `json:"fingerprint"`
 	ServerName            string `json:"serverName"`
@@ -87,9 +89,6 @@ func (c *REALITYConfig) Build() (proto.Message, error) {
 		if config.PrivateKey, err = base64.RawURLEncoding.DecodeString(c.PrivateKey); err != nil || len(config.PrivateKey) != 32 {
 			return nil, newError(`invalid "password": `, c.PrivateKey)
 		}
-		if len(c.ShortIds) == 0 {
-			c.ShortIds = []string{""}
-		}
 		config.ShortIds = make([][]byte, len(c.ShortIds))
 		for i, s := range c.ShortIds {
 			if len(s) > 16 {
@@ -104,6 +103,15 @@ func (c *REALITYConfig) Build() (proto.Message, error) {
 		config.Type = c.Type
 		config.Xver = c.Xver
 		config.ServerNames = c.ServerNames
+		config.MaxTimeDiff = c.MaxTimeDiff
+		if c.MLDSA65Seed != "" {
+			if c.MLDSA65Seed == c.PrivateKey {
+				return nil, newError(`"mldsa65Seed" and "privateKey" can not be the same value: `, c.MLDSA65Seed)
+			}
+			if config.Mldsa65Seed, err = base64.RawURLEncoding.DecodeString(c.MLDSA65Seed); err != nil || len(config.Mldsa65Seed) != 32 {
+				return nil, newError(`invalid "mldsa65Seed": `, c.MLDSA65Seed)
+			}
+		}
 	} else {
 		config.Fingerprint = strings.ToLower(c.Fingerprint)
 		if len(c.ServerNames) != 0 {

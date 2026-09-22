@@ -250,6 +250,9 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 				case utls.UTLSClientConnection:
 					t = reflect.TypeOf(c.Conn).Elem()
 					p = unsafe.Pointer(c.Conn)
+				case *reality.Conn:
+					t = reflect.TypeOf(c.Conn).Elem()
+					p = unsafe.Pointer(c.Conn)
 				case *reality.UConn:
 					t = reflect.TypeOf(c.Conn).Elem()
 					p = unsafe.Pointer(c.Conn)

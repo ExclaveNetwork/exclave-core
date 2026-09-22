@@ -64,7 +64,7 @@ func dialWebsocket(ctx context.Context, dest net.Destination, streamSettings *in
 			if err != nil {
 				return nil, newError("dial REALITY connection failed").Base(err)
 			}
-			realityConn, err := reality.UClient(ctx, conn, dest, realityConfig)
+			realityConn, err := reality.Client(ctx, conn, dest, realityConfig)
 			if err != nil {
 				conn.Close()
 				return nil, newError("unable to create REALITY client").Base(err)

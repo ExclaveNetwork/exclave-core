@@ -30,7 +30,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		}
 		conn = securityConn
 	} else if config := reality.ConfigFromStreamSettings(streamSettings); config != nil {
-		realityConn, err := reality.UClient(ctx, conn, dest, config)
+		realityConn, err := reality.Client(ctx, conn, dest, config)
 		if err != nil {
 			conn.Close()
 			return nil, err

@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	utls "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/http3"
 
@@ -446,7 +446,7 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 		l.listener = gotls.NewListener(l.listener, tlsConfig.GetTLSConfig())
 	}
 	if realityConfig != nil {
-		l.listener = utls.NewRealityListener(l.listener, realityConfig.GetREALITYConfig())
+		l.listener = goreality.NewRealityListener(l.listener, realityConfig.GetREALITYConfig())
 	}
 
 	handler.localAddr = l.listener.Addr()

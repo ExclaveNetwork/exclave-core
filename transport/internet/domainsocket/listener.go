@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	utls "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -21,7 +21,7 @@ type Listener struct {
 	addr          *net.UnixAddr
 	ln            net.Listener
 	tlsConfig     *gotls.Config
-	realityConfig *utls.RealityConfig
+	realityConfig *goreality.Config
 	config        *Config
 	addConn       internet.ConnHandler
 	locker        *fileLocker
@@ -92,9 +92,9 @@ func (ln *Listener) run() {
 			if ln.tlsConfig != nil {
 				conn = tls.Server(conn, ln.tlsConfig)
 			} else if ln.realityConfig != nil {
-				if conn, err = utls.RealityServer(context.Background(), conn, ln.realityConfig); err != nil {
+				if conn, err = goreality.RealityServer(context.Background(), conn, ln.realityConfig); err != nil {
 					newError(err).AtInfo().WriteToLog()
-					// conn closed by utls.RealityServer
+					// conn closed by goreality.RealityServer
 					return
 				}
 			}

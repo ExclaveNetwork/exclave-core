@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	utls "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -117,7 +117,7 @@ func listenHTTPUpgrade(ctx context.Context, address net.Address, port net.Port, 
 		if err != nil {
 			return nil, newError("failed to listen on ", address, ":", port).Base(err)
 		}
-		serverInstance.innnerListener = utls.NewRealityListener(listener, realityConfig.GetREALITYConfig())
+		serverInstance.innnerListener = goreality.NewRealityListener(listener, realityConfig.GetREALITYConfig())
 		go serverInstance.keepAccepting()
 		return serverInstance, nil
 	}

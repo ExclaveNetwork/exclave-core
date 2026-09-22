@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	utls "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -23,7 +23,7 @@ type Listener struct {
 	ctx           context.Context
 	listener      net.Listener
 	tlsConfig     *gotls.Config
-	realityConfig *utls.RealityConfig
+	realityConfig *goreality.Config
 	authConfig    internet.ConnectionAuthenticator
 	config        *Config
 	addConn       internet.ConnHandler

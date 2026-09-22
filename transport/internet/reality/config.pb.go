@@ -24,6 +24,8 @@ type Config struct {
 	ServerNames           []string               `protobuf:"bytes,4,rep,name=server_names,json=serverNames,proto3" json:"server_names,omitempty"`
 	PrivateKey            []byte                 `protobuf:"bytes,5,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
 	ShortIds              [][]byte               `protobuf:"bytes,6,rep,name=short_ids,json=shortIds,proto3" json:"short_ids,omitempty"`
+	MaxTimeDiff           uint64                 `protobuf:"varint,7,opt,name=max_time_diff,json=maxTimeDiff,proto3" json:"max_time_diff,omitempty"`
+	Mldsa65Seed           []byte                 `protobuf:"bytes,8,opt,name=mldsa65_seed,json=mldsa65Seed,proto3" json:"mldsa65_seed,omitempty"`
 	Fingerprint           string                 `protobuf:"bytes,21,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"`
 	ServerName            string                 `protobuf:"bytes,22,opt,name=server_name,json=serverName,proto3" json:"server_name,omitempty"`
 	PublicKey             []byte                 `protobuf:"bytes,23,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
@@ -106,6 +108,20 @@ func (x *Config) GetShortIds() [][]byte {
 	return nil
 }
 
+func (x *Config) GetMaxTimeDiff() uint64 {
+	if x != nil {
+		return x.MaxTimeDiff
+	}
+	return 0
+}
+
+func (x *Config) GetMldsa65Seed() []byte {
+	if x != nil {
+		return x.Mldsa65Seed
+	}
+	return nil
+}
+
 func (x *Config) GetFingerprint() string {
 	if x != nil {
 		return x.Fingerprint
@@ -152,7 +168,7 @@ var File_transport_internet_reality_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_reality_config_proto_rawDesc = "" +
 	"\n" +
-	"'transport/internet/reality/config.proto\x12'exclave.core.transport.internet.reality\x1a common/protoext/extensions.proto\"\x99\x03\n" +
+	"'transport/internet/reality/config.proto\x12'exclave.core.transport.internet.reality\x1a common/protoext/extensions.proto\"\xe0\x03\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04dest\x18\x01 \x01(\tR\x04dest\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n" +
@@ -160,7 +176,9 @@ const file_transport_internet_reality_config_proto_rawDesc = "" +
 	"\fserver_names\x18\x04 \x03(\tR\vserverNames\x12\x1f\n" +
 	"\vprivate_key\x18\x05 \x01(\fR\n" +
 	"privateKey\x12\x1b\n" +
-	"\tshort_ids\x18\x06 \x03(\fR\bshortIds\x12 \n" +
+	"\tshort_ids\x18\x06 \x03(\fR\bshortIds\x12\"\n" +
+	"\rmax_time_diff\x18\a \x01(\x04R\vmaxTimeDiff\x12!\n" +
+	"\fmldsa65_seed\x18\b \x01(\fR\vmldsa65Seed\x12 \n" +
 	"\vfingerprint\x18\x15 \x01(\tR\vfingerprint\x12\x1f\n" +
 	"\vserver_name\x18\x16 \x01(\tR\n" +
 	"serverName\x12\x1d\n" +

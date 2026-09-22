@@ -3,182 +3,134 @@ package reality
 import (
 	"bytes"
 	"context"
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/ecdh"
 	"crypto/ed25519"
 	"crypto/hmac"
-	"crypto/sha256"
 	"crypto/sha512"
-	gotls "crypto/tls"
+	"crypto/tls"
 	"crypto/x509"
-	"encoding/binary"
 	"io"
 	"net/http"
-	"slices"
+	"net/url"
 	"strings"
-	"time"
 
-	utls "github.com/refraction-networking/utls"
-	"golang.org/x/crypto/hkdf"
+	"github.com/exclavenetwork/reality"
 	"golang.org/x/net/http2"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/dice"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
-type UConn struct {
-	*utls.UConn
-	serverName  string
-	authKey     []byte
-	mldsaVerify *mldsaVerify
-	verified    bool
+func Client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
+	if len(config.Fingerprint) > 0 {
+		return uclient(ctx, conn, dest, config)
+	}
+	return client(ctx, conn, dest, config)
 }
 
-func (c *UConn) verifyConnection(state utls.ConnectionState) error {
-	if pub, ok := state.PeerCertificates[0].PublicKey.(ed25519.PublicKey); ok {
-		h := hmac.New(sha512.New, c.authKey)
-		h.Write(pub)
-		if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
-			if c.mldsaVerify != nil {
-				if len(state.PeerCertificates[0].Extensions) > 0 {
-					h.Write(c.HandshakeState.Hello.Raw)
-					h.Write(c.HandshakeState.ServerHello.Raw)
-					if c.mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value) == nil {
-						c.verified = true
+func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
+	serverName := config.ServerName
+	if len(serverName) == 0 {
+		if dest.Address.Family().IsDomain() {
+			serverName = dest.Address.Domain()
+		} else {
+			serverName = dest.Address.IP().String()
+		}
+	}
+	var mldsaVerify *mldsaVerify
+	if len(config.Mldsa65Verify) > 0 {
+		verify, err := newMLDSA65Verify(config.Mldsa65Verify)
+		if err != nil {
+			return nil, err
+		}
+		mldsaVerify = verify
+	}
+	verified := false
+	realityConfig := &reality.Config{
+		ServerName:             serverName,
+		SessionTicketsDisabled: true,
+		InsecureSkipVerify:     true,
+		RealityClientConfig: reality.RealityClientConfig{
+			PublicKey:     config.PublicKey,
+			ShortId:       [8]byte(config.ShortId),
+			ClientVersion: [3]byte{25, 5, 16},
+		},
+		VerifyConnection: func(state reality.ConnectionState) error {
+			if publicKey, ok := state.PeerCertificates[0].PublicKey.(ed25519.PublicKey); ok {
+				authKey, err := state.RealityAuthKey()
+				if err != nil {
+					return err
+				}
+				h := hmac.New(sha512.New, authKey)
+				_, err = h.Write(publicKey)
+				if err != nil {
+					return err
+				}
+				if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
+					if mldsaVerify != nil {
+						if len(state.PeerCertificates[0].Extensions) > 0 {
+							clientHello, err := state.RawClientHello()
+							if err != nil {
+								return err
+							}
+							serverHello, err := state.RawServerHello()
+							if err != nil {
+								return err
+							}
+							if _, err = h.Write(clientHello); err != nil {
+								return err
+							}
+							if _, err = h.Write(serverHello); err != nil {
+								return err
+							}
+							if err := mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value); err != nil {
+								return err
+							}
+							verified = true
+							return nil
+						}
+					} else {
+						verified = true
 						return nil
 					}
 				}
-			} else {
-				c.verified = true
-				return nil
 			}
-		}
-	}
-	opts := x509.VerifyOptions{
-		DNSName:       c.serverName,
-		Intermediates: x509.NewCertPool(),
-	}
-	for _, cert := range state.PeerCertificates[1:] {
-		opts.Intermediates.AddCert(cert)
-	}
-	if _, err := state.PeerCertificates[0].Verify(opts); err != nil {
-		return err
-	}
-	return nil
-}
-
-func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
-	uConn := &UConn{}
-	if len(config.Mldsa65Verify) > 0 {
-		mldsaVerify, err := newMLDSA65Verify(config.Mldsa65Verify)
-		if err != nil {
-			return nil, err
-		}
-		uConn.mldsaVerify = mldsaVerify
-	}
-	utlsConfig := &utls.Config{
-		VerifyConnection:       uConn.verifyConnection,
-		ServerName:             config.ServerName,
-		InsecureSkipVerify:     true,
-		SessionTicketsDisabled: true,
-	}
-	if utlsConfig.ServerName == "" {
-		utlsConfig.ServerName = dest.Address.String()
-	}
-	uConn.serverName = utlsConfig.ServerName
-	fingerprint := getFingerprint(config.Fingerprint)
-	if fingerprint == nil {
-		return nil, newError("REALITY: failed to get fingerprint").AtError()
-	}
-	uConn.UConn = utls.UClient(conn, utlsConfig, *fingerprint)
-	if err := uConn.BuildHandshakeState(); err != nil {
-		return nil, newError("REALITY: unable to build client hello").Base(err)
+			opts := x509.VerifyOptions{
+				DNSName:       serverName,
+				Intermediates: x509.NewCertPool(),
+			}
+			for _, cert := range state.PeerCertificates[1:] {
+				opts.Intermediates.AddCert(cert)
+			}
+			if _, err := state.PeerCertificates[0].Verify(opts); err != nil {
+				return err
+			}
+			return nil
+		},
 	}
 	if config.DisableX25519Mlkem768 {
-		for _, extension := range uConn.Extensions {
-			if ext, ok := extension.(*utls.SupportedCurvesExtension); ok {
-				ext.Curves = slices.DeleteFunc(ext.Curves, func(curveID utls.CurveID) bool {
-					return curveID == utls.X25519MLKEM768
-				})
-			}
-			if ext, ok := extension.(*utls.KeyShareExtension); ok {
-				ext.KeyShares = slices.DeleteFunc(ext.KeyShares, func(share utls.KeyShare) bool {
-					return share.Group == utls.X25519MLKEM768
-				})
-			}
-		}
-		if err := uConn.BuildHandshakeState(); err != nil {
-			return nil, newError("REALITY: unable to build client hello")
-		}
+		realityConfig.CurvePreferences = []reality.CurveID{reality.X25519, reality.CurveP256, reality.CurveP384, reality.CurveP521}
 	}
-	hello := uConn.HandshakeState.Hello
-	if hello.Raw == nil {
-		// utls.HelloGolang
-		var err error
-		hello.Raw, err = hello.Marshal()
-		if err != nil {
-			return nil, err
-		}
-	}
-	hello.SessionId = make([]byte, 32)
-	copy(hello.Raw[39:], hello.SessionId) // the fixed location of `Session ID`
-	hello.SessionId[0] = 25               // Version_x
-	hello.SessionId[1] = 5                // Version_y
-	hello.SessionId[2] = 16               // Version_z
-	hello.SessionId[3] = 0                // reserved
-	binary.BigEndian.PutUint32(hello.SessionId[4:], uint32(time.Now().Unix()))
-	copy(hello.SessionId[8:], config.ShortId)
-	publicKey, err := ecdh.X25519().NewPublicKey(config.PublicKey)
-	if err != nil {
-		return nil, newError("REALITY: publicKey == nil").Base(err)
-	}
-	var ecdhe *ecdh.PrivateKey
-	if keyShareKeys := uConn.HandshakeState.State13.KeyShareKeys; keyShareKeys != nil {
-		if keyShareKeys.Ecdhe != nil {
-			ecdhe = uConn.HandshakeState.State13.KeyShareKeys.Ecdhe
-		}
-		if !config.DisableX25519Mlkem768 && ecdhe == nil && keyShareKeys.MlkemEcdhe != nil {
-			ecdhe = uConn.HandshakeState.State13.KeyShareKeys.MlkemEcdhe
-		}
-	}
-	if ecdhe == nil {
-		return nil, newError("Current fingerprint ", uConn.ClientHelloID.Client, uConn.ClientHelloID.Version, " does not support TLS 1.3, REALITY handshake cannot establish.")
-	}
-	uConn.authKey, _ = ecdhe.ECDH(publicKey)
-	if uConn.authKey == nil {
-		return nil, newError("REALITY: SharedKey == nil")
-	}
-	if _, err := hkdf.New(sha256.New, uConn.authKey, hello.Random[:20], []byte("REALITY")).Read(uConn.authKey); err != nil {
+	realityConn := reality.Client(conn, realityConfig)
+	if err := realityConn.HandshakeContext(ctx); err != nil {
 		return nil, err
 	}
-	block, err := aes.NewCipher(uConn.authKey)
-	if err != nil {
-		return nil, err
-	}
-	aead, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, err
-	}
-	aead.Seal(hello.SessionId[:0], hello.Random[20:], hello.SessionId[:16], hello.Raw)
-	copy(hello.Raw[39:], hello.SessionId)
-	if err := uConn.HandshakeContext(ctx); err != nil {
-		return nil, err
-	}
-	if !uConn.verified {
+	if !verified {
 		go func() {
 			client := &http.Client{
 				Transport: &http2.Transport{
-					DialTLSContext: func(ctx context.Context, network, addr string, cfg *gotls.Config) (net.Conn, error) {
-						return uConn, nil
+					DialTLSContext: func(_ context.Context, _, _ string, _ *tls.Config) (net.Conn, error) {
+						return realityConn, nil
 					},
 				},
 			}
-			req, err := http.NewRequest("GET", "https://"+uConn.serverName, nil)
+			u := &url.URL{
+				Scheme: "https",
+				Host:   serverName,
+			}
+			req, err := http.NewRequest(http.MethodGet, u.String(), nil)
 			if err != nil {
 				return
 			}
-			req.Header.Set("User-Agent", fingerprint.Client)
 			req.AddCookie(&http.Cookie{
 				Name:  "padding",
 				Value: strings.Repeat("0", dice.Roll(32)+30),
@@ -192,5 +144,5 @@ func UClient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 		}()
 		return nil, newError("REALITY: processed invalid connection")
 	}
-	return uConn, nil
+	return &Conn{Conn: realityConn}, nil
 }

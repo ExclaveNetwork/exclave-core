@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
+	goreality "github.com/exclavenetwork/reality"
 	"github.com/gorilla/websocket"
-	utls "github.com/metacubex/utls"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -140,7 +140,7 @@ func ListenWS(ctx context.Context, address net.Address, port net.Port, streamSet
 	}
 
 	if config := reality.ConfigFromStreamSettings(streamSettings); config != nil {
-		listener = utls.NewRealityListener(listener, config.GetREALITYConfig())
+		listener = goreality.NewRealityListener(listener, config.GetREALITYConfig())
 	} else if config := v2tls.ConfigFromStreamSettings(streamSettings); config != nil {
 		if tlsConfig := config.GetTLSConfig(); tlsConfig != nil {
 			listener = tls.NewListener(listener, tlsConfig)

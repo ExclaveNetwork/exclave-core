@@ -34,9 +34,6 @@ func getFingerprint(name string) (fingerprint *utls.ClientHelloID) {
 		presetFingerprints["randomized"] = &randomized
 		presetFingerprints["randomizednoalpn"] = &randomizednoalpn
 	})
-	if name == "" {
-		return &utls.HelloGolang
-	}
 	if fingerprint = presetFingerprints[name]; fingerprint != nil {
 		return fingerprint
 	}

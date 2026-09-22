@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"strconv"
 
-	goreality "github.com/metacubex/utls"
+	goreality "github.com/exclavenetwork/reality"
 	"github.com/pires/go-proxyproto"
 
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"

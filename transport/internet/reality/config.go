@@ -1,34 +1,54 @@
 package reality
 
 import (
-	"fmt"
+	"context"
 	"net"
+	"time"
 
-	utls "github.com/metacubex/utls"
+	"github.com/exclavenetwork/reality"
+	"github.com/pires/go-proxyproto"
 
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
-func (c *Config) GetREALITYConfig() *utls.RealityConfig {
+type Conn struct {
+	*reality.Conn
+}
+
+func (c *Config) GetREALITYConfig() *reality.Config {
 	var dialer net.Dialer
-	config := &utls.RealityConfig{
-		DialContext: dialer.DialContext,
-		Type:        c.Type,
-		Dest:        c.Dest,
-		Xver:        byte(c.Xver),
-		PrivateKey:  c.PrivateKey,
+	config := &reality.Config{
+		SessionTicketsDisabled: true,
+		RealityServerConfig: reality.RealityServerConfig{
+			PrivateKey:  c.PrivateKey,
+			MLDSA65Seed: c.Mldsa65Seed,
+			ServerNames: make(map[string]struct{}),
+			MaxTimeDiff: time.Duration(c.MaxTimeDiff) * time.Millisecond,
+			DialContext: func(ctx context.Context) (net.Conn, error) {
+				return dialer.DialContext(ctx, c.Type, c.Dest)
+			},
+		},
 	}
-	config.Log = func(format string, v ...any) {
-		newError(fmt.Sprintf(format, v...)).AtDebug().WriteToLog()
-	}
-	config.SessionTicketsDisabled = true
-	config.ServerNames = make(map[string]bool)
 	for _, serverName := range c.ServerNames {
-		config.ServerNames[serverName] = true
+		config.RealityServerConfig.ServerNames[serverName] = struct{}{}
 	}
-	config.ShortIds = make(map[[8]byte]bool)
-	for _, shortId := range c.ShortIds {
-		config.ShortIds[*(*[8]byte)(shortId)] = true
+	if len(c.ShortIds) > 0 {
+		config.RealityServerConfig.ShortIds = map[[8]byte]struct{}{}
+		for _, shortId := range c.ShortIds {
+			config.RealityServerConfig.ShortIds[[8]byte(shortId)] = struct{}{}
+		}
+	}
+	if c.Xver == 1 || c.Xver == 2 {
+		config.RealityServerConfig.WriteProxyProtoHeader = func(source, dest net.Addr, conn net.Conn) (int64, error) {
+			header := proxyproto.HeaderProxyFromAddrs(byte(c.Xver), source, dest)
+			return header.WriteTo(conn)
+		}
+		config.RealityServerConfig.UnwrapProxyProtoConn = func(conn net.Conn) (net.Conn, bool) {
+			if proxyprotoConn, ok := conn.(*proxyproto.Conn); ok {
+				return proxyprotoConn.Raw(), true
+			}
+			return nil, false
+		}
 	}
 	return config
 }

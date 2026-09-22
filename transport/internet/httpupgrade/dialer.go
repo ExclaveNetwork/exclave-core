@@ -27,7 +27,7 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 			if err != nil {
 				return nil, nil, newError("failed to dial request to ", dest).Base(err)
 			}
-			realityConn, err := reality.UClient(ctx, rawConn, dest, realityConfig)
+			realityConn, err := reality.Client(ctx, rawConn, dest, realityConfig)
 			if err != nil {
 				rawConn.Close()
 				return nil, nil, newError("failed to dial request to ", dest).Base(err)
