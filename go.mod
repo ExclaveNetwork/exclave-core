@@ -21,7 +21,7 @@ require (
 	github.com/metacubex/utls v1.8.7
 	github.com/miekg/dns v1.1.73
 	github.com/pires/go-proxyproto v0.15.0
-	github.com/quic-go/quic-go v0.62.0
+	github.com/quic-go/quic-go v0.63.0
 	github.com/refraction-networking/utls v1.8.3-0.20260802151714-23b1dac19c06
 	github.com/sagernet/sing v0.9.5
 	github.com/sagernet/sing-mux v0.3.8
