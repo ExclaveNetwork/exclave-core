@@ -30,5 +30,6 @@ jobs:
           cache-dependency-path: ./go.sum
 
       - name: Run tests
+        # http2legacy: https://github.com/XTLS/Xray-core/issues/6797
         run: |
-          go test ./... -v -timeout=1h
+          go test -tags "http2legacy" ./... -v -timeout=1h
