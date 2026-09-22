@@ -204,6 +204,7 @@ func (c *clientConnections) openConnection(ctx context.Context, dest net.Destina
 		}
 	}
 
+	// V2Ray <= 5.54.0 sends ALPN h2 and http/1.1
 	tc, err := tlsConfig.GetTLSConfigWithContext(detachedContext, tls.WithDestination(dest), tls.WithNextProto("h3"))
 	if err != nil {
 		sysConn.Close()
