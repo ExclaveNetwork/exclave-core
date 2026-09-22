@@ -244,7 +244,11 @@ func (v *Plugin) init(opts Args, pluginArgs []string) (*core.Config, error) {
 		streamConfig.SocketSettings = socketConfig
 	}
 	if *tlsEnabled {
-		tlsConfig := tls.Config{ServerName: *host}
+		tlsConfig := tls.Config{
+			ServerName:   *host,
+			// V2Ray <= 5.54.0 and v2ray-plugin sends ALPN h2 and http/1.1
+			NextProtocol: []string{"h2", "http/1.1"},
+		}
 		if *server {
 			certificate := tls.Certificate{}
 			if *cert == "" && *certRaw == "" {
