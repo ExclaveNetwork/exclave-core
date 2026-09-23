@@ -8,13 +8,10 @@ import (
 	"net/http"
 	"strings"
 
-	goreality "github.com/exclavenetwork/reality"
-
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	http_proto "github.com/exclavenetwork/exclave-core/v5/common/protocol/http"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/transportcommon"
 )
 
@@ -108,19 +105,6 @@ func (s *server) keepAccepting() {
 func listenHTTPUpgrade(ctx context.Context, address net.Address, port net.Port, streamSettings *internet.MemoryStreamConfig, addConn internet.ConnHandler) (internet.Listener, error) {
 	transportConfiguration := streamSettings.ProtocolSettings.(*Config)
 	serverInstance := &server{config: transportConfiguration, addConn: addConn}
-
-	if realityConfig := reality.ConfigFromStreamSettings(streamSettings); realityConfig != nil {
-		listener, err := internet.ListenSystem(ctx, &net.TCPAddr{
-			IP:   address.IP(),
-			Port: int(port),
-		}, streamSettings.SocketSettings)
-		if err != nil {
-			return nil, newError("failed to listen on ", address, ":", port).Base(err)
-		}
-		serverInstance.innnerListener = goreality.NewRealityListener(listener, realityConfig.GetREALITYConfig())
-		go serverInstance.keepAccepting()
-		return serverInstance, nil
-	}
 
 	listener, err := transportcommon.ListenWithSecuritySettings(ctx, address, port, streamSettings)
 	if err != nil {

@@ -12,7 +12,6 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
-	"github.com/exclavenetwork/exclave-core/v5/transport/internet/reality"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/security"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet/transportcommon"
 )
@@ -21,27 +20,12 @@ func dialhttpUpgrade(ctx context.Context, dest net.Destination, streamSettings *
 	transportConfiguration := streamSettings.ProtocolSettings.(*Config)
 
 	dialer := func(ctx context.Context, earlyData []byte) (net.Conn, io.Reader, error) {
-		var conn internet.Connection
-		if realityConfig := reality.ConfigFromStreamSettings(streamSettings); realityConfig != nil {
-			rawConn, err := internet.DialSystem(ctx, dest, streamSettings.SocketSettings)
-			if err != nil {
-				return nil, nil, newError("failed to dial request to ", dest).Base(err)
-			}
-			realityConn, err := reality.Client(ctx, rawConn, dest, realityConfig)
-			if err != nil {
-				rawConn.Close()
-				return nil, nil, newError("failed to dial request to ", dest).Base(err)
-			}
-			conn = realityConn
-		} else {
-			securityConn, err := transportcommon.DialWithSecuritySettings(ctx, dest, streamSettings,
-				security.OptionWithDestination{Dest: dest},
-				security.OptionWithALPN{ALPNs: []string{"http/1.1"}},
-			)
-			if err != nil {
-				return nil, nil, newError("failed to dial request to ", dest).Base(err)
-			}
-			conn = securityConn
+		conn, err := transportcommon.DialWithSecuritySettings(ctx, dest, streamSettings,
+			security.OptionWithDestination{Dest: dest},
+			security.OptionWithALPN{ALPNs: []string{"http/1.1"}},
+		)
+		if err != nil {
+			return nil, nil, newError("failed to dial request to ", dest).Base(err)
 		}
 		req, err := http.NewRequestWithContext(ctx, "GET", transportConfiguration.GetNormalizedPath(), nil)
 		if err != nil {
