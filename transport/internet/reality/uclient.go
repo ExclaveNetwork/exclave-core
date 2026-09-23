@@ -78,6 +78,7 @@ func uclient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 		uConn.mldsaVerify = mldsaVerify
 	}
 	utlsConfig := &utls.Config{
+		NextProtos:             []string{"h2", "http/1.1"}, // for utls.HelloGolang
 		VerifyConnection:       uConn.verifyConnection,
 		ServerName:             config.ServerName,
 		InsecureSkipVerify:     true,

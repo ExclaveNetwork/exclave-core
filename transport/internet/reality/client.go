@@ -20,14 +20,15 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
-func Client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
+func Client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config, opts ...option) (net.Conn, error) {
 	if len(config.Fingerprint) > 0 {
+		// opts ignored
 		return uclient(ctx, conn, dest, config)
 	}
-	return client(ctx, conn, dest, config)
+	return client(ctx, conn, dest, config, opts...)
 }
 
-func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config) (net.Conn, error) {
+func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config, opts ...option) (net.Conn, error) {
 	serverName := config.ServerName
 	if len(serverName) == 0 {
 		if dest.Address.Family().IsDomain() {
@@ -109,6 +110,9 @@ func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Co
 	}
 	if config.DisableX25519Mlkem768 {
 		realityConfig.CurvePreferences = []reality.CurveID{reality.X25519, reality.CurveP256, reality.CurveP384, reality.CurveP521}
+	}
+	for _, opt := range opts {
+		opt(realityConfig)
 	}
 	realityConn := reality.Client(conn, realityConfig)
 	if err := realityConn.HandshakeContext(ctx); err != nil {

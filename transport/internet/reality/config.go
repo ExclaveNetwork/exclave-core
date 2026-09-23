@@ -11,6 +11,14 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
+type option func(*reality.Config)
+
+func WithNextProto(alpn ...string) option {
+	return func(config *reality.Config) {
+		config.NextProtos = alpn
+	}
+}
+
 type Conn struct {
 	*reality.Conn
 }
@@ -19,6 +27,7 @@ func (c *Config) GetREALITYConfig() *reality.Config {
 	var dialer net.Dialer
 	config := &reality.Config{
 		SessionTicketsDisabled: true,
+		NextProtos:             nil, // should be nil
 		RealityServerConfig: reality.RealityServerConfig{
 			PrivateKey:  c.PrivateKey,
 			MLDSA65Seed: c.Mldsa65Seed,

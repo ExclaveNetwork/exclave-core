@@ -156,7 +156,7 @@ func getGrpcClient(ctx context.Context, dest net.Destination, streamSettings *in
 				return nil, err
 			}
 			if realityConfig := reality.ConfigFromStreamSettings(streamSettings); realityConfig != nil {
-				realityConn, err := reality.Client(detachedContext, conn, dest, realityConfig)
+				realityConn, err := reality.Client(detachedContext, conn, dest, realityConfig, reality.WithNextProto("h2"))
 				if err != nil {
 					conn.Close()
 					return nil, err
