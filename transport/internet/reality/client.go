@@ -22,8 +22,7 @@ import (
 
 func Client(ctx context.Context, conn net.Conn, dest net.Destination, config *Config, opts ...option) (net.Conn, error) {
 	if len(config.Fingerprint) > 0 {
-		// opts ignored
-		return uclient(ctx, conn, dest, config)
+		return uclient(ctx, conn, dest, config, opts...)
 	}
 	return client(ctx, conn, dest, config, opts...)
 }

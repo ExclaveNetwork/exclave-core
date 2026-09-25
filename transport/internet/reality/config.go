@@ -7,15 +7,23 @@ import (
 
 	"github.com/exclavenetwork/reality"
 	"github.com/pires/go-proxyproto"
+	utls "github.com/refraction-networking/utls"
 
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
 
-type option func(*reality.Config)
+type option func(any)
 
 func WithNextProto(alpn ...string) option {
-	return func(config *reality.Config) {
-		config.NextProtos = alpn
+	return func(config any) {
+		switch config := config.(type) {
+		case *reality.Config:
+			config.NextProtos = alpn
+		case *utls.Config:
+			config.NextProtos = alpn
+		default:
+			panic("unknown config type")
+		}
 	}
 }
 
