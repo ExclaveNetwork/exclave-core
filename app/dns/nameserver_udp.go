@@ -207,7 +207,12 @@ func (s *ClassicNameServer) HandleResponse(ctx context.Context, packet *udp_prot
 	id := binary.BigEndian.Uint16(payload[:2])
 	s.Lock()
 	if ch, found := s.channel[id]; found {
-		ch <- bytes.Clone(payload)
+		// The query may have timed out or already received a response. Never
+		// wait for its receiver while holding the nameserver's shared lock.
+		select {
+		case ch <- bytes.Clone(payload):
+		default:
+		}
 		s.Unlock()
 		return
 	}
@@ -351,7 +356,7 @@ func (s *ClassicNameServer) QueryRaw(ctx context.Context, request []byte) ([]byt
 		return nil, newError("too short")
 	}
 	id := binary.BigEndian.Uint16(request[:2])
-	ch := make(chan []byte)
+	ch := make(chan []byte, 1)
 	s.Lock()
 	s.channel[id] = ch
 	s.Unlock()
