@@ -31,17 +31,6 @@ func (c *Conn) WriteMultiBuffer(mb buf.MultiBuffer) error {
 	return err
 }
 
-func (c *Conn) HandshakeAddress() net.Address {
-	if err := c.Handshake(); err != nil {
-		return nil
-	}
-	state := c.ConnectionState()
-	if state.ServerName == "" {
-		return nil
-	}
-	return net.ParseAddress(state.ServerName)
-}
-
 // Client initiates a TLS client handshake on the given connection.
 func Client(c net.Conn, config *tls.Config) *Conn {
 	tlsConn := tls.Client(c, config)

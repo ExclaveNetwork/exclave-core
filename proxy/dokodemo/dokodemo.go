@@ -73,10 +73,6 @@ func (d *Door) policy() policy.Session {
 	return d.policyManager.ForLevel(d.config.UserLevel)
 }
 
-type hasHandshakeAddress interface {
-	HandshakeAddress() net.Address
-}
-
 // Process implements proxy.Inbound.
 func (d *Door) Process(ctx context.Context, network net.Network, conn internet.Connection, dispatcher routing.Dispatcher) error {
 	newError("processing connection from: ", conn.RemoteAddr()).AtDebug().WriteToLog(session.ExportIDToError(ctx))
@@ -91,12 +87,6 @@ func (d *Door) Process(ctx context.Context, network net.Network, conn internet.C
 		if outbound := session.OutboundFromContext(ctx); outbound != nil && outbound.Target.IsValid() {
 			dest = outbound.Target
 			destinationOverridden = true
-		} else if handshake, ok := conn.(hasHandshakeAddress); ok {
-			addr := handshake.HandshakeAddress()
-			if addr != nil {
-				dest.Address = addr
-				destinationOverridden = true
-			}
 		}
 	}
 	if !dest.IsValid() || dest.Address == nil {
