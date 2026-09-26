@@ -432,7 +432,7 @@ func GetHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		CloseHyClient(stateTyped, dest, streamSettings)
 	}
 	client, found := stateTyped.scopedDialerMap[dialerConf{dest, streamSettings}]
-	if found {
+	if found && !client.closed {
 		return client, canceller, nil
 	}
 	client = &lateInitHysteriaClient{
