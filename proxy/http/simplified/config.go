@@ -26,6 +26,8 @@ func init() {
 				},
 			},
 			H1SkipWaitForReply: simplifiedClient.H1SkipWaitForReply,
+			ConnectUdp:         simplifiedClient.ConnectUdp,
+			UriTemplate:        simplifiedClient.UriTemplate,
 		}
 		return common.CreateObject(ctx, fullClient)
 	}))

@@ -21,4 +21,6 @@ message ClientConfig {
   exclave.core.common.net.IPOrDomain address = 1;
   uint32 port = 2;
   bool h1_skip_wait_for_reply = 3;
+  bool connect_udp = 4;
+  string uri_template = 5;
 }

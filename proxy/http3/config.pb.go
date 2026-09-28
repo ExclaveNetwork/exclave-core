@@ -25,6 +25,8 @@ type ClientConfig struct {
 	Username      *string                `protobuf:"bytes,4,opt,name=username,proto3,oneof" json:"username,omitempty"`
 	Password      *string                `protobuf:"bytes,5,opt,name=password,proto3,oneof" json:"password,omitempty"`
 	Headers       map[string]string      `protobuf:"bytes,6,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	ConnectUdp    bool                   `protobuf:"varint,7,opt,name=connect_udp,json=connectUdp,proto3" json:"connect_udp,omitempty"`
+	UriTemplate   string                 `protobuf:"bytes,8,opt,name=uri_template,json=uriTemplate,proto3" json:"uri_template,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -101,18 +103,35 @@ func (x *ClientConfig) GetHeaders() map[string]string {
 	return nil
 }
 
+func (x *ClientConfig) GetConnectUdp() bool {
+	if x != nil {
+		return x.ConnectUdp
+	}
+	return false
+}
+
+func (x *ClientConfig) GetUriTemplate() string {
+	if x != nil {
+		return x.UriTemplate
+	}
+	return ""
+}
+
 var File_proxy_http3_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http3_config_proto_rawDesc = "" +
 	"\n" +
-	"\x18proxy/http3/config.proto\x12\x18exclave.core.proxy.http3\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xf5\x02\n" +
+	"\x18proxy/http3/config.proto\x12\x18exclave.core.proxy.http3\x1a\x18common/net/address.proto\x1a common/protoext/extensions.proto\"\xb9\x03\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12\x14\n" +
 	"\x05level\x18\x03 \x01(\rR\x05level\x12\x1f\n" +
 	"\busername\x18\x04 \x01(\tH\x00R\busername\x88\x01\x01\x12\x1f\n" +
 	"\bpassword\x18\x05 \x01(\tH\x01R\bpassword\x88\x01\x01\x12M\n" +
-	"\aheaders\x18\x06 \x03(\v23.exclave.core.proxy.http3.ClientConfig.HeadersEntryR\aheaders\x1a:\n" +
+	"\aheaders\x18\x06 \x03(\v23.exclave.core.proxy.http3.ClientConfig.HeadersEntryR\aheaders\x12\x1f\n" +
+	"\vconnect_udp\x18\a \x01(\bR\n" +
+	"connectUdp\x12!\n" +
+	"\furi_template\x18\b \x01(\tR\vuriTemplate\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01:\x15\x82\xb5\x18\x11\n" +

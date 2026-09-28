@@ -56,6 +56,8 @@ type HTTPRemoteConfig struct {
 type HTTPClientConfig struct {
 	Servers            []*HTTPRemoteConfig `json:"servers"`
 	H1SkipWaitForReply bool                `json:"h1SkipWaitForReply"`
+	ConnectUDP         bool                `json:"connectUDP"`
+	URITemplate        string              `json:"uriTemplate"`
 }
 
 func (v *HTTPClientConfig) Build() (proto.Message, error) {
@@ -84,5 +86,7 @@ func (v *HTTPClientConfig) Build() (proto.Message, error) {
 		config.Server[idx] = server
 	}
 	config.H1SkipWaitForReply = v.H1SkipWaitForReply
+	config.ConnectUdp = v.ConnectUDP
+	config.UriTemplate = v.URITemplate
 	return config, nil
 }

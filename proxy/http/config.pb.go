@@ -143,6 +143,8 @@ type ClientConfig struct {
 	// Sever is a list of HTTP server addresses.
 	Server             []*protocol.ServerEndpoint `protobuf:"bytes,1,rep,name=server,proto3" json:"server,omitempty"`
 	H1SkipWaitForReply bool                       `protobuf:"varint,2,opt,name=h1_skip_wait_for_reply,json=h1SkipWaitForReply,proto3" json:"h1_skip_wait_for_reply,omitempty"`
+	ConnectUdp         bool                       `protobuf:"varint,3,opt,name=connect_udp,json=connectUdp,proto3" json:"connect_udp,omitempty"`
+	UriTemplate        string                     `protobuf:"bytes,4,opt,name=uri_template,json=uriTemplate,proto3" json:"uri_template,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -191,6 +193,20 @@ func (x *ClientConfig) GetH1SkipWaitForReply() bool {
 	return false
 }
 
+func (x *ClientConfig) GetConnectUdp() bool {
+	if x != nil {
+		return x.ConnectUdp
+	}
+	return false
+}
+
+func (x *ClientConfig) GetUriTemplate() string {
+	if x != nil {
+		return x.UriTemplate
+	}
+	return ""
+}
+
 var File_proxy_http_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http_config_proto_rawDesc = "" +
@@ -210,10 +226,13 @@ const file_proxy_http_config_proto_rawDesc = "" +
 	"user_level\x18\x04 \x01(\rR\tuserLevel\x1a;\n" +
 	"\rAccountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\x01\x10\x02\"\x88\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01J\x04\b\x01\x10\x02\"\xcc\x01\n" +
 	"\fClientConfig\x12D\n" +
 	"\x06server\x18\x01 \x03(\v2,.exclave.core.common.protocol.ServerEndpointR\x06server\x122\n" +
-	"\x16h1_skip_wait_for_reply\x18\x02 \x01(\bR\x12h1SkipWaitForReplyB\x85\x01\n" +
+	"\x16h1_skip_wait_for_reply\x18\x02 \x01(\bR\x12h1SkipWaitForReply\x12\x1f\n" +
+	"\vconnect_udp\x18\x03 \x01(\bR\n" +
+	"connectUdp\x12!\n" +
+	"\furi_template\x18\x04 \x01(\tR\vuriTemplateB\x85\x01\n" +
 	"1com.github.exclavenetwork.exclave.core.proxy.httpP\x01Z4github.com/exclavenetwork/exclave-core/v5/proxy/http\xaa\x02\x17Exclave.Core.Proxy.Httpb\x06proto3"
 
 var (

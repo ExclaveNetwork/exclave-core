@@ -8,12 +8,14 @@ import (
 )
 
 type HTTP3ClientConfig struct {
-	Address  *cfgcommon.Address `json:"address"`
-	Port     uint16             `json:"port"`
-	Level    byte               `json:"level"`
-	Username *string            `json:"username"`
-	Password *string            `json:"password"`
-	Headers  map[string]string  `json:"headers"`
+	Address     *cfgcommon.Address `json:"address"`
+	Port        uint16             `json:"port"`
+	Level       byte               `json:"level"`
+	Username    *string            `json:"username"`
+	Password    *string            `json:"password"`
+	Headers     map[string]string  `json:"headers"`
+	ConnectUDP  bool               `json:"connectUDP"`
+	URITemplate string             `json:"uriTemplate"`
 }
 
 func (c *HTTP3ClientConfig) Build() (proto.Message, error) {
@@ -21,11 +23,13 @@ func (c *HTTP3ClientConfig) Build() (proto.Message, error) {
 		return nil, newError("missing server address")
 	}
 	return &http3.ClientConfig{
-		Address:  c.Address.Build(),
-		Port:     uint32(c.Port),
-		Level:    uint32(c.Level),
-		Username: c.Username,
-		Password: c.Password,
-		Headers:  c.Headers,
+		Address:     c.Address.Build(),
+		Port:        uint32(c.Port),
+		Level:       uint32(c.Level),
+		Username:    c.Username,
+		Password:    c.Password,
+		Headers:     c.Headers,
+		ConnectUdp:  c.ConnectUDP,
+		UriTemplate: c.URITemplate,
 	}, nil
 }

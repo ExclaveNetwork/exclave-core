@@ -58,6 +58,8 @@ type ClientConfig struct {
 	Address            *net.IPOrDomain        `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port               uint32                 `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
 	H1SkipWaitForReply bool                   `protobuf:"varint,3,opt,name=h1_skip_wait_for_reply,json=h1SkipWaitForReply,proto3" json:"h1_skip_wait_for_reply,omitempty"`
+	ConnectUdp         bool                   `protobuf:"varint,4,opt,name=connect_udp,json=connectUdp,proto3" json:"connect_udp,omitempty"`
+	UriTemplate        string                 `protobuf:"bytes,5,opt,name=uri_template,json=uriTemplate,proto3" json:"uri_template,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -113,17 +115,34 @@ func (x *ClientConfig) GetH1SkipWaitForReply() bool {
 	return false
 }
 
+func (x *ClientConfig) GetConnectUdp() bool {
+	if x != nil {
+		return x.ConnectUdp
+	}
+	return false
+}
+
+func (x *ClientConfig) GetUriTemplate() string {
+	if x != nil {
+		return x.UriTemplate
+	}
+	return ""
+}
+
 var File_proxy_http_simplified_config_proto protoreflect.FileDescriptor
 
 const file_proxy_http_simplified_config_proto_rawDesc = "" +
 	"\n" +
 	"\"proxy/http/simplified/config.proto\x12\"exclave.core.proxy.http.simplified\x1a common/protoext/extensions.proto\x1a\x18common/net/address.proto\"#\n" +
 	"\fServerConfig:\x13\x82\xb5\x18\x0f\n" +
-	"\ainbound\x12\x04http\"\xab\x01\n" +
+	"\ainbound\x12\x04http\"\xef\x01\n" +
 	"\fClientConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x122\n" +
-	"\x16h1_skip_wait_for_reply\x18\x03 \x01(\bR\x12h1SkipWaitForReply:\x14\x82\xb5\x18\x10\n" +
+	"\x16h1_skip_wait_for_reply\x18\x03 \x01(\bR\x12h1SkipWaitForReply\x12\x1f\n" +
+	"\vconnect_udp\x18\x04 \x01(\bR\n" +
+	"connectUdp\x12!\n" +
+	"\furi_template\x18\x05 \x01(\tR\vuriTemplate:\x14\x82\xb5\x18\x10\n" +
 	"\boutbound\x12\x04httpB\xa6\x01\n" +
 	"<com.github.exclavenetwork.exclave.core.proxy.http.simplifiedP\x01Z?github.com/exclavenetwork/exclave-core/v5/proxy/http/simplified\xaa\x02\"Exclave.Core.Proxy.Http.Simplifiedb\x06proto3"
 

@@ -19,4 +19,6 @@ message ClientConfig {
   optional string username = 4;
   optional string password = 5;
   map<string,string> headers = 6;
+  bool connect_udp = 7;
+  string uri_template = 8;
 }
