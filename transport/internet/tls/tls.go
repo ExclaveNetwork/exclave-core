@@ -3,6 +3,7 @@ package tls
 import (
 	"context"
 	"crypto/tls"
+	"sync/atomic"
 
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -12,6 +13,18 @@ import (
 
 type Conn struct {
 	*tls.Conn
+	suppressCloseNotify atomic.Bool
+}
+
+func (c *Conn) SuppressCloseNotify() {
+	c.suppressCloseNotify.Store(true)
+}
+
+func (c *Conn) Close() error {
+	if c.suppressCloseNotify.Load() {
+		return c.Conn.NetConn().Close()
+	}
+	return c.Conn.Close()
 }
 
 func (c *Conn) GetConnectionApplicationProtocol() (string, error) {

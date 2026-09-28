@@ -3,6 +3,7 @@ package reality
 import (
 	"context"
 	"net"
+	"sync/atomic"
 	"time"
 
 	"github.com/exclavenetwork/reality"
@@ -29,6 +30,18 @@ func WithNextProto(alpn ...string) option {
 
 type Conn struct {
 	*reality.Conn
+	suppressCloseNotify atomic.Bool
+}
+
+func (c *Conn) SuppressCloseNotify() {
+	c.suppressCloseNotify.Store(true)
+}
+
+func (c *Conn) Close() error {
+	if c.suppressCloseNotify.Load() {
+		return c.Conn.NetConn().Close()
+	}
+	return c.Conn.Close()
 }
 
 func (c *Config) GetREALITYConfig() *reality.Config {

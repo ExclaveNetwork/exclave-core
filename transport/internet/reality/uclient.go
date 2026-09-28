@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"slices"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	utls "github.com/refraction-networking/utls"
@@ -29,10 +30,22 @@ import (
 
 type UConn struct {
 	*utls.UConn
-	serverName  string
-	authKey     []byte
-	mldsaVerify *mldsaVerify
-	verified    bool
+	serverName          string
+	authKey             []byte
+	mldsaVerify         *mldsaVerify
+	verified            bool
+	suppressCloseNotify atomic.Bool
+}
+
+func (c *UConn) SuppressCloseNotify() {
+	c.suppressCloseNotify.Store(true)
+}
+
+func (c *UConn) Close() error {
+	if c.suppressCloseNotify.Load() {
+		return c.UConn.NetConn().Close()
+	}
+	return c.UConn.Close()
 }
 
 func (c *UConn) verifyConnection(state utls.ConnectionState) error {
