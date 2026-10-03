@@ -253,10 +253,6 @@ func (d *DefaultDispatcher) Dispatch(ctx context.Context, destination net.Destin
 }
 
 func sniffer(ctx context.Context, cReader *cachedReader, metadataOnly bool, network net.Network) (SniffResult, error) {
-	payload := buf.NewWithSize(32767)
-
-	defer payload.Release()
-
 	sniffer := NewSniffer(ctx)
 
 	metaresult, metadataErr := sniffer.SniffMetadata(ctx)
@@ -264,6 +260,9 @@ func sniffer(ctx context.Context, cReader *cachedReader, metadataOnly bool, netw
 	if metadataOnly {
 		return metaresult, metadataErr
 	}
+
+	payload := buf.NewWithSize(32767)
+	defer payload.Release()
 
 	contentResult, contentErr := func() (SniffResult, error) {
 		cacheDeadline := 200 * time.Millisecond
