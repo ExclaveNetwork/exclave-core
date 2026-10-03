@@ -143,6 +143,14 @@ func SniffQUIC(input []byte) (*SniffHeader, error) {
 		b = bytes.Clone(b)
 
 		restPayload := b[hdrLen+int(packetLen):]
+		for len(restPayload) > 0 && restPayload[0] == 0x00 {
+			// This is a workaround for neqo.
+			// https://github.com/XTLS/Xray-core/pull/6882
+			// https://github.com/quicwg/base-drafts/issues/3333
+			// To fix it completely, a packet-oriented UDP sniffer is
+			// needed, not a stream-oriented UDP sniffer.
+			restPayload = restPayload[1:]
+		}
 		if !isQuicInitial { // Skip this packet if it's not initial packet
 			b = restPayload
 			continue
