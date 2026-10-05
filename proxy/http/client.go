@@ -295,10 +295,6 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 				resp.Body.Close()
 				return nil, nil, newError("invalid response \"Upgrade\" header")
 			}
-			if resp.Header.Get("Capsule-Protocol") != "?1" {
-				resp.Body.Close()
-				return nil, nil, newError("invalid response \"Capsule-Protocol\" header")
-			}
 		}
 
 		if bufferedReader.Buffered() > 0 {
@@ -395,10 +391,6 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 		if resp.StatusCode != http.StatusOK {
 			resp.Body.Close()
 			return nil, newError("Proxy responded with non 200 code: " + resp.Status)
-		}
-		if target.Network != net.Network_TCP && resp.Header.Get("capsule-protocol") != "?1" {
-			resp.Body.Close()
-			return nil, newError("invalid response \"capsule-protocol\" header")
 		}
 		return newHTTP2Conn(pw, resp.Body), nil
 	}

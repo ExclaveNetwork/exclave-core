@@ -354,12 +354,6 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, target net.Destination, di
 			stream.Close()
 			return nil, newError("Proxy responded with non 200 code: " + resp.Status)
 		}
-		if resp.Header.Get("capsule-protocol") != "?1" {
-			resp.Body.Close()
-			stream.CancelRead(0)
-			stream.Close()
-			return nil, newError("invalid response \"capsule-protocol\" header")
-		}
 		if clientConn.Settings().EnableDatagrams {
 			return &http3PacketConn{
 				ctx:    ctx,
