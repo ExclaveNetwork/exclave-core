@@ -320,12 +320,10 @@ func (m *ClientWorker) Dispatch(ctx context.Context, link *transport.Link) bool 
 	}
 
 	sm := m.sessionManager
-	s := sm.Allocate()
+	s := sm.Allocate(link.Reader, link.Writer)
 	if s == nil {
 		return false
 	}
-	s.input = link.Reader
-	s.output = link.Writer
 	go fetchInput(ctx, s, m.link.Writer)
 	return true
 }

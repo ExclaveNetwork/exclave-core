@@ -44,7 +44,7 @@ func (m *SessionManager) Count() int {
 	return int(m.count)
 }
 
-func (m *SessionManager) Allocate() *Session {
+func (m *SessionManager) Allocate(input buf.Reader, output buf.Writer) *Session {
 	m.Lock()
 	defer m.Unlock()
 
@@ -54,6 +54,8 @@ func (m *SessionManager) Allocate() *Session {
 
 	m.count++
 	s := &Session{
+		input:  input,
+		output: output,
 		ID:     m.count,
 		parent: m,
 	}
