@@ -358,7 +358,15 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 			wg.Done()
 		}()
 
-		resp, err := h2clientConn.RoundTrip(req) // nolint: bodyclose
+		var (
+			resp *http.Response
+			err  error
+		)
+		if target.Network == net.Network_TCP {
+			resp, err = h2clientConn.RoundTrip(req) // nolint: bodyclose
+		} else {
+			resp, err = h2RoundTrip(h2clientConn, req) // nolint: bodyclose
+		}
 		if err != nil {
 			if strings.Contains(err.Error(), "extended connect not supported") {
 				return nil, newError("extended connect not supported")
