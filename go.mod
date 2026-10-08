@@ -12,7 +12,7 @@ require (
 	github.com/enfein/mieru/v3 v3.38.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1
-	github.com/exclavenetwork/reality v0.0.0-20260921174136-96fe685b8ce9
+	github.com/exclavenetwork/reality v0.0.0-20261008155612-cc902fba9d14
 	github.com/exclavenetwork/sing-juicity v0.3.1
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20261003180916-bfda7e07df34
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
@@ -41,7 +41,7 @@ require (
 	golang.org/x/net v0.59.1-0.20261006191956-01e3d0338c22
 	golang.org/x/sync v0.23.0
 	golang.org/x/sys v0.48.0
-	golang.zx2c4.com/wireguard v0.0.0-20260522210424-ecfc5a8d5446
+	golang.zx2c4.com/wireguard v0.0.0-20261006164505-2631ce99a06f
 	google.golang.org/grpc v1.84.0
 	google.golang.org/protobuf v1.36.12
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
