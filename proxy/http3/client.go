@@ -160,9 +160,9 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 		if target.Network == net.Network_TCP {
 			reader = buf.NewReader(conn)
 		} else if _, ok := conn.(*http3PacketConn); ok {
-			reader = newDatagramReader(conn, target)
+			reader = newDatagramReader(conn)
 		} else {
-			reader = newUoTReader(conn, target)
+			reader = newUoTReader(conn)
 		}
 		return buf.Copy(reader, link.Writer, buf.UpdateActivity(timer))
 	}

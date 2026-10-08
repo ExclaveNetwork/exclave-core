@@ -12,13 +12,11 @@ var (
 
 type datagramReader struct {
 	conn net.Conn
-	dest net.Destination
 }
 
-func newDatagramReader(conn net.Conn, dest net.Destination) *datagramReader {
+func newDatagramReader(conn net.Conn) *datagramReader {
 	return &datagramReader{
 		conn: conn,
-		dest: dest,
 	}
 }
 
@@ -44,7 +42,6 @@ func (r *datagramReader) ReadMultiBuffer() (buf.MultiBuffer, error) {
 		b.Release()
 		return nil, newError("invalid context id")
 	}
-	b.Endpoint = &r.dest
 	return buf.MultiBuffer{b}, nil
 }
 
@@ -63,7 +60,7 @@ func newDatagramWriter(conn net.Conn, dest net.Destination) *datagramWriter {
 func (w *datagramWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
 	defer buf.ReleaseMulti(mb)
 	for _, b := range mb {
-		if *b.Endpoint != w.dest {
+		if b.Endpoint != nil && *b.Endpoint != w.dest {
 			newError("CONNECT-UDP can not have different destination addresses").AtDebug().WriteToLog()
 			continue
 		}

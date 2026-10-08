@@ -29,13 +29,11 @@ var (
 
 type uotReader struct {
 	conn net.Conn
-	dest net.Destination
 }
 
-func newUoTReader(conn net.Conn, dest net.Destination) *uotReader {
+func newUoTReader(conn net.Conn) *uotReader {
 	return &uotReader{
 		conn: conn,
-		dest: dest,
 	}
 }
 
@@ -70,7 +68,6 @@ func (r *uotReader) ReadMultiBuffer() (buf.MultiBuffer, error) {
 		b.Release()
 		return nil, err
 	}
-	b.Endpoint = &r.dest
 	return buf.MultiBuffer{b}, nil
 }
 
@@ -107,7 +104,7 @@ func newUoTWriter(conn net.Conn, dest net.Destination) *uotWriter {
 func (w *uotWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
 	defer buf.ReleaseMulti(mb)
 	for _, b := range mb {
-		if *b.Endpoint != w.dest {
+		if b.Endpoint != nil && *b.Endpoint != w.dest {
 			newError("CONNECT-UDP can not have different destination addresses").AtDebug().WriteToLog()
 			continue
 		}

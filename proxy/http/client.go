@@ -178,7 +178,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 	responseFunc := func() error {
 		defer timer.SetTimeout(p.Timeouts.UplinkOnly)
 		if target.Network == net.Network_UDP {
-			return buf.Copy(newUoTReader(conn, target), link.Writer, buf.UpdateActivity(timer))
+			return buf.Copy(newUoTReader(conn), link.Writer, buf.UpdateActivity(timer))
 		}
 		return buf.Copy(buf.NewReader(conn), link.Writer, buf.UpdateActivity(timer))
 	}
