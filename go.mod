@@ -38,7 +38,7 @@ require (
 	go.uber.org/mock v0.6.0
 	go4.org/netipx v0.0.0-20260823151212-3075585bcbeb
 	golang.org/x/crypto v0.57.1-0.20261005185213-c3db4df58582
-	golang.org/x/net v0.59.1-0.20261006191956-01e3d0338c22
+	golang.org/x/net v0.60.0
 	golang.org/x/sync v0.23.0
 	golang.org/x/sys v0.48.0
 	golang.zx2c4.com/wireguard v0.0.0-20261006164505-2631ce99a06f
@@ -51,7 +51,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.2.6 // indirect
-	github.com/dgryski/go-metro v0.0.0-20250106013310-edb8663e5e33 // indirect
+	github.com/dgryski/go-metro v0.0.0-20261008173524-5059e0b1da03 // indirect
 	github.com/gofrs/uuid/v5 v5.5.1 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
