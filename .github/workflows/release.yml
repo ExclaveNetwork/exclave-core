@@ -123,7 +123,6 @@ jobs:
           cache-dependency-path: ./go.sum
 
       - name: Build Exclave-core
-        # http2legacy: https://github.com/XTLS/Xray-core/issues/6797
         run: |
           mkdir -p build_assets
           EXTRA_ARG=""
@@ -137,7 +136,7 @@ jobs:
             fi
               ;;
           esac
-          go build $EXTRA_ARG -v -o build_assets/exclave-core -trimpath -ldflags "-s -w -buildid=" -tags "http2legacy" ./main
+          go build $EXTRA_ARG -v -o build_assets/exclave-core -trimpath -ldflags "-s -w -buildid=" ./main
 
       - name: Rename Windows Exclave-core
         if: matrix.goos == 'windows'
