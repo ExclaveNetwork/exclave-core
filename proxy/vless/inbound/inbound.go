@@ -443,7 +443,7 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 	responseAddons := &encoding.Addons{}
 
 	var input *bytes.Reader
-	var rawInput **bytes.Buffer
+	var rawInput *bytes.Buffer
 	if requestAddons.Flow == vless.XRV {
 		if account := request.User.Account.(*vless.MemoryAccount); account.Flow == requestAddons.Flow {
 			switch request.Command {
@@ -486,10 +486,9 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 				input = (*bytes.Reader)(unsafe.Add(p, i.Offset))
 				switch r.Type.Kind() {
 				case reflect.Struct:
-					buffer := (*bytes.Buffer)(unsafe.Add(p, r.Offset))
-					rawInput = &buffer
+					rawInput = (*bytes.Buffer)(unsafe.Add(p, r.Offset))
 				case reflect.Pointer:
-					rawInput = (**bytes.Buffer)(unsafe.Add(p, r.Offset))
+					rawInput = *(**bytes.Buffer)(unsafe.Add(p, r.Offset))
 				}
 			}
 		} else {

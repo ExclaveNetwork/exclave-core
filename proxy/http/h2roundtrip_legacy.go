@@ -3,11 +3,15 @@
 package http
 
 import (
-	"net/http"
-
 	"golang.org/x/net/http2"
 )
 
-func h2RoundTrip(clientConn *http2.ClientConn, req *http.Request) (*http.Response, error) {
-	return clientConn.RoundTrip(req)
+type http2ClientConn struct {
+	*http2.ClientConn
+}
+
+func newH2ClientConn(clientConn *http2.ClientConn, _ bool) *http2ClientConn {
+	return &http2ClientConn{
+		ClientConn: clientConn,
+	}
 }

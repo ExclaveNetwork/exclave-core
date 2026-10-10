@@ -57,7 +57,7 @@ func (c *Client) Close() error {
 	c.cachedH2Mutex.Lock()
 	for _, cachedH2Conn := range c.cachedH2Conns {
 		for elem := cachedH2Conn.Front(); elem != nil; elem = elem.Next() {
-			_ = elem.Value.(*http2.ClientConn).Close()
+			_ = elem.Value.(*http2ClientConn).Close()
 			cachedH2Conn.Remove(elem)
 		}
 	}
@@ -309,7 +309,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 		return rawConn, nil, nil
 	}
 
-	connectHTTP2 := func(h2clientConn *http2.ClientConn, elem *list.Element) (net.Conn, error) {
+	connectHTTP2 := func(h2clientConn *http2ClientConn, elem *list.Element) (net.Conn, error) {
 		if target.Network != net.Network_TCP {
 			var targetHost string
 			if target.Address.Family().IsDomain() {
@@ -358,15 +358,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 			wg.Done()
 		}()
 
-		var (
-			resp *http.Response
-			err  error
-		)
-		if target.Network == net.Network_TCP {
-			resp, err = h2clientConn.RoundTrip(req) // nolint: bodyclose
-		} else {
-			resp, err = h2RoundTrip(h2clientConn, req) // nolint: bodyclose
-		}
+		resp, err := h2clientConn.RoundTrip(req) // nolint: bodyclose
 		if err != nil {
 			if strings.Contains(err.Error(), "extended connect not supported") {
 				return nil, newError("extended connect not supported")
@@ -411,7 +403,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 	c.cachedH2Mutex.Unlock()
 
 	if elem != nil {
-		if h2ClientConn := elem.Value.(*http2.ClientConn); h2ClientConn.CanTakeNewRequest() {
+		if h2ClientConn := elem.Value.(*http2ClientConn); h2ClientConn.CanTakeNewRequest() {
 			proxyConn, err := connectHTTP2(h2ClientConn, elem)
 			if err != nil {
 				return nil, nil, err
@@ -461,7 +453,9 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 			return nil, nil, err
 		}
 
-		proxyConn, err := connectHTTP2(h2clientConn, nil)
+		h2ClientConnWrapper := newH2ClientConn(h2clientConn)
+
+		proxyConn, err := connectHTTP2(h2ClientConnWrapper, nil)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -470,7 +464,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 		if _, found := c.cachedH2Conns[dest]; !found {
 			c.cachedH2Conns[dest] = &list.List{}
 		}
-		c.cachedH2Conns[dest].PushFront(h2clientConn)
+		c.cachedH2Conns[dest].PushFront(h2ClientConnWrapper)
 		c.cachedH2Mutex.Unlock()
 
 		return proxyConn, nil, err
