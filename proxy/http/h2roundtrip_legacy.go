@@ -3,6 +3,8 @@
 package http
 
 import (
+	"net"
+
 	"golang.org/x/net/http2"
 )
 

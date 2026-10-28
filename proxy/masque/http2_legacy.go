@@ -3,6 +3,8 @@
 package masque
 
 import (
+	"net"
+
 	"golang.org/x/net/http2"
 )
 
