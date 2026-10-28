@@ -68,7 +68,7 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - github.com/exclavenetwork/exclave-core
+        - github.com/exclavenetwork/exclave-core/v5
   exclusions:
     generated: lax
     paths:

@@ -123,6 +123,7 @@ func main() {
 	}
 	gofmt := "gofmt" + suffix
 	gofumpt := "gofumpt" + suffix
+	goimports := "goimports" + suffix
 
 	if gofmtPath, err := exec.LookPath(gofmt); err != nil {
 		fmt.Println("Can not find", gofmt, "in system path or current working directory.")
@@ -136,6 +137,13 @@ func main() {
 		os.Exit(1)
 	} else {
 		gofumpt = gofumptPath
+	}
+
+	if goimportsPath, err := exec.LookPath(goimports); err != nil {
+		fmt.Println("Can not find", goimports, "in system path or current working directory.")
+		os.Exit(1)
+	} else {
+		goimports = goimportsPath
 	}
 
 	rawFilesSlice := make([]string, 0, 1000)
@@ -173,7 +181,12 @@ func main() {
 		"-l", "-e", "-w",
 	}
 
+	goimportsArgs := []string{
+		"-l", "-e", "-w", "-local", "github.com/exclavenetwork/exclave-core/v5",
+	}
+
 	RunMany(gofmt, gofmtArgs, rawFilesSlice)
 	RunMany(gofumpt, gofumptArgs, rawFilesSlice)
+	RunMany(goimports, goimportsArgs, rawFilesSlice)
 	fmt.Println("Do NOT forget to commit file changes.")
 }
