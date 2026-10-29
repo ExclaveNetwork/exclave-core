@@ -348,7 +348,12 @@ func (h *Handler) handleIPQuery(id uint16, qType uint16, domain string, writer d
 		b.Release()
 		return
 	}
-	b.Resize(0, int32(len(msgBytes)))
+	if len(msgBytes) <= buf.Size {
+		b.Resize(0, int32(len(msgBytes)))
+	} else {
+		b.Release()
+		b = buf.FromBytes(msgBytes)
+	}
 	if err := writer.WriteMessage(b); err != nil {
 		newError("write IP answer").Base(err).WriteToLog()
 	}
@@ -370,7 +375,12 @@ func (h *Handler) handleDNSError(id uint16, rCode int, writer dns_proto.MessageW
 		b.Release()
 		return
 	}
-	b.Resize(0, int32(len(msgBytes)))
+	if len(msgBytes) <= buf.Size {
+		b.Resize(0, int32(len(msgBytes)))
+	} else {
+		b.Release()
+		b = buf.FromBytes(msgBytes)
+	}
 	if err := writer.WriteMessage(b); err != nil {
 		newError("write IP answer").Base(err).WriteToLog()
 	}

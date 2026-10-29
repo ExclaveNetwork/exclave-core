@@ -19,7 +19,12 @@ func PackMessage(msg *dns.Msg) (*buf.Buffer, error) {
 		buffer.Release()
 		return nil, err
 	}
-	buffer.Resize(0, int32(len(packed)))
+	if len(packed) <= buf.Size {
+		buffer.Resize(0, int32(len(packed)))
+	} else {
+		buffer.Release()
+		buffer = buf.FromBytes(packed)
+	}
 	return buffer, nil
 }
 
