@@ -38,6 +38,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"sync/atomic"
 	"syscall"
 )
 
@@ -58,6 +59,7 @@ type Cmd struct {
 	parentIOPipes []io.Closer
 	goroutine     []func() error
 	goroutineErr  <-chan error
+	startCalled   int32
 }
 
 func interfaceEqual(a, b any) bool {
@@ -130,7 +132,7 @@ func closeDescriptors(closers []io.Closer) {
 }
 
 func (c *Cmd) Start() error {
-	if c.Process != nil {
+	if atomic.SwapInt32(&c.startCalled, 1) != 0 {
 		return errors.New("exec: already started")
 	}
 
@@ -142,6 +144,7 @@ func (c *Cmd) Start() error {
 		if !started {
 			closeDescriptors(c.parentIOPipes)
 			c.parentIOPipes = nil
+			c.goroutine = nil
 		}
 	}()
 
