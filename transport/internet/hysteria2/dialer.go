@@ -6,6 +6,7 @@ import (
 	"crypto/x509"
 	"maps"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/apernet/quic-go"
@@ -35,7 +36,7 @@ type lateInitHysteriaClient struct {
 	initMutex      sync.Mutex
 	clientMutex    sync.Mutex
 	client         hyClient.Client
-	closed         bool
+	closed         atomic.Bool
 	ctx            context.Context
 	dest           net.Destination
 	streamSettings *internet.MemoryStreamConfig
@@ -46,7 +47,7 @@ func (c *lateInitHysteriaClient) init() error {
 	c.initMutex.Lock()
 	defer c.initMutex.Unlock()
 	c.clientMutex.Lock()
-	if c.closed {
+	if c.closed.Load() {
 		c.clientMutex.Unlock()
 		return newError("client closed")
 	}
@@ -60,12 +61,13 @@ func (c *lateInitHysteriaClient) init() error {
 		return err
 	}
 	c.clientMutex.Lock()
-	defer c.clientMutex.Unlock()
-	if c.closed {
+	if c.closed.Load() {
+		c.clientMutex.Unlock()
 		client.Close()
 		return newError("client closed")
 	}
 	c.client = client
+	c.clientMutex.Unlock()
 	return nil
 }
 
@@ -85,10 +87,11 @@ func (c *lateInitHysteriaClient) UDP() (hyClient.HyUDPConn, error) {
 
 func (c *lateInitHysteriaClient) Close() error {
 	c.clientMutex.Lock()
-	defer c.clientMutex.Unlock()
-	c.closed = true
-	if c.client != nil {
-		return c.client.Close()
+	c.closed.Store(true)
+	client := c.client
+	c.clientMutex.Unlock()
+	if client != nil {
+		return client.Close()
 	}
 	return nil
 }
@@ -402,12 +405,13 @@ func NewHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 
 func CloseHyClient(state *transportConnectionState, dest net.Destination, streamSettings *internet.MemoryStreamConfig) error {
 	state.scopedDialerAccess.Lock()
-	defer state.scopedDialerAccess.Unlock()
-
 	client, found := state.scopedDialerMap[dialerConf{dest, streamSettings}]
 	if found {
 		delete(state.scopedDialerMap, dialerConf{dest, streamSettings})
-		return client.Close()
+	}
+	state.scopedDialerAccess.Unlock()
+	if found {
+		client.Close()
 	}
 	return nil
 }
@@ -434,7 +438,7 @@ func GetHyClient(ctx context.Context, dest net.Destination, streamSettings *inte
 		CloseHyClient(stateTyped, dest, streamSettings)
 	}
 	client, found := stateTyped.scopedDialerMap[dialerConf{dest, streamSettings}]
-	if found && !client.closed {
+	if found && !client.closed.Load() {
 		return client, canceller, nil
 	}
 	client = &lateInitHysteriaClient{
