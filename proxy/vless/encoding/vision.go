@@ -610,7 +610,7 @@ func UnwrapRawConn(conn net.Conn) (net.Conn, stats.Counter, stats.Counter) {
 			switch c := conn.(type) {
 			case *tls.Conn:
 				conn = c.NetConn()
-			case utls.UTLSClientConnection:
+			case *utls.UTLSClientConnection:
 				conn = c.NetConn()
 			case *reality.Conn:
 				conn = c.NetConn()

@@ -247,7 +247,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 				case *tls.Conn:
 					t = reflect.TypeOf(c.Conn).Elem()
 					p = unsafe.Pointer(c.Conn)
-				case utls.UTLSClientConnection:
+				case *utls.UTLSClientConnection:
 					t = reflect.TypeOf(c.Conn).Elem()
 					p = unsafe.Pointer(c.Conn)
 				case *reality.Conn:
@@ -344,7 +344,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 				if tlsConn.ConnectionState().Version != 0x0304 /* VersionTLS13 */ {
 					return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, tlsConn.ConnectionState().Version).AtWarning()
 				}
-			} else if utlsConn, ok := iConn.(utls.UTLSClientConnection); ok {
+			} else if utlsConn, ok := iConn.(*utls.UTLSClientConnection); ok {
 				if utlsConn.ConnectionState().Version != 0x0304 /* VersionTLS13 */ {
 					return newError(`failed to use `+requestAddons.Flow+`, found outer tls version `, utlsConn.ConnectionState().Version).AtWarning()
 				}

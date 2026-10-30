@@ -120,7 +120,7 @@ func (t securityEngineAuthInfo) AuthType() string {
 // GetSecurityValue returns security info requested by channelz.
 func (t securityEngineAuthInfo) GetSecurityValue() credentials.ChannelzSecurityValue {
 	switch conn := t.conn.(type) {
-	case utls.UTLSClientConnection:
+	case *utls.UTLSClientConnection:
 		state := conn.ConnectionState()
 		v := &credentials.TLSChannelzSecurityValue{
 			StandardName: cipherSuiteLookup(state.CipherSuite),

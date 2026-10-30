@@ -30,7 +30,7 @@ type Engine struct {
 	config *Config
 }
 
-func (e Engine) Client(conn net.Conn, opts ...security.Option) (security.Conn, error) {
+func (e *Engine) Client(conn net.Conn, opts ...security.Option) (security.Conn, error) {
 	var options []tls.Option
 	for _, v := range opts {
 		switch s := v.(type) {
@@ -94,33 +94,32 @@ func (e Engine) Client(conn net.Conn, opts ...security.Option) (security.Conn, e
 		return nil, newError("unable to build utls handshake state after modification").Base(err)
 	}
 
-	return UTLSClientConnection{
-		UConn:               utlsClientConn,
-		suppressCloseNotify: new(atomic.Bool),
+	return &UTLSClientConnection{
+		UConn: utlsClientConn,
 	}, nil
 }
 
-func (e Engine) GetServerName() string {
+func (e *Engine) GetServerName() string {
 	return e.config.TlsConfig.ServerName
 }
 
 type UTLSClientConnection struct {
 	*utls.UConn
-	suppressCloseNotify *atomic.Bool
+	suppressCloseNotify atomic.Bool
 }
 
-func (u UTLSClientConnection) SuppressCloseNotify() {
+func (u *UTLSClientConnection) SuppressCloseNotify() {
 	u.suppressCloseNotify.Store(true)
 }
 
-func (u UTLSClientConnection) Close() error {
+func (u *UTLSClientConnection) Close() error {
 	if u.suppressCloseNotify.Load() {
 		return u.UConn.NetConn().Close()
 	}
 	return u.UConn.Close()
 }
 
-func (u UTLSClientConnection) GetConnectionApplicationProtocol(ctx context.Context) (string, error) {
+func (u *UTLSClientConnection) GetConnectionApplicationProtocol(ctx context.Context) (string, error) {
 	if err := u.HandshakeContext(ctx); err != nil {
 		return "", err
 	}
