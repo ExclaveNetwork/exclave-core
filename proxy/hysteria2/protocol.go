@@ -24,20 +24,15 @@ type ConnWriter struct {
 	TCPHeaderSent bool
 }
 
-// Write implements io.Writer
-func (c *ConnWriter) Write(p []byte) (n int, err error) {
-	if !c.TCPHeaderSent {
-		if err := c.writeTCPHeader(); err != nil {
-			return 0, newError("failed to write request header").Base(err)
-		}
-	}
-
-	return c.Writer.Write(p)
-}
-
 // WriteMultiBuffer implements buf.Writer
 func (c *ConnWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
 	defer buf.ReleaseMulti(mb)
+
+	if !c.TCPHeaderSent {
+		if err := c.writeTCPHeader(); err != nil {
+			return newError("failed to write request header").Base(err)
+		}
+	}
 
 	for _, b := range mb {
 		if !b.IsEmpty() {
@@ -90,7 +85,6 @@ func (c *ConnWriter) writeTCPHeader() error {
 
 // PacketWriter UDP Connection Writer Wrapper
 type PacketWriter struct {
-	io.Writer
 	HyConn  *hyTransport.HyConn
 	Target  net.Destination
 	counter stats.Counter
@@ -107,7 +101,7 @@ func (w *PacketWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
 		if b.Endpoint != nil {
 			target = *b.Endpoint
 		}
-		if _, err := w.writePacket(b.Bytes(), target); err != nil {
+		if err := w.writePacket(b.Bytes(), target); err != nil {
 			return err
 		}
 	}
@@ -122,7 +116,7 @@ func (w *PacketWriter) WriteMultiBufferWithMetadata(mb buf.MultiBuffer, dest net
 		if b.IsEmpty() {
 			continue
 		}
-		if _, err := w.writePacket(b.Bytes(), dest); err != nil {
+		if err := w.writePacket(b.Bytes(), dest); err != nil {
 			return err
 		}
 	}
@@ -130,100 +124,45 @@ func (w *PacketWriter) WriteMultiBufferWithMetadata(mb buf.MultiBuffer, dest net
 	return nil
 }
 
-func (w *PacketWriter) WriteTo(payload []byte, addr net.Addr) (int, error) {
-	dest := net.DestinationFromAddr(addr)
-
-	return w.writePacket(payload, dest)
-}
-
-func (w *PacketWriter) writePacket(payload []byte, dest net.Destination) (int, error) {
-	n, err := w.HyConn.WritePacket(payload, dest)
-	if err != nil {
-		return 0, err
+func (w *PacketWriter) writePacket(payload []byte, dest net.Destination) error {
+	if err := w.HyConn.WritePacket(payload, dest); err != nil {
+		return err
 	}
 	if w.counter != nil {
-		w.counter.Add(int64(n))
+		w.counter.Add(int64(len(payload)))
 	}
-	return n, nil
-}
-
-// ConnReader is TCP Connection Reader Wrapper
-type ConnReader struct {
-	io.Reader
-	Target net.Destination
-}
-
-// Read implements io.Reader
-func (c *ConnReader) Read(p []byte) (int, error) {
-	return c.Reader.Read(p)
-}
-
-// ReadMultiBuffer implements buf.Reader
-func (c *ConnReader) ReadMultiBuffer() (buf.MultiBuffer, error) {
-	b := buf.New()
-	_, err := b.ReadFrom(c)
-	if err != nil {
-		b.Release()
-		return nil, err
-	}
-	return buf.MultiBuffer{b}, nil
-}
-
-// PacketPayload combines udp payload and destination
-type PacketPayload struct {
-	Target net.Destination
-	Buffer buf.MultiBuffer
+	return nil
 }
 
 // PacketReader is UDP Connection Reader Wrapper
 type PacketReader struct {
-	io.Reader
 	HyConn  *hyTransport.HyConn
 	counter stats.Counter
 }
 
 // ReadMultiBuffer implements buf.Reader
 func (r *PacketReader) ReadMultiBuffer() (buf.MultiBuffer, error) {
-	p, err := r.ReadMultiBufferWithMetadata()
-	if p != nil {
-		return p.Buffer, err
-	}
-	return nil, err
-}
-
-// ReadMultiBufferWithMetadata reads udp packet with destination
-func (r *PacketReader) ReadMultiBufferWithMetadata() (*PacketPayload, error) {
-	n, data, dest, err := r.HyConn.ReadPacket()
+	p, _, err := r.ReadMultiBufferWithMetadata()
 	if err != nil {
 		return nil, err
 	}
+	return p, nil
+}
+
+// ReadMultiBufferWithMetadata reads udp packet with destination
+func (r *PacketReader) ReadMultiBufferWithMetadata() (buf.MultiBuffer, net.Destination, error) {
+	data, dest, err := r.HyConn.ReadPacket()
+	if err != nil {
+		return nil, net.Destination{}, err
+	}
 	if r.counter != nil {
-		r.counter.Add(int64(n))
+		r.counter.Add(int64(len(data)))
 	}
 	b := buf.FromBytes(data)
-	b.Endpoint = dest
-	return &PacketPayload{Target: *dest, Buffer: buf.MultiBuffer{b}}, nil
-}
-
-type PacketConnectionReader struct {
-	reader  *PacketReader
-	payload *PacketPayload
-}
-
-func (r *PacketConnectionReader) ReadFrom(p []byte) (n int, addr net.Addr, err error) {
-	if r.payload == nil || r.payload.Buffer.IsEmpty() {
-		r.payload, err = r.reader.ReadMultiBufferWithMetadata()
-		if err != nil {
-			return n, addr, err
-		}
+	b.Endpoint = &net.Destination{
+		Address: dest.Address,
+		Port:    dest.Port,
+		Network: net.Network_UDP,
 	}
-
-	addr = &net.UDPAddr{
-		IP:   r.payload.Target.Address.IP(),
-		Port: int(r.payload.Target.Port),
-	}
-
-	r.payload.Buffer, n = buf.SplitFirstBytes(r.payload.Buffer, p)
-
-	return n, addr, err
+	return buf.MultiBuffer{b}, dest, nil
 }

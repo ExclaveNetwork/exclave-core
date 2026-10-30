@@ -122,20 +122,16 @@ func TestUDP(t *testing.T) {
 			},
 		},
 	}, func(conn internet.Connection) {
-		fmt.Println("incoming")
 		go func() {
 			defer conn.Close()
-
-			b := buf.New()
-			defer b.Release()
-
+			hyConn := conn.(*hysteria2.HyConn)
 			for {
-				b.Clear()
-				if _, err := b.ReadFrom(conn); err != nil {
+				b, dest, err := hyConn.ReadPacket()
+				if err != nil {
 					fmt.Println(err)
 					return
 				}
-				common.Must2(conn.Write(b.Bytes()))
+				common.Must(hyConn.WritePacket(b, dest))
 			}
 		}()
 	})
@@ -177,12 +173,15 @@ func TestUDP(t *testing.T) {
 	const N = 1000
 	b1 := make([]byte, N)
 	common.Must2(rand.Read(b1))
-	common.Must2(conn.Write(b1))
+	hyConn := conn.(*hysteria2.HyConn)
+	common.Must(hyConn.WritePacket(b1, address))
 
-	b2 := buf.New()
-	b2.Clear()
-	common.Must2(b2.ReadFullFrom(conn, N))
-	if r := cmp.Diff(b2.Bytes(), b1); r != "" {
+	b2, address2, err := hyConn.ReadPacket()
+	common.Must(err)
+	if r := cmp.Diff(b2, b1); r != "" {
+		t.Error(r)
+	}
+	if r := cmp.Diff(address, address2); r != "" {
 		t.Error(r)
 	}
 }

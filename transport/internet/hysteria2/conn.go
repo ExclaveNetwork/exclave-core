@@ -29,24 +29,21 @@ type HyConn struct {
 
 func (c *HyConn) Read(b []byte) (int, error) {
 	if c.IsUDPExtension {
-		n, data, _, err := c.ReadPacket()
-		copy(b, data)
-		return n, err
+		return 0, newError(CanNotUseUDPExtension)
 	}
 	return c.stream.Read(b)
 }
 
 func (c *HyConn) Write(b []byte) (int, error) {
 	if c.IsUDPExtension {
-		dest, _ := net.ParseDestination("udp:v2fly.org:6666")
-		return c.WritePacket(b, dest)
+		return 0, newError(CanNotUseUDPExtension)
 	}
 	return c.stream.Write(b)
 }
 
-func (c *HyConn) WritePacket(b []byte, dest net.Destination) (int, error) {
+func (c *HyConn) WritePacket(b []byte, dest net.Destination) error {
 	if !c.IsUDPExtension {
-		return 0, newError(CanNotUseUDPExtension)
+		return newError(CanNotUseUDPExtension)
 	}
 
 	if c.IsServer {
@@ -59,33 +56,36 @@ func (c *HyConn) WritePacket(b []byte, dest net.Destination) (int, error) {
 			Data:      b,
 		}
 		c.ServerUDPSession.SendCh <- msg
-		return len(b), nil
+		return nil
 	}
-	return len(b), c.ClientUDPSession.Send(b, dest.NetAddr())
+	return c.ClientUDPSession.Send(b, dest.NetAddr())
 }
 
-func (c *HyConn) ReadPacket() (int, []byte, *net.Destination, error) {
+func (c *HyConn) ReadPacket() ([]byte, net.Destination, error) {
 	if !c.IsUDPExtension {
-		return 0, nil, nil, newError(CanNotUseUDPExtension)
+		return nil, net.Destination{}, newError(CanNotUseUDPExtension)
 	}
 
 	if c.IsServer {
 		msg, ok := <-c.ServerUDPSession.ReceiveCh
 		if !ok {
-			return 0, nil, nil, newError("UDP session receive channel closed")
+			return nil, net.Destination{}, newError("UDP session receive channel closed")
 		}
 		dest, err := net.ParseDestination("udp:" + msg.Addr)
-		return len(msg.Data), msg.Data, &dest, err
+		if err != nil {
+			return nil, net.Destination{}, err
+		}
+		return msg.Data, dest, err
 	}
 	data, address, err := c.ClientUDPSession.Receive()
 	if err != nil {
-		return 0, nil, nil, err
+		return nil, net.Destination{}, err
 	}
 	dest, err := net.ParseDestination("udp:" + address)
 	if err != nil {
-		return 0, nil, nil, err
+		return nil, net.Destination{}, err
 	}
-	return len(data), data, &dest, nil
+	return data, dest, nil
 }
 
 func (c *HyConn) Close() error {

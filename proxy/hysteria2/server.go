@@ -3,7 +3,6 @@ package hysteria2
 import (
 	"context"
 	"io"
-	"time"
 
 	hyProtocol "github.com/exclavenetwork/hysteria/core/v2/international/protocol"
 
@@ -71,33 +70,17 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 		return newError(hyTransport.CanNotUseUDPExtension)
 	}
 
-	sessionPolicy := s.policyManager.ForLevel(0)
-	if err := conn.SetReadDeadline(time.Now().Add(sessionPolicy.Timeouts.Handshake)); err != nil {
-		return newError("unable to set read deadline").Base(err).AtWarning()
-	}
-
-	bufferedReader := &buf.BufferedReader{
-		Reader: buf.NewReader(conn),
-	}
-	clientReader := &ConnReader{Reader: bufferedReader}
-
-	if err := conn.SetReadDeadline(time.Time{}); err != nil {
-		return newError("unable to set read deadline").Base(err).AtWarning()
-	}
-
 	if network == net.Network_UDP { // handle udp request
 		return s.handleUDPPayload(ctx,
-			&PacketReader{Reader: clientReader, HyConn: hyConn, counter: readCounter},
-			&PacketWriter{Writer: conn, HyConn: hyConn, counter: writeCounter}, dispatcher)
+			&PacketReader{HyConn: hyConn, counter: readCounter},
+			&PacketWriter{HyConn: hyConn, counter: writeCounter}, dispatcher)
 	}
 
-	var reqAddr string
-	var err error
-	reqAddr, err = hyProtocol.ReadTCPRequest(conn)
+	reqAddr, err := hyProtocol.ReadTCPRequest(conn)
 	if err != nil {
 		return newError("failed to parse header").Base(err)
 	}
-	err = hyProtocol.WriteTCPResponse(conn, true, "")
+	err = hyProtocol.WriteTCPResponse(conn, true, "Connected")
 	if err != nil {
 		return newError("failed to send response").Base(err)
 	}
@@ -116,7 +99,7 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 	if inbound == nil {
 		panic("no inbound metadata")
 	}
-	sessionPolicy = s.policyManager.ForLevel(0)
+	sessionPolicy := s.policyManager.ForLevel(0)
 
 	ctx = log.ContextWithAccessMessage(ctx, &log.AccessMessage{
 		From:   conn.RemoteAddr(),
@@ -126,7 +109,7 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 	})
 
 	newError("received request for ", destination).WriteToLog(sid)
-	return s.handleConnection(ctx, sessionPolicy, destination, clientReader, buf.NewWriter(conn), dispatcher)
+	return s.handleConnection(ctx, sessionPolicy, destination, buf.NewReader(conn), buf.NewWriter(conn), dispatcher)
 }
 
 func (s *Server) handleConnection(ctx context.Context, sessionPolicy policy.Session,
@@ -185,7 +168,7 @@ func (s *Server) handleUDPPayload(ctx context.Context, clientReader *PacketReade
 		case <-ctx.Done():
 			return nil
 		default:
-			p, err := clientReader.ReadMultiBufferWithMetadata()
+			mb, dest, err := clientReader.ReadMultiBufferWithMetadata()
 			if err != nil {
 				if errors.Cause(err) != io.EOF {
 					return newError("unexpected EOF").Base(err)
@@ -195,14 +178,14 @@ func (s *Server) handleUDPPayload(ctx context.Context, clientReader *PacketReade
 			currentPacketCtx := ctx
 			currentPacketCtx = log.ContextWithAccessMessage(currentPacketCtx, &log.AccessMessage{
 				From:   inbound.Source,
-				To:     p.Target,
+				To:     dest,
 				Status: log.AccessAccepted,
 				Reason: "",
 			})
-			newError("tunnelling request to ", p.Target).WriteToLog(session.ExportIDToError(ctx))
+			newError("tunnelling request to ", dest).WriteToLog(session.ExportIDToError(ctx))
 
-			for _, b := range p.Buffer {
-				udpServer.Dispatch(currentPacketCtx, p.Target, b)
+			for _, b := range mb {
+				udpServer.Dispatch(currentPacketCtx, dest, b)
 			}
 		}
 	}

@@ -96,13 +96,13 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 		defer timer.SetTimeout(sessionPolicy.Timeouts.DownlinkOnly)
 
 		var bodyWriter buf.Writer
-		bufferWriter := buf.NewBufferedWriter(buf.NewWriter(conn))
-		connWriter := &ConnWriter{Writer: bufferWriter, Target: destination}
-		bodyWriter = connWriter
 
 		if network == net.Network_UDP {
-			bodyWriter = &PacketWriter{Writer: connWriter, Target: destination, HyConn: hyConn, counter: writeCounter}
+			bodyWriter = &PacketWriter{Target: destination, HyConn: hyConn, counter: writeCounter}
 		} else {
+			bufferWriter := buf.NewBufferedWriter(buf.NewWriter(conn))
+			connWriter := &ConnWriter{Writer: bufferWriter, Target: destination}
+			bodyWriter = connWriter
 			// write some request payload to buffer
 			err = buf.CopyOnceTimeout(link.Reader, bodyWriter, proxy.FirstPayloadTimeout)
 			switch err {
@@ -132,9 +132,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 
 		var reader buf.Reader
 		if network == net.Network_UDP {
-			reader = &PacketReader{
-				Reader: conn, HyConn: hyConn, counter: readCounter,
-			}
+			reader = &PacketReader{HyConn: hyConn, counter: readCounter}
 		} else {
 			ok, msg, err := hyProtocol.ReadTCPResponse(conn)
 			if err != nil {
