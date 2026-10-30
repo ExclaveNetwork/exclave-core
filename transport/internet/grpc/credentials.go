@@ -2,6 +2,8 @@ package grpc
 
 import (
 	"context"
+	"crypto/tls"
+	"fmt"
 	_ "unsafe"
 
 	"google.golang.org/grpc/credentials"
@@ -54,7 +56,7 @@ func (c securityEngineCreds) Info() credentials.ProtocolInfo {
 }
 
 // ClientHandshake implements credentials.TransportCredentials.
-func (c *securityEngineCreds) ClientHandshake(ctx context.Context, authority string, rawConn net.Conn) (_ net.Conn, _ credentials.AuthInfo, err error) {
+func (c *securityEngineCreds) ClientHandshake(ctx context.Context, authority string, rawConn net.Conn) (net.Conn, credentials.AuthInfo, error) {
 	var conn security.Conn
 	errChannel := make(chan error, 1)
 	go func() {
@@ -135,5 +137,17 @@ func (t securityEngineAuthInfo) GetSecurityValue() credentials.ChannelzSecurityV
 	}
 }
 
-//go:linkname cipherSuiteLookup google.golang.org/grpc/credentials.cipherSuiteLookup
-func cipherSuiteLookup(cipherSuiteID uint16) string
+// https://github.com/grpc/grpc-go/blob/bc90736a6fadc41582f9a23fb955bb66088f1bb8/credentials/tls.go#L72
+func cipherSuiteLookup(cipherSuiteID uint16) string {
+	for _, s := range tls.CipherSuites() {
+		if s.ID == cipherSuiteID {
+			return s.Name
+		}
+	}
+	for _, s := range tls.InsecureCipherSuites() {
+		if s.ID == cipherSuiteID {
+			return s.Name
+		}
+	}
+	return fmt.Sprintf("unknown ID: %v", cipherSuiteID)
+}
