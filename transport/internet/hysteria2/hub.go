@@ -38,9 +38,10 @@ func (l *Listener) StreamHijacker(ft http3.FrameType, conn *quic.Conn, stream *u
 	// err always == nil
 
 	tcpConn := &HyConn{
-		stream: stream,
-		local:  conn.LocalAddr(),
-		remote: conn.RemoteAddr(),
+		stream:   stream,
+		IsServer: true,
+		local:    conn.LocalAddr(),
+		remote:   conn.RemoteAddr(),
 	}
 	l.addConn(tcpConn)
 	return true, nil

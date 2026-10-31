@@ -3,11 +3,14 @@ package hysteria2
 import (
 	"time"
 
+	"github.com/apernet/quic-go/quicvarint"
 	hyClient "github.com/exclavenetwork/hysteria/core/v2/client"
 	"github.com/exclavenetwork/hysteria/core/v2/international/protocol"
 	"github.com/exclavenetwork/hysteria/core/v2/international/utils"
 	hyServer "github.com/exclavenetwork/hysteria/core/v2/server"
 
+	"github.com/exclavenetwork/exclave-core/v5/common"
+	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 )
 
@@ -25,6 +28,8 @@ type HyConn struct {
 	stream *utils.QStream
 	local  net.Addr
 	remote net.Addr
+
+	headerWritten bool
 }
 
 func (c *HyConn) Read(b []byte) (int, error) {
@@ -37,6 +42,20 @@ func (c *HyConn) Read(b []byte) (int, error) {
 func (c *HyConn) Write(b []byte) (int, error) {
 	if c.IsUDPExtension {
 		return 0, newError(CanNotUseUDPExtension)
+	}
+	if !c.IsServer && !c.headerWritten {
+		c.headerWritten = true
+		// write TCP frame type
+		frameSize := quicvarint.Len(protocol.FrameTypeTCPRequest)
+		buffer := buf.NewWithSize(int32(frameSize + len(b)))
+		protocol.VarintPut(buffer.Extend(int32(frameSize)), protocol.FrameTypeTCPRequest)
+		common.Must2(buffer.Write(b))
+		_, err := c.stream.Write(buffer.Bytes())
+		buffer.Release()
+		if err != nil {
+			return 0, err
+		}
+		return len(b), nil
 	}
 	return c.stream.Write(b)
 }

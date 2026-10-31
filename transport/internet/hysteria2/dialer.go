@@ -10,9 +10,7 @@ import (
 	"time"
 
 	"github.com/apernet/quic-go"
-	"github.com/apernet/quic-go/quicvarint"
 	hyClient "github.com/exclavenetwork/hysteria/core/v2/client"
-	hyProtocol "github.com/exclavenetwork/hysteria/core/v2/international/protocol"
 	"github.com/exclavenetwork/hysteria/core/v2/international/utils"
 	"github.com/exclavenetwork/hysteria/extras/v2/obfs"
 	"github.com/exclavenetwork/hysteria/extras/v2/transport/udphop"
@@ -530,16 +528,6 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		return nil, err
 	}
 
-	// write TCP frame type
-	frameSize := quicvarint.Len(hyProtocol.FrameTypeTCPRequest)
-	buf := make([]byte, frameSize)
-	hyProtocol.VarintPut(buf, hyProtocol.FrameTypeTCPRequest)
-	_, err = conn.stream.Write(buf)
-	if err != nil {
-		conn.stream.Close()
-		canceller()
-		return nil, err
-	}
 	return conn, nil
 }
 
