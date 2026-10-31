@@ -25,10 +25,7 @@ type HyConn struct {
 	ClientUDPSession hyClient.HyUDPConn
 	ServerUDPSession *hyServer.UdpSessionEntry
 
-	stream *utils.QStream
-	local  net.Addr
-	remote net.Addr
-
+	stream        *utils.QStream
 	headerWritten bool
 }
 
@@ -122,11 +119,17 @@ func (c *HyConn) Close() error {
 }
 
 func (c *HyConn) LocalAddr() net.Addr {
-	return c.local
+	return &net.UDPAddr{
+		IP:   []byte{0, 0, 0, 0},
+		Port: 0,
+	}
 }
 
 func (c *HyConn) RemoteAddr() net.Addr {
-	return c.remote
+	return &net.UDPAddr{
+		IP:   []byte{0, 0, 0, 0},
+		Port: 0,
+	}
 }
 
 func (c *HyConn) SetDeadline(t time.Time) error {

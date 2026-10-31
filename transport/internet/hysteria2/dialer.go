@@ -495,10 +495,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		}
 	}
 
-	conn := &HyConn{
-		local:  quicConn.LocalAddr(),
-		remote: quicConn.RemoteAddr(),
-	}
+	conn := &HyConn{}
 
 	network := net.Network_TCP
 	if outbound != nil {
