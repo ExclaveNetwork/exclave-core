@@ -26,7 +26,7 @@ func DialTaggedOutbound(ctx context.Context, dest net.Destination, tag string) (
 	ctx = session.ContextWithContent(ctx, content)
 	ctx = session.SetForcedOutboundTagToContext(ctx, tag)
 
-	r, err := dispatcher.Dispatch(ctx, dest)
+	r, err := dispatcher.Dispatch(core.ToBackgroundDetachedContext(ctx), dest)
 	if err != nil {
 		return nil, err
 	}
