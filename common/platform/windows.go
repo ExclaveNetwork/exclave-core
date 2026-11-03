@@ -13,7 +13,7 @@ func LineSeparator() string {
 	return "\r\n"
 }
 
-// GetAssetLocation search for `file` in the excutable dir
+// GetAssetLocation search for `file` in the executable dir
 func GetAssetLocation(file string) string {
 	const name = "exclave.location.asset"
 	assetPath := NewEnvFlag(name).GetValue(getExecutableDir)

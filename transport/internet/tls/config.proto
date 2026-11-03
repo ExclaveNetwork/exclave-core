@@ -79,8 +79,8 @@ message Config {
 
   reserved 16,17,18;
 
-  // cipher suites to to be offered or accepted.
-  // This is an developer option.
+  // cipher suites to be offered or accepted.
+  // This is a developer option.
   repeated uint32 ciphersuites = 19;
 
   repeated bytes pinned_peer_certificate_public_key_sha256 = 900;

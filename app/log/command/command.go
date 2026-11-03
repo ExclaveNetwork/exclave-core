@@ -13,7 +13,7 @@ import (
 	cmlog "github.com/exclavenetwork/exclave-core/v5/common/log"
 )
 
-// LoggerServer is the implemention of LoggerService
+// LoggerServer is the implementation of LoggerService
 type LoggerServer struct {
 	V *core.Instance
 }

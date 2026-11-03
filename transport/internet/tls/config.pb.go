@@ -227,8 +227,8 @@ type Config struct {
 	MaxVersion Config_TLSVersion `protobuf:"varint,10,opt,name=max_version,json=maxVersion,proto3,enum=exclave.core.transport.internet.tls.Config_TLSVersion" json:"max_version,omitempty"`
 	// Whether or not to allow self-signed certificates when pinned_peer_certificate_chain_sha256 is present.
 	AllowInsecureIfPinnedPeerCertificate bool `protobuf:"varint,11,opt,name=allow_insecure_if_pinned_peer_certificate,json=allowInsecureIfPinnedPeerCertificate,proto3" json:"allow_insecure_if_pinned_peer_certificate,omitempty"`
-	// cipher suites to to be offered or accepted.
-	// This is an developer option.
+	// cipher suites to be offered or accepted.
+	// This is a developer option.
 	Ciphersuites                         []uint32    `protobuf:"varint,19,rep,packed,name=ciphersuites,proto3" json:"ciphersuites,omitempty"`
 	PinnedPeerCertificatePublicKeySha256 [][]byte    `protobuf:"bytes,900,rep,name=pinned_peer_certificate_public_key_sha256,json=pinnedPeerCertificatePublicKeySha256,proto3" json:"pinned_peer_certificate_public_key_sha256,omitempty"`
 	PinnedPeerCertificateSha256          [][]byte    `protobuf:"bytes,901,rep,name=pinned_peer_certificate_sha256,json=pinnedPeerCertificateSha256,proto3" json:"pinned_peer_certificate_sha256,omitempty"`

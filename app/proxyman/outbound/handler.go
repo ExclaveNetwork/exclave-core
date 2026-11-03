@@ -414,7 +414,7 @@ func (h *Handler) Dial(ctx context.Context, dest net.Destination) (internet.Conn
 					conn = securityConn
 				}
 
-				return h.getStatCouterConnection(conn), nil
+				return h.getStatCounterConnection(conn), nil
 			}
 
 			newError("failed to get outbound handler with tag: ", tag).AtWarning().WriteToLog(session.ExportIDToError(ctx))
@@ -453,7 +453,7 @@ func (h *Handler) Dial(ctx context.Context, dest net.Destination) (internet.Conn
 	if err != nil {
 		return nil, err
 	}
-	return h.getStatCouterConnection(conn), err
+	return h.getStatCounterConnection(conn), err
 }
 
 func (h *Handler) resolveIP(ctx context.Context, domain string, localAddr net.Address, strategy proxyman.SenderConfig_DomainStrategy) net.Address {
@@ -480,7 +480,7 @@ func (h *Handler) resolveIP(ctx context.Context, domain string, localAddr net.Ad
 	return net.IPAddress(ips[0])
 }
 
-func (h *Handler) getStatCouterConnection(conn internet.Connection) internet.Connection {
+func (h *Handler) getStatCounterConnection(conn internet.Connection) internet.Connection {
 	if h.uplinkCounter != nil || h.downlinkCounter != nil {
 		return &internet.StatCouterConnection{
 			Connection:   conn,
