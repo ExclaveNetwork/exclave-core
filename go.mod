@@ -12,7 +12,7 @@ require (
 	github.com/enfein/mieru/v3 v3.39.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1
-	github.com/exclavenetwork/reality v0.0.0-20261024092657-66bffb4f0244
+	github.com/exclavenetwork/reality v0.0.0-20261103173053-3dac93477407
 	github.com/exclavenetwork/sing-juicity v0.3.1
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20261025201941-b0544c564b00
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
@@ -21,7 +21,7 @@ require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/miekg/dns v1.1.73
 	github.com/pires/go-proxyproto v0.15.0
-	github.com/quic-go/quic-go v0.64.1
+	github.com/quic-go/quic-go v0.65.0
 	github.com/refraction-networking/utls v1.8.3-0.20260924070827-6af385813fd8
 	github.com/sagernet/sing v0.9.6
 	github.com/sagernet/sing-mux v0.3.9
@@ -56,7 +56,7 @@ require (
 	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/klauspost/compress v1.20.3 // indirect
-	github.com/klauspost/cpuid/v2 v2.4.1 // indirect
+	github.com/klauspost/cpuid/v2 v2.4.2 // indirect
 	github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543 // indirect
 	github.com/metacubex/cpu v0.1.2 // indirect
 	github.com/metacubex/hkdf v0.1.0 // indirect
@@ -71,7 +71,7 @@ require (
 	github.com/sagernet/quic-go v0.61.0-sing-box-mod.12 // indirect
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
 	github.com/xtaci/smux v1.5.58 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/time v0.16.0 // indirect
