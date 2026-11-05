@@ -22,8 +22,8 @@ github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmH
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da/go.mod h1:eHEWzANqSiWQsof+nXEI9bUVUyV6F53Fp89EuCh2EAA=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
-github.com/andybalholm/brotli v1.2.7 h1:UgafRPGMam5ySHfRkhthMqOFA6IFoeF3D7mWIDLjG5A=
-github.com/andybalholm/brotli v1.2.7/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
+github.com/andybalholm/brotli v1.2.8 h1:H9F6r7RNwzSRsx/lytpIYkbjNFMt2yNBwsJ2+0gpx78=
+github.com/andybalholm/brotli v1.2.8/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
 github.com/anytls/sing-anytls v0.0.13 h1:FL+krjOmwpYYLpl5rrV/BrzDMfxbi05YgIQh+NAA37c=
 github.com/anytls/sing-anytls v0.0.13/go.mod h1:7rjN6IukwysmdusYsrV51Fgu1uW6vsrdd6ctjnEAln8=
 github.com/apernet/quic-go v0.63.1-0.20261004180939-a10df75c260c h1:cxK8qTA0YCsj68A7zLYDCfPgMTOyt3ePkHh+oXEmYU0=
@@ -58,8 +58,8 @@ github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1 h1:uPdWKF/ox2CrWtSXQPPi7qWt
 github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1/go.mod h1:GsUJWcwuhJCk8HKG2UEfxddfUzja1maH9IEik4hl6hQ=
 github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1 h1:slr8b5Zxzj8I1XbW376hZYShfzHu/oIgoIkAsqPPTiY=
 github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1/go.mod h1:IKo1/vSm5na6Sd/4PCoB3j49rlC04i0j1v+OTCMDwrk=
-github.com/exclavenetwork/reality v0.0.0-20261103173053-3dac93477407 h1:nme+av5CQh2CC1BlqKicQ8CtU3Q3PEF9X6LYcVbSMIw=
-github.com/exclavenetwork/reality v0.0.0-20261103173053-3dac93477407/go.mod h1:yzm3qFfgLRjm13GIcdRB8cjM9m2vR+ZPSksgz1M1TwE=
+github.com/exclavenetwork/reality v0.0.0-20261105065227-9407e3a8cc2a h1:cWSuwEeY0vZamwTuw5SZ6CaFqC84X4daU0M5Upzq9Xs=
+github.com/exclavenetwork/reality v0.0.0-20261105065227-9407e3a8cc2a/go.mod h1:yzm3qFfgLRjm13GIcdRB8cjM9m2vR+ZPSksgz1M1TwE=
 github.com/exclavenetwork/sing-juicity v0.3.1 h1:0NXWxJwQZqyoeE9WOWj7YzJ6k0GEHOIcL8HnEX5exrg=
 github.com/exclavenetwork/sing-juicity v0.3.1/go.mod h1:6ShPI5F5+2gTWqT3TJufV7/1zPOKx2M5yy7a5GGzfeE=
 github.com/exclavenetwork/sing-shadowquic v0.0.0-20261025201941-b0544c564b00 h1:NwZt9btorKNgcJL20sykXKG7xZgas2aA9w07/Wc+fF4=
