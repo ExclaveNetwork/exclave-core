@@ -7,6 +7,7 @@ import (
 	gotls "crypto/tls"
 	"math/big"
 	"strconv"
+	"sync"
 
 	goreality "github.com/exclavenetwork/reality"
 	"github.com/pires/go-proxyproto"
@@ -240,6 +241,7 @@ type VisionWriter struct {
 	// internal
 	writeOnceUserUUID  []byte
 	directWriteCounter stats.Counter
+	access             sync.Mutex
 }
 
 func NewVisionWriter(writer buf.Writer, trafficState *TrafficState, isUplink bool, ctx context.Context, conn net.Conn) *VisionWriter {
@@ -256,6 +258,9 @@ func NewVisionWriter(writer buf.Writer, trafficState *TrafficState, isUplink boo
 }
 
 func (w *VisionWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
+	w.access.Lock()
+	defer w.access.Unlock()
+
 	var isPadding *bool
 	var switchToDirectCopy *bool
 	if w.isUplink {
