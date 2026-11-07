@@ -13,6 +13,8 @@ type DokodemoConfig struct {
 	NetworkList *cfgcommon.NetworkList `json:"network"`
 	Redirect    bool                   `json:"followRedirect"`
 	UserLevel   uint32                 `json:"userLevel"`
+
+	InterruptConnections bool `json:"interruptConnections"`
 }
 
 func (v *DokodemoConfig) Build() (proto.Message, error) {
@@ -24,5 +26,8 @@ func (v *DokodemoConfig) Build() (proto.Message, error) {
 	config.Networks = v.NetworkList.Build()
 	config.FollowRedirect = v.Redirect
 	config.UserLevel = v.UserLevel
+
+	config.InterruptConnections = v.InterruptConnections
+
 	return config, nil
 }

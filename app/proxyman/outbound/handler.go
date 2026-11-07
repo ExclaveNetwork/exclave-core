@@ -203,7 +203,7 @@ func NewHandler(ctx context.Context, config *core.OutboundHandlerConfig) (outbou
 	h.transportEnvironment = transportEnvironment
 
 	h.connectionPool = track.NewConnectionPool()
-	h.interfaceUpdateCallback = RegisterInterfaceUpdateCallback(h.interfaceUpdate)
+	h.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(h.interfaceUpdate)
 
 	return h, nil
 }
@@ -569,7 +569,7 @@ func (h *Handler) Close() error {
 
 	h.transportEnvironment.TransientStorage().Clear(h.ctx)
 
-	UnRegisterInterfaceUpdateCallback(h.interfaceUpdateCallback)
+	proxyman.UnRegisterInterfaceUpdateCallback(h.interfaceUpdateCallback)
 
 	return nil
 }

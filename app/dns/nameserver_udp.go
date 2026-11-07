@@ -15,7 +15,7 @@ import (
 
 	core "github.com/exclavenetwork/exclave-core/v5"
 	"github.com/exclavenetwork/exclave-core/v5/app/dispatcher"
-	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -124,7 +124,7 @@ func newClassicNameServer(address net.Destination, name string, dispatcher routi
 		return udp.NewSplitDispatcher(dispatcher, s.HandleResponse)
 	}
 	s.udpServer = s.newUDPDispatcherFunc()
-	s.interfaceUpdateCallback = outbound.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
+	s.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
 	return s
 }
 
@@ -144,7 +144,7 @@ func (s *ClassicNameServer) Close() error {
 	s.ips = nil
 	s.requests = nil
 	s.tcpServer.Close()
-	outbound.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
+	proxyman.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
 	s.Unlock()
 	return nil
 }

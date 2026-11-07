@@ -25,8 +25,10 @@ type Config struct {
 	Networks       []net.Network `protobuf:"varint,7,rep,packed,name=networks,proto3,enum=exclave.core.common.net.Network" json:"networks,omitempty"`
 	FollowRedirect bool          `protobuf:"varint,5,opt,name=follow_redirect,json=followRedirect,proto3" json:"follow_redirect,omitempty"`
 	UserLevel      uint32        `protobuf:"varint,6,opt,name=user_level,json=userLevel,proto3" json:"user_level,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// SagerNet private
+	InterruptConnections bool `protobuf:"varint,1000,opt,name=interrupt_connections,json=interruptConnections,proto3" json:"interrupt_connections,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *Config) Reset() {
@@ -94,14 +96,23 @@ func (x *Config) GetUserLevel() uint32 {
 	return 0
 }
 
+func (x *Config) GetInterruptConnections() bool {
+	if x != nil {
+		return x.InterruptConnections
+	}
+	return false
+}
+
 type SimplifiedConfig struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Address        *net.IPOrDomain        `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Port           uint32                 `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
 	Networks       *net.NetworkList       `protobuf:"bytes,3,opt,name=networks,proto3" json:"networks,omitempty"`
 	FollowRedirect bool                   `protobuf:"varint,4,opt,name=follow_redirect,json=followRedirect,proto3" json:"follow_redirect,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// SagerNet private
+	InterruptConnections bool `protobuf:"varint,1000,opt,name=interrupt_connections,json=interruptConnections,proto3" json:"interrupt_connections,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *SimplifiedConfig) Reset() {
@@ -162,23 +173,32 @@ func (x *SimplifiedConfig) GetFollowRedirect() bool {
 	return false
 }
 
+func (x *SimplifiedConfig) GetInterruptConnections() bool {
+	if x != nil {
+		return x.InterruptConnections
+	}
+	return false
+}
+
 var File_proxy_dokodemo_config_proto protoreflect.FileDescriptor
 
 const file_proxy_dokodemo_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproxy/dokodemo/config.proto\x12\x1bexclave.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xed\x01\n" +
+	"\x1bproxy/dokodemo/config.proto\x12\x1bexclave.core.proxy.dokodemo\x1a\x18common/net/address.proto\x1a\x18common/net/network.proto\x1a common/protoext/extensions.proto\"\xa3\x02\n" +
 	"\x06Config\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12<\n" +
 	"\bnetworks\x18\a \x03(\x0e2 .exclave.core.common.net.NetworkR\bnetworks\x12'\n" +
 	"\x0ffollow_redirect\x18\x05 \x01(\bR\x0efollowRedirect\x12\x1d\n" +
 	"\n" +
-	"user_level\x18\x06 \x01(\rR\tuserLevelJ\x04\b\x03\x10\x04J\x04\b\x04\x10\x05\"\xee\x01\n" +
+	"user_level\x18\x06 \x01(\rR\tuserLevel\x124\n" +
+	"\x15interrupt_connections\x18\xe8\a \x01(\bR\x14interruptConnectionsJ\x04\b\x03\x10\x04J\x04\b\x04\x10\x05\"\xa4\x02\n" +
 	"\x10SimplifiedConfig\x12=\n" +
 	"\aaddress\x18\x01 \x01(\v2#.exclave.core.common.net.IPOrDomainR\aaddress\x12\x12\n" +
 	"\x04port\x18\x02 \x01(\rR\x04port\x12@\n" +
 	"\bnetworks\x18\x03 \x01(\v2$.exclave.core.common.net.NetworkListR\bnetworks\x12'\n" +
-	"\x0ffollow_redirect\x18\x04 \x01(\bR\x0efollowRedirect:\x1c\x82\xb5\x18\x18\n" +
+	"\x0ffollow_redirect\x18\x04 \x01(\bR\x0efollowRedirect\x124\n" +
+	"\x15interrupt_connections\x18\xe8\a \x01(\bR\x14interruptConnections:\x1c\x82\xb5\x18\x18\n" +
 	"\ainbound\x12\rdokodemo-doorB\x91\x01\n" +
 	"5com.github.exclavenetwork.exclave.core.proxy.dokodemoP\x01Z8github.com/exclavenetwork/exclave-core/v5/proxy/dokodemo\xaa\x02\x1bExclave.Core.Proxy.Dokodemob\x06proto3"
 

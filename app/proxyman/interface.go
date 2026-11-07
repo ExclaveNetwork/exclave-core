@@ -1,4 +1,4 @@
-package outbound
+package proxyman
 
 import (
 	"container/list"

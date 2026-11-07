@@ -14,7 +14,7 @@ import (
 	"github.com/quic-go/quic-go"
 
 	core "github.com/exclavenetwork/exclave-core/v5"
-	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
@@ -78,7 +78,7 @@ func NewQUICRemoteNameServer(url *url.URL, dispatcher routing.Dispatcher) (*QUIC
 		Execute:  s.Cleanup,
 	}
 
-	s.interfaceUpdateCallback = outbound.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
+	s.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
 
 	return s, nil
 }
@@ -110,7 +110,7 @@ func NewQUICNameServer(url *url.URL) (*QUICNameServer, error) {
 		Execute:  s.Cleanup,
 	}
 
-	s.interfaceUpdateCallback = outbound.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
+	s.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
 
 	return s, nil
 }
@@ -135,7 +135,7 @@ func (s *QUICNameServer) Close() error {
 		s.connectionPool.ResetConnections()
 	}
 	s.ips = nil
-	outbound.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
+	proxyman.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
 	s.Unlock()
 	return nil
 }

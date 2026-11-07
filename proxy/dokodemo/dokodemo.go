@@ -3,10 +3,12 @@ package dokodemo
 //go:generate go run github.com/exclavenetwork/exclave-core/v5/common/errors/errorgen
 
 import (
+	"container/list"
 	"context"
 	"sync/atomic"
 
 	core "github.com/exclavenetwork/exclave-core/v5"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/log"
@@ -15,10 +17,14 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
+	"github.com/exclavenetwork/exclave-core/v5/common/track"
 	"github.com/exclavenetwork/exclave-core/v5/features/policy"
 	"github.com/exclavenetwork/exclave-core/v5/features/routing"
+	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
 )
+
+var _ proxy.ClosableInbound = (*Door)(nil)
 
 func init() {
 	common.Must(common.RegisterConfig((*Config)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
@@ -36,6 +42,8 @@ func init() {
 			Port:           simplifiedServer.Port,
 			Networks:       simplifiedServer.Networks.Network,
 			FollowRedirect: simplifiedServer.FollowRedirect,
+
+			InterruptConnections: simplifiedServer.InterruptConnections,
 		}
 
 		return common.CreateObject(ctx, fullConfig)
@@ -48,6 +56,9 @@ type Door struct {
 	address       net.Address
 	port          net.Port
 	sockopt       *session.Sockopt
+
+	connectionPool          *track.ConnectionPool
+	interfaceUpdateCallback *list.Element
 }
 
 // Init initializes the Door instance with necessary parameters.
@@ -61,6 +72,13 @@ func (d *Door) Init(config *Config, pm policy.Manager, sockopt *session.Sockopt)
 	d.policyManager = pm
 	d.sockopt = sockopt
 
+	if d.config.InterruptConnections {
+		d.connectionPool = track.NewConnectionPool()
+		d.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(func() {
+			d.connectionPool.ResetConnections()
+		})
+	}
+
 	return nil
 }
 
@@ -69,12 +87,25 @@ func (d *Door) Network() []net.Network {
 	return d.config.Networks
 }
 
+func (d *Door) Close() error {
+	if d.config.InterruptConnections {
+		d.connectionPool.ResetConnections()
+		proxyman.UnRegisterInterfaceUpdateCallback(d.interfaceUpdateCallback)
+	}
+	return nil
+}
+
 func (d *Door) policy() policy.Session {
 	return d.policyManager.ForLevel(d.config.UserLevel)
 }
 
 // Process implements proxy.Inbound.
 func (d *Door) Process(ctx context.Context, network net.Network, conn internet.Connection, dispatcher routing.Dispatcher) error {
+	if d.config.InterruptConnections {
+		elem := d.connectionPool.PushBack(conn)
+		defer d.connectionPool.Remove(elem)
+	}
+
 	newError("processing connection from: ", conn.RemoteAddr()).AtDebug().WriteToLog(session.ExportIDToError(ctx))
 	dest := net.Destination{
 		Network: network,

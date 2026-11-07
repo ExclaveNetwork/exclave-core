@@ -13,7 +13,7 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
+	"github.com/exclavenetwork/exclave-core/v5/app/proxyman"
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/net/cnc"
@@ -117,7 +117,7 @@ func baseDOHNameServer(url *url.URL, prefix, protocol string, newHTTPClientFunc 
 	}
 	s.newHTTPClientFunc = newHTTPClientFunc
 	s.httpClient = s.newHTTPClientFunc()
-	s.interfaceUpdateCallback = outbound.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
+	s.interfaceUpdateCallback = proxyman.RegisterInterfaceUpdateCallback(s.interfaceUpdate)
 	return s
 }
 
@@ -136,7 +136,7 @@ func (s *DoHNameServer) Close() error {
 		s.connectionPool.ResetConnections()
 	}
 	s.ips = nil
-	outbound.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
+	proxyman.UnRegisterInterfaceUpdateCallback(s.interfaceUpdateCallback)
 	s.Unlock()
 	return nil
 }

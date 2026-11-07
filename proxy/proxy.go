@@ -55,6 +55,11 @@ type OutboundWithSingUot interface {
 	SingUotEnabled() bool
 }
 
+type ClosableInbound interface {
+	Inbound
+	common.Closable
+}
+
 // UserManager is the interface for Inbounds and Outbounds that can manage their users.
 type UserManager interface {
 	// AddUser adds a new user.
