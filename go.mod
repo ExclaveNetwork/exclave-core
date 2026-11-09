@@ -1,13 +1,12 @@
 module github.com/exclavenetwork/exclave-core/v5
 
-go 1.26.0
+go 1.27
 
 require (
-	filippo.io/mldsa v1.0.0
 	github.com/adrg/xdg v0.5.3
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da
 	github.com/anytls/sing-anytls v0.0.13
-	github.com/apernet/quic-go v0.63.1-0.20261004180939-a10df75c260c
+	github.com/apernet/quic-go v0.65.1-0.20261109005002-2895f039137a
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
 	github.com/enfein/mieru/v3 v3.39.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1
@@ -20,9 +19,9 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/miekg/dns v1.1.73
-	github.com/pires/go-proxyproto v0.15.0
+	github.com/pires/go-proxyproto v0.16.0
 	github.com/quic-go/quic-go v0.65.0
-	github.com/refraction-networking/utls v1.8.3-0.20260924070827-6af385813fd8
+	github.com/refraction-networking/utls v1.8.3-0.20261108164504-a13c59ffe98b
 	github.com/sagernet/sing v0.9.6
 	github.com/sagernet/sing-mux v0.3.9
 	github.com/sagernet/sing-quic v0.7.1
@@ -66,11 +65,13 @@ require (
 	github.com/metacubex/mlkem v0.1.0 // indirect
 	github.com/metacubex/randv2 v0.2.1-0.20260726125100-81aa96a9b1a5 // indirect
 	github.com/metacubex/utls v1.8.8 // indirect
+	github.com/molecule-man/go-brrr v1.3.1 // indirect
+	github.com/pion/transport/v5 v5.1.5 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
 	github.com/sagernet/quic-go v0.61.0-sing-box-mod.12 // indirect
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
-	github.com/xtaci/smux v1.5.58 // indirect
+	github.com/xtaci/smux v1.5.59 // indirect
 	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
 	golang.org/x/text v0.43.0 // indirect

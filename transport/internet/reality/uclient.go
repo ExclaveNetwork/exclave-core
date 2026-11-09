@@ -8,6 +8,7 @@ import (
 	"crypto/ecdh"
 	"crypto/ed25519"
 	"crypto/hmac"
+	"crypto/mldsa"
 	"crypto/sha256"
 	"crypto/sha512"
 	gotls "crypto/tls"
@@ -32,7 +33,7 @@ type UConn struct {
 	*utls.UConn
 	serverName          string
 	authKey             []byte
-	mldsaVerify         *mldsaVerify
+	mldsaPublicKey      *mldsa.PublicKey
 	verified            bool
 	suppressCloseNotify atomic.Bool
 }
@@ -53,11 +54,11 @@ func (c *UConn) verifyConnection(state utls.ConnectionState) error {
 		h := hmac.New(sha512.New, c.authKey)
 		h.Write(pub)
 		if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
-			if c.mldsaVerify != nil {
+			if c.mldsaPublicKey != nil {
 				if len(state.PeerCertificates[0].Extensions) > 0 {
 					h.Write(c.HandshakeState.Hello.Raw)
 					h.Write(c.HandshakeState.ServerHello.Raw)
-					if c.mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value) == nil {
+					if mldsa.Verify(c.mldsaPublicKey, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil) == nil {
 						c.verified = true
 						return nil
 					}
@@ -84,11 +85,11 @@ func (c *UConn) verifyConnection(state utls.ConnectionState) error {
 func uclient(ctx context.Context, conn net.Conn, dest net.Destination, config *Config, opts ...option) (net.Conn, error) {
 	uConn := &UConn{}
 	if len(config.Mldsa65Verify) > 0 {
-		mldsaVerify, err := newMLDSA65Verify(config.Mldsa65Verify)
+		mldsaPublicKey, err := mldsa.NewPublicKey(mldsa.MLDSA65(), config.Mldsa65Verify)
 		if err != nil {
 			return nil, err
 		}
-		uConn.mldsaVerify = mldsaVerify
+		uConn.mldsaPublicKey = mldsaPublicKey
 	}
 	utlsConfig := &utls.Config{
 		VerifyConnection:       uConn.verifyConnection,
@@ -127,16 +128,16 @@ func uclient(ctx context.Context, conn net.Conn, dest net.Destination, config *C
 			if ext, ok := extension.(*utls.SupportedCurvesExtension); ok {
 				ext.Curves = slices.DeleteFunc(ext.Curves, func(curveID utls.CurveID) bool {
 					return curveID == utls.X25519MLKEM768 ||
-						curveID == 4587 /* utls.SecP256r1MLKEM768 */ ||
-						curveID == 4589 /* utls.SecP384r1MLKEM1024 */ ||
+						curveID == utls.SecP256r1MLKEM768 ||
+						curveID == utls.SecP384r1MLKEM1024 ||
 						curveID == utls.X25519Kyber768Draft00
 				})
 			}
 			if ext, ok := extension.(*utls.KeyShareExtension); ok {
 				ext.KeyShares = slices.DeleteFunc(ext.KeyShares, func(share utls.KeyShare) bool {
 					return share.Group == utls.X25519MLKEM768 ||
-						share.Group == 4587 /* utls.SecP256r1MLKEM768 */ ||
-						share.Group == 4589 /* utls.SecP384r1MLKEM1024 */ ||
+						share.Group == utls.SecP256r1MLKEM768 ||
+						share.Group == utls.SecP384r1MLKEM1024 ||
 						share.Group == utls.X25519Kyber768Draft00
 				})
 			}

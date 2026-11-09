@@ -1,4 +1,4 @@
-//go:build go1.27 && !http2legacy
+//go:build !http2legacy
 
 package http
 

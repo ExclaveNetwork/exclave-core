@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/ed25519"
 	"crypto/hmac"
+	"crypto/mldsa"
 	"crypto/sha512"
 	"crypto/tls"
 	"crypto/x509"
@@ -36,13 +37,13 @@ func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Co
 			serverName = dest.Address.IP().String()
 		}
 	}
-	var mldsaVerify *mldsaVerify
+	var mldsaPublicKey *mldsa.PublicKey
 	if len(config.Mldsa65Verify) > 0 {
-		verify, err := newMLDSA65Verify(config.Mldsa65Verify)
+		publicKey, err := mldsa.NewPublicKey(mldsa.MLDSA65(), config.Mldsa65Verify)
 		if err != nil {
 			return nil, err
 		}
-		mldsaVerify = verify
+		mldsaPublicKey = publicKey
 	}
 	verified := false
 	realityConfig := &reality.Config{
@@ -60,13 +61,13 @@ func client(ctx context.Context, conn net.Conn, dest net.Destination, config *Co
 				h := hmac.New(sha512.New, authKey)
 				h.Write(publicKey)
 				if bytes.Equal(h.Sum(nil), state.PeerCertificates[0].Signature) {
-					if mldsaVerify != nil {
+					if mldsaPublicKey != nil {
 						if len(state.PeerCertificates[0].Extensions) > 0 {
 							clientHello, _ := state.RawClientHello()
 							serverHello, _ := state.RawServerHello()
 							h.Write(clientHello)
 							h.Write(serverHello)
-							if err := mldsaVerify.verify(h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value); err == nil {
+							if err := mldsa.Verify(mldsaPublicKey, h.Sum(nil), state.PeerCertificates[0].Extensions[0].Value, nil); err == nil {
 								verified = true
 								return nil
 							}
