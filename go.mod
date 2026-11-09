@@ -12,7 +12,7 @@ require (
 	github.com/enfein/mieru/v3 v3.39.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1
-	github.com/exclavenetwork/reality v0.0.0-20261105065227-9407e3a8cc2a
+	github.com/exclavenetwork/reality v0.0.0-20261109081502-f08a42b86080
 	github.com/exclavenetwork/sing-juicity v0.3.1
 	github.com/exclavenetwork/sing-shadowquic v0.0.0-20261025201941-b0544c564b00
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
