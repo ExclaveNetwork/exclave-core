@@ -1,6 +1,6 @@
-//go:build http2legacy
+//go:build go1.28 || http2legacy
 
-package masque
+package http
 
 import (
 	"net"
