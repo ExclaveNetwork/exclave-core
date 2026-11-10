@@ -12,7 +12,6 @@ import (
 	"github.com/sagernet/sing/common/metadata"
 	"github.com/sagernet/sing/common/network"
 
-	core "github.com/exclavenetwork/exclave-core/v5"
 	"github.com/exclavenetwork/exclave-core/v5/app/proxyman/outbound"
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
@@ -20,7 +19,6 @@ import (
 	v2net "github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/singbridge"
-	"github.com/exclavenetwork/exclave-core/v5/features/dns"
 	"github.com/exclavenetwork/exclave-core/v5/proxy"
 	"github.com/exclavenetwork/exclave-core/v5/transport"
 	"github.com/exclavenetwork/exclave-core/v5/transport/internet"
@@ -60,7 +58,6 @@ type Outbound struct {
 	mode         snellv6.Mode
 	client       snellClient
 	clientAccess sync.Mutex
-	resolver     func(domain string) (v2net.Address, error)
 }
 
 func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
@@ -128,31 +125,6 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Outbound, error) {
 		if config.ObfsMode != "" {
 			return nil, newError("obfsMode is only valid for version 4")
 		}
-	}
-
-	v := core.MustFromContext(ctx)
-	dnsClient := v.GetFeature(dns.ClientType()).(dns.Client)
-	outbound.resolver = func(domain string) (v2net.Address, error) {
-		ips, err := dns.LookupIPWithOption(dnsClient, domain, dns.IPOption{
-			IPv4Enable: config.DomainStrategy != ClientConfig_USE_IP6,
-			IPv6Enable: config.DomainStrategy != ClientConfig_USE_IP4,
-		})
-		if err != nil {
-			return nil, err
-		}
-		if len(ips) == 0 {
-			return nil, dns.ErrEmptyResponse
-		}
-		if config.DomainStrategy == ClientConfig_PREFER_IP4 || config.DomainStrategy == ClientConfig_PREFER_IP6 {
-			var addr v2net.Address
-			for _, ip := range ips {
-				addr = v2net.IPAddress(ip)
-				if addr.Family().IsIPv4() == (config.DomainStrategy == ClientConfig_PREFER_IP4) {
-					return addr, nil
-				}
-			}
-		}
-		return v2net.IPAddress(ips[0]), nil
 	}
 	return outbound, nil
 }
@@ -257,18 +229,11 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 			rawConn.Close()
 			return err
 		}
-		var addr v2net.Address
+		var packetConnWrapper network.PacketConn = singbridge.NewPacketConnWrapper(link, destination)
 		if destination.Address.Family().IsDomain() {
-			addr, err = o.resolver(destination.Address.Domain())
-			if err != nil {
-				rawConn.Close()
-				return err
-			}
+			packetConnWrapper = newPacketConnWrapper(packetConnWrapper, link.Writer, destination)
 		}
-		if o.version == 4 {
-			serverConn = newServerConnWrapper(serverConn)
-		}
-		return singbridge.ReturnError(bufio.CopyPacketConn(ctx, newPacketConnWrapper(link, destination, addr, o.resolver), serverConn))
+		return singbridge.ReturnError(bufio.CopyPacketConn(ctx, packetConnWrapper, serverConn))
 	}
 }
 
