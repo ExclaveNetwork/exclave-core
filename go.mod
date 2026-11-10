@@ -11,9 +11,9 @@ require (
 	github.com/enfein/mieru/v3 v3.39.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.13.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.13.0-1
-	github.com/exclavenetwork/reality v0.0.0-20261109081502-f08a42b86080
+	github.com/exclavenetwork/reality v0.0.0-20261109173840-a4b5d3c18d9a
 	github.com/exclavenetwork/sing-juicity v0.3.1
-	github.com/exclavenetwork/sing-shadowquic v0.0.0-20261025201941-b0544c564b00
+	github.com/exclavenetwork/sing-shadowquic v0.0.0-20261109112126-ace0c2eed158
 	github.com/golang-collections/go-datastructures v0.0.0-20150211160725-59788d5eb259
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
@@ -27,7 +27,7 @@ require (
 	github.com/sagernet/sing-quic v0.7.1
 	github.com/sagernet/sing-shadowsocks v0.2.8
 	github.com/sagernet/sing-shadowsocks2 v0.2.1
-	github.com/sagernet/sing-snell v0.0.0-20260904135315-bc5a12ac736f
+	github.com/sagernet/sing-snell v0.0.0-20261110094602-04667b0a321c
 	github.com/seiflotfy/cuckoofilter v0.0.0-20240715131351-a2f2c23f1771
 	github.com/stretchr/testify v1.12.1
 	github.com/v2fly/BrowserBridge v0.0.0-20210430233438-0570fc1d7d08
@@ -38,8 +38,8 @@ require (
 	go4.org/netipx v0.0.0-20260823151212-3075585bcbeb
 	golang.org/x/crypto v0.58.0
 	golang.org/x/net v0.62.0
-	golang.org/x/sync v0.24.0
-	golang.org/x/sys v0.49.0
+	golang.org/x/sync v0.25.0
+	golang.org/x/sys v0.50.0
 	golang.zx2c4.com/wireguard v0.0.0-20261024220952-b3bc704ef0ee
 	google.golang.org/grpc v1.85.0
 	google.golang.org/protobuf v1.36.12
@@ -49,12 +49,12 @@ require (
 )
 
 require (
-	github.com/andybalholm/brotli v1.2.8 // indirect
+	github.com/andybalholm/brotli v1.3.0 // indirect
 	github.com/dgryski/go-metro v0.0.0-20261008173524-5059e0b1da03 // indirect
 	github.com/gofrs/uuid/v5 v5.5.1 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
-	github.com/klauspost/compress v1.20.3 // indirect
+	github.com/klauspost/compress v1.20.4 // indirect
 	github.com/klauspost/cpuid/v2 v2.4.2 // indirect
 	github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543 // indirect
 	github.com/metacubex/cpu v0.1.2 // indirect
@@ -69,12 +69,12 @@ require (
 	github.com/pion/transport/v5 v5.1.5 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
-	github.com/sagernet/quic-go v0.61.0-sing-box-mod.12 // indirect
+	github.com/sagernet/quic-go v0.61.0-sing-box-mod.13 // indirect
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
 	github.com/xtaci/smux v1.5.59 // indirect
 	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
-	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 	golang.org/x/time v0.16.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260817212433-ac3dfec99bb1 // indirect
