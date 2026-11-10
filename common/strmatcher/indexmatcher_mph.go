@@ -59,23 +59,21 @@ func (g *MphIndexMatcher) Build() error {
 
 // Match implements IndexMatcher.Match.
 func (g *MphIndexMatcher) Match(input string) []uint32 {
-	result := make([][]uint32, 0, 5)
+	var result []uint32
 	if g.mph != nil {
-		if matches := g.mph.Match(input); len(matches) > 0 {
-			result = append(result, matches)
-		}
+		result = g.mph.Match(input) // a new slice, returned without another copy
 	}
 	if g.ac != nil {
 		if matches := g.ac.Match(input); len(matches) > 0 {
-			result = append(result, matches)
+			result = append(result, g.ac.Match(input)...)
 		}
 	}
 	if g.regex != nil {
 		if matches := g.regex.Match(input); len(matches) > 0 {
-			result = append(result, matches)
+			result = append(result, g.regex.Match(input)...)
 		}
 	}
-	return CompositeMatches(result)
+	return result
 }
 
 // MatchAny implements IndexMatcher.MatchAny.
