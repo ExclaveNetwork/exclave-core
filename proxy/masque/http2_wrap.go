@@ -111,22 +111,15 @@ func (c *http2ClientConn) RoundTrip(req *http.Request) (*http.Response, error) {
 		return c.ClientConn.RoundTrip(req)
 	}
 	c.initOffset()
-	haveReservation := false
 	c.mu.Lock()
 	*c.starting++
 	*c.roundTrips++
 	if *c.reserved != 0 {
 		*c.reserved--
-		haveReservation = true
 	}
 	c.mu.Unlock()
-	if !haveReservation && c.cc.Reserve() != nil {
-		c.mu.Lock()
-		*c.pending++
-		c.mu.Unlock()
-	}
 	// https://github.com/golang/go/blob/8dfc83de2c7b611e7525f09fd51616f180bf4d9b/src/net/http/clientconn.go#L273-L276
-	// Pseudo header ":protocol"  is not allowed in net/http, and the header validation needs to be bypassed.
+	// Pseudo header ":protocol" is not allowed in net/http, and the header validation needs to be bypassed.
 	resp, err := c.roundTripper.RoundTrip(req)
 	c.mu.Lock()
 	*c.starting--
