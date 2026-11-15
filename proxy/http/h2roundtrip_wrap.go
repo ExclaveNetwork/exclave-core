@@ -14,20 +14,19 @@ import (
 )
 
 var (
-	initOffsetOnce      sync.Once
-	ccOffset            uintptr
-	muOffset            uintptr
-	closingOffset       uintptr
-	closedOffset        uintptr
-	roundTripsOffset    uintptr
-	reservedOffset      uintptr
-	startingOffset      uintptr
-	pendingOffset       uintptr
-	maxConcurrentOffset uintptr
-	lastIdleOffset      uintptr
-	shutdowncOffset     uintptr
-	gcType              reflect.Type
-	gcOffset            uintptr
+	initOffsetOnce   sync.Once
+	ccOffset         uintptr
+	muOffset         uintptr
+	closingOffset    uintptr
+	closedOffset     uintptr
+	roundTripsOffset uintptr
+	reservedOffset   uintptr
+	startingOffset   uintptr
+	pendingOffset    uintptr
+	lastIdleOffset   uintptr
+	shutdowncOffset  uintptr
+	gcType           reflect.Type
+	gcOffset         uintptr
 )
 
 type http2ClientConn struct {
@@ -42,7 +41,6 @@ type http2ClientConn struct {
 	reserved       *int
 	starting       *int
 	pending        *int
-	maxConcurrent  *int
 	lastIdle       *time.Time
 	shutdownc      *chan struct{}
 	roundTripper   http.RoundTripper
@@ -79,8 +77,6 @@ func (c *http2ClientConn) initOffset() {
 		startingOffset = field.Offset
 		field, _ = t.FieldByName("pending")
 		pendingOffset = field.Offset
-		field, _ = t.FieldByName("maxConcurrent")
-		maxConcurrentOffset = field.Offset
 		field, _ = t.FieldByName("lastIdle")
 		lastIdleOffset = field.Offset
 		field, _ = t.FieldByName("shutdownc")
@@ -99,7 +95,6 @@ func (c *http2ClientConn) initOffset() {
 		c.reserved = (*int)(unsafe.Add(clientConnPtr, reservedOffset))
 		c.starting = (*int)(unsafe.Add(clientConnPtr, startingOffset))
 		c.pending = (*int)(unsafe.Add(clientConnPtr, pendingOffset))
-		c.maxConcurrent = (*int)(unsafe.Add(clientConnPtr, maxConcurrentOffset))
 		c.lastIdle = (*time.Time)(unsafe.Add(clientConnPtr, lastIdleOffset))
 		c.shutdownc = (*chan struct{})(unsafe.Add(clientConnPtr, shutdowncOffset))
 		c.roundTripper = reflect.NewAt(gcType, unsafe.Add(unsafe.Pointer(c.cc), gcOffset)).Elem().Interface().(http.RoundTripper)
@@ -132,9 +127,6 @@ func (c *http2ClientConn) RoundTrip(req *http.Request) (*http.Response, error) {
 	}
 	if c.cc.InFlight() == 0 && *c.roundTrips > 0 && *c.starting == 0 {
 		*c.lastIdle = time.Now()
-	}
-	if !*c.closed {
-		*c.maxConcurrent = c.cc.Available() + c.cc.InFlight()
 	}
 	if *c.shutdownc != nil && c.cc.InFlight()+*c.starting == 0 {
 		close(*c.shutdownc)
