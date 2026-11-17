@@ -60,4 +60,5 @@ message Config {
   string sessionIDLength = 26;
   bool parse_x_forwarded_for = 27;
   bool use_browser_forwarding = 99;
+  bool chrome_parrot = 100;
 }

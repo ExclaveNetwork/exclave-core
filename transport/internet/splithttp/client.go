@@ -10,6 +10,7 @@ import (
 	"sync"
 	"sync/atomic"
 
+	uhttp3 "github.com/apernet/quic-go/http3"
 	"github.com/quic-go/quic-go/http3"
 	"golang.org/x/net/http2"
 
@@ -35,7 +36,7 @@ type DefaultDialerClient struct {
 	transportConfig *Config
 	client          *http.Client
 	closed          atomic.Bool
-	httpVersion     string
+	httpVersion     uint8
 	// pool of net.Conn, created using dialUploadConn
 	uploadRawPool  *sync.Pool
 	dialUploadConn func(ctxInner context.Context) (net.Conn, error)
@@ -49,6 +50,8 @@ func (c *DefaultDialerClient) close() {
 	c.closed.Store(true)
 	switch transport := c.client.Transport.(type) {
 	case *http3.Transport:
+		transport.Close()
+	case *uhttp3.Transport:
 		transport.Close()
 	case *http2.Transport:
 		transport.CloseIdleConnections()
@@ -120,7 +123,7 @@ func (c *DefaultDialerClient) PostPacket(ctx context.Context, url, sessionId, se
 	}
 	c.transportConfig.FillPacketRequest(req, sessionId, seqStr, payload)
 
-	if c.httpVersion != "1.1" {
+	if c.httpVersion != 1 {
 		resp, err := c.client.Do(req)
 		if err != nil {
 			c.close()

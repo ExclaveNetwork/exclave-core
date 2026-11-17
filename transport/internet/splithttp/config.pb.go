@@ -209,6 +209,7 @@ type Config struct {
 	SessionIDLength      string                 `protobuf:"bytes,26,opt,name=sessionIDLength,proto3" json:"sessionIDLength,omitempty"`
 	ParseXForwardedFor   bool                   `protobuf:"varint,27,opt,name=parse_x_forwarded_for,json=parseXForwardedFor,proto3" json:"parse_x_forwarded_for,omitempty"`
 	UseBrowserForwarding bool                   `protobuf:"varint,99,opt,name=use_browser_forwarding,json=useBrowserForwarding,proto3" json:"use_browser_forwarding,omitempty"`
+	ChromeParrot         bool                   `protobuf:"varint,100,opt,name=chrome_parrot,json=chromeParrot,proto3" json:"chrome_parrot,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -439,6 +440,13 @@ func (x *Config) GetUseBrowserForwarding() bool {
 	return false
 }
 
+func (x *Config) GetChromeParrot() bool {
+	if x != nil {
+		return x.ChromeParrot
+	}
+	return false
+}
+
 var File_transport_internet_splithttp_config_proto protoreflect.FileDescriptor
 
 const file_transport_internet_splithttp_config_proto_rawDesc = "" +
@@ -457,8 +465,7 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x12transport_settings\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x11transportSettings\x12#\n" +
 	"\rsecurity_type\x18\x04 \x01(\tR\fsecurityType\x12A\n" +
 	"\x11security_settings\x18\x05 \x01(\v2\x14.google.protobuf.AnyR\x10securitySettings\x12V\n" +
-	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\xf3\n" +
-	"\n" +
+	"\x0fsocket_settings\x18\x06 \x01(\v2-.exclave.core.transport.internet.SocketConfigR\x0esocketSettings\"\x98\v\n" +
 	"\x06Config\x12\x12\n" +
 	"\x04host\x18\x01 \x01(\tR\x04host\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x12\n" +
@@ -488,7 +495,8 @@ const file_transport_internet_splithttp_config_proto_rawDesc = "" +
 	"\x0esessionIDTable\x18\x19 \x01(\tR\x0esessionIDTable\x12(\n" +
 	"\x0fsessionIDLength\x18\x1a \x01(\tR\x0fsessionIDLength\x121\n" +
 	"\x15parse_x_forwarded_for\x18\x1b \x01(\bR\x12parseXForwardedFor\x124\n" +
-	"\x16use_browser_forwarding\x18c \x01(\bR\x14useBrowserForwarding\x1a:\n" +
+	"\x16use_browser_forwarding\x18c \x01(\bR\x14useBrowserForwarding\x12#\n" +
+	"\rchrome_parrot\x18d \x01(\bR\fchromeParrot\x1a:\n" +
 	"\fHeadersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01:\x1a\x82\xb5\x18\x16\n" +

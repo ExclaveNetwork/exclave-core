@@ -3,6 +3,7 @@ package splithttp
 import (
 	"context"
 	gotls "crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"io"
 	"maps"
@@ -14,6 +15,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	uquic "github.com/apernet/quic-go"
+	uhttp3 "github.com/apernet/quic-go/http3"
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/http3"
 	"golang.org/x/net/http2"
@@ -122,23 +125,23 @@ func getHTTPClient(ctx context.Context, dest net.Destination, streamSettings *in
 	return xmuxClient.XmuxConn.(DialerClient), xmuxClient, nil
 }
 
-func decideHTTPVersion(tlsConfig *tls.Config, realityConfig *reality.Config) string {
+func decideHTTPVersion(tlsConfig *tls.Config, realityConfig *reality.Config) uint8 {
 	if realityConfig != nil {
-		return "2"
+		return 2
 	}
 	if tlsConfig == nil {
-		return "1.1"
+		return 1
 	}
 	if len(tlsConfig.NextProtocol) != 1 {
-		return "2"
+		return 2
 	}
 	if tlsConfig.NextProtocol[0] == "http/1.1" {
-		return "1.1"
+		return 1
 	}
 	if tlsConfig.NextProtocol[0] == "h3" {
-		return "3"
+		return 3
 	}
-	return "2"
+	return 2
 }
 
 func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings *internet.MemoryStreamConfig) DialerClient {
@@ -154,7 +157,7 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 	}
 
 	httpVersion := decideHTTPVersion(tlsConfig, realityConfig)
-	if httpVersion == "3" {
+	if httpVersion == 3 {
 		dest.Network = net.Network_UDP // better to keep this line
 	}
 
@@ -178,44 +181,128 @@ func createHTTPClient(ctx context.Context, dest net.Destination, streamSettings 
 	var transport http.RoundTripper
 
 	switch httpVersion {
-	case "3":
-		transport = &http3.Transport{
-			QUICConfig: &quic.Config{
-				MaxIdleTimeout: connIdleTimeout,
-				// these two are defaults of quic-go/http3. the default of quic-go (no
-				// http3) is different, so it is hardcoded here for clarity.
-				// https://github.com/quic-go/quic-go/blob/b8ea5c798155950fb5bbfdd06cad1939c9355878/http3/client.go#L36-L39
-				MaxIncomingStreams: -1,
-				KeepAlivePeriod:    h3KeepalivePeriod,
-			},
-			Dial: func(_ context.Context, addr string, _ *gotls.Config, cfg *quic.Config) (*quic.Conn, error) {
-				tlsCfg, err := tlsConfig.GetTLSConfigWithContext(ctx, tls.WithDestination(dest))
-				if err != nil {
-					return nil, err
-				}
-				detachedCtx := core.ToBackgroundDetachedContext(ctx)
-				rawConn, err := internet.DialSystem(detachedCtx, dest, streamSettings.SocketSettings)
-				if err != nil {
-					return nil, err
-				}
-				var packetConn net.PacketConn
-				switch rawConn := rawConn.(type) {
-				case *internet.PacketConnWrapper:
-					packetConn = rawConn.Conn
-				case net.PacketConn:
-					packetConn = rawConn
-				default:
-					packetConn = internet.NewConnWrapper(rawConn)
-				}
-				quicConn, err := quic.Dial(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
-				if err != nil {
-					rawConn.Close()
-					return nil, err
-				}
-				return quicConn, nil
-			},
+	case 3:
+		if streamSettings.ProtocolSettings.(*Config).ChromeParrot {
+			transport = &uhttp3.Transport{
+				QUICConfig: &uquic.Config{
+					// all necessary fields other than ConnectionIDGenerator are populated by the QUIC library
+					ChromeParrot: true,
+				},
+				Dial: func(_ context.Context, addr string, _ *gotls.Config, cfg *uquic.Config) (*uquic.Conn, error) {
+					tlsCfg, err := tlsConfig.GetTLSConfigWithContext(ctx, tls.WithDestination(dest))
+					if err != nil {
+						return nil, err
+					}
+					// workaround https://github.com/apernet/quic-go/blob/184d081eef3e9edd5cb7c0ddf2460c91f2e6adb1/internal/handshake/tls_conn_utls.go#L57-L63
+					// Convert VerifyConnection to VerifyPeerCertificate. Session resumption is not used.
+					if tlsCfg.VerifyConnection != nil {
+						verifyConnection := tlsCfg.VerifyConnection
+						tlsCfg.VerifyConnection = nil
+						verifyPeerCertificate := tlsCfg.VerifyPeerCertificate
+						tlsCfg.VerifyPeerCertificate = func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+							if verifyPeerCertificate != nil {
+								err := verifyPeerCertificate(rawCerts, verifiedChains)
+								if err != nil {
+									return err
+								}
+							}
+							certs := make([]*x509.Certificate, len(rawCerts))
+							for i, rawCert := range rawCerts {
+								cert, err := x509.ParseCertificate(rawCert)
+								if err != nil {
+									return err
+								}
+								certs[i] = cert
+							}
+							return verifyConnection(gotls.ConnectionState{
+								// Only `PeerCertificates` is used.
+								PeerCertificates: certs,
+							})
+						}
+					}
+					// Convert mTLS client certificates from Certificates to GetClientCertificate.
+					if tlsCfg.Certificates != nil {
+						certs := tlsCfg.Certificates
+						tlsCfg.Certificates = nil
+						// If GetClientCertificate is not nil, Certificates will be ignored.
+						if tlsCfg.GetClientCertificate == nil {
+							tlsCfg.GetClientCertificate = func(cri *gotls.CertificateRequestInfo) (*gotls.Certificate, error) {
+								for _, cert := range certs {
+									if err := cri.SupportsCertificate(&cert); err != nil {
+										continue
+									}
+									return &cert, nil
+								}
+								// If Certificate.Certificate is empty then no certificate will be sent to the server.
+								return new(gotls.Certificate), nil
+							}
+						}
+					}
+					detachedCtx := core.ToBackgroundDetachedContext(ctx)
+					rawConn, err := internet.DialSystem(detachedCtx, dest, streamSettings.SocketSettings)
+					if err != nil {
+						return nil, err
+					}
+					var packetConn net.PacketConn
+					switch rawConn := rawConn.(type) {
+					case *internet.PacketConnWrapper:
+						packetConn = rawConn.Conn
+					case net.PacketConn:
+						packetConn = rawConn
+					default:
+						packetConn = internet.NewConnWrapper(rawConn)
+					}
+					tr := &uquic.Transport{
+						Conn:                  packetConn,
+						ConnectionIDGenerator: uquic.ZeroLengthConnectionIDGenerator{},
+					}
+					quicConn, err := tr.DialEarly(detachedCtx, rawConn.RemoteAddr(), tlsCfg, cfg)
+					if err != nil {
+						rawConn.Close()
+						return nil, err
+					}
+					return quicConn, nil
+				},
+			}
+		} else {
+			transport = &http3.Transport{
+				QUICConfig: &quic.Config{
+					MaxIdleTimeout: connIdleTimeout,
+					// these two are defaults of quic-go/http3. the default of quic-go (no
+					// http3) is different, so it is hardcoded here for clarity.
+					// https://github.com/quic-go/quic-go/blob/b8ea5c798155950fb5bbfdd06cad1939c9355878/http3/client.go#L36-L39
+					MaxIncomingStreams: -1,
+					KeepAlivePeriod:    h3KeepalivePeriod,
+				},
+				Dial: func(_ context.Context, addr string, _ *gotls.Config, cfg *quic.Config) (*quic.Conn, error) {
+					tlsCfg, err := tlsConfig.GetTLSConfigWithContext(ctx, tls.WithDestination(dest))
+					if err != nil {
+						return nil, err
+					}
+					detachedCtx := core.ToBackgroundDetachedContext(ctx)
+					rawConn, err := internet.DialSystem(detachedCtx, dest, streamSettings.SocketSettings)
+					if err != nil {
+						return nil, err
+					}
+					var packetConn net.PacketConn
+					switch rawConn := rawConn.(type) {
+					case *internet.PacketConnWrapper:
+						packetConn = rawConn.Conn
+					case net.PacketConn:
+						packetConn = rawConn
+					default:
+						packetConn = internet.NewConnWrapper(rawConn)
+					}
+					quicConn, err := quic.DialEarly(detachedCtx, packetConn, rawConn.RemoteAddr(), tlsCfg, cfg)
+					if err != nil {
+						rawConn.Close()
+						return nil, err
+					}
+					return quicConn, nil
+				},
+			}
 		}
-	case "2":
+	case 2:
 		transport = &http2.Transport{
 			DialTLSContext: func(ctxInner context.Context, network string, addr string, cfg *gotls.Config) (net.Conn, error) {
 				return dialContext(ctxInner)
@@ -267,7 +354,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 	}
 
 	httpVersion := decideHTTPVersion(tlsConfig, realityConfig)
-	if httpVersion == "3" {
+	if httpVersion == 3 {
 		dest.Network = net.Network_UDP
 	}
 
@@ -325,7 +412,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		}
 	}
 
-	newError(fmt.Sprintf("XHTTP is dialing to %s, mode %s, HTTP version %s, host %s", dest, mode, httpVersion, requestURL.Host)).AtInfo().WriteToLog(session.ExportIDToError(ctx))
+	newError(fmt.Sprintf("XHTTP is dialing to %s, mode %s, HTTP version %d, host %s", dest, mode, httpVersion, requestURL.Host)).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 
 	requestURLForDownload := requestURL
 	httpClientForDownload := httpClient
@@ -354,7 +441,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 			realityConfigForDownload = cfg
 		}
 		httpVersionForDownload := decideHTTPVersion(tlsConfigForDownload, realityConfigForDownload)
-		if httpVersionForDownload == "3" {
+		if httpVersionForDownload == 3 {
 			destForDownload.Network = net.Network_UDP
 		}
 		if tlsConfigForDownload != nil || realityConfigForDownload != nil {
@@ -389,7 +476,7 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.Me
 		if err != nil {
 			return nil, err
 		}
-		newError(fmt.Sprintf("XHTTP is downloading from %s, mode %s, HTTP version %s, host %s", destForDownload, "stream-down", httpVersionForDownload, requestURLForDownload.Host)).AtInfo().WriteToLog(session.ExportIDToError(ctx))
+		newError(fmt.Sprintf("XHTTP is downloading from %s, mode %s, HTTP version %d, host %s", destForDownload, "stream-down", httpVersionForDownload, requestURLForDownload.Host)).AtInfo().WriteToLog(session.ExportIDToError(ctx))
 	}
 
 	if xmuxClient != nil {

@@ -392,7 +392,7 @@ func ListenSH(ctx context.Context, address net.Address, port net.Port, streamSet
 	tlsConfig := tls.ConfigFromStreamSettings(streamSettings)
 	realityConfig := reality.ConfigFromStreamSettings(streamSettings)
 
-	if decideHTTPVersion(tlsConfig, realityConfig) == "3" { // quic
+	if decideHTTPVersion(tlsConfig, realityConfig) == 3 { // quic
 		conn, err := internet.ListenSystemPacket(context.Background(), &net.UDPAddr{
 			IP:   address.IP(),
 			Port: int(port),

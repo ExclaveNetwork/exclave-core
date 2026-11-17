@@ -437,6 +437,7 @@ type SplitHTTPConfig struct {
 	ScMaxBufferedPosts   int64                `json:"scMaxConcurrentPosts"`
 	ParseXForwardedFor   bool                 `json:"parseXForwardedFor"`
 	Xmux                 *XmuxConfig          `json:"xmux"`
+	ChromeParrot         bool                 `json:"chromeParrot"`
 	DownloadSettings     *XHTTPDownloadConfig `json:"downloadSettings"`
 	UseBrowserForwarding bool                 `json:"useBrowserForwarding"`
 }
@@ -579,6 +580,7 @@ func (c *SplitHTTPConfig) Build() (proto.Message, error) {
 		SessionIDTable:       c.SessionIDTable,
 		SessionIDLength:      c.SessionIDLength,
 		ParseXForwardedFor:   c.ParseXForwardedFor,
+		ChromeParrot:         c.ChromeParrot,
 		UseBrowserForwarding: c.UseBrowserForwarding,
 	}
 	if config.XPaddingKey == "" {
