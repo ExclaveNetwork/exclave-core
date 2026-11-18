@@ -314,10 +314,10 @@ func (c *Client) dialH1H2(ctx context.Context, dialer internet.Dialer) (*connect
 		isTLS        bool
 	)
 	cacheH2ClientConn := c.h2ClientConn.Load()
-	if cacheH2ClientConn != nil && cacheH2ClientConn.CanTakeNewRequest() {
+	if cacheH2ClientConn != nil && cacheH2ClientConn.canTakeNewRequest() {
 		h2ClientConn = cacheH2ClientConn
 	} else {
-		if cacheH2ClientConn != nil && !cacheH2ClientConn.CanTakeNewRequest() {
+		if cacheH2ClientConn != nil && !cacheH2ClientConn.canTakeNewRequest() {
 			cacheH2ClientConn.close()
 		}
 		rawConn, err = dialer.Dial(ctx, c.serverAddr)

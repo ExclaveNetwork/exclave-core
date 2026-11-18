@@ -422,7 +422,7 @@ func (c *Client) setupHTTPTunnel(ctx context.Context, dest net.Destination, targ
 
 	if elem != nil {
 		clientConn := elem.Value.(*http2ClientConn)
-		if clientConn.CanTakeNewRequest() {
+		if clientConn.canTakeNewRequest() {
 			proxyConn, shouldClose, err := connectHTTP2(clientConn)
 			if shouldClose {
 				c.cachedH2Mutex.Lock()
