@@ -45,7 +45,7 @@ require (
 	google.golang.org/protobuf v1.36.12
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
 	h12.io/socks v1.0.3
-	lukechampine.com/blake3 v1.4.1
+	lukechampine.com/blake3 v1.5.0
 )
 
 require (
