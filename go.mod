@@ -21,7 +21,7 @@ require (
 	github.com/miekg/dns v1.1.73
 	github.com/pires/go-proxyproto v0.16.0
 	github.com/quic-go/quic-go v0.65.0
-	github.com/refraction-networking/utls v1.8.3-0.20261108164504-a13c59ffe98b
+	github.com/refraction-networking/utls v1.8.3-0.20261118233537-360383f893fb
 	github.com/sagernet/sing v0.9.6
 	github.com/sagernet/sing-mux v0.3.9
 	github.com/sagernet/sing-quic v0.7.1
@@ -45,7 +45,7 @@ require (
 	google.golang.org/protobuf v1.36.12
 	gvisor.dev/gvisor v0.0.0-20250503011706-39ed1f5ac29c
 	h12.io/socks v1.0.3
-	lukechampine.com/blake3 v1.5.0
+	lukechampine.com/blake3 v1.5.1
 )
 
 require (
@@ -54,7 +54,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.5.1 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
-	github.com/klauspost/compress v1.20.4 // indirect
+	github.com/klauspost/compress v1.20.5 // indirect
 	github.com/klauspost/cpuid/v2 v2.4.2 // indirect
 	github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543 // indirect
 	github.com/metacubex/cpu v0.1.2 // indirect
@@ -67,11 +67,12 @@ require (
 	github.com/metacubex/utls v1.9.0-alpha.1 // indirect
 	github.com/molecule-man/go-brrr v1.3.1 // indirect
 	github.com/pion/transport/v5 v5.1.5 // indirect
+	github.com/puzpuzpuz/xsync/v4 v4.5.0 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
 	github.com/sagernet/quic-go v0.61.0-sing-box-mod.14 // indirect
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1 // indirect
-	github.com/xtaci/smux v1.5.60 // indirect
+	github.com/xtaci/smux v1.5.61 // indirect
 	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
 	golang.org/x/text v0.44.0 // indirect
