@@ -8,7 +8,7 @@ require (
 	github.com/anytls/sing-anytls v0.0.13
 	github.com/apernet/quic-go v0.65.1-0.20261109005002-2895f039137a
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d
-	github.com/enfein/mieru/v3 v3.39.0
+	github.com/enfein/mieru/v3 v3.40.0
 	github.com/exclavenetwork/hysteria/core/v2 v2.14.0-1
 	github.com/exclavenetwork/hysteria/extras/v2 v2.14.0-1
 	github.com/exclavenetwork/reality v0.0.0-20261123081719-47883b52d9d9

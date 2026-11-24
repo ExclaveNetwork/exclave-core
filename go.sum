@@ -50,8 +50,8 @@ github.com/dgryski/go-metro v0.0.0-20200812162917-85c65e2d0165/go.mod h1:c9O8+fp
 github.com/dgryski/go-metro v0.0.0-20261008173524-5059e0b1da03 h1:/DH8T7hZyRwnHeRN0SbmDAX/3yoyRMMbThY/udAG5FQ=
 github.com/dgryski/go-metro v0.0.0-20261008173524-5059e0b1da03/go.mod h1:j+MopvvtIWPZFgEQY11qG5kPi55yP2suJFyqonAE3IU=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
-github.com/enfein/mieru/v3 v3.39.0 h1:22WJN9i7I4FrY1cTAVp5KfKOFm4sWrXVOXhqf5fkdr8=
-github.com/enfein/mieru/v3 v3.39.0/go.mod h1:zJBUCsi5rxyvHM8fjFf+GLaEl4OEjjBXr1s5F6Qd3hM=
+github.com/enfein/mieru/v3 v3.40.0 h1:J4M+g7YWi4eU2rYKPvEE3IdY8VB8Kw4xuybLCf+h6PU=
+github.com/enfein/mieru/v3 v3.40.0/go.mod h1:zJBUCsi5rxyvHM8fjFf+GLaEl4OEjjBXr1s5F6Qd3hM=
 github.com/exclavenetwork/hysteria/core/v2 v2.14.0-1 h1:hgYgRt9co7VUV4NqLZdj0Cn9xR9Vi5GXRkwPPF9bu54=
 github.com/exclavenetwork/hysteria/core/v2 v2.14.0-1/go.mod h1:KutZoZF/MqOCWT7yl8ZgU6THW1g40rpaWrDAwdJEtaw=
 github.com/exclavenetwork/hysteria/extras/v2 v2.14.0-1 h1:yY4dFUeTny8R86a7Hx/2xOEYY5Gi+1u2lbO8ow0uJsc=

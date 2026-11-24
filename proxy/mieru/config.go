@@ -1,7 +1,6 @@
 package mieru
 
 import (
-	"bytes"
 	"context"
 	gonet "net"
 
@@ -25,85 +24,70 @@ var (
 	_ net.PacketConn           = (*udpAssociateWrapper)(nil)
 )
 
+func newUDPAssociateWrapper(conn net.Conn) *udpAssociateWrapper {
+	return &udpAssociateWrapper{
+		UDPAssociateWrapper: mierucommon.NewUDPAssociateWrapper(
+			mierucommon.NewPacketOverStreamTunnel(conn),
+			mierucommon.UDPAssociateReadFromFQDN{},
+		),
+	}
+}
+
 type udpAssociateWrapper struct {
 	*mierucommon.UDPAssociateWrapper
 }
 
 func (c *udpAssociateWrapper) ReadFrom(p []byte) (int, net.Addr, error) {
-	// mierucommon.UDPAssociateWrapper ReadFrom() does not support domain address
-	// so read and parse raw data
-	b := make([]byte, len(p)+256)
-	n, _, err := c.PacketConn.ReadFrom(b)
+	n, addr, err := c.UDPAssociateWrapper.ReadFrom(p)
 	if err != nil {
 		return 0, nil, err
 	}
-	b = b[:n]
-	if n <= 6 {
-		return 0, nil, newError("packet size ", n, "is too short to hold UDP associate header")
-	}
-	if b[0] != 0x00 || b[1] != 0x00 {
-		return 0, nil, newError("invalid UDP header")
-	}
-	if b[2] != 0x00 {
-		return 0, nil, newError("UDP fragment is not supported")
-	}
-	var dest mierumodel.NetAddrSpec
-	r := bytes.NewReader(b[3:])
-	if err = dest.ReadFromSocks5(r); err != nil {
-		return 0, nil, err
-	}
-	var addr net.Addr
-	if dest.FQDN != "" {
-		addr = udp.NewMonoDestUDPAddr(net.DomainAddress(dest.FQDN), net.Port(dest.Port))
-	} else {
-		addr = &net.UDPAddr{
-			IP:   dest.IP,
-			Port: dest.Port,
+	var sourceAddr net.Addr
+	switch addr := addr.(type) {
+	case *net.UDPAddr:
+		sourceAddr = addr
+	case mierumodel.NetAddrSpec:
+		if addrSpec := addr.AddrSpec; len(addrSpec.FQDN) > 0 {
+			sourceAddr = udp.NewMonoDestUDPAddr(
+				net.DomainAddress(addrSpec.FQDN),
+				net.Port(addrSpec.Port),
+			)
+		} else {
+			sourceAddr = &net.UDPAddr{
+				IP:   addrSpec.IP,
+				Port: addrSpec.Port,
+			}
 		}
+	default:
+		panic("invalid")
 	}
-	n, err = r.Read(p)
-	return n, addr, err
+	return n, sourceAddr, nil
 }
 
 func (c *udpAssociateWrapper) WriteTo(p []byte, addr net.Addr) (int, error) {
-	var destAddr net.Addr
+	destAddr := mierumodel.NetAddrSpec{
+		Net: "udp",
+	}
 	switch addr := addr.(type) {
 	case *net.UDPAddr:
-		destAddr = addr
+		destAddr.AddrSpec = mierumodel.AddrSpec{
+			IP:   addr.IP,
+			Port: addr.Port,
+		}
 	case *udp.MonoDestUDPAddr:
 		if addr.Address.Family().IsDomain() {
-			destAddr = &mierumodel.NetAddrSpec{
-				Net: "udp",
-				AddrSpec: mierumodel.AddrSpec{
-					FQDN: addr.Address.Domain(),
-					Port: int(addr.Port),
-				},
+			destAddr.AddrSpec = mierumodel.AddrSpec{
+				FQDN: addr.Address.Domain(),
+				Port: int(addr.Port),
 			}
 		} else {
-			destAddr = &net.UDPAddr{
+			destAddr.AddrSpec = mierumodel.AddrSpec{
 				IP:   addr.Address.IP(),
 				Port: int(addr.Port),
 			}
 		}
 	default:
-		dest, err := net.ParseDestination("udp:" + addr.String())
-		if err != nil {
-			return 0, err
-		}
-		if dest.Address.Family().IsDomain() {
-			destAddr = &mierumodel.NetAddrSpec{
-				Net: "udp",
-				AddrSpec: mierumodel.AddrSpec{
-					FQDN: dest.Address.Domain(),
-					Port: int(dest.Port),
-				},
-			}
-		} else {
-			destAddr = &net.UDPAddr{
-				IP:   dest.Address.IP(),
-				Port: int(dest.Port),
-			}
-		}
+		panic("invalid")
 	}
 	return c.UDPAssociateWrapper.WriteTo(p, destAddr)
 }

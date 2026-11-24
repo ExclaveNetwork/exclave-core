@@ -130,7 +130,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 
 	newError("tunneling request to ", destination, " via ", o.serverAddr.NetAddr()).WriteToLog(session.ExportIDToError(ctx))
 
-	addr := &mierumodel.NetAddrSpec{}
+	addr := mierumodel.NetAddrSpec{}
 	if destination.Network == net.Network_TCP {
 		addr.Net = "tcp"
 	} else {
@@ -165,9 +165,7 @@ func (o *Outbound) Process(ctx context.Context, link *transport.Link, dialer int
 		reader = buf.NewReader(conn)
 		writer = buf.NewWriter(conn)
 	} else {
-		packetConn := udp.NewMonoDestUDPConn(&udpAssociateWrapper{
-			UDPAssociateWrapper: mierucommon.NewUDPAssociateWrapper(mierucommon.NewPacketOverStreamTunnel(conn)),
-		}, udp.NewMonoDestUDPAddr(destination.Address, destination.Port))
+		packetConn := udp.NewMonoDestUDPConn(newUDPAssociateWrapper(conn), udp.NewMonoDestUDPAddr(destination.Address, destination.Port))
 		reader = packetConn
 		writer = packetConn
 	}
