@@ -10,6 +10,7 @@ import (
 	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
+	"github.com/exclavenetwork/exclave-core/v5/common/net/packetaddr"
 	"github.com/exclavenetwork/exclave-core/v5/common/session"
 	"github.com/exclavenetwork/exclave-core/v5/common/signal"
 	"github.com/exclavenetwork/exclave-core/v5/common/task"
@@ -144,6 +145,8 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	ctx, cancel := context.WithCancel(ctx)
 	timer := signal.CancelAfterInactivity(ctx, cancel, plcy.Timeouts.ConnectionIdle)
 
+	isPacketAddr := packetaddr.GetDestinationSubsetOf(destination)
+
 	ipToDomain := new(sync.Map)
 
 	requestDone := func() error {
@@ -153,7 +156,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 		switch {
 		case destination.Network == net.Network_TCP:
 			writer = buf.NewWriter(conn)
-		case redirect.Address != nil, redirect.Port != 0:
+		case redirect.Address != nil, redirect.Port != 0, isPacketAddr:
 			writer = &buf.SequentialWriter{Writer: conn}
 		default:
 			writer = NewPacketWriter(ctx, h, conn, destination, ipToDomain)
@@ -173,7 +176,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 		switch {
 		case destination.Network == net.Network_TCP:
 			reader = buf.NewReader(conn)
-		case redirect.Address != nil, redirect.Port != 0:
+		case redirect.Address != nil, redirect.Port != 0, isPacketAddr:
 			reader = &buf.PacketReader{Reader: conn}
 		default:
 			reader = NewPacketReader(conn, ipToDomain)
