@@ -1,11 +1,8 @@
 package packetaddr
 
 import (
-	"bytes"
-	gonet "net"
-
+	"github.com/exclavenetwork/exclave-core/v5/common"
 	"github.com/exclavenetwork/exclave-core/v5/common/buf"
-	"github.com/exclavenetwork/exclave-core/v5/common/errors"
 	"github.com/exclavenetwork/exclave-core/v5/common/net"
 	"github.com/exclavenetwork/exclave-core/v5/common/protocol"
 )
@@ -20,24 +17,18 @@ var addrParser = protocol.NewAddressParser(
 // AttachAddressToPacket
 // relinquish ownership of data
 // gain ownership of the returning value
-func AttachAddressToPacket(data *buf.Buffer, address gonet.Addr) (*buf.Buffer, error) {
-	packetBuf := buf.New()
-	udpaddr := address.(*gonet.UDPAddr)
-	port, err := net.PortFromInt(uint32(udpaddr.Port))
-	if err != nil {
-		packetBuf.Release()
-		return nil, err
+func AttachAddressToPacket(data *buf.Buffer, address net.Addr) (*buf.Buffer, error) {
+	udpAddr := address.(*net.UDPAddr)
+	ip, port := net.IPAddress(udpAddr.IP), net.Port(udpAddr.Port)
+	var bufSize int32
+	if ip.Family().IsIPv4() {
+		bufSize = 1 + 4 + 2 + data.Len()
+	} else {
+		bufSize = 1 + 16 + 2 + data.Len()
 	}
-	err = addrParser.WriteAddressPort(packetBuf, net.IPAddress(udpaddr.IP), port)
-	if err != nil {
-		packetBuf.Release()
-		return nil, err
-	}
-	_, err = packetBuf.Write(data.Bytes())
-	if err != nil {
-		packetBuf.Release()
-		return nil, err
-	}
+	packetBuf := buf.NewWithSize(bufSize)
+	common.Must(addrParser.WriteAddressPort(packetBuf, ip, port))
+	common.Must2(packetBuf.Write(data.Bytes()))
 	data.Release()
 	return packetBuf, nil
 }
@@ -45,21 +36,13 @@ func AttachAddressToPacket(data *buf.Buffer, address gonet.Addr) (*buf.Buffer, e
 // ExtractAddressFromPacket
 // relinquish ownership of data
 // gain ownership of the returning value
-func ExtractAddressFromPacket(data *buf.Buffer) (*buf.Buffer, gonet.Addr, error) {
-	packetBuf := buf.StackNew()
-	defer packetBuf.Release()
-	address, port, err := addrParser.ReadAddressPort(&packetBuf, bytes.NewReader(data.Bytes()))
+func ExtractAddressFromPacket(data *buf.Buffer) (*buf.Buffer, net.Addr, error) {
+	address, port, err := addrParser.ReadAddressPort(nil, data)
 	if err != nil {
 		return nil, nil, err
 	}
-	if address.Family().IsDomain() {
-		return nil, nil, errors.New("invalid address type")
-	}
-	addr := &gonet.UDPAddr{
+	return data, &net.UDPAddr{
 		IP:   address.IP(),
-		Port: int(port.Value()),
-		Zone: "",
-	}
-	data.Advance(packetBuf.Len())
-	return data, addr, nil
+		Port: int(port),
+	}, nil
 }
