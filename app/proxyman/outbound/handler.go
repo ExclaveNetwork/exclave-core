@@ -277,7 +277,7 @@ func (h *Handler) Dispatch(ctx context.Context, link *transport.Link) {
 			writer.usedFakeIPs = usedFakeIPs
 		}
 		if h.senderSettings != nil && h.senderSettings.DomainStrategy != proxyman.SenderConfig_AS_IS {
-			writer.resolver = func(domain string) net.Address {
+			reader.resolver = func(domain string) net.Address {
 				return h.resolveIP(h.ctx, domain, h.Address(), h.senderSettings.DomainStrategy)
 			}
 			ipToDomain := new(sync.Map)
